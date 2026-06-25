@@ -68,7 +68,7 @@
 <script>
 (function(){
   var savedApi = localStorage.getItem('VITE_API_BASE_URL');
-  var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://few-bananas-nail.loca.lt/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1"));
+  var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://sambaden-api.loca.lt/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1"));
   var grid = document.getElementById('postGrid');
   var catBar = document.getElementById('catBar');
   var activeCat = "";

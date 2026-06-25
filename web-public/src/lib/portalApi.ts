@@ -14,7 +14,7 @@ const VITE_API_URL =
   savedApiUrl ||
   (import.meta.env.VITE_API_URL as string | undefined) ||
   (window.location.hostname.includes("vercel.app")
-    ? "https://few-bananas-nail.loca.lt"
+    ? "https://sambaden-api.loca.lt"
     : `${window.location.protocol}//${window.location.hostname}:8000`);
 
 // Tạo instance dành riêng cho portal với auth header
