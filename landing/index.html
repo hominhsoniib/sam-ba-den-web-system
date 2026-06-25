@@ -690,7 +690,7 @@ j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefo
             'Content-Type': 'application/json',
             'Bypass-Tunnel-Reminder': 'true'
           },
-          body: JSON.stringify({ name: name, phone: phone, demand: demand, note: message })
+          body: JSON.stringify(payload)
         });
         var body = await res.json().catch(function(){ return null; });
         if (!res.ok) {
