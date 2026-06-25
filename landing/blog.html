@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog &amp; Kiến thức Sâm Bà Đen — Kỹ thuật trồng, Chăm sóc sức khỏe</title>
+<meta name="description" content="Kiến thức về sâm dược liệu, kỹ thuật trồng chuẩn VietGAP, chăm sóc sức khỏe và tin tức Sâm Bà Đen, Tây Ninh." />
+<link rel="canonical" href="https://bafenfarm.com.vn/blog" />
+<meta property="og:title" content="Blog &amp; Kiến thức Sâm Bà Đen" />
+<meta property="og:description" content="Kiến thức sâm dược liệu, kỹ thuật trồng, chăm sóc sức khỏe." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { green900:'#103d18', green700:'#1b5e20', green600:'#2e7d32', green100:'#e6efe7',
+      gold600:'#c9a227', gold100:'#f6edcf', bgivory:'#faf8f2', surface:'#ffffff', surface2:'#f3f0e7',
+      borderc:'#e4dfd2', textc:'#1c2419', textsoft:'#5b6354', textfaint:'#8d9381' },
+    fontFamily: { display:['"Be Vietnam Pro"','system-ui','sans-serif'], body:['Inter','system-ui','sans-serif'] },
+    boxShadow: { soft:'0 1px 2px rgba(16,61,24,.06), 0 8px 24px rgba(16,61,24,.06)' }, borderRadius: { xl2:'12px' }
+  } } }
+</script>
+<style>
+  body{ font-family:Inter,system-ui,sans-serif; color:#1c2419; background:#faf8f2; }
+  h1,h2,h3{ font-family:"Be Vietnam Pro",system-ui,sans-serif; }
+  a{ text-decoration:none; }
+</style>
+</head>
+<body class="bg-bgivory text-textc">
+
+<header class="bg-bgivory/90 backdrop-blur border-b border-borderc sticky top-0 z-40">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <span class="grid place-items-center w-9 h-9 rounded-xl2 bg-green700 text-white font-display font-bold">S</span>
+      <span class="font-display font-bold text-green900">Sâm Bà Đen</span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-medium text-textsoft">
+      <a href="index.html#san-pham" class="hover:text-green700">Sản phẩm</a>
+      <a href="blog.html" class="text-green700">Blog</a>
+      <a href="index.html#lien-he" class="inline-flex rounded-xl2 bg-gold600 text-green900 font-display font-semibold px-4 py-2">Liên hệ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-6">
+  <p class="text-gold600 font-display font-semibold text-sm">BLOG &amp; KIẾN THỨC</p>
+  <h1 class="mt-2 text-3xl sm:text-4xl font-extrabold text-green900">Kiến thức Sâm Bà Đen</h1>
+  <p class="mt-3 text-textsoft max-w-2xl">Kỹ thuật trồng, công dụng, chăm sóc sức khỏe và tin tức từ vùng trồng Núi Bà Đen, Tây Ninh.</p>
+  <div id="catBar" class="mt-6 flex flex-wrap gap-2"></div>
+</section>
+
+<main class="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+  <div id="postGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="col-span-full text-center text-textfaint py-16">Đang tải bài viết…</div>
+  </div>
+</main>
+
+<footer class="bg-green900 text-white/70 text-sm">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+    <p>© 2026 Sâm Bà Đen. <a href="index.html" class="underline hover:text-white">Về trang chủ</a></p>
+    <p class="mt-2 text-white/45 text-xs">Thực phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var API_BASE = "http://localhost:8000/api/v1"; // đổi domain API khi deploy
+  var grid = document.getElementById('postGrid');
+  var catBar = document.getElementById('catBar');
+  var activeCat = "";
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+  function fmt(iso){ return iso ? new Date(iso).toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'}) : ''; }
+
+  function card(p){
+    var media = p.cover_image_url
+      ? '<img src="'+esc(p.cover_image_url)+'" alt="'+esc(p.title)+'" loading="lazy" class="w-full h-full object-cover">'
+      : '<div class="text-4xl">📰</div>';
+    return '<a href="bai-viet.html?slug='+encodeURIComponent(p.slug)+'" class="group rounded-xl2 bg-surface border border-borderc overflow-hidden hover:shadow-soft transition flex flex-col">'
+      + '<div class="aspect-[16/9] bg-surface2 grid place-items-center text-textfaint overflow-hidden">'+media+'</div>'
+      + '<div class="p-5 flex flex-col flex-1">'
+      + (p.category ? '<span class="text-xs font-semibold text-gold600">'+esc(p.category.name)+'</span>' : '')
+      + '<h3 class="mt-1 font-display font-semibold text-green900 group-hover:text-green700">'+esc(p.title)+'</h3>'
+      + '<p class="mt-2 text-sm text-textsoft flex-1">'+esc(p.excerpt || '')+'</p>'
+      + '<span class="mt-3 text-xs text-textfaint">'+fmt(p.published_at)+'</span>'
+      + '</div></a>';
+  }
+
+  function loadPosts(){
+    grid.innerHTML = '<div class="col-span-full text-center text-textfaint py-16">Đang tải…</div>';
+    var url = API_BASE + '/public/posts?page_size=12' + (activeCat ? '&category='+encodeURIComponent(activeCat) : '');
+    fetch(url).then(function(r){ return r.ok ? r.json() : null; }).then(function(body){
+      var items = body && body.data;
+      if (!items || !items.length){
+        grid.innerHTML = '<div class="col-span-full text-center text-textfaint py-16">Chưa có bài viết nào.</div>';
+        return;
+      }
+      grid.innerHTML = items.map(card).join('');
+    }).catch(function(){
+      grid.innerHTML = '<div class="col-span-full text-center text-textfaint py-16">Không kết nối được máy chủ. Hãy chạy backend hoặc đổi API_BASE.</div>';
+    });
+  }
+
+  function catBtn(label, slug){
+    var b = document.createElement('button');
+    b.textContent = label;
+    b.className = 'rounded-full px-4 py-1.5 text-sm font-medium border ' +
+      (activeCat === slug ? 'bg-green700 text-white border-green700' : 'bg-surface text-textsoft border-borderc hover:border-green600');
+    b.onclick = function(){ activeCat = slug; renderCats(); loadPosts(); };
+    return b;
+  }
+  var cats = [];
+  function renderCats(){
+    catBar.innerHTML = '';
+    catBar.appendChild(catBtn('Tất cả',''));
+    cats.forEach(function(c){ catBar.appendChild(catBtn(c.name, c.slug)); });
+  }
+
+  fetch(API_BASE + '/public/post-categories').then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(body){ cats = (body && body.data) || []; renderCats(); }).catch(function(){ renderCats(); });
+  loadPosts();
+})();
+</script>
+</body>
+</html>

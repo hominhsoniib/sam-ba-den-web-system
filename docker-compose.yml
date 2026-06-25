@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # 1. Backend API (FastAPI)
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sambaden_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/test.db:/app/test.db
+      - ./files:/app/files
+      - ./landing:/app/landing
+    environment:
+      - ENV=production
+      - DATABASE_URL=sqlite+aiosqlite:///./test.db
+      - FILES_DIR=/app/files
+      - LANDING_DIR=/app/landing
+      - CORS_ORIGINS=["http://localhost:8080","http://localhost:8081","http://localhost:8000"]
+      - SITE_URL=http://localhost:8080
+    restart: always
+
+  # 2. Website & Dealer Portal (React + Vite)
+  web:
+    build:
+      context: ./web-public
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+    container_name: sambaden_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    restart: always
+
+  # 3. Admin CMS (React + Vite)
+  admin:
+    build:
+      context: ./admin-cms
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+    container_name: sambaden_admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+    restart: always

@@ -1,0 +1,19 @@
+DANH SÁCH ĐƯỜNG DẪN TRUY CẬP HỆ THỐNG SÂM BÀ ĐEN
+Bản đồ liên kết các Website và Cổng thông tin (Local Development)
+1. Danh sách đường dẫn nhanh
+• Landing Page giới thiệu: Trang chủ giới thiệu sản phẩm sâm, giới thiệu vùng trồng, đăng ký tư vấn/đại lý nhanh và blog kiến thức.
+   Link: http://localhost:8000/landing/index.html
+• Website & Portal Đại lý B2B: Cổng thông tin dành cho các đại lý của Sâm Bà Đen để thực hiện đặt hàng chiết khấu, theo dõi hóa đơn, lịch sử giao dịch và thanh toán trực tuyến VNPay.
+   Link Trang chủ B2C: http://localhost:5174
+   Link Đăng nhập Đại lý: http://localhost:5174/portal/login
+   Tài khoản đại lý test: dealer@sambaden.vn  /  Mật khẩu: Dealer@123456
+• Hệ quản trị nội bộ (Admin CMS): Hệ quản trị nội bộ dành cho Ban giám đốc, Admin, nhân viên Sales, kế toán và biên tập viên nội dung.
+   Link: http://localhost:5175
+   Tài khoản Admin: admin@sambaden.vn  /  Mật khẩu: Admin@123456
+• API Swagger Docs: Tài liệu kỹ thuật Swagger cho lập trình viên để theo dõi, kiểm thử và tích hợp các API Backend.
+   Link: http://localhost:8000/docs
+2. Hướng dẫn các bước phối hợp kiểm thử liên thông
+Bước 1: Khách hàng đăng ký Mở Landing Page (http://localhost:8000/landing/index.html), kéo xuống cuối cùng điền thông tin đăng ký Đại lý mới và bấm 'Gửi thông tin'.
+Bước 2: Phê duyệt tại Admin CMS Mở Admin CMS (http://localhost:5175), đăng nhập bằng tài khoản admin. Vào menu 'Quản lý Lead' để thấy thông tin khách hàng mới gửi. Sales phụ trách bấm 'Chuyển đổi thành khách hàng' (convert lead) để nâng cấp thành đại lý chính thức.
+Bước 3: Đại lý đặt hàng Mở trang Đăng nhập Đại lý (http://localhost:5174/portal/login). Đăng nhập bằng tài khoản đại lý. Thực hiện chọn sản phẩm sâm, gửi đơn hàng. Tại đây đại lý có thể chọn thanh toán VNPay để thử nghiệm thanh toán giả lập.
+Bước 4: Xử lý đơn hàng & Công nợ Admin/Kế toán mở Admin CMS (http://localhost:5175/orders) để kiểm tra đơn hàng mới gửi lên, tiến hành phê duyệt xuất kho và kiểm tra công nợ ghi sổ tự động tại menu 'Đại lý B2B'.

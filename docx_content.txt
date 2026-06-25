@@ -1,0 +1,24 @@
+HƯỚNG DẪN CHẠY VÀ KẾT NỐI LANDING PAGE
+Hệ Thống Sâm Bà Đen — Vùng Trồng Tây Ninh
+1. Tổng quan về Landing Page Sâm Bà Đen
+Landing Page của Sâm Bà Đen là một bộ các trang HTML tĩnh nằm tại thư mục '/landing/' (gồm index.html, blog.html, bai-viet.html). Trang này đóng vai trò giới thiệu sản phẩm sâm dược liệu đạt tiêu chuẩn VietGAP/GlobalGAP, quảng bá hình ảnh vùng trồng Núi Bà Đen - Tây Ninh và thu thập thông tin khách hàng/đại lý quan tâm.
+Để tối ưu hóa trải nghiệm kiểm thử và phát triển cục bộ (tránh lỗi CORS chéo nguồn), Landing Page đã được mount trực tiếp vào hệ thống Backend FastAPI tại địa chỉ: http://localhost:8000/landing/index.html
+2. Hướng dẫn khởi chạy toàn bộ hệ thống
+Để toàn bộ hệ thống hoạt động đồng bộ, bạn hãy mở 3 cửa sổ Terminal để chạy song song 3 dịch vụ chính:
+• 1. Khởi chạy Backend API (FastAPI):  Cổng chạy: 8000. Lệnh khởi chạy tại thư mục 'backend':
+   .venv\Scripts\uvicorn app.main:app --reload --port 8000
+• 2. Khởi chạy Website chính (React + Vite):  Cổng chạy: 5174. Lệnh khởi chạy tại thư mục 'web-public':
+   npm run dev
+• 3. Khởi chạy Hệ quản trị Admin CMS (React + Vite):  Cổng chạy: 5175. Lệnh khởi chạy tại thư mục 'admin-cms':
+   npm run dev
+3. Các cách truy cập và xem Landing Page
+• Cách 1: Chạy qua Backend (Khuyên dùng)Hãy sử dụng trình duyệt web của bạn và mở địa chỉ này. Đây là cách được đề nghị nhiều nhất vì nó chạy trực tiếp từ cổng Backend, giúp tính năng gửi form hoạt động không bị hạn chế CORS.
+   Địa chỉ: http://localhost:8000/landing/index.html
+• Cách 2: Mở từ thanh Menu hệ quản trị Admin CMSTruy cập trang Quản trị Admin CMS (http://localhost:5175). Mình đã thêm nút liên kết "Xem Landing Page 🌐" ở cuối thanh menu điều hướng bên trái. Bấm vào nút này để mở Landing Page.
+• Cách 3: Mở từ thanh Header của Website chính B2CTruy cập Website chính (http://localhost:5174). Mình đã thêm một nút liên kết có tên "Landing Page" nằm trên thanh Menu Header của trang web. Bấm vào đó sẽ tự động mở Landing Page.
+(Lưu ý: Nếu chưa thấy nút xuất hiện trên menu, hãy nhấn tổ hợp phím Ctrl + F5 để làm mới bộ nhớ đệm của trình duyệt).
+• Cách 4: Mở trực tiếp file tĩnh cục bộKích đúp vào file landing/index.html trong thư mục dự án hoặc click chuột phải chọn 'Open in Default Browser' trong VS Code để xem nhanh.
+4. Hướng dẫn kiểm thử và các chức năng liên kết
+• Tải sản phẩm động:  Khi tải trang Landing Page (index.html), khu vực 'Sản phẩm' sẽ gửi yêu cầu lấy dữ liệu động từ API '/public/products?page_size=6'. Các sản phẩm thật trong cơ sở dữ liệu sẽ hiển thị động kèm thông số giá bán, hình ảnh và tên chuẩn xác từ DB. Nếu backend tắt, Landing Page sẽ tự động hiển thị sản phẩm mẫu tĩnh.
+• Gửi form Đăng ký/Tư vấn:  Khi điền thông tin vào form liên hệ cuối trang và bấm 'Gửi thông tin', dữ liệu sẽ được gửi thẳng lên API Backend. Backend sẽ kiểm tra và tạo mới một Lead với nguồn gốc là 'landing_page_{nhu_cau}' và trạng thái là 'new'. Đồng thời, lời nhắn sẽ được lưu thành nhật ký Interaction Note.
+• Xác thực trên Admin CMS:  Đăng nhập vào trang quản trị Admin CMS (http://localhost:5175) bằng tài khoản Super Admin (admin@sambaden.vn / Admin@123456), điều hướng sang trang 'Quản lý Lead'. Bạn sẽ nhìn thấy lead vừa gửi hiển thị trên đầu danh sách với thẻ nguồn tương ứng. Bấm chọn lead để xem chi tiết lời nhắn đã lưu.

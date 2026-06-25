@@ -1,0 +1,72 @@
+/* Design system Sâm Bà Đen — admin nội bộ.
+   Màu lấy từ tài liệu kiến trúc Vòng 1: xanh dược liệu + vàng đất. */
+:root {
+  /* Brand */
+  --green-900: #103d18;
+  --green-700: #1b5e20;
+  --green-600: #2e7d32;
+  --green-100: #e6efe7;
+  --gold-600: #c9a227;
+  --gold-100: #f6edcf;
+  --red-700: #a4161a;
+
+  /* Neutrals — nền ngà ấm, dễ đọc cho người lớn tuổi */
+  --bg: #faf8f2;
+  --surface: #ffffff;
+  --surface-2: #f3f0e7;
+  --border: #e4dfd2;
+  --text: #1c2419;
+  --text-soft: #5b6354;
+  --text-faint: #8d9381;
+
+  /* Status */
+  --ok: #2e7d32;
+  --warn: #b7791f;
+  --err: #a4161a;
+
+  /* Semantic aliases (used in components) */
+  --success: #166534;
+  --warning: #854d0e;
+  --danger: #991b1b;
+  --accent: var(--green-600);
+  --text-muted: var(--text-faint);
+
+
+  /* System */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(16, 61, 24, 0.06), 0 8px 24px rgba(16, 61, 24, 0.06);
+  --shadow-sm: 0 1px 2px rgba(16, 61, 24, 0.08);
+  --font-display: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --space: 4px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; font-weight: 600; }
+
+a { color: var(--green-700); text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--green-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

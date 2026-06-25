@@ -1,0 +1,266 @@
+/* ================================================================
+   pages.css — Styles cho các trang mới (About, Dealers, Farm, Contact, Careers, FAQ)
+   ================================================================ */
+
+/* ---- Contact: Success & Error states ---- */
+.contact-success {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 14px; padding: 40px 28px;
+}
+.contact-success-icon { font-size: 48px; }
+.contact-success h2, .contact-success h3 { font-size: 24px; }
+.contact-success p { color: var(--text-soft); }
+.contact-success-hotline { font-size: 15px; }
+.contact-success-hotline a { font-weight: 600; color: var(--green-700); }
+.contact-alert-error {
+  background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--radius-sm);
+  color: #b91c1c; padding: 12px 16px; font-size: 14px; margin-bottom: 12px;
+}
+
+/* ---- Shared page hero (dark green background) ---- */
+.about-hero, .dealers-hero, .farm-hero, .contact-hero, .careers-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background: radial-gradient(120% 80% at 80% 0%, rgba(201,162,39,.14), transparent 50%),
+              linear-gradient(165deg, #0c2e12, var(--green-900) 60%, var(--green-700));
+}
+.about-hero-inner, .dealers-hero-inner, .farm-hero-inner, .contact-hero-inner, .careers-hero-inner {
+  position: relative; z-index: 2; padding: 72px 24px 80px; max-width: 720px;
+}
+.about-hero-title, .dealers-hero h1, .farm-hero h1, .contact-hero h1, .careers-hero h1 {
+  font-size: clamp(32px, 5.5vw, 56px); line-height: 1.1;
+}
+.about-hero-title em, .farm-hero em { font-style: normal; color: var(--gold-100); }
+.about-hero-sub { margin-top: 18px; font-size: 18px; color: rgba(255,255,255,.78); max-width: 52ch; }
+.about-hero-overlay { position: absolute; inset: 0; z-index: 1;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+}
+
+/* ---- About: Mission ---- */
+.about-mission-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+.about-mission-text h2 { font-size: 32px; margin: 8px 0 18px; }
+.about-mission-text p { color: var(--text-soft); margin-bottom: 14px; }
+.about-mission-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stat-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; text-align: center; box-shadow: var(--shadow); }
+.stat-number { display: block; font-family: var(--font-display); font-weight: 700;
+  font-size: 36px; color: var(--green-700); line-height: 1.1; }
+.stat-desc { display: block; font-size: 14px; color: var(--text-soft); margin-top: 6px; }
+
+/* ---- About: Values ---- */
+.about-values-section { background: var(--surface-2); }
+.about-values-head { text-align: center; margin-bottom: 36px; }
+.about-values-head h2 { font-size: 30px; margin-top: 8px; }
+.about-values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.about-value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px 22px; text-align: center; transition: transform .12s, box-shadow .12s; }
+.about-value-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.about-value-icon { font-size: 36px; display: block; margin-bottom: 14px; }
+.about-value-card h3 { font-size: 18px; margin-bottom: 8px; }
+.about-value-card p { font-size: 14px; color: var(--text-soft); }
+
+/* ---- About: Timeline ---- */
+.about-timeline-head { margin-bottom: 32px; }
+.about-timeline-head h2 { font-size: 30px; margin-top: 8px; }
+.about-timeline { position: relative; padding-left: 32px; }
+.about-timeline::before { content: ""; position: absolute; left: 10px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--border); }
+.tl-item { display: flex; gap: 16px; margin-bottom: 24px; position: relative;
+  animation: fadeSlideUp .4s ease both; }
+.tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--green-600);
+  border: 3px solid var(--bg); position: absolute; left: -27px; top: 6px; z-index: 1; }
+.tl-year { font-family: var(--font-display); font-weight: 700; font-size: 18px;
+  color: var(--green-700); min-width: 50px; }
+.tl-content { display: flex; gap: 12px; align-items: baseline; }
+.tl-content p { color: var(--text-soft); }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- About: CTA section (reused) ---- */
+.about-cta-section { background: linear-gradient(165deg, var(--green-900), var(--green-700)); color: #fff; }
+.about-cta-inner { padding: 64px 24px; text-align: center; max-width: 600px; margin: 0 auto; }
+.about-cta-inner h2 { font-size: 30px; margin-bottom: 12px; }
+.about-cta-inner p { color: rgba(255,255,255,.78); margin-bottom: 28px; }
+.about-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.about-cta-btns .btn-outline { border-color: rgba(255,255,255,.5); color: #fff; }
+.about-cta-btns .btn-outline:hover { background: rgba(255,255,255,.1); }
+
+/* ---- Dealers: region & cards ---- */
+.dealer-region { margin-bottom: 36px; }
+.dealer-region-name { font-size: 22px; color: var(--green-700); margin-bottom: 16px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--green-100); }
+.dealer-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.dealer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 20px; transition: box-shadow .12s; }
+.dealer-card:hover { box-shadow: var(--shadow); }
+.dealer-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.dealer-card-name { font-weight: 600; font-size: 16px; }
+.dealer-tier { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.dealer-tier-1 { background: var(--gold-100); color: #8a6d0a; }
+.dealer-tier-2 { background: var(--green-100); color: var(--green-700); }
+.dealer-card-info { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--text-soft); }
+
+/* ---- Dealers: register section ---- */
+.dealer-register-section { background: var(--surface-2); }
+.dealer-register-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.dealer-register-info h2 { font-size: 30px; margin: 8px 0 14px; }
+.dealer-register-info > p { color: var(--text-soft); margin-bottom: 24px; }
+.dealer-benefits { display: flex; flex-direction: column; gap: 18px; }
+.dealer-benefit { display: flex; gap: 14px; align-items: flex-start; }
+.dealer-benefit-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.dealer-benefit strong { display: block; font-size: 16px; margin-bottom: 2px; }
+.dealer-benefit p { font-size: 14px; color: var(--text-soft); margin: 0; }
+
+/* ---- Forms (shared) ---- */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; box-shadow: var(--shadow); }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--text); }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: 15px; color: var(--text); background: var(--bg);
+  transition: border-color .15s, box-shadow .15s; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none; border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(46,125,50,.12); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group select { cursor: pointer; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dealer-form h3, .contact-form h2 { font-size: 22px; margin-bottom: 6px; }
+.contact-form-sub { color: var(--text-soft); font-size: 15px; margin-bottom: 20px; }
+
+/* ---- Farm: intro ---- */
+.farm-intro-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
+.farm-map-placeholder { background: linear-gradient(135deg, var(--green-100), var(--gold-100));
+  border-radius: var(--radius); padding: 40px; text-align: center; aspect-ratio: 4/3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid var(--border); }
+.farm-map-pin { font-size: 48px; display: block; margin-bottom: 12px;
+  animation: bounce 2s infinite; }
+.farm-map-label strong { display: block; font-size: 20px; font-family: var(--font-display); color: var(--green-900); }
+.farm-map-label span { display: block; font-size: 14px; color: var(--text-soft); }
+.farm-intro-text h2 { font-size: 30px; margin: 8px 0 16px; }
+.farm-intro-text p { color: var(--text-soft); margin-bottom: 14px; }
+.farm-stats-row { display: flex; gap: 24px; margin-top: 24px; }
+.farm-stat { text-align: center; }
+.farm-stat strong { display: block; font-family: var(--font-display); font-size: 28px;
+  color: var(--green-700); font-weight: 700; }
+.farm-stat span { font-size: 13px; color: var(--text-soft); }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ---- Farm: process ---- */
+.farm-process-section { background: var(--surface-2); }
+.farm-process-head { text-align: center; margin-bottom: 36px; }
+.farm-process-head h2 { font-size: 30px; margin: 8px 0 10px; }
+.farm-process-sub { color: var(--text-soft); }
+.farm-process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.farm-step-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; transition: transform .12s, box-shadow .12s; }
+.farm-step-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.farm-step-num { display: inline-block; font-family: var(--font-display); font-weight: 700;
+  font-size: 28px; color: var(--gold-600); margin-bottom: 10px; }
+.farm-step-card h3 { font-size: 18px; margin-bottom: 8px; }
+.farm-step-card p { font-size: 14px; color: var(--text-soft); }
+
+/* ---- Farm: certifications ---- */
+.farm-cert-head { margin-bottom: 28px; }
+.farm-cert-head h2 { font-size: 30px; margin-top: 8px; }
+.farm-cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.farm-cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; text-align: center; transition: transform .12s; }
+.farm-cert-card:hover { transform: translateY(-2px); }
+.farm-cert-badge { display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%; color: #fff; font-size: 20px;
+  font-weight: 700; margin-bottom: 12px; }
+.farm-cert-card h3 { font-size: 17px; margin-bottom: 6px; }
+.farm-cert-card p { font-size: 13px; color: var(--text-soft); }
+
+/* ---- Contact: grid ---- */
+.contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
+.contact-info-card h3, .contact-map-card h3 { font-size: 20px; margin-bottom: 18px; }
+.contact-info-items { display: flex; flex-direction: column; gap: 20px; }
+.contact-info-item { display: flex; gap: 14px; }
+.contact-info-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.contact-info-item strong { display: block; font-size: 15px; margin-bottom: 2px; }
+.contact-info-item p { font-size: 14px; color: var(--text-soft); margin: 0; }
+.contact-info-note { font-size: 12px; color: var(--text-faint); }
+.contact-social { display: flex; gap: 12px !important; }
+.contact-social a { display: inline-block !important; margin: 0 !important; font-weight: 600;
+  color: var(--green-700) !important; }
+.contact-map-placeholder { background: linear-gradient(135deg, var(--green-100), var(--gold-100));
+  border-radius: var(--radius-sm); padding: 32px; text-align: center; }
+.contact-map-placeholder p { font-weight: 600; color: var(--green-900); margin-top: 8px; }
+
+/* ---- Careers: culture / perks ---- */
+.careers-culture-head { margin-bottom: 32px; }
+.careers-culture-head h2 { font-size: 30px; margin-top: 8px; }
+.careers-perks-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.careers-perk-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px 22px; text-align: center; transition: transform .12s, box-shadow .12s; }
+.careers-perk-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.careers-perk-icon { font-size: 36px; display: block; margin-bottom: 12px; }
+.careers-perk-card h3 { font-size: 18px; margin-bottom: 6px; }
+.careers-perk-card p { font-size: 14px; color: var(--text-soft); }
+
+/* ---- Careers: openings ---- */
+.careers-openings-section { background: var(--surface-2); }
+.careers-list { display: flex; flex-direction: column; gap: 16px; }
+.careers-job-card { transition: box-shadow .12s; }
+.careers-job-card:hover { box-shadow: var(--shadow); }
+.careers-job-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.careers-job-head h3 { font-size: 19px; margin-bottom: 8px; }
+.careers-job-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.careers-job-tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: var(--green-100); color: var(--green-700); }
+.careers-apply-btn { flex-shrink: 0; padding: 10px 22px; font-size: 14px; }
+.careers-job-desc { margin-top: 12px; color: var(--text-soft); font-size: 15px; }
+
+/* ---- FAQ ---- */
+.faq-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.faq-tab { padding: 9px 20px; border-radius: 999px; border: 1px solid var(--border);
+  background: transparent; font-weight: 600; font-size: 15px; color: var(--text-soft);
+  cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.faq-tab:hover { border-color: var(--green-600); color: var(--green-700); }
+.faq-tab-active { background: var(--green-700); color: #fff; border-color: var(--green-700); }
+.faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 800px; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  overflow: hidden; transition: box-shadow .12s; }
+.faq-item-open { box-shadow: var(--shadow); border-color: var(--green-100); }
+.faq-question { width: 100%; padding: 18px 20px; display: flex; justify-content: space-between;
+  align-items: center; gap: 16px; background: none; border: none; text-align: left;
+  font-size: 16px; font-weight: 600; color: var(--text); cursor: pointer;
+  font-family: var(--font-body); }
+.faq-question:hover { color: var(--green-700); }
+.faq-chevron { font-size: 22px; color: var(--text-faint); flex-shrink: 0; width: 24px; text-align: center; }
+.faq-answer { padding: 0 20px 18px; animation: fadeSlideUp .2s ease; }
+.faq-answer p { color: var(--text-soft); line-height: 1.7; }
+
+/* ---- Responsive (pages) ---- */
+@media (max-width: 900px) {
+  .about-mission-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-values-grid { grid-template-columns: repeat(2, 1fr); }
+  .dealer-cards { grid-template-columns: repeat(2, 1fr); }
+  .dealer-register-grid { grid-template-columns: 1fr; gap: 32px; }
+  .farm-intro-grid { grid-template-columns: 1fr; gap: 28px; }
+  .farm-process-grid { grid-template-columns: repeat(2, 1fr); }
+  .farm-cert-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: 1fr; }
+  .careers-perks-grid { grid-template-columns: repeat(2, 1fr); }
+  .careers-job-head { flex-direction: column; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .about-values-grid { grid-template-columns: 1fr; }
+  .about-mission-stats { grid-template-columns: 1fr; }
+  .dealer-cards { grid-template-columns: 1fr; }
+  .farm-process-grid { grid-template-columns: 1fr; }
+  .farm-cert-grid { grid-template-columns: 1fr; }
+  .farm-stats-row { flex-direction: column; gap: 16px; }
+  .careers-perks-grid { grid-template-columns: 1fr; }
+}

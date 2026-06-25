@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="metaTitle">Bài viết — Sâm Bà Đen</title>
+<meta id="metaDesc" name="description" content="Bài viết kiến thức Sâm Bà Đen." />
+<link id="metaCanonical" rel="canonical" href="https://bafenfarm.com.vn/blog" />
+<meta id="ogTitle" property="og:title" content="Sâm Bà Đen" />
+<meta id="ogDesc" property="og:description" content="Kiến thức Sâm Bà Đen" />
+<meta id="ogImage" property="og:image" content="" />
+<meta property="og:type" content="article" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { green900:'#103d18', green700:'#1b5e20', green600:'#2e7d32', green100:'#e6efe7',
+      gold600:'#c9a227', gold100:'#f6edcf', bgivory:'#faf8f2', surface:'#ffffff', surface2:'#f3f0e7',
+      borderc:'#e4dfd2', textc:'#1c2419', textsoft:'#5b6354', textfaint:'#8d9381' },
+    fontFamily: { display:['"Be Vietnam Pro"','system-ui','sans-serif'], body:['Inter','system-ui','sans-serif'] },
+    boxShadow: { soft:'0 1px 2px rgba(16,61,24,.06), 0 8px 24px rgba(16,61,24,.06)' }, borderRadius: { xl2:'12px' }
+  } } }
+</script>
+<style>
+  body{ font-family:Inter,system-ui,sans-serif; color:#1c2419; background:#faf8f2; }
+  h1,h2,h3{ font-family:"Be Vietnam Pro",system-ui,sans-serif; }
+  a{ text-decoration:none; }
+  .article-body{ line-height:1.8; }
+  .article-body p{ margin:0 0 1rem; }
+  .article-body h2{ font-size:1.4rem; margin:1.6rem 0 .6rem; color:#103d18; }
+  .article-body h3{ font-size:1.15rem; margin:1.2rem 0 .5rem; color:#103d18; }
+  .article-body ul,.article-body ol{ margin:0 0 1rem 1.4rem; }
+  .article-body img{ max-width:100%; border-radius:12px; margin:1rem 0; }
+  .article-body a{ color:#1b5e20; text-decoration:underline; }
+</style>
+</head>
+<body class="bg-bgivory text-textc">
+
+<header class="bg-bgivory/90 backdrop-blur border-b border-borderc sticky top-0 z-40">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <span class="grid place-items-center w-9 h-9 rounded-xl2 bg-green700 text-white font-display font-bold">S</span>
+      <span class="font-display font-bold text-green900">Sâm Bà Đen</span>
+    </a>
+    <a href="blog.html" class="text-sm font-medium text-green700">← Tất cả bài viết</a>
+  </div>
+</header>
+
+<main id="article" class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <div class="text-center text-textfaint py-16">Đang tải bài viết…</div>
+</main>
+
+<section class="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
+  <div class="rounded-2xl bg-green100 border border-borderc p-6 text-center">
+    <h3 class="font-display font-bold text-green900">Quan tâm sản phẩm Sâm Bà Đen?</h3>
+    <p class="mt-1 text-sm text-textsoft">Để lại thông tin để được tư vấn và báo giá.</p>
+    <a href="index.html#lien-he" class="mt-3 inline-flex rounded-xl2 bg-gold600 text-green900 font-display font-semibold px-5 py-2.5">Nhận tư vấn</a>
+  </div>
+</section>
+
+<footer class="bg-green900 text-white/70 text-sm">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8">
+    <p>© 2026 Sâm Bà Đen. <a href="index.html" class="underline hover:text-white">Về trang chủ</a></p>
+    <p class="mt-2 text-white/45 text-xs">Thực phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var API_BASE = "http://localhost:8000/api/v1"; // đổi domain API khi deploy
+  var box = document.getElementById('article');
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+  function fmt(iso){ return iso ? new Date(iso).toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'}) : ''; }
+  function qs(name){ return new URLSearchParams(location.search).get(name); }
+
+  var slug = qs('slug');
+  if (!slug){ box.innerHTML = '<div class="text-center text-textfaint py-16">Thiếu mã bài viết.</div>'; return; }
+
+  fetch(API_BASE + '/public/posts/' + encodeURIComponent(slug))
+    .then(function(r){ if(!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function(body){
+      var p = body && body.data;
+      if (!p){ throw new Error('empty'); }
+
+      var title = (p.seo && p.seo.title) || p.title;
+      var desc = (p.seo && p.seo.description) || p.excerpt || '';
+      document.getElementById('metaTitle').textContent = title + ' — Sâm Bà Đen';
+      document.getElementById('metaDesc').setAttribute('content', desc);
+      document.getElementById('ogTitle').setAttribute('content', title);
+      document.getElementById('ogDesc').setAttribute('content', desc);
+      var ogImage = (p.seo && p.seo.og_image) || p.cover_image_url;
+      if (ogImage) document.getElementById('ogImage').setAttribute('content', ogImage);
+      var canonicalUrl = (p.seo && p.seo.canonical_url);
+      if (canonicalUrl) document.getElementById('metaCanonical').setAttribute('href', canonicalUrl);
+
+      // JSON-LD Article
+      var ld = {
+        "@context":"https://schema.org","@type":"Article",
+        "headline": p.title,
+        "description": desc,
+        "image": p.cover_image_url || undefined,
+        "datePublished": p.published_at || undefined,
+        "articleSection": p.category ? p.category.name : undefined,
+        "publisher": { "@type":"Organization", "name":"Sâm Bà Đen" }
+      };
+      var s = document.createElement('script'); s.type='application/ld+json';
+      s.textContent = JSON.stringify(ld); document.head.appendChild(s);
+
+      var cover = p.cover_image_url
+        ? '<img src="'+esc(p.cover_image_url)+'" alt="'+esc(p.title)+'" class="w-full rounded-2xl mb-8 ring-1 ring-borderc">'
+        : '';
+      box.innerHTML =
+        (p.category ? '<a href="blog.html" class="text-xs font-semibold text-gold600">'+esc(p.category.name)+'</a>' : '')
+        + '<h1 class="mt-2 text-3xl sm:text-4xl font-extrabold text-green900 leading-tight">'+esc(p.title)+'</h1>'
+        + '<div class="mt-3 text-sm text-textfaint">'+fmt(p.published_at)+(p.view_count!=null?(' · '+p.view_count+' lượt xem'):'')+'</div>'
+        + '<div class="mt-8">'+cover+'</div>'
+        + (p.excerpt ? '<p class="text-lg text-textsoft mb-6">'+esc(p.excerpt)+'</p>' : '')
+        + '<div class="article-body">'+(p.content || '')+'</div>';
+      // Lưu ý: content do người soạn (admin) tạo; hiển thị như HTML đã tin cậy.
+    })
+    .catch(function(){
+      box.innerHTML = '<div class="text-center text-textfaint py-16">Bài viết không tồn tại hoặc chưa được xuất bản.<br><a href="blog.html" class="text-green700 underline">← Về trang Blog</a></div>';
+    });
+})();
+</script>
+</body>
+</html>

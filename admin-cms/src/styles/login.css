@@ -1,0 +1,79 @@
+.login-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+/* Cột thương hiệu — gradient núi + vân vàng */
+.login-brand {
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 80% 10%, rgba(201, 162, 39, 0.22), transparent 60%),
+    linear-gradient(160deg, var(--green-900), var(--green-700) 70%, #0c2e12);
+  color: #fff;
+  overflow: hidden;
+}
+.login-brand-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px clamp(40px, 6vw, 88px);
+}
+.login-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-100);
+  margin-bottom: 28px;
+}
+.login-brand h2 {
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+.login-brand p {
+  margin-top: 22px;
+  max-width: 38ch;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 17px;
+}
+/* "đường sống núi" — signature hình học mảnh, gợi Núi Bà Đen */
+.login-ridge {
+  position: absolute;
+  inset: auto -10% -1px -10%;
+  height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.25));
+  clip-path: polygon(0 100%, 18% 46%, 34% 70%, 52% 22%, 70% 58%, 86% 30%, 100% 64%, 100% 100%);
+  opacity: 0.5;
+}
+
+/* Cột form */
+.login-form-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--bg);
+}
+.login-form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.login-form h1 { font-size: 28px; }
+.login-sub { color: var(--text-soft); font-size: 15px; margin-top: -10px; }
+.login-submit { width: 100%; padding: 13px; margin-top: 4px; font-size: 16px; }
+.login-hint { font-size: 13px; color: var(--text-faint); text-align: center; }
+
+@media (max-width: 860px) {
+  .login-wrap { grid-template-columns: 1fr; }
+  .login-brand { display: none; }
+}

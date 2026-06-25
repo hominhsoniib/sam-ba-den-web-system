@@ -1,0 +1,4 @@
+/* Chỉ nạp các class utilities tiện ích của Tailwind (như padding, margin, flex, text-color...) */
+/* Không nạp base để không ghi đè CSS thuần */
+@tailwind components;
+@tailwind utilities;
