@@ -67,7 +67,8 @@
 
 <script>
 (function(){
-  var API_BASE = "http://localhost:8000/api/v1"; // đổi domain API khi deploy
+  var savedApi = localStorage.getItem('VITE_API_BASE_URL');
+  var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://few-bananas-nail.loca.lt/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1"));
   var grid = document.getElementById('postGrid');
   var catBar = document.getElementById('catBar');
   var activeCat = "";
@@ -93,7 +94,7 @@
   function loadPosts(){
     grid.innerHTML = '<div class="col-span-full text-center text-textfaint py-16">Đang tải…</div>';
     var url = API_BASE + '/public/posts?page_size=12' + (activeCat ? '&category='+encodeURIComponent(activeCat) : '');
-    fetch(url).then(function(r){ return r.ok ? r.json() : null; }).then(function(body){
+    fetch(url, { headers: { 'Bypass-Tunnel-Reminder': 'true' } }).then(function(r){ return r.ok ? r.json() : null; }).then(function(body){
       var items = body && body.data;
       if (!items || !items.length){
         grid.innerHTML = '<div class="col-span-full text-center text-textfaint py-16">Chưa có bài viết nào.</div>';
@@ -120,7 +121,7 @@
     cats.forEach(function(c){ catBar.appendChild(catBtn(c.name, c.slug)); });
   }
 
-  fetch(API_BASE + '/public/post-categories').then(function(r){ return r.ok ? r.json() : null; })
+  fetch(API_BASE + '/public/post-categories', { headers: { 'Bypass-Tunnel-Reminder': 'true' } }).then(function(r){ return r.ok ? r.json() : null; })
     .then(function(body){ cats = (body && body.data) || []; renderCats(); }).catch(function(){ renderCats(); });
   loadPosts();
 })();

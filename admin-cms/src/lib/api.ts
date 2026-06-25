@@ -20,7 +20,7 @@ const BASE_URL =
   savedBaseUrl ||
   (import.meta.env.VITE_API_BASE_URL as string | undefined) ||
   (window.location.hostname.includes("vercel.app")
-    ? "https://e9b532d623ede0.lhr.life/api/v1"
+    ? "https://few-bananas-nail.loca.lt/api/v1"
     : `${window.location.protocol}//${window.location.hostname}:8000/api/v1`);
 
 export const api = axios.create({ baseURL: BASE_URL });
@@ -29,6 +29,7 @@ export const api = axios.create({ baseURL: BASE_URL });
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = tokenStore.access();
   if (token) config.headers.Authorization = `Bearer ${token}`;
+  config.headers["Bypass-Tunnel-Reminder"] = "true";
   return config;
 });
 
@@ -42,6 +43,7 @@ async function doRefresh(): Promise<string | null> {
     const res = await axios.post<ApiResponse<TokenPair>>(
       `${BASE_URL}/auth/refresh`,
       { refresh_token: refresh },
+      { headers: { "Bypass-Tunnel-Reminder": "true" } }
     );
     const pair = res.data.data;
     if (!pair) return null;

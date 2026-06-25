@@ -669,7 +669,7 @@ j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefo
   (function(){
     // Đổi sang domain API thật khi deploy, vd: "https://api.sambaden.vn/api/v1"
     var savedApi = localStorage.getItem('VITE_API_BASE_URL');
-    var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://e9b532d623ede0.lhr.life/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1"));
+    var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://few-bananas-nail.loca.lt/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1"));
     var form = document.getElementById('leadForm');
     var note = document.getElementById('formNote');
     var btn  = form.querySelector('button[type="submit"]');
@@ -685,8 +685,12 @@ j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefo
 
       try {
         var res = await fetch(API_BASE + '/public/leads', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Bypass-Tunnel-Reminder': 'true'
+          },
+          body: JSON.stringify({ name: name, phone: phone, demand: demand, note: message })
         });
         var body = await res.json().catch(function(){ return null; });
         if (!res.ok) {
@@ -710,13 +714,15 @@ j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefo
   // Sản phẩm — nạp dữ liệu thật từ API (Module 6). Lỗi/không có → giữ card tĩnh.
   (function(){
     var savedApi = localStorage.getItem('VITE_API_BASE_URL');
-    var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://e9b532d623ede0.lhr.life/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1")); // đổi domain API khi deploy
+    var API_BASE = savedApi || (window.location.origin.includes('vercel.app') ? "https://few-bananas-nail.loca.lt/api/v1" : (window.location.origin.startsWith('file://') ? "http://localhost:8000/api/v1" : window.location.origin + "/api/v1")); // đổi domain API khi deploy
     var grid = document.getElementById('productGrid');
     if (!grid) return;
     function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
       return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
 
-    fetch(API_BASE + '/public/products?page_size=6')
+    fetch(API_BASE + '/public/products?page_size=6', {
+      headers: { 'Bypass-Tunnel-Reminder': 'true' }
+    })
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(body){
         var items = body && body.data;

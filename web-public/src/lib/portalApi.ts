@@ -1,8 +1,25 @@
 import axios from "axios";
 
+// Support dynamic URL via query param or localStorage for easier mobile testing
+const urlParams = new URLSearchParams(window.location.search);
+const apiParam = urlParams.get("api");
+if (apiParam) {
+  localStorage.setItem("VITE_API_BASE_URL", apiParam);
+  const apiDomain = apiParam.replace("/api/v1", "");
+  localStorage.setItem("VITE_API_URL", apiDomain);
+}
+
+const savedApiUrl = localStorage.getItem("VITE_API_URL");
+const VITE_API_URL =
+  savedApiUrl ||
+  (import.meta.env.VITE_API_URL as string | undefined) ||
+  (window.location.hostname.includes("vercel.app")
+    ? "https://few-bananas-nail.loca.lt"
+    : `${window.location.protocol}//${window.location.hostname}:8000`);
+
 // Tạo instance dành riêng cho portal với auth header
 export const portalClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || `${window.location.protocol}//${window.location.hostname}:8000`,
+  baseURL: VITE_API_URL,
 });
 
 // Middleware tự động đính kèm token của Đại lý nếu có
@@ -11,6 +28,7 @@ portalClient.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  config.headers["Bypass-Tunnel-Reminder"] = "true";
   return config;
 });
 
