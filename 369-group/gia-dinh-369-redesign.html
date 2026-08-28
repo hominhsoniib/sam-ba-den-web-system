@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gia Đình 369 — Hệ Sinh Thái Tiêu Dùng Tuần Hoàn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1F3D2E;
+    --forest-deep:#152B20;
+    --gold:#C9A24B;
+    --gold-soft:#E4C877;
+    --clay:#A85C32;
+    --paper:#FAF6ED;
+    --paper-dim:#F1EBDB;
+    --ink:#1A1A16;
+    --ink-soft:#4A4A3F;
+    --line:rgba(26,26,22,0.12);
+    --ring-1: rgba(31,61,46,0.10);
+    --ring-2: rgba(201,162,75,0.14);
+    --shadow: 0 20px 50px -25px rgba(21,43,32,0.35);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Be Vietnam Pro', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Lora', serif;
+    color:var(--forest-deep);
+    line-height:1.15;
+    font-weight:600;
+  }
+  a{text-decoration:none; color:inherit;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  ::selection{background:var(--gold-soft); color:var(--forest-deep);}
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(250,246,237,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s ease;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:'Lora',serif; font-weight:700; font-size:1.25rem;
+    color:var(--forest-deep);
+  }
+  .brand-mark{
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--forest);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .brand-mark::before, .brand-mark::after{
+    content:''; position:absolute; border-radius:50%; border:1px solid var(--gold);
+  }
+  .brand-mark::before{ width:24px; height:24px; }
+  .brand-mark::after{ width:12px; height:12px; background:var(--gold);}
+  nav.links{display:flex; gap:34px;}
+  nav.links a{
+    font-size:0.92rem; font-weight:500; color:var(--ink-soft);
+    position:relative; padding:6px 0;
+    transition:color .25s ease;
+  }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:0; height:1.5px; width:0;
+    background:var(--gold); transition:width .25s ease;
+  }
+  nav.links a:hover{color:var(--forest-deep);}
+  nav.links a:hover::after{width:100%;}
+  .nav-cta{
+    display:flex; align-items:center; gap:16px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 26px;
+    font-size:0.9rem; font-weight:600;
+    border-radius:2px;
+    transition:all .3s ease;
+    border:1px solid transparent;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--forest); color:var(--paper);
+  }
+  .btn-primary:hover{background:var(--forest-deep); transform:translateY(-2px); box-shadow:var(--shadow);}
+  .btn-ghost{
+    border-color:var(--line); color:var(--ink);
+  }
+  .btn-ghost:hover{border-color:var(--forest); color:var(--forest-deep);}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:8px;}
+  .menu-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:170px 0 120px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 82% 20%, rgba(201,162,75,0.10), transparent 45%),
+      var(--paper);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:0.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--clay); font-weight:700; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--clay);}
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.9rem);
+    letter-spacing:-0.01em;
+    margin-bottom:26px;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--clay);
+  }
+  .hero p.lead{
+    font-size:1.12rem; color:var(--ink-soft); max-width:520px; margin-bottom:38px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:52px;}
+  .hero-stats{
+    display:flex; gap:44px; padding-top:36px; border-top:1px solid var(--line);
+  }
+  .hero-stats div strong{
+    display:block; font-family:'Lora',serif; font-size:1.7rem; color:var(--forest-deep);
+  }
+  .hero-stats div span{font-size:0.8rem; color:var(--ink-soft);}
+
+  /* Ripple / ring signature */
+  .ripple-stage{
+    position:relative; aspect-ratio:1/1; max-width:480px; margin:0 auto;
+  }
+  .ripple-stage svg{width:100%; height:100%;}
+  .ripple-ring{
+    fill:none; stroke:var(--forest); opacity:.28;
+    transform-origin:center;
+    animation:pulse 7s ease-in-out infinite;
+  }
+  .ripple-ring:nth-child(2){stroke:var(--gold); opacity:.5; animation-delay:-1.2s;}
+  .ripple-ring:nth-child(3){opacity:.2; animation-delay:-2.4s;}
+  .ripple-ring:nth-child(4){stroke:var(--clay); opacity:.35; animation-delay:-3.6s;}
+  @keyframes pulse{
+    0%,100%{transform:scale(1); opacity:.25;}
+    50%{transform:scale(1.035); opacity:.5;}
+  }
+  .ripple-core{
+    fill:var(--forest);
+  }
+  .ripple-label{
+    font-family:'Be Vietnam Pro'; font-size:11.5px; font-weight:600; fill:var(--forest-deep);
+    letter-spacing:.02em;
+  }
+
+  /* ---------- Section shells ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .kicker{
+    font-size:0.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--clay); font-weight:700; margin-bottom:16px; display:block;
+  }
+  .section-head h2{font-size:clamp(1.9rem,3.2vw,2.6rem); margin-bottom:18px;}
+  .section-head p{color:var(--ink-soft); font-size:1.02rem;}
+  .divider{
+    width:100%; height:1px; background:var(--line);
+  }
+
+  /* ---------- About ---------- */
+  .about{background:var(--forest-deep); color:var(--paper);}
+  .about .kicker{color:var(--gold-soft);}
+  .about h2{color:var(--paper);}
+  .about-grid{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:start;
+  }
+  .about-copy p{
+    color:rgba(250,246,237,0.82); font-size:1.05rem; margin-bottom:22px;
+  }
+  .about-copy p:first-of-type::first-letter{
+    font-family:'Lora',serif; font-size:3.4rem; float:left; line-height:0.8; padding:8px 10px 0 0; color:var(--gold-soft);
+  }
+  .pillars{display:grid; gap:0;}
+  .pillar{
+    padding:28px 0; border-top:1px solid rgba(250,246,237,0.14);
+    display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:flex-start;
+  }
+  .pillar:last-child{border-bottom:1px solid rgba(250,246,237,0.14);}
+  .pillar-num{
+    font-family:'Lora',serif; font-size:1.4rem; color:var(--gold-soft); font-style:italic;
+  }
+  .pillar h4{color:var(--paper); font-size:1.08rem; margin-bottom:8px;}
+  .pillar p{color:rgba(250,246,237,0.68); font-size:0.94rem;}
+
+  /* ---------- Values ---------- */
+  .values-orbit{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .value-card{
+    background:var(--paper); padding:44px 34px; position:relative;
+    transition:background .35s ease;
+  }
+  .value-card:hover{background:var(--paper-dim);}
+  .value-mark{
+    width:52px; height:52px; border-radius:50%;
+    border:1px solid var(--forest); display:flex; align-items:center; justify-content:center;
+    margin-bottom:26px; color:var(--forest); font-family:'Lora',serif; font-style:italic; font-size:1.1rem;
+  }
+  .value-card h3{font-size:1.2rem; margin-bottom:10px;}
+  .value-card p{color:var(--ink-soft); font-size:0.92rem;}
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+  }
+  .service-card{
+    border:1px solid var(--line); padding:38px 30px; background:var(--paper);
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    position:relative; overflow:hidden;
+  }
+  .service-card::before{
+    content:''; position:absolute; top:0; left:0; width:3px; height:0;
+    background:var(--gold); transition:height .35s ease;
+  }
+  .service-card:hover{transform:translateY(-6px); box-shadow:var(--shadow); border-color:transparent;}
+  .service-card:hover::before{height:100%;}
+  .service-icon{margin-bottom:24px; color:var(--forest);}
+  .service-card h3{font-size:1.12rem; margin-bottom:10px;}
+  .service-card p{font-size:0.9rem; color:var(--ink-soft);}
+
+  /* ---------- Participants ring diagram ---------- */
+  .participants{background:var(--paper-dim);}
+  .role-diagram{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;
+  }
+  .role-list{display:grid; gap:0;}
+  .role-item{
+    display:grid; grid-template-columns:44px 1fr; gap:18px;
+    padding:22px 0; border-top:1px solid var(--line);
+    cursor:default;
+  }
+  .role-item:last-child{border-bottom:1px solid var(--line);}
+  .role-tag{
+    font-family:'Lora',serif; font-style:italic; color:var(--gold); font-size:1rem; padding-top:2px;
+  }
+  .role-item h4{font-size:1.05rem; margin-bottom:4px;}
+  .role-item p{font-size:0.88rem; color:var(--ink-soft);}
+  .ring-diagram{position:relative; aspect-ratio:1/1;}
+  .ring-diagram svg{width:100%; height:100%;}
+
+  /* ---------- Applies-to grid ---------- */
+  .models-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .model-cell{
+    background:var(--paper); padding:36px 28px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:background .3s ease;
+  }
+  .model-cell:hover{background:var(--forest); color:var(--paper);}
+  .model-cell:hover .model-icon{color:var(--gold-soft); border-color:var(--gold-soft);}
+  .model-cell:hover p{color:rgba(250,246,237,0.75);}
+  .model-icon{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--forest);
+    display:flex; align-items:center; justify-content:center; color:var(--forest);
+    transition:all .3s ease;
+  }
+  .model-cell h4{font-size:1rem;}
+  .model-cell p{font-size:0.84rem; color:var(--ink-soft); transition:color .3s ease;}
+
+  /* ---------- App CTA ---------- */
+  .app-cta{
+    background:var(--forest-deep);
+    color:var(--paper);
+    position:relative; overflow:hidden;
+  }
+  .app-inner{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;
+  }
+  .app-inner h2{color:var(--paper);}
+  .app-features{display:grid; gap:16px; margin:32px 0 40px;}
+  .app-feature{display:flex; align-items:center; gap:14px; font-size:0.95rem; color:rgba(250,246,237,0.85);}
+  .app-feature .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .store-badges{display:flex; gap:16px; flex-wrap:wrap;}
+  .store-badge{
+    display:flex; align-items:center; gap:12px;
+    border:1px solid rgba(250,246,237,0.28);
+    padding:12px 22px; border-radius:2px;
+    transition:all .3s ease;
+  }
+  .store-badge:hover{border-color:var(--gold-soft); background:rgba(250,246,237,0.06);}
+  .store-badge small{display:block; font-size:0.68rem; color:rgba(250,246,237,0.6);}
+  .store-badge strong{font-size:0.98rem; color:var(--paper);}
+  .app-visual{position:relative; aspect-ratio:0.9/1; display:flex; align-items:center; justify-content:center;}
+  .app-visual svg{width:100%; height:100%;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); color:rgba(250,246,237,0.7); padding:70px 0 30px;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.3fr 0.8fr 0.9fr; gap:50px; margin-bottom:56px;
+  }
+  .footer-brand{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+  .footer-brand span{font-family:'Lora',serif; font-weight:700; font-size:1.15rem; color:var(--paper);}
+  footer h5{color:var(--paper); font-size:0.85rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:20px; font-weight:600;}
+  footer ul li{margin-bottom:12px; font-size:0.9rem;}
+  footer ul li a:hover{color:var(--gold-soft);}
+  .footer-bottom{
+    border-top:1px solid rgba(250,246,237,0.14); padding-top:26px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:0.8rem; color:rgba(250,246,237,0.5);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    nav.links{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid, .about-grid, .role-diagram, .app-inner{grid-template-columns:1fr;}
+    .ripple-stage{max-width:340px;}
+    .values-orbit, .services-grid, .models-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
+    .hero{padding:140px 0 80px;}
+    .hero-stats{gap:28px; flex-wrap:wrap;}
+    .values-orbit, .services-grid, .models-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .btn{padding:12px 20px; font-size:0.85rem;}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="brand-mark"></span>
+      Gia Đình 369
+    </a>
+    <nav class="links">
+      <a href="#gioithieu">Giới thiệu</a>
+      <a href="#tamnhin">Tầm nhìn</a>
+      <a href="#giatri">Giá trị</a>
+      <a href="#dichvu">Dịch vụ</a>
+      <a href="#thamgia">Tham gia</a>
+      <a href="#mohinh">Mô hình</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Đăng nhập</a>
+      <a href="#app" class="btn btn-primary">Tải App</a>
+    </div>
+    <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal in">
+        <span class="eyebrow">Hệ sinh thái tiêu dùng tuần hoàn</span>
+        <h1>Kết nối <em>chính quyền – nhà kinh doanh – người tiêu dùng</em> trong một vòng tuần hoàn thịnh vượng</h1>
+        <p class="lead">Gia Đình 369 xây dựng cộng đồng tiêu dùng bền vững, nơi mỗi gia đình Việt cùng nhau sống khỏe, sống lành và cùng nhau phát triển kinh tế theo mô hình chia sẻ.</p>
+        <div class="hero-actions">
+          <a href="#thamgia" class="btn btn-primary">Tham gia cộng đồng</a>
+          <a href="#gioithieu" class="btn btn-ghost">Tìm hiểu mô hình →</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>6</strong><span>Vai trò đồng hành</span></div>
+          <div><strong>9+</strong><span>Mô hình kinh doanh áp dụng</span></div>
+          <div><strong>369</strong><span>Vòng tuần hoàn giá trị</span></div>
+        </div>
+      </div>
+      <div class="ripple-stage reveal in">
+        <svg viewBox="0 0 480 480">
+          <circle class="ripple-ring" cx="240" cy="240" r="210"/>
+          <circle class="ripple-ring" cx="240" cy="240" r="160"/>
+          <circle class="ripple-ring" cx="240" cy="240" r="110"/>
+          <circle class="ripple-ring" cx="240" cy="240" r="62"/>
+          <circle class="ripple-core" cx="240" cy="240" r="26"/>
+          <text x="240" y="245" text-anchor="middle" fill="#FAF6ED" font-family="Lora, serif" font-weight="700" font-size="15">369</text>
+          <text class="ripple-label" x="240" y="150" text-anchor="middle">GIA ĐÌNH</text>
+          <text class="ripple-label" x="240" y="98" text-anchor="middle">CỘNG ĐỒNG</text>
+          <text class="ripple-label" x="240" y="46" text-anchor="middle">THỊNH VƯỢNG</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="gioithieu">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="kicker">Về chúng tôi</span>
+        <h2>Ra đời trong kỷ nguyên đổi mới</h2>
+      </div>
+      <div class="about-copy reveal">
+        <p>Công ty TNHH Chuỗi Tiêu Dùng 369 ra đời trong giai đoạn đất nước bước sang một kỷ nguyên mới, với nhiều chính sách đổi mới thúc đẩy phát triển kinh tế tư nhân, chuyển đổi số và vận hành theo mô hình kinh tế tuần hoàn.</p>
+        <p>Chúng tôi kiến tạo sự gắn kết chặt chẽ giữa chính quyền, nhà kinh doanh và người tiêu dùng — để nền kinh tế ngày càng phát triển, vươn ra thế giới, và để mỗi người dân có cuộc sống ấm no, hạnh phúc, bình an.</p>
+
+        <div class="pillars">
+          <div class="pillar">
+            <span class="pillar-num">369</span>
+            <div>
+              <h4>Tầm nhìn</h4>
+              <p>Kiến tạo hệ sinh thái cộng đồng phát triển kinh doanh bền vững, đúng và đủ theo chủ trương, chính sách của Đảng và Nhà nước — giúp hàng triệu người dân có công ăn việc làm, thu nhập ổn định.</p>
+            </div>
+          </div>
+          <div class="pillar" id="tamnhin">
+            <span class="pillar-num">369</span>
+            <div>
+              <h4>Sứ mệnh</h4>
+              <p>"Vì sức khỏe cộng đồng" — đoàn kết, tương thân tương ái, cộng sinh và cộng hưởng các giá trị văn hóa dân sinh, phát triển kinh tế tuần hoàn – chia sẻ, bảo vệ môi trường sống xanh – sạch – đẹp.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="giatri">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="kicker">Giá trị cốt lõi</span>
+        <h2>Sáu nền tảng dựng xây niềm tin</h2>
+        <p>Mỗi giá trị là một mắt xích trong vòng tuần hoàn gắn kết cộng đồng Gia Đình 369.</p>
+      </div>
+    </div>
+    <div class="wrap reveal">
+      <div class="values-orbit">
+        <div class="value-card">
+          <div class="value-mark">01</div>
+          <h3>Yêu thương</h3>
+          <p>Lấy tình người làm gốc cho mọi mối quan hệ trong cộng đồng.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-mark">02</div>
+          <h3>Giúp đỡ</h3>
+          <p>Sẻ chia cơ hội, cùng nhau vượt qua khó khăn để cùng phát triển.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-mark">03</div>
+          <h3>Phục vụ</h3>
+          <p>Đặt lợi ích của người tiêu dùng và đối tác lên hàng đầu.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-mark">04</div>
+          <h3>Tận tâm</h3>
+          <p>Làm việc bằng cả trách nhiệm và sự chỉn chu trong từng chi tiết.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-mark">05</div>
+          <h3>Trung tín</h3>
+          <p>Giữ chữ tín làm nền tảng cho mọi cam kết dài hạn.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-mark">06</div>
+          <h3>Đoàn kết</h3>
+          <p>Một cộng đồng vững mạnh được xây từ sự gắn bó của từng cá nhân.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="dichvu" style="background:var(--paper-dim);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">Sản phẩm — Dịch vụ</span>
+        <h2>Đáp ứng nhu cầu thiết yếu của mọi gia đình</h2>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1.5 11h-11L5 8z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></div>
+          <h3>Hàng tiêu dùng</h3>
+          <p>Nhu yếu phẩm chất lượng, nguồn gốc rõ ràng cho bữa cơm gia đình mỗi ngày.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-4.35-9.5-9C.8 8 3 4 7 4c2 0 3.5 1.2 5 3 1.5-1.8 3-3 5-3 4 0 6.2 4 4.5 8-2.5 4.65-9.5 9-9.5 9z"/></svg></div>
+          <h3>Chăm sóc sức khỏe</h3>
+          <p>Giải pháp dinh dưỡng và chăm sóc sức khỏe chủ động cho từng thành viên.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5 12 3l9 6.5V21H3V9.5z"/><path d="M9 21v-7h6v7"/></svg></div>
+          <h3>Đồ dùng gia đình</h3>
+          <p>Vật dụng thiết thực nâng cao chất lượng sống trong mỗi mái ấm.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 4 6 7l2 2-2 11h8L12 9l2-2-2-3H8z"/></svg></div>
+          <h3>Quần áo thời trang</h3>
+          <p>Trang phục phù hợp mọi lứa tuổi, cập nhật xu hướng và giá trị bền vững.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V6z"/><path d="M18 4v16"/></svg></div>
+          <h3>Sách — Khóa học</h3>
+          <p>Tri thức và kỹ năng đồng hành cùng hành trình phát triển bản thân.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3>Dịch vụ khác</h3>
+          <p>Đa dạng dịch vụ hỗ trợ đời sống, không ngừng mở rộng theo nhu cầu cộng đồng.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTICIPANTS -->
+  <section class="participants" id="thamgia">
+    <div class="wrap role-diagram">
+      <div class="reveal">
+        <span class="kicker">Ai là người tham gia?</span>
+        <h2 style="margin-bottom:20px;">Một hành trình, sáu vai trò</h2>
+        <p style="color:var(--ink-soft); margin-bottom:36px; max-width:460px;">Mỗi thành viên bắt đầu từ vai trò người tiêu dùng, và có thể mở rộng vai trò của mình theo từng vòng tuần hoàn giá trị.</p>
+        <div class="role-list">
+          <div class="role-item"><span class="role-tag">i.</span><div><h4>Nhà tiêu dùng</h4><p>Sử dụng sản phẩm — dịch vụ và bắt đầu vòng tuần hoàn giá trị.</p></div></div>
+          <div class="role-item"><span class="role-tag">ii.</span><div><h4>Nhà kết nối</h4><p>Lan tỏa cộng đồng, giới thiệu giá trị đến những gia đình khác.</p></div></div>
+          <div class="role-item"><span class="role-tag">iii.</span><div><h4>Nhà khởi nghiệp</h4><p>Xây dựng hoạt động kinh doanh riêng trên nền tảng chung.</p></div></div>
+          <div class="role-item"><span class="role-tag">iv.</span><div><h4>Nhà phân phối</h4><p>Mở rộng mạng lưới cung ứng sản phẩm đến nhiều điểm bán.</p></div></div>
+          <div class="role-item"><span class="role-tag">v.</span><div><h4>Điểm bán hàng</h4><p>Trở thành điểm chạm trực tiếp phục vụ người tiêu dùng.</p></div></div>
+          <div class="role-item"><span class="role-tag">vi.</span><div><h4>Nhà quản lý</h4><p>Dẫn dắt và phát triển đội nhóm trong hệ sinh thái.</p></div></div>
+        </div>
+      </div>
+      <div class="ring-diagram reveal">
+        <svg viewBox="0 0 460 460">
+          <circle cx="230" cy="230" r="200" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <circle cx="230" cy="230" r="160" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <circle cx="230" cy="230" r="120" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <circle cx="230" cy="230" r="80" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <circle cx="230" cy="230" r="40" fill="var(--forest)"/>
+          <text x="230" y="235" text-anchor="middle" fill="#FAF6ED" font-family="Be Vietnam Pro" font-weight="700" font-size="13">GIA ĐÌNH</text>
+
+          <g font-family="Be Vietnam Pro" font-size="12.5" font-weight="600" fill="#1A1A16">
+            <circle cx="230" cy="70" r="5" fill="var(--gold)"/>
+            <text x="230" y="52" text-anchor="middle">Nhà tiêu dùng</text>
+
+            <circle cx="368" cy="150" r="5" fill="var(--gold)"/>
+            <text x="368" y="132" text-anchor="middle">Nhà kết nối</text>
+
+            <circle cx="368" cy="310" r="5" fill="var(--gold)"/>
+            <text x="368" y="340" text-anchor="middle">Nhà khởi nghiệp</text>
+
+            <circle cx="230" cy="390" r="5" fill="var(--gold)"/>
+            <text x="230" y="418" text-anchor="middle">Nhà phân phối</text>
+
+            <circle cx="92" cy="310" r="5" fill="var(--gold)"/>
+            <text x="92" y="340" text-anchor="middle">Điểm bán hàng</text>
+
+            <circle cx="92" cy="150" r="5" fill="var(--gold)"/>
+            <text x="92" y="132" text-anchor="middle">Nhà quản lý</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELS -->
+  <section id="mohinh">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="kicker">Áp dụng cho mô hình nào?</span>
+        <h2>Phù hợp với mọi hình thức kinh doanh</h2>
+      </div>
+    </div>
+    <div class="wrap reveal">
+      <div class="models-grid">
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 3v18M4 3h5v9H4M15 3v18M20 3v18M15 8h5"/></svg></div><h4>Nhà hàng / Quán ăn</h4><p>Chuỗi cung ứng thực phẩm tươi và ổn định.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg></div><h4>Khách sạn / Nhà trọ / BĐS</h4><p>Vật tư & dịch vụ vận hành cho lưu trú.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16l-1.5 13h-13L4 4z"/><circle cx="9" cy="20" r="1"/><circle cx="16" cy="20" r="1"/></svg></div><h4>Siêu thị mini / Tạp hóa</h4><p>Nguồn hàng đa dạng, giá cạnh tranh.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg></div><h4>Hộ kinh doanh</h4><p>Mô hình linh hoạt cho quy mô nhỏ và vừa.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c-4 4-4 9-4 9a4 4 0 0 0 8 0s0-5-4-9z"/><path d="M8 21h8"/></svg></div><h4>Spa — Thẩm mỹ</h4><p>Sản phẩm chăm sóc và trải nghiệm khách hàng.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V6a2 2 0 0 1 2-2h6v17M4 21h12M14 10h3l3 3v5a1 1 0 0 1-1 1h-1"/><circle cx="17" cy="19" r="1.4"/></svg></div><h4>Cây xăng</h4><p>Giải pháp vận hành trạm và dịch vụ đi kèm.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 10h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4v-6z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></svg></div><h4>Quán cà phê</h4><p>Nguyên liệu và vật tư pha chế đồng bộ.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div><h4>Karaoke</h4><p>Dịch vụ giải trí gắn với trải nghiệm gia đình.</p></div>
+        <div class="model-cell"><div class="model-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div><h4>Dịch vụ khác</h4><p>Mở rộng linh hoạt theo nhu cầu thực tế.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP CTA -->
+  <section class="app-cta" id="app">
+    <div class="wrap app-inner">
+      <div class="reveal">
+        <span class="kicker">Ứng dụng di động</span>
+        <h2>Mang cả hệ sinh thái vào lòng bàn tay</h2>
+        <p style="color:rgba(250,246,237,0.75); max-width:440px;">Trải nghiệm mua sắm, kết nối và quản lý mọi hoạt động của Gia Đình 369 mọi lúc, mọi nơi.</p>
+        <div class="app-features">
+          <div class="app-feature"><span class="dot"></span> Giao diện thân thiện, dễ sử dụng</div>
+          <div class="app-feature"><span class="dot"></span> Bảo mật thông tin tuyệt đối</div>
+          <div class="app-feature"><span class="dot"></span> Cập nhật tính năng thường xuyên</div>
+        </div>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/us/app/gia-%C4%91%C3%ACnh-369/id6752683559" target="_blank" rel="noopener" class="store-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#FAF6ED"><path d="M16.5 2c.1 1.1-.35 2.15-1.02 2.9-.68.76-1.78 1.35-2.85 1.27-.13-1.08.4-2.2 1.06-2.9C14.4 2.5 15.5 2.02 16.5 2zM20.2 17.1c-.5 1.15-.75 1.67-1.4 2.68-.9 1.4-2.17 3.15-3.75 3.16-1.4.02-1.76-.9-3.65-.9-1.9 0-2.3.88-3.7.92-1.58.05-2.78-1.5-3.68-2.9C1.9 17.2.8 13.35 2.3 10.75c.75-1.3 2.1-2.13 3.57-2.15 1.4-.02 2.72.94 3.57.94.85 0 2.45-1.16 4.13-.99.7.03 2.68.28 3.95 2.1-.1.06-2.35 1.37-2.33 4.1.03 3.25 2.86 4.33 2.99 4.35z"/></svg>
+            <span><small>Tải xuống trên</small><strong>App Store</strong></span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=vn.vinagroups.giadinh369&hl=vi&gl=US" target="_blank" rel="noopener" class="store-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#FAF6ED"><path d="M3.6 2.6c-.35.35-.55.85-.55 1.45v15.9c0 .6.2 1.1.55 1.45l.1.08L13 12.2v-.4L3.7 2.5l-.1.1z"/><path d="M16.2 15.4l-3.2-3.2v-.4l3.2-3.2 3.65 2.1c1.05.6 1.05 1.6 0 2.2l-3.65 2.1z" opacity=".7"/></svg>
+            <span><small>Tải xuống trên</small><strong>Google Play</strong></span>
+          </a>
+        </div>
+      </div>
+      <div class="app-visual reveal">
+        <svg viewBox="0 0 400 460">
+          <circle cx="200" cy="230" r="170" fill="none" stroke="rgba(250,246,237,0.15)"/>
+          <circle cx="200" cy="230" r="130" fill="none" stroke="rgba(201,162,75,0.35)"/>
+          <rect x="120" y="90" width="160" height="300" rx="24" fill="#1F3D2E" stroke="rgba(250,246,237,0.25)" stroke-width="1.5"/>
+          <rect x="132" y="112" width="136" height="230" rx="4" fill="rgba(250,246,237,0.06)"/>
+          <circle cx="200" cy="230" r="34" fill="none" stroke="#C9A24B" stroke-width="1.4"/>
+          <text x="200" y="236" text-anchor="middle" fill="#E4C877" font-family="Lora, serif" font-weight="700" font-size="16">369</text>
+          <rect x="150" y="360" width="100" height="8" rx="4" fill="rgba(250,246,237,0.2)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="brand-mark" style="border-color:var(--gold-soft);"></span>
+          <span>Gia Đình 369</span>
+        </div>
+        <p style="max-width:320px; font-size:0.92rem;">Công ty TNHH Chuỗi Tiêu Dùng Gia Đình 369 — hệ sinh thái tiêu dùng tuần hoàn vì sức khỏe cộng đồng.</p>
+      </div>
+      <div>
+        <h5>Điều hướng</h5>
+        <ul>
+          <li><a href="#gioithieu">Giới thiệu</a></li>
+          <li><a href="#giatri">Giá trị</a></li>
+          <li><a href="#dichvu">Dịch vụ</a></li>
+          <li><a href="#thamgia">Tham gia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Liên hệ</h5>
+        <ul>
+          <li>60 J3M, đường DD7-1, KP 61,<br>Đông Hưng Thuận, TP.HCM</li>
+          <li><a href="mailto:tieudung369@gmail.com">tieudung369@gmail.com</a></li>
+          <li><a href="tel:0915193135">0915 193 135</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Gia Đình 369. Toàn bộ bản quyền được bảo lưu.</span>
+      <span>Thiết kế lại — bản demo giao diện chuyên nghiệp</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Header shadow on scroll
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', ()=>{
+    header.style.boxShadow = window.scrollY > 20 ? '0 8px 30px -20px rgba(21,43,32,0.3)' : 'none';
+  });
+
+  // Mobile menu (simple toggle)
+  const toggle = document.querySelector('.menu-toggle');
+  const links = document.querySelector('nav.links');
+  toggle.addEventListener('click', ()=>{
+    const open = links.style.display === 'flex';
+    links.style.cssText = open ? '' : 'display:flex; flex-direction:column; position:fixed; top:76px; left:0; right:0; background:var(--paper); padding:24px 32px; border-bottom:1px solid var(--line); gap:18px;';
+  });
+</script>
+</body>
+</html>
