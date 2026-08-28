@@ -1,0 +1,10 @@
+<svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NEXUS Enterprise OS">
+  <g>
+    <rect x="2.5" y="7.5" width="27" height="27" stroke="#F6F8FB" stroke-width="1.6"/>
+    <path d="M2.5 14.5V7.5H9.5" stroke="#6EE7E0" stroke-width="1.6"/>
+    <path d="M29.5 27.5V34.5H22.5" stroke="#6EE7E0" stroke-width="1.6"/>
+    <rect x="11" y="16" width="10" height="10" fill="#6EE7E0"/>
+  </g>
+  <text x="42" y="24" font-family="IBM Plex Sans, Arial, sans-serif" font-weight="700" font-size="19" letter-spacing="-0.3" fill="#F6F8FB">NEXUS</text>
+  <text x="42" y="36" font-family="IBM Plex Mono, monospace" font-weight="500" font-size="9" letter-spacing="1.4" fill="rgba(246,248,251,0.6)">ENTERPRISE OS</text>
+</svg>
