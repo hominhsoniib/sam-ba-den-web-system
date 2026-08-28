@@ -9,6 +9,8 @@ type DiagramItem = {
   title: string;
   subtitle: string;
   imageSrc: string;
+  pdfSrc?: string;
+  pdfFileName?: string;
   highlights: string[];
   takeaways: string;
 };
@@ -20,6 +22,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Master Hệ Sinh Thái 11 Mô-đun Quản Trị Doanh Nghiệp Số Hóa",
     subtitle: "Liên thông 11 phân hệ nghiệp vụ từ Chiến lược KHKD đến CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai_1.png",
+    pdfSrc: "/docs/so_do_he_sinh_thai_v2.pdf",
+    pdfFileName: "so do he sinh thai v2.pdf",
     highlights: [
       "Kiến trúc 4 lớp thống nhất: Lớp Kế hoạch - Tài chính (Mod 01-06) → Lớp Vận hành QLCV Core Hub (Mod 07) → Lớp Kinh doanh & Con người (Mod 08-11) → Lớp Nền tảng Dữ liệu Dùng chung",
       "Lấy PM QLCV (Mod 07) làm 'Bộ não điều hành trung tâm' kết nối dữ liệu KHKD, MA, Ngân sách, CRM, DMS, Lương 3P và CEO Dashboard",
@@ -33,6 +37,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Tổng Quan Luồng Vận Hành Liên Thông Hệ Sinh Thái Số Hóa",
     subtitle: "Điểm gốc từ Kế hoạch Kinh doanh, Điểm hội tụ tại CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai_2.png",
+    pdfSrc: "/docs/so_do_he_sinh_thai.pdf",
+    pdfFileName: "so do he sinh thai.pdf",
     highlights: [
       "Luồng dữ liệu liên thông Single Source of Truth: Một thông tin khách hàng hay đơn hàng bước vào ở CRM/DMS sẽ đồng hành xuyên suốt Báo giá → Đơn hàng → Xuất kho → Giao hàng → Báo cáo BI",
       "Chu trình cải tiến liên tục PDCA (Plan → Do → Check → Act) tự động đối chiếu số liệu Kế hoạch vs Thực tế (KH vs TH) để cảnh báo rủi ro thâm hụt tài chính",
@@ -46,6 +52,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Master NEXUS-HR — Hệ Thống Quản Trị Nhân Sự Toàn Diện",
     subtitle: "Quản lý vòng đời nhân sự 11 khối từ Tuyển dụng → Chấm công → Tính lương C&B → Đánh giá & Đào tạo",
     imageSrc: "/diagrams/so_do_nexus_hr_toan_dien.png",
+    pdfSrc: "/docs/NEXUS-HR.pdf",
+    pdfFileName: "NEXUS-HR.pdf",
     highlights: [
       "Quy trình Tuyển dụng 6 bước (Nhu cầu → Đăng tuyển → Sàng lọc → Phỏng vấn → Offer) & Quản lý Hồ sơ nhân viên, Hợp đồng, BHXH, Thuế TNCN",
       "Hệ thống Chấm công đa phương thức (Vân tay, Face ID, GPS Mobile App) tự động tổng hợp công, phép, OT để kết nối trực tiếp với Payroll tính lương",
@@ -59,6 +67,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
+    pdfSrc: "/docs/3P_so_do.pdf",
+    pdfFileName: "3P_so do.pdf",
     highlights: [
       "P1 theo Giá trị vị trí, P2 theo Năng lực cá nhân, P3 theo Hiệu suất thật từ QLCV",
       "Loại bỏ hoàn toàn đánh giá cảm tính, trả lương công bằng 100%",
@@ -72,6 +82,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Trí Tuệ NEXUS Analytics — Phân Tích Tài Chính & Định Giá (Chuẩn CFA & Big4)",
     subtitle: "Xếp hạng doanh nghiệp A+ đến D & Mô hình Định giá Fair Value chuyên nghiệp",
     imageSrc: "/diagrams/so_do_nexus_analytics_mindmap.png",
+    pdfSrc: "/docs/pt-bctc.pdf",
+    pdfFileName: "pt-bctc.pdf",
     highlights: [
       "Chuẩn hóa dữ liệu BCTC tự động theo Thông tư 200/2014/TT-BTC & Phân tích chuyên sâu Dupont (ROE = Lợi nhuận x Vòng quay TS x Đòn bẩy TC)",
       "Hệ thống Chấm điểm & Xếp hạng 5 bậc (A+ Xuất sắc, A Tốt, B Khá, C Trung bình, D Rủi ro cao) dựa trên 5 tiêu chí quản trị",
@@ -85,6 +97,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Cấu Trúc Khối Phân Tích Tình Hình Tài Chính & Định Giá Doanh Nghiệp",
     subtitle: "Từ Thu thập Dữ liệu → Phân tích Dòng tiền CFO/CFI/CFF → Xếp hạng & Kết quả Giá trị Hợp lý",
     imageSrc: "/diagrams/so_do_dinh_gia_cfa_big4.png",
+    pdfSrc: "/docs/pt-bctc.pdf",
+    pdfFileName: "pt-bctc.pdf",
     highlights: [
       "Phân tích dòng tiền 3 trụ cột: Dòng tiền từ HĐKD (CFO), HĐĐT (CFI), HĐTC (CFF) & Đánh giá chất lượng lợi nhuận CFO/LNST",
       "Phân tích triển vọng ngành & DN (Mô hình 5 Forces Porter, Lợi thế bền vững Moat, Kịch bản Cơ sở / Tích cực / Tiêu cực)",
@@ -98,6 +112,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Hệ Thống Lập Kế Hoạch & Phân Tích Quản Trị (MA) Toàn Diện",
     subtitle: "Lập kế hoạch chủ động – Thực thi kỷ luật – Phân tích sâu sắc – Ra quyết định chính xác",
     imageSrc: "/diagrams/so_do_khkd_ma_toan_dien.png",
+    pdfSrc: "/docs/Lap_khkd-ma.pdf",
+    pdfFileName: "Lap khkd-ma.pdf",
     highlights: [
       "Quản lý 7 loại kế hoạch chuẩn hóa: KHKD (Doanh thu), KHTC (Tài chính), KHĐT (Dòng tiền), KHNS (Nhân sự), KHSX (Sản xuất), KH Mua hàng & KH Dự án",
       "Quy trình Phân tích MA chuyên sâu: P&L Quản trị, Phân tích chi phí Cost Center, Điểm hòa vốn BEP, Chỉ số ROI/ROA/ROE & Root Cause Analysis",
@@ -111,6 +127,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ KHKD & Phân Tích MA — Tự Động Kết Nối Dữ Liệu Đầu Vào",
     subtitle: "Hợp nhất 8 nguồn dữ liệu → Xây dựng 3 kịch bản Ngân sách Base / Optimistic / Conservative",
     imageSrc: "/diagrams/so_do_khkd_ma_tu_dong.png",
+    pdfSrc: "/docs/Lap_khkd-ma.pdf",
+    pdfFileName: "Lap khkd-ma.pdf",
     highlights: [
       "Kết nối tự động 8 nguồn dữ liệu: CRM, DMS, Sản xuất, Mua hàng, Kho, Tài chính - Kế toán, Dự án & Số liệu thị trường",
       "Lập 3 kịch bản ngân sách linh hoạt (Base Case, Optimistic, Conservative) & Cân đối P&L doanh thu - chi phí - lợi nhuận trước khi duyệt",
@@ -124,6 +142,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Vận Hành Master NEXUS Enterprise OS & QuoteFlow OS",
     subtitle: "Từ Chiến lược đến Kết quả – Vận hành toàn diện – Dữ liệu liền mạch – Chu trình PDCA",
     imageSrc: "/diagrams/so_do_nexus_master_flow.png",
+    pdfSrc: "/docs/so_do_he_sinh_thai_v2.pdf",
+    pdfFileName: "so do he sinh thai v2.pdf",
     highlights: [
       "Vòng quay 6 khối liên thông: 1. Chiến lược → 2. Lập kế hoạch (KHDT, KHCP, KHLN) → 3. Lập Ngân sách Budget → 4. Thực thi → 5. Kết quả Báo cáo → 6. Chu trình PDCA",
       "Phân bổ ngân sách toàn diện 8 phòng ban: Kinh doanh, Marketing, Sản xuất, Mua hàng, Nhân sự, Tài chính - Kế toán, R&D, Pháp chế",
@@ -137,6 +157,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Tóm Tắt Phần Mềm CRM & Quản Lý Báo Giá",
     subtitle: "Quản lý khách hàng – Quy trình báo giá – Phê duyệt – Theo dõi – AI Copilot & AI Sales Coach",
     imageSrc: "/diagrams/so_do_crm_bg_tom_tat.png",
+    pdfSrc: "/docs/crm-bg.pdf",
+    pdfFileName: "crm-bg.pdf",
     highlights: [
       "Quy trình CRM 5 bước: Tiếp nhận KH → Quản lý thông tin → Quản lý cơ hội → Chăm sóc & tương tác → Chuyển sang báo giá",
       "Quy trình Báo giá 5 bước: Tạo báo giá → Quản lý phiên bản → Phê duyệt theo cấp → Gửi & Theo dõi → Chuyển đổi Hợp đồng",
@@ -150,6 +172,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Vận Hành PM CSKH & Quản Lý Báo Giá (QuoteFlow OS)",
     subtitle: "Từ Khách hàng → Cơ hội bán hàng → Báo giá → Chốt sale → Doanh thu → Dashboard",
     imageSrc: "/diagrams/so_do_cskh_van_hanh_bg.png",
+    pdfSrc: "/docs/crm-bg.pdf",
+    pdfFileName: "crm-bg.pdf",
     highlights: [
       "Pipeline CSKH 7 bước: Lead mới → Nhu cầu → Đã liên hệ → Giải pháp tư vấn → Báo giá Proposal → Đàm phán → Thắng (WON) / Thua (LOST)",
       "Cơ chế Phê duyệt Báo giá tự động (QuoteFlow OS): Kiểm tra chiết khấu trong hạn mức (Duyệt tự động) vs Vượt hạn mức (Yêu cầu GĐ/CEO/CFO duyệt)",
@@ -163,6 +187,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
     subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → Sales Supervisor → NV Sales → Đại lý / NPP",
     imageSrc: "/diagrams/so_do_to_chuc_dms.png",
+    pdfSrc: "/docs/DMS-QT-BH.pdf",
+    pdfFileName: "DMS -QT-BH.pdf",
     highlights: [
       "Phân cấp 5 tầng rõ ràng: GĐKD (Chiến lược) → RSM (Quản lý vùng) → ASM (Khu vực) → SS (Giám sát) → Sale (Đi tuyến) → Đại lý/NPP",
       "Trung tâm Kiểm soát Dữ liệu: Tồn kho (Kho tổng, NPP/ĐL), Đơn hàng In/Out, Check-in GPS điểm bán, Báo cáo KPI & Chính sách giá/chiết khấu",
@@ -176,6 +202,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
     subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng (POD) – Hiệu quả kinh doanh",
     imageSrc: "/diagrams/so_do_ban_hang_dms.png",
+    pdfSrc: "/docs/DMS-QT-BH.pdf",
+    pdfFileName: "DMS -QT-BH.pdf",
     highlights: [
       "Luồng 7 bước chuẩn hóa: Tạo nhu cầu → Duyệt đơn → Xuất hàng → Giao hàng → Nghiệm thu → Thanh toán → Báo cáo BI",
       "Quản lý tồn kho real-time 3 cấp (Kho tổng → Kho NPP/Đại lý → Điểm bán lẻ) kèm Cảnh báo hàng tồn thấp/hết hàng/chậm luân chuyển",
@@ -189,6 +217,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
     subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
     imageSrc: "/diagrams/so_do_approve_master.png",
+    pdfSrc: "/docs/Approve_Management_V2.pdf",
+    pdfFileName: "Approve_Management_V2.pdf",
     highlights: [
       "Quản lý 6 loại đề xuất (Mua hàng, Chi phí, Thanh toán, Đầu tư, Tạm ứng...) & Quy trình 6 trạng thái từ Draft đến Phê duyệt/Hoàn tất",
       "Giám sát ngân sách real-time 4 chỉ số (Được cấp → Cam kết → Đã dùng → Khả dụng) & 3 Cấp cảnh báo (An toàn <90%, Cảnh báo 90-100%, Vượt >100%)",
@@ -202,6 +232,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
+    pdfSrc: "/docs/Enterprise_Nervous_System.pdf",
+    pdfFileName: "Enterprise_Nervous_System.pdf",
     highlights: [
       "Vòng đời công việc 8 bước: Mục tiêu → Kế hoạch → Giao việc → Thực hiện → Theo dõi → Đo kết quả → Phản hồi → Cải tiến",
       "Liên kết dữ liệu xuyên 8 phòng ban: Kinh doanh, Marketing, Sản xuất, Mua hàng, Kho, Tài chính, Nhân sự, IT",
@@ -215,6 +247,8 @@ const DIAGRAMS: DiagramItem[] = [
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
+    pdfSrc: "/docs/qlcv.pdf",
+    pdfFileName: "qlcv.pdf",
     highlights: [
       "Hệ thống tự động phân rã chỉ tiêu: CEO (20 tỷ) → GĐKD (12 tỷ) → TPKD (4 tỷ) → Team (2 tỷ) → Sale 01 (400tr)",
       "Theo dõi tiến độ KPI real-time & Top công việc quá hạn kèm Thẻ công việc chuẩn hóa",
@@ -283,28 +317,41 @@ export function DiagramShowcaseSection() {
               className="max-h-[520px] w-auto object-contain rounded transition-transform duration-500 group-hover:scale-105 cursor-pointer"
               onClick={() => setLightboxImg(activeDiagram.imageSrc)}
             />
-            <button
-              onClick={() => setLightboxImg(activeDiagram.imageSrc)}
-              className="mt-3 inline-flex items-center gap-2 rounded bg-blueprint border border-cyan px-4 py-2 font-mono text-xs font-bold text-cyan transition-all hover:bg-cyan hover:text-blueprint-deep"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-              Click để mở Sơ đồ Phóng To Siêu Nét (Full Resolution)
-            </button>
+            <div className="mt-3 flex flex-wrap gap-2 w-full justify-center">
+              <button
+                onClick={() => setLightboxImg(activeDiagram.imageSrc)}
+                className="inline-flex items-center gap-1.5 rounded bg-blueprint border border-cyan px-3.5 py-2 font-mono text-xs font-bold text-cyan transition-all hover:bg-cyan hover:text-blueprint-deep"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Phóng To Sơ Đồ
+              </button>
+              {activeDiagram.pdfSrc && (
+                <a
+                  href={activeDiagram.pdfSrc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded bg-amber/20 border border-amber/70 px-3.5 py-2 font-mono text-xs font-bold text-amber hover:bg-amber hover:text-blueprint-deep transition-all"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  📄 Mở File PDF Gốc ({activeDiagram.pdfFileName})
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Right: Detailed Explanations & Investor Takeaways */}
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between space-y-4">
             <div>
               <span className="mb-2 block font-mono text-xs text-amber font-bold uppercase tracking-wider">
                 {activeDiagram.category}
               </span>
               <h3 className="mb-2 text-2xl font-bold text-cyan">{activeDiagram.title}</h3>
-              <p className="mb-6 font-mono text-xs text-paper/60 leading-normal">{activeDiagram.subtitle}</p>
+              <p className="mb-5 font-mono text-xs text-paper/60 leading-normal">{activeDiagram.subtitle}</p>
 
               <h4 className="mb-3 font-mono text-xs text-paper/90 uppercase font-bold tracking-wide">
                 Điểm Nổi Bật Vận Hành & Quản Trị:
               </h4>
-              <ul className="mb-6 space-y-3">
+              <ul className="mb-5 space-y-2.5">
                 {activeDiagram.highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-xs text-paper/85 leading-relaxed">
                     <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan shrink-0" />
@@ -314,14 +361,47 @@ export function DiagramShowcaseSection() {
               </ul>
             </div>
 
-            {/* Investor Takeaway Card */}
-            <div className="rounded border border-amber/40 bg-amber/10 p-4">
-              <span className="mb-1 block font-mono text-[0.7rem] font-bold text-amber uppercase">
-                Góc Nhìn Khách Hàng / Nhà Đầu Tư (KH & NĐT):
-              </span>
-              <p className="text-xs text-paper/90 font-medium italic leading-relaxed">
-                "{activeDiagram.takeaways}"
-              </p>
+            <div className="space-y-3">
+              {/* Investor Takeaway Card */}
+              <div className="rounded border border-amber/40 bg-amber/10 p-4">
+                <span className="mb-1 block font-mono text-[0.7rem] font-bold text-amber uppercase">
+                  Góc Nhìn Khách Hàng / Nhà Đầu Tư (KH & NĐT):
+                </span>
+                <p className="text-xs text-paper/90 font-medium italic leading-relaxed">
+                  "{activeDiagram.takeaways}"
+                </p>
+              </div>
+
+              {/* Attached PDF Card */}
+              {activeDiagram.pdfSrc && (
+                <div className="rounded border border-cyan/40 bg-cyan/10 p-3.5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="rounded bg-red-600/20 p-2 text-red-400 border border-red-500/30 shrink-0">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <span className="block font-mono text-[0.68rem] font-bold text-cyan uppercase tracking-wider">File PDF Thuyết Minh Kèm Theo:</span>
+                      <span className="block text-xs font-semibold text-paper truncate">{activeDiagram.pdfFileName}</span>
+                    </div>
+                  </div>
+                  <a
+                    href={activeDiagram.pdfSrc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center gap-1.5 rounded bg-cyan px-3 py-1.5 font-mono text-xs font-bold text-blueprint-deep hover:bg-cyan-bright transition-all shadow-sm"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Mở PDF
+                  </a>
+                </div>
+              )}
             </div>
 
           </div>
@@ -337,16 +417,28 @@ export function DiagramShowcaseSection() {
           onClick={() => setLightboxImg(null)}
         >
           <div className="relative max-w-[98vw] max-h-[98vh] overflow-auto bg-white p-4 rounded-md shadow-2xl border border-cyan" onClick={e => e.stopPropagation()}>
-            <div className="mb-3 flex justify-between items-center border-b pb-2">
-              <span className="font-mono text-sm font-bold text-blueprint">{activeDiagram.title}</span>
-              <button
-                onClick={() => setLightboxImg(null)}
-                className="rounded bg-red-600 px-3 py-1 font-mono text-xs font-bold text-white hover:bg-red-700"
-              >
-                [ĐÓNG XEM SƠ ĐỒ ✖]
-              </button>
+            <div className="mb-3 flex justify-between items-center border-b pb-2 gap-4">
+              <span className="font-mono text-sm font-bold text-blueprint truncate">{activeDiagram.title}</span>
+              <div className="flex items-center gap-2 shrink-0">
+                {activeDiagram.pdfSrc && (
+                  <a
+                    href={activeDiagram.pdfSrc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded bg-amber px-3 py-1 font-mono text-xs font-bold text-blueprint-deep hover:bg-amber-bright transition-all"
+                  >
+                    📄 Xem File PDF ({activeDiagram.pdfFileName})
+                  </a>
+                )}
+                <button
+                  onClick={() => setLightboxImg(null)}
+                  className="rounded bg-red-600 px-3 py-1 font-mono text-xs font-bold text-white hover:bg-red-700 transition-all"
+                >
+                  [ĐÓNG ✖]
+                </button>
+              </div>
             </div>
-            <img src={lightboxImg} alt="Sơ đồ phóng to" className="max-w-full max-h-[85vh] object-contain mx-auto" />
+            <img src={lightboxImg} alt="Sơ đồ phóng to" className="max-w-full max-h-[82vh] object-contain mx-auto" />
           </div>
         </div>
       )}
