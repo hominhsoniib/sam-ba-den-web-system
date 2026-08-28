@@ -15,8 +15,34 @@ type DiagramItem = {
 
 const DIAGRAMS: DiagramItem[] = [
   {
+    id: "nexus-analytics-mindmap",
+    category: "1. ANALYTICS — Sơ Đồ Trí Tuệ",
+    title: "Sơ Đồ Trí Tuệ NEXUS Analytics — Phân Tích Tài Chính & Định Giá (Chuẩn CFA & Big4)",
+    subtitle: "Xếp hạng doanh nghiệp A+ đến D & Mô hình Định giá Fair Value chuyên nghiệp",
+    imageSrc: "/diagrams/so_do_nexus_analytics_mindmap.png",
+    highlights: [
+      "Chuẩn hóa dữ liệu BCTC tự động theo Thông tư 200/2014/TT-BTC & Phân tích chuyên sâu Dupont (ROE = Lợi nhuận x Vòng quay TS x Đòn bẩy TC)",
+      "Hệ thống Chấm điểm & Xếp hạng 5 bậc (A+ Xuất sắc, A Tốt, B Khá, C Trung bình, D Rủi ro cao) dựa trên 5 tiêu chí quản trị",
+      "Định giá doanh nghiệp đa phương pháp: DCF (Chiết khấu dòng tiền), P/E, P/B, EV/EBITDA, NAV (Giá trị tài sản ròng) & Insight AI hỗ trợ ra quyết định"
+    ],
+    takeaways: "Dành cho NĐT/KH: Cung cấp bức tranh tài chính chuẩn Big4 & định giá giá trị thực doanh nghiệp cho các thương vụ M&A và gọi vốn."
+  },
+  {
+    id: "dinh-gia-cfa-big4",
+    category: "2. ANALYTICS — Định Giá 9 Khối",
+    title: "Sơ Đồ Cấu Trúc Khối Phân Tích Tình Hình Tài Chính & Định Giá Doanh Nghiệp",
+    subtitle: "Từ Thu thập Dữ liệu → Phân tích Dòng tiền CFO/CFI/CFF → Xếp hạng & Kết quả Giá trị Hợp lý",
+    imageSrc: "/diagrams/so_do_dinh_gia_cfa_big4.png",
+    highlights: [
+      "Phân tích dòng tiền 3 trụ cột: Dòng tiền từ HĐKD (CFO), HĐĐT (CFI), HĐTC (CFF) & Đánh giá chất lượng lợi nhuận CFO/LNST",
+      "Phân tích triển vọng ngành & DN (Mô hình 5 Forces Porter, Lợi thế bền vững Moat, Kịch bản Cơ sở / Tích cực / Tiêu cực)",
+      "Báo cáo & Khuyến nghị tự động bằng AI (Claude & Gemini): Xuất Dashboard, báo cáo Word/PDF/Excel & Khuyến nghị Mua/Giữ/Tránh"
+    ],
+    takeaways: "Dành cho NĐT/KH: Giúp các quỹ đầu tư & chủ doanh nghiệp nhanh chóng xác định điểm mạnh, điểm yếu và khoảng giá trị giao dịch."
+  },
+  {
     id: "khkd-ma-toan-dien",
-    category: "1. KHKD & MA — Sơ Đồ Toàn Diện",
+    category: "3. KHKD & MA — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Lập Kế Hoạch & Phân Tích Quản Trị (MA) Toàn Diện",
     subtitle: "Lập kế hoạch chủ động – Thực thi kỷ luật – Phân tích sâu sắc – Ra quyết định chính xác",
     imageSrc: "/diagrams/so_do_khkd_ma_toan_dien.png",
@@ -29,7 +55,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma-tu-dong",
-    category: "2. KHKD & MA — Tự Động Kết Nối",
+    category: "4. KHKD & MA — Tự Động Kết Nối",
     title: "Sơ Đồ KHKD & Phân Tích MA — Tự Động Kết Nối Dữ Liệu Đầu Vào",
     subtitle: "Hợp nhất 8 nguồn dữ liệu → Xây dựng 3 kịch bản Ngân sách Base / Optimistic / Conservative",
     imageSrc: "/diagrams/so_do_khkd_ma_tu_dong.png",
@@ -42,7 +68,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "nexus-master-flow",
-    category: "3. NEXUS — Master Flow Vận Hành",
+    category: "5. NEXUS — Master Flow Vận Hành",
     title: "Sơ Đồ Vận Hành Master NEXUS Enterprise OS & QuoteFlow OS",
     subtitle: "Từ Chiến lược đến Kết quả – Vận hành toàn diện – Dữ liệu liền mạch – Chu trình PDCA",
     imageSrc: "/diagrams/so_do_nexus_master_flow.png",
@@ -55,7 +81,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "crm-bg-tom-tat",
-    category: "4. CRM & Báo Giá — Tóm Tắt",
+    category: "6. CRM & Báo Giá — Tóm Tắt",
     title: "Sơ Đồ Tóm Tắt Phần Mềm CRM & Quản Lý Báo Giá",
     subtitle: "Quản lý khách hàng – Quy trình báo giá – Phê duyệt – Theo dõi – AI Copilot & AI Sales Coach",
     imageSrc: "/diagrams/so_do_crm_bg_tom_tat.png",
@@ -68,7 +94,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "cskh-van-hanh-bg",
-    category: "5. CRM & Báo Giá — Vận Hành CSKH",
+    category: "7. CRM & Báo Giá — Vận Hành CSKH",
     title: "Sơ Đồ Vận Hành PM CSKH & Quản Lý Báo Giá (QuoteFlow OS)",
     subtitle: "Từ Khách hàng → Cơ hội bán hàng → Báo giá → Chốt sale → Doanh thu → Dashboard",
     imageSrc: "/diagrams/so_do_cskh_van_hanh_bg.png",
@@ -81,7 +107,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dms-to-chuc",
-    category: "6. DMS — Tổ Chức Kênh Bán",
+    category: "8. DMS — Tổ Chức Kênh Bán",
     title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
     subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → Sales Supervisor → NV Sales → Đại lý / NPP",
     imageSrc: "/diagrams/so_do_to_chuc_dms.png",
@@ -94,7 +120,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dms-ban-hang",
-    category: "7. DMS — Luồng Quản Lý Tổng Thể",
+    category: "9. DMS — Luồng Quản Lý Tổng Thể",
     title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
     subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng (POD) – Hiệu quả kinh doanh",
     imageSrc: "/diagrams/so_do_ban_hang_dms.png",
@@ -107,7 +133,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "approve-master",
-    category: "8. APPROVE — Giám Sát Ngân Sách",
+    category: "10. APPROVE — Giám Sát Ngân Sách",
     title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
     subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
     imageSrc: "/diagrams/so_do_approve_master.png",
@@ -120,7 +146,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-toan-dien",
-    category: "9. QLCV — Sơ Đồ Toàn Diện",
+    category: "11. QLCV — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
@@ -133,7 +159,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-phan-ra-kpi",
-    category: "10. QLCV — Phân Rã KPI",
+    category: "12. QLCV — Phân Rã KPI",
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
@@ -146,7 +172,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "ecosystem",
-    category: "11. Tổng Quan Hệ Sinh Thái",
+    category: "13. Tổng Quan Hệ Sinh Thái",
     title: "Sơ Đồ Tổng Quan Hệ Sinh Thái Số Hóa Doanh Nghiệp",
     subtitle: "Liên thông 11 Mô-đun từ Kế hoạch gốc đến CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai.png",
@@ -159,7 +185,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dashboard",
-    category: "12. Dashboard & BI",
+    category: "14. Dashboard & BI",
     title: "Sơ Đồ Dashboard Điều Hành & Phân Tích Báo Cáo Tài Chính",
     subtitle: "Hội tụ chỉ số real-time cho CEO & Ban Lãnh Đạo",
     imageSrc: "/diagrams/so_do_dashboard.png",
@@ -172,7 +198,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "hr-3p",
-    category: "13. Con Người & Lương 3P",
+    category: "15. Con Người & Lương 3P",
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
@@ -187,7 +213,7 @@ const DIAGRAMS: DiagramItem[] = [
 
 export function DiagramShowcaseSection() {
   const ref = useReveal<HTMLDivElement>();
-  const [activeId, setActiveId] = useState<string>("khkd-ma-toan-dien");
+  const [activeId, setActiveId] = useState<string>("nexus-analytics-mindmap");
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const activeDiagram = DIAGRAMS.find(d => d.id === activeId) || DIAGRAMS[0];
@@ -206,13 +232,13 @@ export function DiagramShowcaseSection() {
         <div className="mx-auto mb-14 max-w-[840px] text-center">
           <span className="mb-4 inline-flex items-center gap-2 border border-cyan/40 px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-            Sơ Đồ Lập KHKD & Phân Tích Tài Chính MA + Thư Viện Thuyết Minh KH/NĐT
+            Sơ Đồ NEXUS Analytics & Định Giá Doanh Nghiệp (Chuẩn CFA & Big4)
           </span>
           <h2 className="mb-4 text-3xl font-bold text-paper md:text-4xl">
-            Sơ Đồ Lập Kế Hoạch Kinh Doanh & Phân Tích Quản Trị (MA)
+            Sơ Đồ Phân Tích Tài Chính & Định Giá Doanh Nghiệp
           </h2>
           <p className="text-paper/75 text-base">
-            Trực quan hóa 3 sơ đồ master về Lập KHKD / KHNS / KH Dòng tiền & Phân tích MA (Sơ đồ Toàn diện, Sơ đồ Tự động kết nối 8 nguồn dữ liệu & Sơ đồ NEXUS Master Flow) dành cho Khách hàng & Nhà đầu tư.
+            Trực quan hóa 2 sơ đồ trí tuệ master của NEXUS Analytics (Chuẩn hóa BCTC, Phân tích Dupont, Chỉ số tài chính, Chấm điểm A+ đến D & Mô hình Định giá DCF / Fair Value) dành cho Khách hàng & Nhà đầu tư.
           </p>
         </div>
 
