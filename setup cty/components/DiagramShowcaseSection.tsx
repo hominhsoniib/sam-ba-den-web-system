@@ -15,8 +15,34 @@ type DiagramItem = {
 
 const DIAGRAMS: DiagramItem[] = [
   {
+    id: "he-sinh-thai-1",
+    category: "1. HỆ SINH THÁI — Master 11 Mô-đun",
+    title: "Sơ Đồ Master Hệ Sinh Thái 11 Mô-đun Quản Trị Doanh Nghiệp Số Hóa",
+    subtitle: "Liên thông 11 phân hệ nghiệp vụ từ Chiến lược KHKD đến CEO Dashboard",
+    imageSrc: "/diagrams/tom_tat_he_sinh_thai_1.png",
+    highlights: [
+      "Kiến trúc 4 lớp thống nhất: Lớp Kế hoạch - Tài chính (Mod 01-06) → Lớp Vận hành QLCV Core Hub (Mod 07) → Lớp Kinh doanh & Con người (Mod 08-11) → Lớp Nền tảng Dữ liệu Dùng chung",
+      "Lấy PM QLCV (Mod 07) làm 'Bộ não điều hành trung tâm' kết nối dữ liệu KHKD, MA, Ngân sách, CRM, DMS, Lương 3P và CEO Dashboard",
+      "Nền tảng Data Warehouse/Lake tập trung, tích hợp AI Copilot & 4 Trụ cột Bảo mật (SSO 2FA, Role-based ACL, Encrypted Audit Log)"
+    ],
+    takeaways: "Dành cho NĐT/KH: Chứng minh giải pháp quản trị số hóa 100% khép kín, loại bỏ hoàn toàn số liệu rời rạc giữa các phòng ban."
+  },
+  {
+    id: "he-sinh-thai-2",
+    category: "2. HỆ SINH THÁI — Luồng Vận Hành",
+    title: "Sơ Đồ Tổng Quan Luồng Vận Hành Liên Thông Hệ Sinh Thái Số Hóa",
+    subtitle: "Điểm gốc từ Kế hoạch Kinh doanh, Điểm hội tụ tại CEO Dashboard",
+    imageSrc: "/diagrams/tom_tat_he_sinh_thai_2.png",
+    highlights: [
+      "Luồng dữ liệu liên thông Single Source of Truth: Một thông tin khách hàng hay đơn hàng bước vào ở CRM/DMS sẽ đồng hành xuyên suốt Báo giá → Đơn hàng → Xuất kho → Giao hàng → Báo cáo BI",
+      "Chu trình cải tiến liên tục PDCA (Plan → Do → Check → Act) tự động đối chiếu số liệu Kế hoạch vs Thực tế (KH vs TH) để cảnh báo rủi ro thâm hụt tài chính",
+      "Tối ưu hóa nguồn lực, tăng năng suất lao động toàn công ty và thúc đẩy tăng trưởng doanh thu bền vững"
+    ],
+    takeaways: "Dành cho NĐT/KH: Giúp Ban lãnh đạo đưa ra quyết định điều hành chính xác 100% dựa trên dữ liệu thật thay vì báo cáo cảm tính."
+  },
+  {
     id: "nexus-hr-toan-dien",
-    category: "1. HR — Quản Trị Nhân Sự All-in-One",
+    category: "3. HR — Quản Trị Nhân Sự All-in-One",
     title: "Sơ Đồ Master NEXUS-HR — Hệ Thống Quản Trị Nhân Sự Toàn Diện",
     subtitle: "Quản lý vòng đời nhân sự 11 khối từ Tuyển dụng → Chấm công → Tính lương C&B → Đánh giá & Đào tạo",
     imageSrc: "/diagrams/so_do_nexus_hr_toan_dien.png",
@@ -29,7 +55,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "hr-3p",
-    category: "2. HR — Lương 3P & Đòn Bẩy",
+    category: "4. HR — Lương 3P & Đòn Bẩy",
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
@@ -42,7 +68,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "nexus-analytics-mindmap",
-    category: "3. ANALYTICS — Sơ Đồ Trí Tuệ",
+    category: "5. ANALYTICS — Sơ Đồ Trí Tuệ",
     title: "Sơ Đồ Trí Tuệ NEXUS Analytics — Phân Tích Tài Chính & Định Giá (Chuẩn CFA & Big4)",
     subtitle: "Xếp hạng doanh nghiệp A+ đến D & Mô hình Định giá Fair Value chuyên nghiệp",
     imageSrc: "/diagrams/so_do_nexus_analytics_mindmap.png",
@@ -55,7 +81,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dinh-gia-cfa-big4",
-    category: "4. ANALYTICS — Định Giá 9 Khối",
+    category: "6. ANALYTICS — Định Giá 9 Khối",
     title: "Sơ Đồ Cấu Trúc Khối Phân Tích Tình Hình Tài Chính & Định Giá Doanh Nghiệp",
     subtitle: "Từ Thu thập Dữ liệu → Phân tích Dòng tiền CFO/CFI/CFF → Xếp hạng & Kết quả Giá trị Hợp lý",
     imageSrc: "/diagrams/so_do_dinh_gia_cfa_big4.png",
@@ -68,7 +94,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma-toan-dien",
-    category: "5. KHKD & MA — Sơ Đồ Toàn Diện",
+    category: "7. KHKD & MA — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Lập Kế Hoạch & Phân Tích Quản Trị (MA) Toàn Diện",
     subtitle: "Lập kế hoạch chủ động – Thực thi kỷ luật – Phân tích sâu sắc – Ra quyết định chính xác",
     imageSrc: "/diagrams/so_do_khkd_ma_toan_dien.png",
@@ -81,7 +107,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma-tu-dong",
-    category: "6. KHKD & MA — Tự Động Kết Nối",
+    category: "8. KHKD & MA — Tự Động Kết Nối",
     title: "Sơ Đồ KHKD & Phân Tích MA — Tự Động Kết Nối Dữ Liệu Đầu Vào",
     subtitle: "Hợp nhất 8 nguồn dữ liệu → Xây dựng 3 kịch bản Ngân sách Base / Optimistic / Conservative",
     imageSrc: "/diagrams/so_do_khkd_ma_tu_dong.png",
@@ -94,7 +120,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "nexus-master-flow",
-    category: "7. NEXUS — Master Flow Vận Hành",
+    category: "9. NEXUS — Master Flow Vận Hành",
     title: "Sơ Đồ Vận Hành Master NEXUS Enterprise OS & QuoteFlow OS",
     subtitle: "Từ Chiến lược đến Kết quả – Vận hành toàn diện – Dữ liệu liền mạch – Chu trình PDCA",
     imageSrc: "/diagrams/so_do_nexus_master_flow.png",
@@ -107,7 +133,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "crm-bg-tom-tat",
-    category: "8. CRM & Báo Giá — Tóm Tắt",
+    category: "10. CRM & Báo Giá — Tóm Tắt",
     title: "Sơ Đồ Tóm Tắt Phần Mềm CRM & Quản Lý Báo Giá",
     subtitle: "Quản lý khách hàng – Quy trình báo giá – Phê duyệt – Theo dõi – AI Copilot & AI Sales Coach",
     imageSrc: "/diagrams/so_do_crm_bg_tom_tat.png",
@@ -120,7 +146,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "cskh-van-hanh-bg",
-    category: "9. CRM & Báo Giá — Vận Hành CSKH",
+    category: "11. CRM & Báo Giá — Vận Hành CSKH",
     title: "Sơ Đồ Vận Hành PM CSKH & Quản Lý Báo Giá (QuoteFlow OS)",
     subtitle: "Từ Khách hàng → Cơ hội bán hàng → Báo giá → Chốt sale → Doanh thu → Dashboard",
     imageSrc: "/diagrams/so_do_cskh_van_hanh_bg.png",
@@ -133,7 +159,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dms-to-chuc",
-    category: "10. DMS — Tổ Chức Kênh Bán",
+    category: "12. DMS — Tổ Chức Kênh Bán",
     title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
     subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → Sales Supervisor → NV Sales → Đại lý / NPP",
     imageSrc: "/diagrams/so_do_to_chuc_dms.png",
@@ -146,7 +172,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dms-ban-hang",
-    category: "11. DMS — Luồng Quản Lý Tổng Thể",
+    category: "13. DMS — Luồng Quản Lý Tổng Thể",
     title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
     subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng (POD) – Hiệu quả kinh doanh",
     imageSrc: "/diagrams/so_do_ban_hang_dms.png",
@@ -159,7 +185,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "approve-master",
-    category: "12. APPROVE — Giám Sát Ngân Sách",
+    category: "14. APPROVE — Giám Sát Ngân Sách",
     title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
     subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
     imageSrc: "/diagrams/so_do_approve_master.png",
@@ -172,7 +198,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-toan-dien",
-    category: "13. QLCV — Sơ Đồ Toàn Diện",
+    category: "15. QLCV — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
@@ -185,7 +211,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-phan-ra-kpi",
-    category: "14. QLCV — Phân Rã KPI",
+    category: "16. QLCV — Phân Rã KPI",
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
@@ -195,38 +221,12 @@ const DIAGRAMS: DiagramItem[] = [
       "Quy tắc Escalate 3 Mức Cảnh Báo: Mức 1 (<90%), Mức 2 (<70%), Mức 3 (Quá hạn -> Escalate trực tiếp lên GĐ & CEO)"
     ],
     takeaways: "Dành cho NĐT/KH: Đảm bảo mục tiêu chiến lược của CEO được thực thi chuẩn xác đến từng cá nhân mà không bị gãy đoạn."
-  },
-  {
-    id: "ecosystem",
-    category: "15. Tổng Quan Hệ Sinh Thái",
-    title: "Sơ Đồ Tổng Quan Hệ Sinh Thái Số Hóa Doanh Nghiệp",
-    subtitle: "Liên thông 11 Mô-đun từ Kế hoạch gốc đến CEO Dashboard",
-    imageSrc: "/diagrams/tom_tat_he_sinh_thai.png",
-    highlights: [
-      "Điểm gốc từ Chiến lược & Kế hoạch, điểm hội tụ tại CEO Dashboard",
-      "Nền tảng Data Lake, AI Copilot & Phân quyền SSO bảo mật 4 lớp",
-      "PM QLCV đóng vai trò 'Bộ não điều hành' liên kết tất cả mô-đun"
-    ],
-    takeaways: "Dành cho NĐT/KH: Chứng minh tính nhất quán dữ liệu, loại bỏ hoàn toàn số liệu rời rạc giữa các phòng ban."
-  },
-  {
-    id: "dashboard",
-    category: "16. Dashboard & BI",
-    title: "Sơ Đồ Dashboard Điều Hành & Phân Tích Báo Cáo Tài Chính",
-    subtitle: "Hội tụ chỉ số real-time cho CEO & Ban Lãnh Đạo",
-    imageSrc: "/diagrams/so_do_dashboard.png",
-    highlights: [
-      "Tổng hợp số liệu P&L Quản trị, Dòng tiền thu-chi, Doanh số & KPI",
-      "Radar cảnh báo rủi ro thâm hụt tài chính & lệch kế hoạch sớm",
-      "Hỗ trợ ra quyết định điều hành nhanh chóng và chính xác 100%"
-    ],
-    takeaways: "Dành cho NĐT/KH: Giúp CEO kiểm soát toàn bộ doanh nghiệp trong 1 màn hình đơn giản."
   }
 ];
 
 export function DiagramShowcaseSection() {
   const ref = useReveal<HTMLDivElement>();
-  const [activeId, setActiveId] = useState<string>("nexus-hr-toan-dien");
+  const [activeId, setActiveId] = useState<string>("he-sinh-thai-1");
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const activeDiagram = DIAGRAMS.find(d => d.id === activeId) || DIAGRAMS[0];
@@ -245,13 +245,13 @@ export function DiagramShowcaseSection() {
         <div className="mx-auto mb-14 max-w-[840px] text-center">
           <span className="mb-4 inline-flex items-center gap-2 border border-cyan/40 px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-            Sơ Đồ NEXUS-HR Quản Trị Nhân Sự All-in-One + Thư Viện Thuyết Minh KH/NĐT
+            Hệ Sinh Thái 11 Mô-Đun Quản Trị Doanh Nghiệp Số Hóa + Thư Viện Thuyết Minh KH/NĐT
           </span>
           <h2 className="mb-4 text-3xl font-bold text-paper md:text-4xl">
-            Sơ Đồ Hệ Thống Quản Trị Nhân Sự (NEXUS-HR)
+            Sơ Đồ Master Hệ Sinh Thái Quản Trị Doanh Nghiệp Số Hóa
           </h2>
           <p className="text-paper/75 text-base">
-            Trực quan hóa sơ đồ Master NEXUS-HR All-in-One (Tuyển dụng, Hồ sơ, Chấm công GPS/Face ID, Tính lương C&B, Lương 3P, Đánh giá KPI/Competency & Employee Portal ESS) dành cho Khách hàng & Nhà đầu tư.
+            Trực quan hóa 2 sơ đồ Master Hệ Sinh Thái 11 Mô-đun (Kiến trúc 4 Lớp & Luồng Vận Hành Liên Thông từ Kế Hoạch Kinh Doanh đến CEO Dashboard) dành cho Khách hàng & Nhà đầu tư.
           </p>
         </div>
 
