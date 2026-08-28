@@ -15,8 +15,34 @@ type DiagramItem = {
 
 const DIAGRAMS: DiagramItem[] = [
   {
+    id: "crm-bg-tom-tat",
+    category: "1. CRM & Báo Giá — Tóm Tắt",
+    title: "Sơ Đồ Tóm Tắt Phần Mềm CRM & Quản Lý Báo Giá",
+    subtitle: "Quản lý khách hàng – Quy trình báo giá – Phê duyệt – Theo dõi – AI Copilot & AI Sales Coach",
+    imageSrc: "/diagrams/so_do_crm_bg_tom_tat.png",
+    highlights: [
+      "Quy trình CRM 5 bước: Tiếp nhận KH → Quản lý thông tin → Quản lý cơ hội → Chăm sóc & tương tác → Chuyển sang báo giá",
+      "Quy trình Báo giá 5 bước: Tạo báo giá → Quản lý phiên bản → Phê duyệt theo cấp → Gửi & Theo dõi → Chuyển đổi Hợp đồng",
+      "Tích hợp AI Copilot (Dự báo doanh số) & AI Sales Coach (Mô phỏng tình huống & Đào tạo kỹ năng chốt đơn, xử lý phản đối)"
+    ],
+    takeaways: "Dành cho NĐT/KH: Chuẩn hóa quy trình báo giá, rút ngắn 70% thời gian tạo báo giá và đào tạo đội ngũ Sales tự động bằng AI."
+  },
+  {
+    id: "cskh-van-hanh-bg",
+    category: "2. CRM & Báo Giá — Vận Hành CSKH",
+    title: "Sơ Đồ Vận Hành PM CSKH & Quản Lý Báo Giá (QuoteFlow OS)",
+    subtitle: "Từ Khách hàng → Cơ hội bán hàng → Báo giá → Chốt sale → Doanh thu → Dashboard",
+    imageSrc: "/diagrams/so_do_cskh_van_hanh_bg.png",
+    highlights: [
+      "Pipeline CSKH 7 bước: Lead mới → Nhu cầu → Đã liên hệ → Giải pháp tư vấn → Báo giá Proposal → Đàm phán → Thắng (WON) / Thua (LOST)",
+      "Cơ chế Phê duyệt Báo giá tự động (QuoteFlow OS): Kiểm tra chiết khấu trong hạn mức (Duyệt tự động) vs Vượt hạn mức (Yêu cầu GĐ/CEO/CFO duyệt)",
+      "Đơn hàng & Hợp đồng (PO, Tồn kho, Ký điện tử) → Thanh toán & Doanh thu (Lập lịch, Thu tiền, Ghi nhận) → Vòng lặp cải tiến liên tục"
+    ],
+    takeaways: "Dành cho NĐT/KH: Minh bạch mọi giao dịch, loại bỏ duyệt ngầm sai chiết khấu và theo dõi tỷ lệ chốt Win-rate real-time."
+  },
+  {
     id: "dms-to-chuc",
-    category: "1. DMS — Tổ Chức Kênh Bán",
+    category: "3. DMS — Tổ Chức Kênh Bán",
     title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
     subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → Sales Supervisor → NV Sales → Đại lý / NPP",
     imageSrc: "/diagrams/so_do_to_chuc_dms.png",
@@ -29,7 +55,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dms-ban-hang",
-    category: "2. DMS — Luồng Quản Lý Tổng Thể",
+    category: "4. DMS — Luồng Quản Lý Tổng Thể",
     title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
     subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng (POD) – Hiệu quả kinh doanh",
     imageSrc: "/diagrams/so_do_ban_hang_dms.png",
@@ -42,7 +68,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "approve-master",
-    category: "3. APPROVE — Giám Sát Ngân Sách",
+    category: "5. APPROVE — Giám Sát Ngân Sách",
     title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
     subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
     imageSrc: "/diagrams/so_do_approve_master.png",
@@ -55,7 +81,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-toan-dien",
-    category: "4. QLCV — Sơ Đồ Toàn Diện",
+    category: "6. QLCV — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
@@ -68,7 +94,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-phan-ra-kpi",
-    category: "5. QLCV — Phân Rã KPI",
+    category: "7. QLCV — Phân Rã KPI",
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
@@ -81,7 +107,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "ecosystem",
-    category: "6. Tổng Quan Hệ Sinh Thái",
+    category: "8. Tổng Quan Hệ Sinh Thái",
     title: "Sơ Đồ Tổng Quan Hệ Sinh Thái Số Hóa Doanh Nghiệp",
     subtitle: "Liên thông 11 Mô-đun từ Kế hoạch gốc đến CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai.png",
@@ -94,7 +120,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dashboard",
-    category: "7. Dashboard & BI",
+    category: "9. Dashboard & BI",
     title: "Sơ Đồ Dashboard Điều Hành & Phân Tích Báo Cáo Tài Chính",
     subtitle: "Hội tụ chỉ số real-time cho CEO & Ban Lãnh Đạo",
     imageSrc: "/diagrams/so_do_dashboard.png",
@@ -107,7 +133,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma",
-    category: "8. Tài Chính & Kế Hoạch",
+    category: "10. Tài Chính & Kế Hoạch",
     title: "Sơ Đồ Lập Kế Hoạch Kinh Doanh & Quản Trị Tài Chính MA",
     subtitle: "Chu trình Plan – Analyze – Control chuẩn tài chính hiện đại",
     imageSrc: "/diagrams/so_do_khkd.png",
@@ -119,21 +145,8 @@ const DIAGRAMS: DiagramItem[] = [
     takeaways: "Dành cho NĐT/KH: Đảm bảo dòng tiền luôn lành mạnh và chi phí không bị vượt hạn mức."
   },
   {
-    id: "crm-dms",
-    category: "9. CRM & Báo Giá",
-    title: "Sơ Đồ CRM Bán Hàng & Quản Lý Báo Giá",
-    subtitle: "Tối ưu chuỗi bán hàng từ Khách hàng đến Hợp đồng",
-    imageSrc: "/diagrams/so_do_crm_bg.png",
-    highlights: [
-      "Quản lý Pipeline cơ hội, báo giá - phê duyệt tự động & hợp đồng",
-      "Tự động hóa chăm sóc khách hàng & phân tích tỷ lệ chốt Win-rate",
-      "Tăng tỷ lệ chốt sale & mở rộng quy mô khách hàng bền vững"
-    ],
-    takeaways: "Dành cho NĐT/KH: Tăng trưởng doanh số bán hàng bền vững trên toàn bộ dữ liệu CRM."
-  },
-  {
     id: "hr-3p",
-    category: "10. Con Người & Lương 3P",
+    category: "11. Con Người & Lương 3P",
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
@@ -148,7 +161,7 @@ const DIAGRAMS: DiagramItem[] = [
 
 export function DiagramShowcaseSection() {
   const ref = useReveal<HTMLDivElement>();
-  const [activeId, setActiveId] = useState<string>("dms-to-chuc");
+  const [activeId, setActiveId] = useState<string>("crm-bg-tom-tat");
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const activeDiagram = DIAGRAMS.find(d => d.id === activeId) || DIAGRAMS[0];
@@ -167,13 +180,13 @@ export function DiagramShowcaseSection() {
         <div className="mx-auto mb-14 max-w-[840px] text-center">
           <span className="mb-4 inline-flex items-center gap-2 border border-cyan/40 px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-            2 Sơ Đồ Quản Lý Kênh Phân Phối DMS & Thư Viện Thuyết Minh KH/NĐT
+            2 Sơ Đồ CSKH & Báo Giá (CRM & QuoteFlow OS) + Thư Viện Thuyết Minh KH/NĐT
           </span>
           <h2 className="mb-4 text-3xl font-bold text-paper md:text-4xl">
-            Sơ Đồ Quản Lý Kênh Bán Hàng & Phân Phối DMS
+            Sơ Đồ Quản Lý Khách Hàng (CRM) & Quy Trình Báo Giá Auto
           </h2>
           <p className="text-paper/75 text-base">
-            Trực quan hóa 2 sơ đồ cốt lõi về Hệ thống Phân phối DMS (Sơ đồ Tổ chức Kênh bán 5 tầng & Luồng Quản lý Hàng hóa/Giao hàng 7 bước) cùng toàn bộ thư viện quy trình dành cho Khách hàng & Nhà đầu tư.
+            Trực quan hóa 2 sơ đồ cốt lõi về Quản lý Chăm sóc Khách hàng & Báo giá (Tóm tắt Quy trình 5 bước + Vận hành Pipeline 7 bước QuoteFlow OS kèm AI Sales Coach) cùng toàn bộ thư viện quy trình dành cho Khách hàng & Nhà đầu tư.
           </p>
         </div>
 
