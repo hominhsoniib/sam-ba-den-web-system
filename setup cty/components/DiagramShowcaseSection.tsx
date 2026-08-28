@@ -15,8 +15,34 @@ type DiagramItem = {
 
 const DIAGRAMS: DiagramItem[] = [
   {
+    id: "dms-to-chuc",
+    category: "1. DMS — Tổ Chức Kênh Bán",
+    title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
+    subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → Sales Supervisor → NV Sales → Đại lý / NPP",
+    imageSrc: "/diagrams/so_do_to_chuc_dms.png",
+    highlights: [
+      "Phân cấp 5 tầng rõ ràng: GĐKD (Chiến lược) → RSM (Quản lý vùng) → ASM (Khu vực) → SS (Giám sát) → Sale (Đi tuyến) → Đại lý/NPP",
+      "Trung tâm Kiểm soát Dữ liệu: Tồn kho (Kho tổng, NPP/ĐL), Đơn hàng In/Out, Check-in GPS điểm bán, Báo cáo KPI & Chính sách giá/chiết khấu",
+      "Minh bạch dữ liệu toàn kênh: Giám sát thị trường real-time, theo dõi hiệu suất từng cấp & từng tuyến bán hàng"
+    ],
+    takeaways: "Dành cho NĐT/KH: Giúp doanh nghiệp mở rộng quy mô hàng nghìn đại lý mà vẫn kiểm soát chặt chẽ đội ngũ và dòng hàng."
+  },
+  {
+    id: "dms-ban-hang",
+    category: "2. DMS — Luồng Quản Lý Tổng Thể",
+    title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
+    subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng (POD) – Hiệu quả kinh doanh",
+    imageSrc: "/diagrams/so_do_ban_hang_dms.png",
+    highlights: [
+      "Luồng 7 bước chuẩn hóa: Tạo nhu cầu → Duyệt đơn → Xuất hàng → Giao hàng → Nghiệm thu → Thanh toán → Báo cáo BI",
+      "Quản lý tồn kho real-time 3 cấp (Kho tổng → Kho NPP/Đại lý → Điểm bán lẻ) kèm Cảnh báo hàng tồn thấp/hết hàng/chậm luân chuyển",
+      "Giám sát NV Sales thị trường: Check-in GPS vị trí & thời gian, chụp ảnh thực địa trưng bày, báo cáo hoạt động & đánh giá hiệu suất"
+    ],
+    takeaways: "Dành cho NĐT/KH: Loại bỏ hoàn toàn rủi ro thất thoát hàng hóa, sai lệch công nợ hoặc NV Sales ảo báo cáo."
+  },
+  {
     id: "approve-master",
-    category: "1. APPROVE — Giám Sát Ngân Sách",
+    category: "3. APPROVE — Giám Sát Ngân Sách",
     title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
     subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
     imageSrc: "/diagrams/so_do_approve_master.png",
@@ -29,7 +55,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-toan-dien",
-    category: "2. QLCV — Sơ Đồ Toàn Diện",
+    category: "4. QLCV — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
@@ -42,7 +68,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-phan-ra-kpi",
-    category: "3. QLCV — Phân Rã KPI",
+    category: "5. QLCV — Phân Rã KPI",
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
@@ -55,7 +81,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "ecosystem",
-    category: "4. Tổng Quan Hệ Sinh Thái",
+    category: "6. Tổng Quan Hệ Sinh Thái",
     title: "Sơ Đồ Tổng Quan Hệ Sinh Thái Số Hóa Doanh Nghiệp",
     subtitle: "Liên thông 11 Mô-đun từ Kế hoạch gốc đến CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai.png",
@@ -68,7 +94,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dashboard",
-    category: "5. Dashboard & BI",
+    category: "7. Dashboard & BI",
     title: "Sơ Đồ Dashboard Điều Hành & Phân Tích Báo Cáo Tài Chính",
     subtitle: "Hội tụ chỉ số real-time cho CEO & Ban Lãnh Đạo",
     imageSrc: "/diagrams/so_do_dashboard.png",
@@ -81,7 +107,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma",
-    category: "6. Tài Chính & Kế Hoạch",
+    category: "8. Tài Chính & Kế Hoạch",
     title: "Sơ Đồ Lập Kế Hoạch Kinh Doanh & Quản Trị Tài Chính MA",
     subtitle: "Chu trình Plan – Analyze – Control chuẩn tài chính hiện đại",
     imageSrc: "/diagrams/so_do_khkd.png",
@@ -94,20 +120,20 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "crm-dms",
-    category: "7. CRM & DMS Phân Phối",
-    title: "Sơ Đồ CRM Bán Hàng & DMS Điều Hành Kênh Phân Phối",
-    subtitle: "Tối ưu chuỗi bán hàng từ Khách hàng đến Đại lý",
+    category: "9. CRM & Báo Giá",
+    title: "Sơ Đồ CRM Bán Hàng & Quản Lý Báo Giá",
+    subtitle: "Tối ưu chuỗi bán hàng từ Khách hàng đến Hợp đồng",
     imageSrc: "/diagrams/so_do_crm_bg.png",
     highlights: [
       "Quản lý Pipeline cơ hội, báo giá - phê duyệt tự động & hợp đồng",
-      "Quản lý mạng lưới Nhà phân phối, tuyến bán hàng Sales Route & công nợ",
-      "Tăng tỷ lệ chốt sale & mở rộng quy mô thị trường nhanh chóng"
+      "Tự động hóa chăm sóc khách hàng & phân tích tỷ lệ chốt Win-rate",
+      "Tăng tỷ lệ chốt sale & mở rộng quy mô khách hàng bền vững"
     ],
-    takeaways: "Dành cho NĐT/KH: Tăng trưởng doanh số bán hàng bền vững trên toàn bộ hệ thống đại lý."
+    takeaways: "Dành cho NĐT/KH: Tăng trưởng doanh số bán hàng bền vững trên toàn bộ dữ liệu CRM."
   },
   {
     id: "hr-3p",
-    category: "8. Con Người & Lương 3P",
+    category: "10. Con Người & Lương 3P",
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
@@ -122,7 +148,7 @@ const DIAGRAMS: DiagramItem[] = [
 
 export function DiagramShowcaseSection() {
   const ref = useReveal<HTMLDivElement>();
-  const [activeId, setActiveId] = useState<string>("approve-master");
+  const [activeId, setActiveId] = useState<string>("dms-to-chuc");
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const activeDiagram = DIAGRAMS.find(d => d.id === activeId) || DIAGRAMS[0];
@@ -141,13 +167,13 @@ export function DiagramShowcaseSection() {
         <div className="mx-auto mb-14 max-w-[840px] text-center">
           <span className="mb-4 inline-flex items-center gap-2 border border-cyan/40 px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-            Thư Viện Sơ Đồ Quy Trình Thuyết Minh KH & NĐT
+            2 Sơ Đồ Quản Lý Kênh Phân Phối DMS & Thư Viện Thuyết Minh KH/NĐT
           </span>
           <h2 className="mb-4 text-3xl font-bold text-paper md:text-4xl">
-            Sơ Đồ Quy Trình Quản Trị & Kiểm Soát Ngân Sách
+            Sơ Đồ Quản Lý Kênh Bán Hàng & Phân Phối DMS
           </h2>
           <p className="text-paper/75 text-base">
-            Tổng hợp đầy đủ sơ đồ Master APPROVE (Quản lý đề xuất, Phê duyệt & Kiểm soát mua hàng/thanh toán), Sơ đồ Bộ Não QLCV & Kiến trúc hệ thống dành cho Khách hàng & Nhà đầu tư.
+            Trực quan hóa 2 sơ đồ cốt lõi về Hệ thống Phân phối DMS (Sơ đồ Tổ chức Kênh bán 5 tầng & Luồng Quản lý Hàng hóa/Giao hàng 7 bước) cùng toàn bộ thư viện quy trình dành cho Khách hàng & Nhà đầu tư.
           </p>
         </div>
 
