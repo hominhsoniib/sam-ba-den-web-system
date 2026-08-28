@@ -15,8 +15,21 @@ type DiagramItem = {
 
 const DIAGRAMS: DiagramItem[] = [
   {
+    id: "approve-master",
+    category: "1. APPROVE — Giám Sát Ngân Sách",
+    title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
+    subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
+    imageSrc: "/diagrams/so_do_approve_master.png",
+    highlights: [
+      "Quản lý 6 loại đề xuất (Mua hàng, Chi phí, Thanh toán, Đầu tư, Tạm ứng...) & Quy trình 6 trạng thái từ Draft đến Phê duyệt/Hoàn tất",
+      "Giám sát ngân sách real-time 4 chỉ số (Được cấp → Cam kết → Đã dùng → Khả dụng) & 3 Cấp cảnh báo (An toàn <90%, Cảnh báo 90-100%, Vượt >100%)",
+      "Kiểm soát đối chiếu 3 chứng từ (PO Đơn mua - GR Nhận hàng - Invoice Hóa đơn), loại bỏ hoàn toàn thanh toán trùng, khống hoặc sai hạn mức"
+    ],
+    takeaways: "Dành cho NĐT/KH: Bảo đảm 100% dòng tiền chi ra đều đúng mục tiêu kế hoạch, minh bạch, giảm tối đa thất thoát & chi phí."
+  },
+  {
     id: "qlcv-toan-dien",
-    category: "1. QLCV — Sơ Đồ Toàn Diện",
+    category: "2. QLCV — Sơ Đồ Toàn Diện",
     title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
     subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
     imageSrc: "/diagrams/so_do_qlcv_toan_dien.png",
@@ -29,7 +42,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "qlcv-phan-ra-kpi",
-    category: "2. QLCV — Phân Rã KPI",
+    category: "3. QLCV — Phân Rã KPI",
     title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
     subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
     imageSrc: "/diagrams/so_do_qlcv_phan_ra_kpi.png",
@@ -42,7 +55,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "ecosystem",
-    category: "3. Tổng Quan Hệ Sinh Thái",
+    category: "4. Tổng Quan Hệ Sinh Thái",
     title: "Sơ Đồ Tổng Quan Hệ Sinh Thái Số Hóa Doanh Nghiệp",
     subtitle: "Liên thông 11 Mô-đun từ Kế hoạch gốc đến CEO Dashboard",
     imageSrc: "/diagrams/tom_tat_he_sinh_thai.png",
@@ -55,7 +68,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "dashboard",
-    category: "4. Dashboard & BI",
+    category: "5. Dashboard & BI",
     title: "Sơ Đồ Dashboard Điều Hành & Phân Tích Báo Cáo Tài Chính",
     subtitle: "Hội tụ chỉ số real-time cho CEO & Ban Lãnh Đạo",
     imageSrc: "/diagrams/so_do_dashboard.png",
@@ -68,7 +81,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "khkd-ma",
-    category: "5. Tài Chính & Kế Hoạch",
+    category: "6. Tài Chính & Kế Hoạch",
     title: "Sơ Đồ Lập Kế Hoạch Kinh Doanh & Quản Trị Tài Chính MA",
     subtitle: "Chu trình Plan – Analyze – Control chuẩn tài chính hiện đại",
     imageSrc: "/diagrams/so_do_khkd.png",
@@ -81,7 +94,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "crm-dms",
-    category: "6. CRM & DMS Phân Phối",
+    category: "7. CRM & DMS Phân Phối",
     title: "Sơ Đồ CRM Bán Hàng & DMS Điều Hành Kênh Phân Phối",
     subtitle: "Tối ưu chuỗi bán hàng từ Khách hàng đến Đại lý",
     imageSrc: "/diagrams/so_do_crm_bg.png",
@@ -94,7 +107,7 @@ const DIAGRAMS: DiagramItem[] = [
   },
   {
     id: "hr-3p",
-    category: "7. Con Người & Lương 3P",
+    category: "8. Con Người & Lương 3P",
     title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
     subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
     imageSrc: "/diagrams/so_do_3p.png",
@@ -109,7 +122,7 @@ const DIAGRAMS: DiagramItem[] = [
 
 export function DiagramShowcaseSection() {
   const ref = useReveal<HTMLDivElement>();
-  const [activeId, setActiveId] = useState<string>("qlcv-toan-dien");
+  const [activeId, setActiveId] = useState<string>("approve-master");
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const activeDiagram = DIAGRAMS.find(d => d.id === activeId) || DIAGRAMS[0];
@@ -128,13 +141,13 @@ export function DiagramShowcaseSection() {
         <div className="mx-auto mb-14 max-w-[840px] text-center">
           <span className="mb-4 inline-flex items-center gap-2 border border-cyan/40 px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-            2 Sơ Đồ Bộ Não QLCV & Thư Viện Thuyết Minh KH/NĐT
+            Thư Viện Sơ Đồ Quy Trình Thuyết Minh KH & NĐT
           </span>
           <h2 className="mb-4 text-3xl font-bold text-paper md:text-4xl">
-            Sơ Đồ QLCV — Bộ Não Điều Hành Doanh Nghiệp
+            Sơ Đồ Quy Trình Quản Trị & Kiểm Soát Ngân Sách
           </h2>
           <p className="text-paper/75 text-base">
-            Mô hình hóa chi tiết 2 sơ đồ cốt lõi của Bộ Não QLCV (Sơ đồ Toàn diện & Quy trình Phân rã KPI tự động) cùng toàn bộ thư viện sơ đồ kiến trúc dành cho Khách hàng & Nhà đầu tư.
+            Tổng hợp đầy đủ sơ đồ Master APPROVE (Quản lý đề xuất, Phê duyệt & Kiểm soát mua hàng/thanh toán), Sơ đồ Bộ Não QLCV & Kiến trúc hệ thống dành cho Khách hàng & Nhà đầu tư.
           </p>
         </div>
 
@@ -170,8 +183,8 @@ export function DiagramShowcaseSection() {
               onClick={() => setLightboxImg(activeDiagram.imageSrc)}
               className="mt-3 inline-flex items-center gap-2 rounded bg-blueprint border border-cyan px-4 py-2 font-mono text-xs font-bold text-cyan transition-all hover:bg-cyan hover:text-blueprint-deep"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-              Click để mở Sơ đồ Siêu Nét (Full HD Resolution)
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              Click để mở Sơ đồ Phóng To Siêu Nét (Full Resolution)
             </button>
           </div>
 
@@ -185,7 +198,7 @@ export function DiagramShowcaseSection() {
               <p className="mb-6 font-mono text-xs text-paper/60 leading-normal">{activeDiagram.subtitle}</p>
 
               <h4 className="mb-3 font-mono text-xs text-paper/90 uppercase font-bold tracking-wide">
-                Điểm Nổi Bật Vận Hành & Thực Thi:
+                Điểm Nổi Bật Vận Hành & Kiểm Soát:
               </h4>
               <ul className="mb-6 space-y-3">
                 {activeDiagram.highlights.map((h, i) => (
