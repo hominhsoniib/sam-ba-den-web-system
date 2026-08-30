@@ -1,6 +1,13 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        { "type": "host", "value": "369-daotao.vercel.app" }
+      ],
+      "destination": "/Web-369-dao-tao/index.html"
+    },
     { "source": "/", "destination": "/EVA-SETUP-CTY/index.html" },
     { "source": "/eva-website", "destination": "/EVA-SETUP-CTY/eva-website.html" },
     { "source": "/eva-website.html", "destination": "/EVA-SETUP-CTY/eva-website.html" },
