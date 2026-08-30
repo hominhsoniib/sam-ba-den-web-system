@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTX Gia đình 369 — Cổng thành viên & Đào tạo Pro</title>
+<meta name="description" content="Website HTX Gia đình 369 — Nơi giá trị trao đi, phát triển bền vững. Đào tạo thành viên, PM Hộ kinh doanh, Hồ sơ Member 360° & Hệ thống hỗ trợ.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF8F1;
+    --paper-deep: #F3EEE1;
+    --panel: #FFFFFF;
+    --ink: #182619;
+    --muted: #5B6858;
+    --muted-2: #8A9488;
+    --line: #E4DDC8;
+    --gold: #C99A2E;
+    --gold-deep: #A87D1E;
+    --green: #2F6B3A;
+    --green-deep: #20492A;
+    --blue: #1F5C99;
+    --blue-deep: #164572;
+    --gold-tint: #FBF1DA;
+    --green-tint: #EAF2E9;
+    --blue-tint: #E7EFF7;
+    --red-tint: #FDF2F2;
+    --red: #C53030;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-display { font-family: 'Lora', serif; }
+  ::selection { background: var(--gold); color: var(--ink); }
+
+  .paper-texture {
+    background-image: radial-gradient(circle at 1px 1px, rgba(47,107,58,.06) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+
+  .eyebrow {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold-deep);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: ''; width: 20px; height: 1.5px; background: var(--gold); }
+
+  .btn-primary {
+    background: var(--green); color: #fff; font-weight: 600;
+    transition: all .2s ease; border: 1.5px solid var(--green);
+  }
+  .btn-primary:hover { background: var(--green-deep); border-color: var(--green-deep); transform: translateY(-1px); }
+  
+  .btn-gold {
+    background: var(--gold); color: #fff; font-weight: 600;
+    transition: all .2s ease; border: 1.5px solid var(--gold);
+  }
+  .btn-gold:hover { background: var(--gold-deep); border-color: var(--gold-deep); }
+
+  .btn-ghost {
+    background: transparent; color: var(--ink); font-weight: 600;
+    border: 1.5px solid var(--line); transition: all .2s ease;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(24,38,25,0.08);
+  }
+
+  /* Interactive Wheel */
+  .wheel-wrap { position: relative; width: 100%; max-width: 600px; aspect-ratio: 1/1; margin: 0 auto; }
+  .wheel-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 34%; aspect-ratio: 1/1; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff, var(--paper-deep));
+    border: 2px solid var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 6%;
+    box-shadow: 0 20px 40px -20px rgba(24,38,25,.25);
+  }
+  .wheel-center .num {
+    font-family: 'Lora', serif; font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.5rem); line-height: 1;
+    background: linear-gradient(90deg, var(--gold-deep), var(--green), var(--blue));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .wheel-center .tag { font-size: clamp(.6rem, 1.4vw, .75rem); color: var(--muted); margin-top: 6px; font-weight: 600; }
+
+  .wheel-item {
+    position: absolute; top: 50%; left: 50%; width: 140px; margin-left: -70px;
+    transform: rotate(calc(360deg / 7 * var(--i))) translateY(-220px) rotate(calc(-360deg / 7 * var(--i)));
+    text-align: center; transition: all 0.3s ease; cursor: pointer;
+  }
+  .wheel-item:hover { transform: rotate(calc(360deg / 7 * var(--i))) translateY(-226px) rotate(calc(-360deg / 7 * var(--i))) scale(1.08); }
+  .wheel-item .dot {
+    width: 42px; height: 42px; border-radius: 50%; margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lora', serif; font-weight: 700; font-size: 15px; color: #fff;
+    box-shadow: 0 8px 16px -6px rgba(24,38,25,.35);
+  }
+  .wheel-item h4 { font-size: 13px; font-weight: 700; margin: 0 0 2px; }
+  .wheel-item p { font-size: 11px; color: var(--muted); line-height: 1.3; margin: 0; }
+
+  @media (max-width: 768px) {
+    .wheel-wrap { max-width: 380px; }
+    .wheel-item { width: 110px; margin-left: -55px; transform: rotate(calc(360deg / 7 * var(--i))) translateY(-145px) rotate(calc(-360deg / 7 * var(--i))); }
+    .wheel-item .dot { width: 34px; height: 34px; font-size: 12px; }
+    .wheel-item h4 { font-size: 11px; }
+    .wheel-item p { display: none; }
+  }
+
+  .tri-card { position: relative; }
+  .tri-card .badge-num {
+    position: absolute; top: -12px; left: 16px; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--ink); color: #fff; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Overlay for locked content */
+  .lock-overlay {
+    position: absolute; inset: 0; border-radius: 16px;
+    background: linear-gradient(180deg, rgba(251,248,241,0.2) 0%, rgba(251,248,241,0.96) 65%);
+    display: flex; align-items: flex-end; justify-content: center; padding-bottom: 24px;
+    backdrop-filter: blur(2px);
+  }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .flow-arrow { color: var(--muted-2); font-weight: 700; }
+
+  .num-chip {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--paper-deep); border: 1.5px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--green-deep);
+    flex-shrink: 0;
+  }
+
+  /* Portal Nav Pill */
+  .nav-pill {
+    padding: 8px 16px; border-radius: 9999px; font-size: 13.5px; font-weight: 600;
+    color: var(--muted); transition: all 0.2s ease; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  }
+  .nav-pill:hover { color: var(--ink); background: rgba(0,0,0,0.03); }
+  .nav-pill.active { background: var(--green); color: #fff; box-shadow: 0 4px 12px rgba(47,107,58,0.2); }
+
+  /* Modal Backdrop */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(24, 38, 25, 0.6);
+    backdrop-filter: blur(4px); z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+  }
+
+  /* Status Badges */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 4px; px: 10px; py: 3px;
+    border-radius: 9999px; font-size: 11.5px; font-weight: 700;
+  }
+  .status-active { background: var(--green-tint); color: var(--green-deep); border: 1px solid rgba(47,107,58,0.2); }
+  .status-pending { background: var(--gold-tint); color: var(--gold-deep); border: 1px solid rgba(201,154,46,0.3); }
+  .status-blocked { background: var(--red-tint); color: var(--red); border: 1px solid rgba(197,48,48,0.2); }
+
+  .role-badge {
+    background: var(--blue-tint); color: var(--blue-deep); border: 1px solid rgba(31,92,153,0.2);
+    padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+  }
+
+  /* Progress Bar */
+  .progress-bg { background: var(--paper-deep); border-radius: 9999px; overflow: hidden; height: 10px; }
+  .progress-fill { background: linear-gradient(90deg, var(--green), var(--gold)); height: 100%; transition: width 0.5s ease; }
+
+  /* Tab view visibility */
+  .portal-view { display: none; }
+  .portal-view.active { display: block; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
+</style>
+</head>
+<body class="paper-texture min-h-screen flex flex-col">
+
+<!-- STICKY TOP CONTAINER FOR DEMO BAR AND HEADER -->
+<div class="sticky top-0 z-50 bg-[var(--paper)]">
+  <!-- ============ DEMO CONTROL BAR (SIMULATOR) ============ -->
+  <div id="demo-bar" class="bg-[var(--ink)] text-white text-xs py-2 px-4 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3 shadow-md">
+    <div class="flex items-center gap-2">
+      <span class="bg-amber-500 text-black px-2 py-0.5 rounded font-bold text-[10px] uppercase tracking-wider">Demo Control</span>
+      <span class="hidden md:inline text-gray-300">Bảng điều khiển phân quyền 4 tầng & trạng thái theo Điều lệ HTX:</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <label class="flex items-center gap-1">
+        <span class="text-gray-400">Trạng thái Login:</span>
+        <select id="sim-auth" onchange="toggleSimAuth(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
+          <option value="public">🔒 Công khai (Chưa đăng nhập)</option>
+          <option value="logged" selected>🔓 Cổng Thành Viên (Đã đăng nhập)</option>
+        </select>
+      </label>
+
+      <label class="flex items-center gap-1">
+        <span class="text-gray-400">Vai trò:</span>
+        <select id="sim-role" onchange="changeSimRole(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
+          <option value="Thành viên">Thành viên</option>
+          <option value="Tổ trưởng">Tổ trưởng</option>
+          <option value="Cán bộ quản lý">Cán bộ quản lý</option>
+          <option value="Ban điều hành">Ban điều hành</option>
+        </select>
+      </label>
+
+      <label class="flex items-center gap-1">
+        <span class="text-gray-400">Trạng thái TV:</span>
+        <select id="sim-status" onchange="changeSimStatus(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
+          <option value="Chính thức" selected>Chính thức</option>
+          <option value="Liên kết góp vốn">Liên kết góp vốn</option>
+          <option value="Liên kết không góp vốn">Liên kết không góp vốn</option>
+          <option value="Đang chờ xác nhận">⏳ Đang chờ xác nhận</option>
+          <option value="Tạm ngừng">🚫 Tạm ngừng</option>
+          <option value="Đã chấm dứt">❌ Đã chấm dứt</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <!-- ============ MAIN HEADER NAV ============ -->
+  <header class="border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-[66px] flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#" onclick="switchTab('home')" class="flex items-center gap-3">
+      <span class="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-base text-white shadow" style="background: conic-gradient(from -90deg, var(--gold), var(--green), var(--blue), var(--gold))">369</span>
+      <div>
+        <span class="font-display font-semibold text-lg leading-tight block">HTX Gia đình <span style="color:var(--green)">369</span></span>
+        <span class="text-[10px] text-[var(--muted)] font-medium tracking-wider uppercase">Cổng Thành Viên & Đào Tạo</span>
+      </div>
+    </a>
+
+    <!-- Nav Links (Public vs Portal) -->
+    <nav id="public-nav" class="hidden lg:flex items-center gap-6 text-[14px] font-medium text-[var(--muted)]">
+      <a href="#gioi-thieu" class="hover:text-[var(--ink)] transition">Giới thiệu HTX</a>
+      <a href="#loi-ich" class="hover:text-[var(--ink)] transition">Lợi ích thành viên</a>
+      <a href="#credit369" class="hover:text-[var(--ink)] transition">Credit 369</a>
+      <a href="#hoc-vien" class="hover:text-[var(--ink)] transition">Học viện</a>
+      <a href="#tham-gia" class="hover:text-[var(--ink)] transition">Tham gia</a>
+      <a href="#lien-he" class="hover:text-[var(--ink)] transition">Liên hệ</a>
+    </nav>
+
+    <nav id="portal-nav" class="hidden lg:flex items-center gap-1 bg-[var(--paper-deep)] p-1 rounded-full border border-[var(--line)]">
+      <button onclick="switchTab('academy')" id="tab-btn-academy" class="nav-pill active">
+        <span>🎓 Học viện</span>
+      </button>
+      <button onclick="switchTab('pm_hkd')" id="tab-btn-pm_hkd" class="nav-pill">
+        <span>💻 PM HKD</span>
+      </button>
+      <button onclick="switchTab('transactions')" id="tab-btn-transactions" class="nav-pill">
+        <span>🤝 Giao dịch HTX</span>
+      </button>
+      <button onclick="switchTab('profile')" id="tab-btn-profile" class="nav-pill">
+        <span>👤 Hồ sơ 360°</span>
+      </button>
+      <button onclick="switchTab('support')" id="tab-btn-support" class="nav-pill">
+        <span>🆘 Hỗ trợ</span>
+      </button>
+    </nav>
+
+    <!-- User Action Controls -->
+    <div class="flex items-center gap-3">
+      <div id="logged-out-actions" class="flex items-center gap-2">
+        <button onclick="openLoginModal()" class="btn-ghost text-[13px] px-4 py-2 rounded-full">Đăng nhập</button>
+        <button onclick="openRegisterModal()" class="btn-primary text-[13px] px-4 py-2 rounded-full hidden sm:block">Tham gia HTX 369</button>
+      </div>
+
+      <div id="logged-in-actions" class="hidden flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-[var(--panel)] border border-[var(--line)] rounded-full pl-2 pr-3 py-1 text-left cursor-pointer" onclick="switchTab('profile')">
+          <div class="w-8 h-8 rounded-full bg-[var(--green-tint)] text-[var(--green-deep)] font-bold text-xs flex items-center justify-center border border-[var(--green)]">
+            <span id="user-avatar-initial">A</span>
+          </div>
+          <div class="hidden sm:block leading-none">
+            <span id="user-display-name" class="font-semibold text-xs text-[var(--ink)] block">Nguyễn Văn An</span>
+            <span id="user-display-role" class="text-[10px] text-[var(--muted)]">Thành viên chính thức</span>
+          </div>
+        </div>
+        <button onclick="doLogout()" class="p-2 text-[var(--muted)] hover:text-red-600 transition text-sm" title="Đăng xuất">
+          🚪
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<!-- Mobile Navigation Bar for Portal (Shows on small screens) -->
+<div id="mobile-portal-nav" class="hidden border-b border-[var(--line)] bg-[var(--paper-deep)] px-3 py-2 overflow-x-auto lg:hidden">
+  <div class="flex items-center gap-1 min-w-max">
+    <button onclick="switchTab('academy')" id="mob-tab-academy" class="nav-pill text-xs py-1.5 px-3 active">🎓 Học viện</button>
+    <button onclick="switchTab('pm_hkd')" id="mob-tab-pm_hkd" class="nav-pill text-xs py-1.5 px-3">💻 PM HKD</button>
+    <button onclick="switchTab('transactions')" id="mob-tab-transactions" class="nav-pill text-xs py-1.5 px-3">🤝 Giao dịch</button>
+    <button onclick="switchTab('profile')" id="mob-tab-profile" class="nav-pill text-xs py-1.5 px-3">👤 Hồ sơ 360°</button>
+    <button onclick="switchTab('support')" id="mob-tab-support" class="nav-pill text-xs py-1.5 px-3">🆘 Hỗ trợ</button>
+  </div>
+</div>
+
+<!-- Main Content Area -->
+<main class="flex-1">
+
+  <!-- Restricted Access Banner (If user status is not allowed) -->
+  <div id="status-restriction-screen" class="hidden max-w-3xl mx-auto px-4 py-16 text-center">
+    <div class="card p-8 md:p-12 border-red-300 bg-red-50/50 shadow-lg">
+      <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+        🔒
+      </div>
+      <h2 id="restriction-title" class="font-display font-semibold text-2xl text-red-800 mb-3">Tài khoản chưa được kích hoạt quyền truy cập</h2>
+      <p id="restriction-desc" class="text-sm text-gray-700 leading-relaxed mb-6 max-w-xl mx-auto">
+        Trạng thái thành viên của bạn hiện tại không đủ điều kiện để xem nội dung Cổng thành viên. Theo Điều lệ HTX Gia đình 369, chỉ thành viên hợp lệ trong Sổ đăng ký thành viên mới có quyền sử dụng tài nguyên học tập và công cụ quản trị.
+      </p>
+      <div class="inline-flex flex-wrap gap-3 justify-center">
+        <button onclick="changeSimStatus('Chính thức')" class="btn-primary rounded-full px-5 py-2 text-xs">Mô phỏng: Chuyển sang Chính Thức</button>
+        <button onclick="switchTab('support')" class="btn-ghost rounded-full px-5 py-2 text-xs">Liên hệ Ban Điều Hành</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================================== -->
+  <!-- TAB 0: PUBLIC LANDING PAGE (VIEW: HOME) -->
+  <!-- ==================================================================================== -->
+  <div id="view-home" class="portal-view active">
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden border-b border-[var(--line)]">
+      <div class="max-w-5xl mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-16 text-center">
+        <span class="eyebrow justify-center reveal">Hợp tác xã Gia đình 369</span>
+        <h1 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl leading-[1.18] mt-5 max-w-4xl mx-auto reveal">
+          Nơi giá trị được <span style="color:var(--green)">trao đi</span>,<br class="hidden sm:inline">
+          để cùng nhau <span style="color:var(--gold-deep)">phát triển bền vững</span>
+        </h1>
+        <p class="mt-6 text-[var(--muted)] text-base md:text-xl max-w-3xl mx-auto leading-relaxed reveal">
+          Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên HTX —
+          thông qua học viện đào tạo, phần mềm kế toán kinh doanh thật, và cộng đồng cùng chia sẻ giá trị.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
+          <button onclick="openRegisterModal()" class="btn-primary rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
+            Tham gia HTX 369 ngay
+          </button>
+          <button onclick="doLoginSim()" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
+            Trải nghiệm Cổng Thành Viên Pro →
+          </button>
+        </div>
+
+        <!-- Quick Stats Badge Bar -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto border-t border-[var(--line)] pt-8 reveal">
+          <div>
+            <div class="font-display font-bold text-2xl md:text-3xl text-[var(--green)]">600+</div>
+            <div class="text-xs text-[var(--muted)] mt-0.5">Hộ gia đình thành viên</div>
+          </div>
+          <div>
+            <div class="font-display font-bold text-2xl md:text-3xl text-[var(--gold-deep)]">2.400</div>
+            <div class="text-xs text-[var(--muted)] mt-0.5">Thành viên hưởng lợi</div>
+          </div>
+          <div>
+            <div class="font-display font-bold text-2xl md:text-3xl text-[var(--blue)]">36</div>
+            <div class="text-xs text-[var(--muted)] mt-0.5">Điểm bán / HKD mẫu</div>
+          </div>
+          <div>
+            <div class="font-display font-bold text-2xl md:text-3xl text-[var(--ink)]">100%</div>
+            <div class="text-xs text-[var(--muted)] mt-0.5">Minh bạch QR Code</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2.1: GIỚI THIỆU HTX 369 (TẦM NHÌN, 7 GIÁ TRỊ, 5 TAM GIÁC, 6 MẮT XÍCH) -->
+    <section id="gioi-thieu" class="border-b border-[var(--line)] py-16 md:py-24 bg-[var(--panel)]">
+      <div class="max-w-6xl mx-auto px-5 md:px-8">
+        <!-- Tầm nhìn & Sứ mệnh -->
+        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+          <span class="eyebrow justify-center">Giới thiệu HTX 369</span>
+          <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3 leading-snug">
+            Tầm nhìn & Sứ mệnh cốt lõi
+          </h2>
+          <div class="card p-6 md:p-8 mt-6 bg-[var(--paper)] border-[var(--gold)] text-left shadow-sm">
+            <blockquote class="font-display text-lg md:text-xl text-[var(--green-deep)] italic text-center leading-relaxed">
+              "Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên HTX Gia đình 369."
+            </blockquote>
+            <p class="text-xs text-center text-[var(--muted)] mt-3 uppercase tracking-wider font-semibold">
+              — Thông điệp trung tâm: "369 — Nơi giá trị trao đi, phát triển bền vững."
+            </p>
+          </div>
+        </div>
+
+        <!-- 7 GIÁ TRỊ CỐT LÕI (INTERACTIVE WHEEL) -->
+        <div class="mb-20">
+          <div class="text-center mb-10 reveal">
+            <span class="eyebrow justify-center">Bánh xe giá trị</span>
+            <h3 class="font-display font-semibold text-2xl md:text-3xl mt-2">7 Giá trị nền tảng của 369</h3>
+            <p class="text-sm text-[var(--muted)] mt-2">Mỗi giá trị là một mắt xích tuần hoàn — Cho đi trước, nhận lại sau.</p>
+            <button onclick="openInfographicModal('7 giá trị cot loi 2.png', 'Bánh xe 7 Giá Trị Cốt Lõi HTX 369')" class="mt-3 btn-ghost rounded-full px-4 py-1.5 text-xs inline-flex items-center gap-1">
+              🖼️ Xem Sơ đồ Infographic 7 Giá Trị Gốc
+            </button>
+          </div>
+
+          <div class="wheel-wrap reveal hidden sm:block">
+            <div class="wheel-center">
+              <div class="num">369</div>
+              <div class="tag">Nơi giá trị<br>trao đi</div>
+            </div>
+
+            <div class="wheel-item" style="--i:0" onclick="showValDetail(1)">
+              <div class="dot" style="background:var(--green)">1</div>
+              <h4>Trao giá trị</h4>
+              <p>Cho đi trước, nhận lại sau</p>
+            </div>
+            <div class="wheel-item" style="--i:1" onclick="showValDetail(2)">
+              <div class="dot" style="background:var(--blue)">2</div>
+              <h4>Kết nối</h4>
+              <p>Đúng người, đúng giá trị</p>
+            </div>
+            <div class="wheel-item" style="--i:2" onclick="showValDetail(3)">
+              <div class="dot" style="background:var(--blue-deep)">3</div>
+              <h4>Tin cậy</h4>
+              <p>Nói thật, làm thật</p>
+            </div>
+            <div class="wheel-item" style="--i:3" onclick="showValDetail(4)">
+              <div class="dot" style="background:var(--gold-deep)">4</div>
+              <h4>Cộng sinh</h4>
+              <p>Cùng thắng, bền vững</p>
+            </div>
+            <div class="wheel-item" style="--i:4" onclick="showValDetail(5)">
+              <div class="dot" style="background:var(--gold)">5</div>
+              <h4>Nhân giá trị</h4>
+              <p>Lan tỏa điều tốt đẹp</p>
+            </div>
+            <div class="wheel-item" style="--i:5" onclick="showValDetail(6)">
+              <div class="dot" style="background:#B0521F">6</div>
+              <h4>Chia sẻ</h4>
+              <p>Thành quả & Trách nhiệm</p>
+            </div>
+            <div class="wheel-item" style="--i:6" onclick="showValDetail(7)">
+              <div class="dot" style="background:var(--green-deep)">7</div>
+              <h4>Phát triển bền vững</h4>
+              <p>Cộng đồng vững mạnh</p>
+            </div>
+          </div>
+
+          <!-- Mobile Grid view for 7 values -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--green)]">
+              <span class="w-7 h-7 rounded-full bg-[var(--green)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <div><h4 class="font-semibold text-sm">Trao giá trị</h4><p class="text-xs text-[var(--muted)] mt-0.5">Cho đi trước, nhận lại sau. Mỗi thành viên mang đến một giá trị tốt đẹp cho cộng đồng.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--blue)]">
+              <span class="w-7 h-7 rounded-full bg-[var(--blue)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <div><h4 class="font-semibold text-sm">Kết nối</h4><p class="text-xs text-[var(--muted)] mt-0.5">Kết nối đúng người, đúng giá trị để tạo cơ hội lớn hơn tổng giá trị cá nhân.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--blue-deep)]">
+              <span class="w-7 h-7 rounded-full bg-[var(--blue-deep)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <div><h4 class="font-semibold text-sm">Tin cậy</h4><p class="text-xs text-[var(--muted)] mt-0.5">Uy tín là nền tảng. Nói thật – làm thật, giữ cam kết và minh bạch trong mọi hành động.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--gold-deep)]">
+              <span class="w-7 h-7 rounded-full bg-[var(--gold-deep)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <div><h4 class="font-semibold text-sm">Cộng sinh</h4><p class="text-xs text-[var(--muted)] mt-0.5">Cùng thắng, không phải thắng một mình. Phát triển hài hòa và bền vững.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--gold)]">
+              <span class="w-7 h-7 rounded-full bg-[var(--gold)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <div><h4 class="font-semibold text-sm">Nhân giá trị</h4><p class="text-xs text-[var(--muted)] mt-0.5">Một giá trị được trao đi sẽ tiếp tục được nhân lên, lan tỏa nhiều hơn.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[#B0521F]">
+              <span class="w-7 h-7 rounded-full bg-[#B0521F] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <div><h4 class="font-semibold text-sm">Chia sẻ</h4><p class="text-xs text-[var(--muted)] mt-0.5">Thành quả đi cùng trách nhiệm. Chia sẻ kiến thức, cơ hội, nguồn lực.</p></div>
+            </div>
+            <div class="card p-4 flex gap-3 items-start border-l-4 border-l-[var(--green-deep)] sm:col-span-2 lg:col-span-2">
+              <span class="w-7 h-7 rounded-full bg-[var(--green-deep)] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+              <div><h4 class="font-semibold text-sm">Phát triển bền vững</h4><p class="text-xs text-[var(--muted)] mt-0.5">Xây dựng cộng đồng vững mạnh, tạo ra giá trị thật và phát triển lâu dài cùng nhau.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SƠ ĐỒ CHIẾN LƯỢC — 5 TAM GIÁC -->
+        <div class="mb-20">
+          <div class="text-center mb-10 reveal">
+            <span class="eyebrow justify-center">Sơ đồ chiến lược</span>
+            <h3 class="font-display font-semibold text-2xl md:text-3xl mt-2">5 Tam giác Kiến tạo Giá trị</h3>
+            <button onclick="openInfographicModal('HTX 369 so do chien luoc.png', 'Sơ Đồ Chiến Lược HTX 369')" class="mt-3 btn-ghost rounded-full px-4 py-1.5 text-xs inline-flex items-center gap-1">
+              🖼️ Phóng To Sơ Đồ Chiến Lược Toàn Diện (Infographic)
+            </button>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 reveal">
+            <div class="card tri-card p-5 pt-8 bg-gradient-to-b from-emerald-50/50 to-white">
+              <span class="badge-num">1</span>
+              <p class="text-[11px] font-bold uppercase tracking-wider text-[var(--green)]">Mục tiêu</p>
+              <h4 class="font-display font-semibold mt-1 mb-2 text-base">Sức khỏe đồng đảo</h4>
+              <p class="text-xs text-[var(--muted)] leading-relaxed">Đoàn kết cộng đồng · Tự do dân tộc — Xây dựng tổ chức đoàn kết, kiến tạo cơ hội phát triển.</p>
+            </div>
+            <div class="card tri-card p-5 pt-8 bg-gradient-to-b from-blue-50/50 to-white">
+              <span class="badge-num">2</span>
+              <p class="text-[11px] font-bold uppercase tracking-wider text-[var(--blue)]">Kinh tế</p>
+              <h4 class="font-display font-semibold mt-1 mb-2 text-base">Kinh tế tuần hoàn</h4>
+              <p class="text-xs text-[var(--muted)] leading-relaxed">Kinh tế cộng đồng · Kinh tế chia sẻ — Dòng giá trị chuyển dịch liên tục, cùng hưởng lợi.</p>
+            </div>
+            <div class="card tri-card p-5 pt-8 bg-gradient-to-b from-sky-50/50 to-white">
+              <span class="badge-num">3</span>
+              <p class="text-[11px] font-bold uppercase tracking-wider text-[var(--blue-deep)]">Kết nối</p>
+              <h4 class="font-display font-semibold mt-1 mb-2 text-base">NTD / Chính quyền</h4>
+              <p class="text-xs text-[var(--muted)] leading-relaxed">Kết nối 3 chủ thể: Chính quyền – Doanh nghiệp / HKD – Người tiêu dùng trên nền tảng 369.</p>
+            </div>
+            <div class="card tri-card p-5 pt-8 bg-gradient-to-b from-amber-50/50 to-white">
+              <span class="badge-num">4</span>
+              <p class="text-[11px] font-bold uppercase tracking-wider text-[var(--gold-deep)]">Kinh doanh</p>
+              <h4 class="font-display font-semibold mt-1 mb-2 text-base">Nhà tổ chức 369</h4>
+              <p class="text-xs text-[var(--muted)] leading-relaxed">Doanh nghiệp cung ứng sản phẩm chất lượng — Người tiêu dùng tiêu thụ và đánh giá.</p>
+            </div>
+            <div class="card tri-card p-5 pt-8 bg-gradient-to-b from-orange-50/50 to-white">
+              <span class="badge-num">5</span>
+              <p class="text-[11px] font-bold uppercase tracking-wider text-[#B0521F]">Phúc lợi</p>
+              <h4 class="font-display font-semibold mt-1 mb-2 text-base">Người có công</h4>
+              <p class="text-xs text-[var(--muted)] leading-relaxed">Trích quỹ phúc lợi hỗ trợ người có công, hộ nghèo, người yếu thế — minh bạch, nhân văn.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- HỆ SINH THÁI 369 — 6 MẮT XÍCH & CÔNG NGHỆ -->
+        <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+          <!-- 6 Mắt xích -->
+          <div class="card p-6 md:p-8 bg-[var(--green-tint)] border-[var(--green)]">
+            <span class="eyebrow text-[var(--green-deep)]">Chuỗi giá trị</span>
+            <h3 class="font-display font-semibold text-xl md:text-2xl mt-2 mb-2">6 Mắt xích Hệ sinh thái 369</h3>
+            <p class="text-xs text-[var(--muted)] mb-4">Vận hành theo nguyên tắc: <b>Kết nối – Minh bạch – Chia sẻ – Cùng nhau thịnh vượng</b></p>
+            <button onclick="openInfographicModal('HTX 369.png', 'Sơ Đồ Chi Tiết Hệ Sinh Thái 369 CLUB')" class="mb-4 btn-ghost rounded-full px-3 py-1 text-xs inline-flex items-center gap-1 bg-white">
+              🖼️ Xem Sơ Đồ Hệ Sinh Thái 369 CLUB Gốc
+            </button>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">01</span><p class="text-xs font-bold mt-0.5">Người tiêu dùng</p></div>
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">02</span><p class="text-xs font-bold mt-0.5">Điểm bán / HKD</p></div>
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">03</span><p class="text-xs font-bold mt-0.5">Người kết nối</p></div>
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">04</span><p class="text-xs font-bold mt-0.5">Người khởi nghiệp</p></div>
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">05</span><p class="text-xs font-bold mt-0.5">Nhà phân phối</p></div>
+              <div class="card p-3 text-center bg-white"><span class="font-mono text-[10px] text-[var(--muted-2)]">06</span><p class="text-xs font-bold mt-0.5">Khu vực (Quay lại 01)</p></div>
+            </div>
+          </div>
+
+          <!-- Nền tảng Công nghệ 369 -->
+          <div class="card p-6 md:p-8 bg-[var(--blue-tint)] border-[var(--blue)]">
+            <span class="eyebrow text-[var(--blue-deep)]">Hạ tầng kỹ thuật</span>
+            <h3 class="font-display font-semibold text-xl md:text-2xl mt-2 mb-4">Nền tảng Công nghệ 369</h3>
+            <div class="space-y-2.5 text-xs">
+              <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-[var(--line)]">
+                <span class="font-bold text-[var(--ink)]">📱 App 369</span>
+                <span class="text-[var(--muted)]">Đặt hàng, thanh toán, tích điểm tiêu dùng</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-[var(--line)]">
+                <span class="font-bold text-[var(--ink)]">🏷️ SKU 369</span>
+                <span class="text-[var(--muted)]">Chuẩn hóa mã sản phẩm toàn hệ thống</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-[var(--line)]">
+                <span class="font-bold text-[var(--ink)]">🛂 Product Passport</span>
+                <span class="text-[var(--muted)]">Truy xuất nguồn gốc 100% bằng QR Code</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-[var(--line)]">
+                <span class="font-bold text-[var(--ink)]">💳 Credit 369</span>
+                <span class="text-[var(--muted)]">Công cụ khuyến khích tiêu dùng trong App 369</span>
+              </div>
+              <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-[var(--line)]">
+                <span class="font-bold text-[var(--ink)]">🤖 Dữ liệu & AI</span>
+                <span class="text-[var(--muted)]">Phân tích nhu cầu & hỗ trợ HKD vận hành</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÔ HÌNH PHỤC VỤ — 6 NHU CẦU THIẾT YẾU -->
+        <div class="mt-16 text-center border-t border-[var(--line)] pt-12">
+          <h3 class="font-display font-semibold text-xl md:text-2xl mb-2">Mô hình phục vụ 6 nhu cầu thiết yếu của gia đình</h3>
+          <p class="text-xs text-[var(--muted)] mb-6">Nguyên tắc: <b>Đủ đầy – Tiện lợi – Chất lượng – Minh bạch – Giá hợp lý</b></p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">🍚</p><p class="text-xs font-bold">Ăn uống</p></div>
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">👕</p><p class="text-xs font-bold">Mặc</p></div>
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">🏠</p><p class="text-xs font-bold">Chỗ ở</p></div>
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">🚗</p><p class="text-xs font-bold">Đi lại</p></div>
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">📖</p><p class="text-xs font-bold">Học tập</p></div>
+            <div class="card p-4 text-center hover:border-[var(--green)]"><p class="text-3xl mb-1">🎭</p><p class="text-xs font-bold">Vui chơi</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2.2: TRANG / MỤC CREDIT 369 (CHỈ GIỚI THIỆU THUẦN THÔNG TIN) -->
+    <section id="credit369" class="border-b border-[var(--line)] py-16 bg-[var(--gold-tint)]">
+      <div class="max-w-4xl mx-auto px-5 md:px-8">
+        <div class="card p-8 md:p-10 border-[var(--gold)] shadow-md bg-white">
+          <span class="eyebrow text-[var(--gold-deep)]">Giới thiệu cơ chế tiêu dùng</span>
+          <h2 class="font-display font-semibold text-2xl md:text-3xl mt-2 mb-3">Mô hình Credit 369 là gì?</h2>
+          
+          <p class="text-sm text-[var(--muted)] leading-relaxed mb-6">
+            <b>Credit 369</b> là công cụ khuyến khích tiêu dùng trong hệ sinh thái 369 — được tích lũy tự động khi thành viên phát sinh mua hàng và giao dịch thực tế trên <b>App 369 CLUB</b>.
+          </p>
+
+          <div class="grid sm:grid-cols-4 gap-3 text-center text-xs font-semibold mb-6">
+            <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)]">🛒 Mua hàng thật</div>
+            <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)]">🔄 Tăng vòng quay hàng hóa</div>
+            <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)]">🎁 Nhận Credit 369</div>
+            <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)]">🛍️ Tiêu dùng tiếp</div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed">
+            <b>⚠️ Lưu ý quan trọng:</b> Website đào tạo này <b>hoàn toàn không có chức năng ví, tích điểm hay quy đổi Credit 369</b>. Việc tích lũy, kiểm tra số dư và tiêu dùng Credit 369 được thực hiện riêng biệt trên <b>App 369 CLUB</b>. Hai hệ thống hoạt động tách biệt đúng phạm vi thiết kế.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: LỢI ÍCH THÀNH VIÊN & QUY TRÌNH THAM GIA -->
+    <section id="loi-ich" class="border-b border-[var(--line)] py-16 md:py-24 bg-[var(--panel)]">
+      <div class="max-w-6xl mx-auto px-5 md:px-8">
+        
+        <!-- LỢI ÍCH THÀNH VIÊN -->
+        <div class="text-center mb-12">
+          <span class="eyebrow justify-center">Quyền lợi độc quyền</span>
+          <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3">Lợi ích khi trở thành Thành viên HTX 369</h2>
+          <p class="text-xs text-[var(--muted)] mt-2">Đồng hành cùng hệ sinh thái 369 để cùng nhau phát triển bền vững</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+          <div class="card p-6 bg-[var(--paper)] border-[var(--line)] hover:border-[var(--green)] transition shadow-sm">
+            <span class="text-3xl mb-3 block">🎓</span>
+            <h4 class="font-display font-bold text-base text-[var(--green-deep)]">Đào Tạo Chuyên Sâu</h4>
+            <p class="text-xs text-[var(--muted)] mt-2 leading-relaxed">Học miễn phí tại Học viện HTX 369 về khởi nghiệp, kế toán HKD, thuế, marketing và ứng dụng AI.</p>
+          </div>
+          <div class="card p-6 bg-[var(--paper)] border-[var(--line)] hover:border-[var(--blue)] transition shadow-sm">
+            <span class="text-3xl mb-3 block">💻</span>
+            <h4 class="font-display font-bold text-base text-[var(--blue-deep)]">Công Cụ Quản Trị Thật</h4>
+            <p class="text-xs text-[var(--muted)] mt-2 leading-relaxed">Sử dụng PM Kế toán Hộ kinh doanh thật để quản lý thu chi, sổ sách thuế và báo cáo tài chính.</p>
+          </div>
+          <div class="card p-6 bg-[var(--paper)] border-[var(--line)] hover:border-[var(--gold)] transition shadow-sm">
+            <span class="text-3xl mb-3 block">🤝</span>
+            <h4 class="font-display font-bold text-base text-[var(--gold-deep)]">Lợi Tức & Cổ Tức HTX</h4>
+            <p class="text-xs text-[var(--muted)] mt-2 leading-relaxed">Hưởng phân phối lợi tức theo Điều lệ HTX, chia sẻ lợi nhuận kinh doanh từ hệ sinh thái 369.</p>
+          </div>
+          <div class="card p-6 bg-[var(--paper)] border-[var(--line)] hover:border-[#B0521F] transition shadow-sm">
+            <span class="text-3xl mb-3 block">🛍️</span>
+            <h4 class="font-display font-bold text-base text-[#B0521F]">Kết Nối Tiêu Dùng 369</h4>
+            <p class="text-xs text-[var(--muted)] mt-2 leading-relaxed">Tiếp cận 600+ hộ gia đình thành viên, điểm bán và nhà phân phối trong toàn mạng lưới 369.</p>
+          </div>
+        </div>
+
+        <!-- QUY TRÌNH THAM GIA -->
+        <div class="text-center mb-12 pt-8 border-t border-[var(--line)]">
+          <span class="eyebrow justify-center">Tham gia cộng đồng</span>
+          <h2 class="font-display font-semibold text-2xl md:text-3xl mt-3">Quy trình 5 bước trở thành Thành viên HTX 369</h2>
+        </div>
+
+        <div class="space-y-6 max-w-xl mx-auto">
+          <div class="flex gap-4 items-start">
+            <span class="num-chip">1</span>
+            <div><h4 class="font-bold text-sm">Điền đơn đăng ký trực tuyến</h4><p class="text-xs text-[var(--muted)] mt-0.5">Cung cấp họ tên, số điện thoại, CCCD và thông tin liên hệ cơ bản.</p></div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="num-chip">2</span>
+            <div><h4 class="font-bold text-sm">Xác minh thông tin cá nhân</h4><p class="text-xs text-[var(--muted)] mt-0.5">Hệ thống xác thực SĐT chính chủ và mã OTP bảo mật.</p></div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="num-chip">3</span>
+            <div>
+              <h4 class="font-bold text-sm">Lựa chọn Phân loại Thành viên</h4>
+              <p class="text-xs text-[var(--muted)] mt-0.5">Chọn 1 trong 3 nhóm theo Điều lệ HTX:</p>
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="role-badge">Thành viên chính thức</span>
+                <span class="role-badge">Liên kết góp vốn</span>
+                <span class="role-badge">Liên kết không góp vốn</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="num-chip">4</span>
+            <div><h4 class="font-bold text-sm">Ban Điều Hành phê duyệt hồ sơ</h4><p class="text-xs text-[var(--muted)] mt-0.5">Hồ sơ được cập nhật vào Sổ đăng ký thành viên chính thức của HTX.</p></div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <span class="num-chip bg-[var(--green)] text-white border-[var(--green)]">5</span>
+            <div><h4 class="font-bold text-sm">Nhận Tài khoản Cổng Thành Viên</h4><p class="text-xs text-[var(--muted)] mt-0.5">Đăng nhập Học viện, bắt đầu học tập & sử dụng PM Kế toán HKD.</p></div>
+          </div>
+        </div>
+
+        <div class="text-center mt-10">
+          <button onclick="openRegisterModal()" class="btn-primary rounded-full px-8 py-3 text-sm shadow-md">
+            Đăng ký nộp hồ sơ tham gia HTX 369
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 (PUBLIC PREVIEW): HỌC VIỆN KHÓA / BLURRED -->
+    <section id="hoc-vien" class="border-b border-[var(--line)] py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-5 md:px-8">
+        <div class="text-center mb-12">
+          <span class="eyebrow justify-center">Học viện HTX 369</span>
+          <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3">6 Nhóm Khóa học Đào tạo Chuyên sâu</h2>
+          <p class="text-xs text-[var(--muted)] mt-2">Nội dung đào tạo thực chiến kết hợp thực hành thật trên PM Kế toán HKD</p>
+        </div>
+
+        <!-- Preview Grid (Blurred Overlay for Non-LoggedIn Users) -->
+        <div class="relative">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 filter blur-[1px] select-none opacity-80 pointer-events-none">
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">🚀</span>
+              <h4 class="font-display font-bold text-base">1. Khởi nghiệp & Hộ kinh doanh</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Tư duy kinh doanh · Thành lập HKD · Kế toán · Thuế · Quản lý dòng tiền</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>12 Bài học</span><span>Dành cho Thành viên</span>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">📣</span>
+              <h4 class="font-display font-bold text-base">2. Marketing & Bán hàng</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Marketing căn bản · Digital Marketing · Content · CSKH thực chiến</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>10 Bài học</span><span>Dành cho Thành viên</span>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">💰</span>
+              <h4 class="font-display font-bold text-base">3. Quản trị tài chính</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Doanh thu · Chi phí · Lợi nhuận · Quản lý công nợ · Tồn kho</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>8 Bài học</span><span>Dành cho Tổ trưởng</span>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">🌾</span>
+              <h4 class="font-display font-bold text-base">4. Quản lý Sản xuất & Tiêu thụ</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Lập kế hoạch · Kiểm soát chất lượng · Kết nối đầu ra nông sản</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>9 Bài học</span><span>Dành cho Thành viên</span>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">🤝</span>
+              <h4 class="font-display font-bold text-base">5. Hiểu rõ về HTX 369</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Điều lệ HTX · Quyền & Nghĩa vụ · Vốn góp · Cơ chế giao dịch</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>6 Bài học</span><span>Bắt buộc cho Thành viên</span>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <span class="text-2xl mb-2 block">🤖</span>
+              <h4 class="font-display font-bold text-base">6. Chuyển đổi số & AI</h4>
+              <p class="text-xs text-[var(--muted)] mt-1">Sử dụng PM HKD · Ứng dụng AI trong bán hàng · Quản trị dữ liệu</p>
+              <div class="mt-4 pt-3 border-t border-[var(--line)] flex justify-between text-[11px] text-[var(--muted-2)]">
+                <span>15 Bài học</span><span>Dành cho Cán bộ quản lý</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lock Overlay Badge -->
+          <div class="lock-overlay">
+            <div class="text-center p-6 bg-white/95 rounded-2xl shadow-xl border border-[var(--line)] max-w-md">
+              <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 text-xl flex items-center justify-center mx-auto mb-3">
+                🔒
+              </div>
+              <h3 class="font-display font-semibold text-lg text-[var(--ink)] mb-1">Nội dung dành riêng cho Thành viên HTX 369</h3>
+              <p class="text-xs text-[var(--muted)] mb-4">Vui lòng đăng nhập tài khoản thành viên để học tập và thực hành phần mềm.</p>
+              <div class="flex gap-2 justify-center">
+                <button onclick="openLoginModal()" class="btn-primary rounded-full px-5 py-2 text-xs">Đăng nhập ngay</button>
+                <button onclick="doLoginSim()" class="btn-gold rounded-full px-5 py-2 text-xs">Vào cổng Demo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="lien-he" class="py-12 bg-[var(--paper-deep)] border-t border-[var(--line)]">
+      <div class="max-w-6xl mx-auto px-5 md:px-8 text-center">
+        <p class="font-display text-base text-[var(--muted)] italic max-w-xl mx-auto">
+          "369 — Kết nối, minh bạch, chia sẻ, cùng nhau thịnh vượng."
+        </p>
+        <div class="mt-8 text-xs text-[var(--muted-2)] border-t border-[var(--line)] pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <span>© 2026 Hợp tác xã Gia đình 369. Tất cả quyền được bảo lưu.</span>
+          <div class="flex gap-4">
+            <a href="#gioi-thieu" class="hover:text-[var(--ink)]">Giới thiệu</a>
+            <a href="#loi-ich" class="hover:text-[var(--ink)]">Điều lệ</a>
+            <a href="#credit369" class="hover:text-[var(--ink)]">Credit 369</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==================================================================================== -->
+  <!-- PORTAL CONTENT CONTAINER (SHOWN WHEN LOGGED IN) -->
+  <!-- ==================================================================================== -->
+  <div id="portal-container" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+
+    <!-- MEMBER BANNER TOP BAR -->
+    <div id="portal-header-banner" class="card p-6 mb-8 bg-gradient-to-r from-[var(--paper-deep)] to-white border-[var(--gold)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full bg-[var(--green)] text-white font-display font-bold text-xl flex items-center justify-center shadow">
+          <span id="banner-avatar">A</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 id="banner-user-name" class="font-display font-bold text-xl text-[var(--ink)]">Nguyễn Văn An</h2>
+            <span id="banner-role-badge" class="role-badge">Thành viên</span>
+            <span id="banner-status-badge" class="status-badge status-active">● Chính thức</span>
+          </div>
+          <p class="text-xs text-[var(--muted)] mt-1">
+            Mã TV: <span class="font-mono font-semibold text-[var(--ink)]">HTX369-0082</span> · Ngày tham gia: 15/01/2025 · Vốn góp: <span class="font-semibold text-[var(--green-deep)]">5.000.000 VNĐ</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Pill -->
+      <div class="flex items-center gap-4 border-t md:border-t-0 md:border-l border-[var(--line)] pt-3 md:pt-0 md:pl-6 w-full md:w-auto justify-between md:justify-end">
+        <div class="text-center">
+          <span class="text-[10px] text-[var(--muted)] font-semibold uppercase block">Điểm năng lực</span>
+          <span id="metric-competency" class="font-display font-bold text-xl text-[var(--green)]">82 / 100</span>
+        </div>
+        <div class="text-center">
+          <span class="text-[10px] text-[var(--muted)] font-semibold uppercase block">Chứng chỉ</span>
+          <span id="metric-certificates" class="font-display font-bold text-xl text-[var(--blue)]">3</span>
+        </div>
+        <div class="text-center">
+          <span class="text-[10px] text-[var(--muted)] font-semibold uppercase block">Huy hiệu</span>
+          <span id="metric-badges" class="font-display font-bold text-xl text-[var(--gold-deep)]">6</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB 1: HỌC VIỆN (VIEW: ACADEMY LMS) -->
+    <!-- ==================================================================================== -->
+    <div id="view-academy" class="portal-view">
+      
+      <!-- DASHBOARD HỌC VIỆN -->
+      <div class="card p-6 mb-8 bg-white border-[var(--line)]">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+          <div>
+            <h3 class="font-display font-bold text-lg text-[var(--ink)]">🎓 Lộ trình Đào tạo Thành viên của Tôi</h3>
+            <p class="text-xs text-[var(--muted)] mt-0.5">Hoàn thành bài học & Quiz để tích lũy Điểm năng lực và đạt điều kiện xét nâng vai trò Tổ trưởng.</p>
+          </div>
+          <span class="text-xs font-bold text-[var(--green-deep)] bg-[var(--green-tint)] px-3 py-1 rounded-full">Tiến độ chung: 75%</span>
+        </div>
+
+        <div class="progress-bg mb-4">
+          <div id="academy-progress-bar" class="progress-fill" style="width: 75%"></div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center pt-2 text-xs">
+          <div class="p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)]">
+            <span class="text-[var(--muted)] block">📚 Đang học</span>
+            <span class="font-bold text-base text-[var(--ink)]">3 Khóa</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)]">
+            <span class="text-[var(--muted)] block">🏆 Đã hoàn thành</span>
+            <span class="font-bold text-base text-[var(--green)]">5 Khóa</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)]">
+            <span class="text-[var(--muted)] block">📜 Chứng chỉ đã nhận</span>
+            <span class="font-bold text-base text-[var(--blue)]">3 Chứng chỉ</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)]">
+            <span class="text-[var(--muted)] block">🏅 Huy hiệu đạt được</span>
+            <span class="font-bold text-base text-[var(--gold-deep)]">6 Huy hiệu</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LESSON PLAYER MODAL / PANEL (Active when viewing a lesson) -->
+      <div id="lesson-player-container" class="hidden card p-6 mb-8 border-2 border-[var(--green)] bg-white shadow-lg">
+        <div class="flex justify-between items-center pb-4 border-b border-[var(--line)] mb-4">
+          <div>
+            <span class="text-[10px] uppercase font-bold text-[var(--gold-deep)] tracking-wider">Đang học bài giảng</span>
+            <h3 id="player-lesson-title" class="font-display font-bold text-xl text-[var(--ink)]">Bài 3: Quản lý Thu - Chi & Doanh Thu Hộ Kinh Doanh</h3>
+          </div>
+          <button onclick="closeLessonPlayer()" class="text-gray-400 hover:text-gray-700 text-sm font-bold bg-gray-100 px-3 py-1 rounded-full">
+            ✕ Đóng bài học
+          </button>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          <!-- Video & Content area -->
+          <div class="lg:col-span-2 space-y-4">
+            <!-- Simulated Video Player -->
+            <div class="relative aspect-video rounded-xl bg-black flex items-center justify-center overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+              <div class="text-center z-10 p-4">
+                <button onclick="playLessonVideoSim()" class="w-16 h-16 rounded-full bg-[var(--green)] text-white text-2xl flex items-center justify-center mx-auto shadow-lg hover:scale-110 transition">
+                  ▶
+                </button>
+                <p class="text-white text-xs font-semibold mt-3">Video Bài Giảng Thực Hành (7 Phút 30 Giây)</p>
+              </div>
+              <span class="absolute bottom-3 left-3 text-[10px] text-white/80 bg-black/60 px-2 py-0.5 rounded font-mono">Chất lượng: 1080p HD</span>
+            </div>
+
+            <!-- Lesson Instructions -->
+            <div class="card p-4 bg-[var(--paper)] text-xs space-y-2">
+              <h4 class="font-bold text-sm text-[var(--ink)]">Nội dung chính & Yêu cầu thực hành:</h4>
+              <p class="text-[var(--muted)]">Trong bài học này, bạn sẽ nắm rõ cách phân loại khoản thu bán hàng, thu ngoài bán hàng và các khoản chi phí phát sinh thực tế của hộ kinh doanh. Sau khi xem video, hãy bấm nút bên dưới để chuyển thẳng sang phần mềm kế toán kinh doanh thật của bạn để nhập thử sổ sách.</p>
+            </div>
+
+            <!-- PRACTICE ON PM BUTTON (CRITICAL REQUIREMENT) -->
+            <div class="p-4 rounded-xl bg-[var(--green-tint)] border border-[var(--green)] flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div>
+                <span class="font-bold text-sm text-[var(--green-deep)] flex items-center gap-1.5">
+                  💻 Thực hành trên Phần mềm Kế toán HKD
+                </span>
+                <p class="text-xs text-[var(--muted)] mt-0.5">Thực hành thao tác lập phiếu thu/chi trên hệ thống phần mềm thật.</p>
+              </div>
+              <button onclick="triggerPMPracticeFromLesson()" class="btn-primary rounded-lg px-5 py-2.5 text-xs font-bold whitespace-nowrap shadow">
+                [💻 Thực hành trên PM] →
+              </button>
+            </div>
+          </div>
+
+          <!-- Quiz & Completion Sidebar -->
+          <div class="card p-5 bg-[var(--paper-deep)] border-[var(--line)] flex flex-col justify-between">
+            <div>
+              <h4 class="font-display font-bold text-sm mb-3 text-[var(--ink)]">📝 Trắc nghiệm Đánh giá (Quiz)</h4>
+              
+              <div class="space-y-4 text-xs">
+                <div>
+                  <p class="font-semibold mb-2">Câu 1: Doanh thu của Hộ kinh doanh được xác định vào thời điểm nào?</p>
+                  <label class="block p-2 rounded bg-white border border-gray-200 mb-1 cursor-pointer hover:border-[var(--green)]">
+                    <input type="radio" name="q1" value="a"> A. Khi ký hợp đồng cung cấp hàng hóa
+                  </label>
+                  <label class="block p-2 rounded bg-white border border-gray-200 mb-1 cursor-pointer hover:border-[var(--green)]">
+                    <input type="radio" name="q1" value="b"> B. Khi đã bàn giao hàng hóa / dịch vụ cho khách hàng
+                  </label>
+                </div>
+
+                <div>
+                  <p class="font-semibold mb-2">Câu 2: Các hóa đơn chứng từ chi phí HKD cần lưu trữ tối thiểu bao lâu?</p>
+                  <label class="block p-2 rounded bg-white border border-gray-200 mb-1 cursor-pointer hover:border-[var(--green)]">
+                    <input type="radio" name="q2" value="a"> A. 12 tháng
+                  </label>
+                  <label class="block p-2 rounded bg-white border border-gray-200 mb-1 cursor-pointer hover:border-[var(--green)]">
+                    <input type="radio" name="q2" value="b"> B. Theo đúng quy định pháp luật về kế toán hộ KD (10 năm)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-[var(--line)]">
+              <button onclick="submitLessonQuiz()" class="btn-gold w-full py-2.5 rounded-lg text-xs font-bold shadow">
+                Nộp bài Quiz & Nhận Điểm Năng Lực
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE CATALOG (FILTERED BY ROLE PERMISSIONS) -->
+      <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div>
+          <h3 class="font-display font-bold text-xl text-[var(--ink)]">Danh mục Khóa học theo Vai trò</h3>
+          <p class="text-xs text-[var(--muted)]">Vai trò hiện tại của bạn: <span id="cat-role-label" class="font-bold text-[var(--green-deep)]">Thành viên</span></p>
+        </div>
+
+        <div class="flex gap-2 text-xs">
+          <button class="px-3 py-1.5 rounded-full bg-[var(--ink)] text-white font-medium">Tất cả bài học</button>
+          <button class="px-3 py-1.5 rounded-full bg-white border border-[var(--line)] text-[var(--muted)]">Đang học</button>
+          <button class="px-3 py-1.5 rounded-full bg-white border border-[var(--line)] text-[var(--muted)]">Đã hoàn thành</button>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Course 1: Regular Member -->
+        <div class="card card-hover p-5 border-[var(--line)] bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">🚀</span>
+              <span class="role-badge">Dành cho: Thành viên</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">1. Khởi nghiệp & Kế toán Hộ KD</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Tư duy kinh doanh thực chiến, thủ tục đăng ký hộ kinh doanh, kê khai thuế và lập sổ sách ban đầu.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>9/12 Bài học đã xem</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 3: Quản lý Thu - Chi & Doanh Thu Hộ Kinh Doanh')" class="btn-primary w-full py-2 rounded-lg text-xs font-bold">
+              Vào Học Tiếp →
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 2: Regular Member -->
+        <div class="card card-hover p-5 border-[var(--line)] bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">🤝</span>
+              <span class="role-badge">Dành cho: Thành viên</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">2. Hiểu rõ về Điều lệ & Quyền lợi HTX 369</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Quy chế hoạt động, vốn góp thành viên, phân phối cổ tức và cơ chế giao dịch chung trong hợp tác xã.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>6/6 Bài học (Hoàn thành 100%)</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 6: Phân phối lợi tức & Nghĩa vụ thành viên')" class="btn-ghost w-full py-2 rounded-lg text-xs font-bold">
+              Xem Lại Bài Học
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 3: Regular Member -->
+        <div class="card card-hover p-5 border-[var(--line)] bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">📣</span>
+              <span class="role-badge">Dành cho: Thành viên</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">3. Marketing & Bán hàng Thực chiến</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Xây dựng kênh bán hàng online, content thu hút khách hàng local và quy trình chăm sóc khách hàng tự động.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>4/10 Bài học</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 5: Viết bài Content bán hàng thu hút')" class="btn-primary w-full py-2 rounded-lg text-xs font-bold">
+              Vào Học Tiếp →
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 4: Requires Role "Tổ trưởng" -->
+        <div id="course-card-totruong" class="card p-5 border-[var(--line)] bg-[var(--paper)] flex flex-col justify-between relative overflow-hidden">
+          <div id="lock-totruong-overlay" class="hidden absolute inset-0 bg-white/90 backdrop-blur-[1px] z-10 p-5 flex flex-col items-center justify-center text-center">
+            <span class="text-2xl mb-1">🔒</span>
+            <h5 class="font-bold text-xs text-amber-900">Yêu cầu Vai trò: Tổ trưởng trở lên</h5>
+            <p class="text-[11px] text-gray-600 mt-1 max-w-xs">Bạn chưa đủ phân quyền vai trò để xem nội dung khóa học quản lý này.</p>
+            <button onclick="changeSimRole('Tổ trưởng')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
+              Mô phỏng nâng vai trò Tổ trưởng
+            </button>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">📊</span>
+              <span class="role-badge bg-amber-100 text-amber-800">Cấp độ: Tổ trưởng</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">4. Quản lý Nhóm & Giao KPI Điểm Bán</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Kỹ năng điều hành tổ sản xuất, theo dõi tiến độ KPI các hộ kinh doanh thành viên trong cụm.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>0/8 Bài học</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 1: Lập kế hoạch KPI Tổ sản xuất')" class="btn-primary w-full py-2 rounded-lg text-xs font-bold">
+              Vào Học Ngay →
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 5: Requires Role "Cán bộ quản lý" -->
+        <div id="course-card-canbo" class="card p-5 border-[var(--line)] bg-[var(--paper)] flex flex-col justify-between relative overflow-hidden">
+          <div id="lock-canbo-overlay" class="hidden absolute inset-0 bg-white/90 backdrop-blur-[1px] z-10 p-5 flex flex-col items-center justify-center text-center">
+            <span class="text-2xl mb-1">🔒</span>
+            <h5 class="font-bold text-xs text-amber-900">Yêu cầu Vai trò: Cán bộ quản lý trở lên</h5>
+            <p class="text-[11px] text-gray-600 mt-1 max-w-xs">Khóa học quản trị cấp cao dành cho cán bộ quản lý HTX.</p>
+            <button onclick="changeSimRole('Cán bộ quản lý')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
+              Mô phỏng nâng lên Cán bộ quản lý
+            </button>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">🏛️</span>
+              <span class="role-badge bg-blue-100 text-blue-800">Cấp độ: Cán bộ quản lý</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">5. Quản trị Tài chính & Dòng tiền HTX</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Báo cáo tài chính hợp nhất, thẩm định dự án đầu tư và điều phối dòng tiền toàn bộ hệ sinh thái.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>0/12 Bài học</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 1: Đọc và phân tích Báo cáo tài chính HTX')" class="btn-primary w-full py-2 rounded-lg text-xs font-bold">
+              Vào Học Ngay →
+            </button>
+          </div>
+        </div>
+
+        <!-- Course 6: Advanced AI -->
+        <div class="card card-hover p-5 border-[var(--line)] bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-3xl">🤖</span>
+              <span class="role-badge">Dành cho: Tất cả TV</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-[var(--ink)]">6. Ứng dụng AI & Chuyển đổi số HKD</h4>
+            <p class="text-xs text-[var(--muted)] mt-1 leading-relaxed">Sử dụng trí tuệ nhân tạo để viết bài quảng cáo, dự báo hàng tồn kho và tự động hóa sổ sách.</p>
+            <div class="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
+              <span>2/15 Bài học</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button onclick="openLessonPlayer('Bài 1: Ứng dụng AI hỗ trợ viết sổ sách')" class="btn-primary w-full py-2 rounded-lg text-xs font-bold">
+              Vào Học Tiếp →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB 2: PM KẾ TOÁN HỘ KINH DOANH (VIEW: PM HKD SIMULATOR) -->
+    <!-- ==================================================================================== -->
+    <div id="view-pm_hkd" class="portal-view">
+
+      <!-- MANDATORY DATA SAFETY WARNING BANNER -->
+      <div class="p-4 rounded-xl bg-amber-50 border-2 border-amber-400 mb-6 flex items-start gap-3 shadow-sm">
+        <div class="w-8 h-8 rounded-full bg-amber-200 text-amber-800 text-lg flex items-center justify-center flex-shrink-0 font-bold">
+          ⚠️
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-amber-900">CẢNH BÁO AN TOÀN DỮ LIỆU KINH DOANH THẬT</h4>
+          <p class="text-xs text-amber-800 leading-relaxed mt-0.5">
+            Đây là phần mềm dữ liệu kinh doanh thật của hộ kinh doanh bạn. Các thao tác nhập, sửa hoặc xóa trong phần thực hành sẽ ảnh hưởng trực tiếp đến sổ sách và báo cáo thuế thật — hãy cẩn trọng.
+          </p>
+        </div>
+      </div>
+
+      <!-- PM HKD Header Controls -->
+      <div class="card p-6 mb-6 bg-white border-[var(--line)] shadow-sm">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--green)]">Hệ thống Quản trị HKD Thực tế</span>
+            <h3 class="font-display font-bold text-2xl text-[var(--ink)]">PM Kế toán Hộ kinh doanh 369</h3>
+            <p class="text-xs text-[var(--muted)] mt-0.5">Tên HKD: <b>Cửa Hàng Thực Phẩm Sạch An Tâm (Mã HKD: HKD-369-042)</b></p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-primary text-xs px-4 py-2 rounded-lg font-bold shadow-md flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white">
+              🚀 Truy cập Đăng nhập PM HKD Thật (hkd-backend.vercel.app/login) ↗
+            </a>
+            <button onclick="openAddTransactionModal()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
+              ＋ Nhập Giao Dịch
+            </button>
+            <button onclick="exportHKDReport()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
+              📄 Báo Cáo Thuế
+            </button>
+          </div>
+        </div>
+
+        <!-- LIVE PM HKD EMBED CARD -->
+        <div class="mt-6 p-4 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 text-xl flex items-center justify-center font-bold">
+              💻
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-emerald-400">Hệ Thống Phần Mềm Kế Toán HKD Trực Tuyến</h4>
+              <p class="text-xs text-gray-300">Cổng đăng nhập chính thức: <span class="font-mono text-amber-300">https://hkd-backend.vercel.app/login</span></p>
+            </div>
+          </div>
+          <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-gold text-xs px-5 py-2.5 rounded-lg font-bold whitespace-nowrap shadow">
+            👉 Đăng Nhập Ngay Trên Vercel ↗
+          </a>
+        </div>
+
+        <!-- HKD Key Indicators -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[var(--line)]">
+          <div class="p-4 rounded-xl bg-[var(--green-tint)] border border-[var(--green)]">
+            <span class="text-[11px] font-semibold text-[var(--green-deep)] uppercase block">Doanh Thu Tháng Này</span>
+            <span id="hkd-revenue" class="font-display font-bold text-xl text-[var(--green-deep)]">148.500.000 VNĐ</span>
+            <span class="text-[10px] text-emerald-700 block mt-1">↑ +12.4% so với tháng trước</span>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--paper)] border border-[var(--line)]">
+            <span class="text-[11px] font-semibold text-[var(--muted)] uppercase block">Tổng Chi Phí</span>
+            <span id="hkd-expenses" class="font-display font-bold text-xl text-red-700">92.300.000 VNĐ</span>
+            <span class="text-[10px] text-[var(--muted)] block mt-1">Gồm vốn hàng & vận hành</span>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--blue-tint)] border border-[var(--blue)]">
+            <span class="text-[11px] font-semibold text-[var(--blue-deep)] uppercase block">Lợi Nhuận Thuần</span>
+            <span id="hkd-profit" class="font-display font-bold text-xl text-[var(--blue-deep)]">56.200.000 VNĐ</span>
+            <span class="text-[10px] text-[var(--blue)] block mt-1">Tỷ suất LN: 37.8%</span>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--gold-tint)] border border-[var(--gold)]">
+            <span class="text-[11px] font-semibold text-[var(--gold-deep)] uppercase block">Công Nợ Phải Thu</span>
+            <span id="hkd-debt" class="font-display font-bold text-xl text-[var(--gold-deep)]">18.400.000 VNĐ</span>
+            <span class="text-[10px] text-amber-800 block mt-1">3 Khách hàng còn nợ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HKD Real-time Ledger Table -->
+      <div class="card p-6 bg-white border-[var(--line)]">
+        <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">Sổ Nhật Ký Bán Hàng & Thu Chi Mới Nhất</h4>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-[var(--paper-deep)] text-[var(--muted)] font-semibold border-b border-[var(--line)]">
+              <tr>
+                <th class="p-3">Mã GD</th>
+                <th class="p-3">Ngày</th>
+                <th class="p-3">Nội dung / Sản phẩm</th>
+                <th class="p-3">Loại</th>
+                <th class="p-3 text-right">Số tiền</th>
+                <th class="p-3">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="hkd-ledger-body" class="divide-y divide-[var(--line)]">
+              <tr>
+                <td class="p-3 font-mono font-semibold">GD-8821</td>
+                <td class="p-3 text-[var(--muted)]">30/08/2026</td>
+                <td class="p-3 font-medium">Bán 150kg Gạo Hữu Cơ 369 — Điểm bán 02</td>
+                <td class="p-3"><span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">Thu Bán Hàng</span></td>
+                <td class="p-3 text-right font-bold text-emerald-700">+4.500.000 VNĐ</td>
+                <td class="p-3"><span class="text-xs text-emerald-700 font-semibold">Đã hoàn thành</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-semibold">GD-8820</td>
+                <td class="p-3 text-[var(--muted)]">29/08/2026</td>
+                <td class="p-3 font-medium">Nhập nông sản từ Kho HTX Khu vực 01</td>
+                <td class="p-3"><span class="text-red-700 font-bold bg-red-50 px-2 py-0.5 rounded">Chi Mua Hàng</span></td>
+                <td class="p-3 text-right font-bold text-red-700">-12.800.000 VNĐ</td>
+                <td class="p-3"><span class="text-xs text-emerald-700 font-semibold">Đã thanh toán</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-semibold">GD-8819</td>
+                <td class="p-3 text-[var(--muted)]">28/08/2026</td>
+                <td class="p-3 font-medium">Thanh toán hóa đơn điện nước cửa hàng</td>
+                <td class="p-3"><span class="text-red-700 font-bold bg-red-50 px-2 py-0.5 rounded">Chi Vận Hành</span></td>
+                <td class="p-3 text-right font-bold text-red-700">-1.250.000 VNĐ</td>
+                <td class="p-3"><span class="text-xs text-emerald-700 font-semibold">Đã thanh toán</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB 3: GIAO DỊCH HTX (VIEW: CO-OP TRANSACTIONS) -->
+    <!-- ==================================================================================== -->
+    <div id="view-transactions" class="portal-view">
+      <div class="card p-6 mb-6 bg-white border-[var(--line)]">
+        <h3 class="font-display font-bold text-xl text-[var(--ink)] mb-2">🤝 Giao dịch Hợp Tác Xã với Thành viên</h3>
+        <p class="text-xs text-[var(--muted)]">Theo dõi vốn đóng góp, sản lượng nông sản cung cấp cho HTX và cổ tức phân phối hàng năm.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="card p-5 bg-white">
+          <span class="text-xs font-semibold text-[var(--muted)] uppercase block">Vốn góp Thành viên</span>
+          <span class="font-display font-bold text-2xl text-[var(--green-deep)] mt-1 block">5.000.000 VNĐ</span>
+          <p class="text-[11px] text-[var(--muted)] mt-2">Cổ phần: 0.83% vốn lệ HTX</p>
+        </div>
+        <div class="card p-5 bg-white">
+          <span class="text-xs font-semibold text-[var(--muted)] uppercase block">Sản lượng cung cấp 2026</span>
+          <span class="font-display font-bold text-2xl text-[var(--blue-deep)] mt-1 block">12.5 Tấn</span>
+          <p class="text-[11px] text-[var(--muted)] mt-2">Nông sản sạch chuẩn SKU 369</p>
+        </div>
+        <div class="card p-5 bg-white">
+          <span class="text-xs font-semibold text-[var(--muted)] uppercase block">Lợi tức dự kiến 2026</span>
+          <span class="font-display font-bold text-2xl text-[var(--gold-deep)] mt-1 block">8.200.000 VNĐ</span>
+          <p class="text-[11px] text-[var(--muted)] mt-2">Dự kiến chi trả tháng 12/2026</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB 4: HỒ SƠ THÀNH VIÊN 360° (VIEW: PROFILE 360) -->
+    <!-- ==================================================================================== -->
+    <div id="view-profile" class="portal-view">
+      
+      <div class="grid lg:grid-cols-3 gap-6">
+
+        <!-- Column 1: Info Card -->
+        <div class="card p-6 bg-white border-[var(--line)]">
+          <div class="text-center pb-6 border-b border-[var(--line)] mb-6">
+            <div class="w-20 h-20 rounded-full bg-[var(--green)] text-white font-display font-bold text-3xl flex items-center justify-center mx-auto mb-3 shadow-md">
+              <span id="prof-avatar">A</span>
+            </div>
+            <h3 id="prof-name" class="font-display font-bold text-xl text-[var(--ink)]">Nguyễn Văn An</h3>
+            <span id="prof-type-badge" class="role-badge mt-1">Thành viên chính thức</span>
+            <p class="text-xs text-[var(--muted)] mt-2">SĐT: 0987.654.321 · Sổ TV #: HTX369-0082</p>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Loại thành viên:</span>
+              <span id="prof-member-type" class="font-bold text-[var(--ink)]">Chính thức</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Ngày tham gia:</span>
+              <span class="font-medium">15/01/2025</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Vốn đã góp:</span>
+              <span class="font-bold text-[var(--green-deep)]">5.000.000 VNĐ</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Điểm năng lực:</span>
+              <span id="prof-points" class="font-bold text-[var(--gold-deep)]">82 / 100</span>
+            </div>
+          </div>
+
+          <!-- NOTICE: NO CREDIT 369 HERE -->
+          <div class="mt-6 p-3 rounded-lg bg-[var(--paper-deep)] text-[11px] text-[var(--muted)] leading-relaxed border border-[var(--line)]">
+            ℹ️ Hồ sơ thành viên 360° phản ánh kết quả học tập và năng lực thực hành kinh doanh. Số dư Credit 369 thuộc App 369 CLUB riêng biệt.
+          </div>
+        </div>
+
+        <!-- Column 2 & 3: Badges, Certificates, Activities -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- Badges & Achievements -->
+          <div class="card p-6 bg-white border-[var(--line)]">
+            <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">🏅 Huy hiệu & Thành tích Học tập</h4>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="p-3 rounded-xl bg-[var(--green-tint)] border border-[var(--green)] flex items-center gap-3">
+                <span class="text-2xl">🌱</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--green-deep)]">Thành viên Tiên phong</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Đã đăng ký đợt 1</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[var(--gold-tint)] border border-[var(--gold)] flex items-center gap-3">
+                <span class="text-2xl">📊</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--gold-deep)]">Chuyên gia PM HKD</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Hoàn thành 100% bài thực hành</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[var(--blue-tint)] border border-[var(--blue)] flex items-center gap-3">
+                <span class="text-2xl">📜</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--blue-deep)]">Kế toán HKD Chuẩn</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Đạt Quiz Thuế & Chi phí</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[var(--paper-deep)] border border-[var(--line)] flex items-center gap-3">
+                <span class="text-2xl">🤝</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--ink)]">Hiểu rõ Điều lệ</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Tốt nghiệp khóa HTX 369</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[var(--paper-deep)] border border-[var(--line)] flex items-center gap-3">
+                <span class="text-2xl">📣</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--ink)]">Bán hàng 369</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Đạt chứng chỉ Marketing</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[var(--paper-deep)] border border-[var(--line)] flex items-center gap-3 opacity-60">
+                <span class="text-2xl">⭐</span>
+                <div>
+                  <h5 class="font-bold text-xs text-[var(--muted)]">Tổ trưởng Xuất sắc</h5>
+                  <p class="text-[10px] text-[var(--muted)]">Khóa khi đạt vai trò</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificates List -->
+          <div class="card p-6 bg-white border-[var(--line)]">
+            <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">📜 Chứng chỉ Đào tạo Đã Cấp</h4>
+            
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)] flex justify-between items-center">
+                <div>
+                  <h5 class="font-bold text-sm text-[var(--ink)]">Chứng chỉ Kế toán & Quản trị Hộ Kinh Doanh</h5>
+                  <p class="text-[11px] text-[var(--muted)]">Cấp ngày: 10/06/2026 · Mã số: CERT-HKD-9812</p>
+                </div>
+                <button onclick="viewCertificateSim('Kế toán & Quản trị HKD')" class="btn-ghost px-3 py-1 text-[11px] rounded-md">Xem Chứng chỉ</button>
+              </div>
+
+              <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)] flex justify-between items-center">
+                <div>
+                  <h5 class="font-bold text-sm text-[var(--ink)]">Chứng nhận Điều lệ & Quyền lợi Thành viên HTX 369</h5>
+                  <p class="text-[11px] text-[var(--muted)]">Cấp ngày: 20/03/2026 · Mã số: CERT-HTX-1042</p>
+                </div>
+                <button onclick="viewCertificateSim('Điều lệ & Quyền lợi HTX')" class="btn-ghost px-3 py-1 text-[11px] rounded-md">Xem Chứng chỉ</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB 5: HỖ TRỢ THÀNH VIÊN (VIEW: SUPPORT TICKETS) -->
+    <!-- ==================================================================================== -->
+    <div id="view-support" class="portal-view">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div>
+          <h3 class="font-display font-bold text-2xl text-[var(--ink)]">🆘 Trung tâm Hỗ trợ Thành viên HTX 369</h3>
+          <p class="text-xs text-[var(--muted)]">Gửi yêu cầu trợ giúp về bài học, phần mềm kế toán, tư vấn thuế hoặc chính sách HTX.</p>
+        </div>
+
+        <button onclick="openCreateTicketModal()" class="btn-primary px-5 py-2.5 rounded-xl text-xs font-bold shadow">
+          ＋ Tạo yêu cầu hỗ trợ mới
+        </button>
+      </div>
+
+      <!-- FAQ Categories Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">📚</p><p class="text-xs font-bold">Khóa học</p></div>
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">💻</p><p class="text-xs font-bold">PM HKD</p></div>
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">🧾</p><p class="text-xs font-bold">Kế toán</p></div>
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">🏛️</p><p class="text-xs font-bold">Hỏi về Thuế</p></div>
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">🤝</p><p class="text-xs font-bold">Chính sách HTX</p></div>
+        <div class="card p-4 text-center cursor-pointer hover:border-[var(--green)]"><p class="text-2xl mb-1">👨‍💼</p><p class="text-xs font-bold">Gặp chuyên gia</p></div>
+      </div>
+
+      <!-- Active Tickets List -->
+      <div class="card p-6 bg-white border-[var(--line)]">
+        <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">Danh sách Yêu cầu Hỗ trợ của Tôi</h4>
+
+        <div id="tickets-list" class="space-y-3 text-xs">
+          <div class="p-4 rounded-xl border border-[var(--line)] bg-[var(--paper)] flex justify-between items-center">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-[var(--green-deep)]">#TK-9021</span>
+                <span class="font-bold text-sm text-[var(--ink)]">Hướng dẫn kê khai chi phí hợp lệ cho HKD bán lẻ</span>
+                <span class="status-badge status-active">Đã giải quyết</span>
+              </div>
+              <p class="text-[11px] text-[var(--muted)] mt-1">Danh mục: 🧾 Kế toán & Thuế · Ngày tạo: 25/08/2026</p>
+            </div>
+            <button onclick="alert('Phản hồi từ Chuyên gia Kế toán HTX: Các chi phí có hóa đơn điện tử hợp lệ đều được hạch toán đầy đủ.')" class="btn-ghost px-3 py-1.5 text-xs rounded-lg">Xem Phản Hồi</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<!-- ==================================================================================== -->
+<!-- MODALS & POPUPS -->
+<!-- ==================================================================================== -->
+
+<!-- MODAL 1: LOGIN MODAL -->
+<div id="modal-login" class="modal-backdrop hidden">
+  <div class="card p-6 sm:p-8 bg-white max-w-md w-full border-[var(--line)] shadow-2xl relative">
+    <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+    
+    <div class="text-center mb-6">
+      <span class="w-12 h-12 rounded-full bg-[var(--green-tint)] text-[var(--green-deep)] text-2xl flex items-center justify-center mx-auto mb-2 font-bold">🔐</span>
+      <h3 class="font-display font-bold text-xl text-[var(--ink)]">Đăng Nhập Thành Viên HTX 369</h3>
+      <p class="text-xs text-[var(--muted)] mt-1">Đăng nhập để vào Học viện & PM Kế toán HKD</p>
+    </div>
+
+    <form onsubmit="handleLoginForm(event)" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Số điện thoại đăng ký (*)</label>
+        <input type="text" id="login-phone" value="0987654321" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] font-mono text-sm">
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Mật khẩu / Mã OTP (*)</label>
+        <div class="relative">
+          <input type="password" id="login-pass" value="123456" required class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+          <button type="button" onclick="togglePassVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-base focus:outline-none" title="Ẩn/Hiện mật khẩu">
+            <span id="pass-eye-icon">👁️</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-[11px]">
+        <label class="flex items-center gap-1 cursor-pointer">
+          <input type="checkbox" checked class="rounded"> Ghi nhớ đăng nhập
+        </label>
+        <a href="#" class="text-[var(--green-deep)] hover:underline">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-xs shadow-md mt-2">
+        Đăng Nhập Vào Cổng Thành Viên →
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 2: REGISTER MODAL -->
+<div id="modal-register" class="modal-backdrop hidden">
+  <div class="card p-6 sm:p-8 bg-white max-w-lg w-full border-[var(--line)] shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+
+    <div class="text-center mb-6">
+      <span class="w-12 h-12 rounded-full bg-[var(--gold-tint)] text-[var(--gold-deep)] text-2xl flex items-center justify-center mx-auto mb-2 font-bold">📋</span>
+      <h3 class="font-display font-bold text-xl text-[var(--ink)]">Đơn Đăng Ký Tham Gia HTX 369</h3>
+      <p class="text-xs text-[var(--muted)] mt-1">Đăng ký tham gia cộng đồng & sử dụng công cụ quản trị</p>
+    </div>
+
+    <form onsubmit="handleRegisterForm(event)" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Họ và tên đầy đủ (*)</label>
+        <input type="text" placeholder="Nguyễn Văn A" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Số điện thoại (*)</label>
+          <input type="tel" placeholder="0901234567" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Số CCCD / CMND (*)</label>
+          <input type="text" placeholder="0123456789" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Lựa chọn Nhóm Thành Viên (*)</label>
+        <select required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] bg-white">
+          <option value="Chính thức">Thành viên chính thức (Góp vốn lệ + Tham gia trực tiếp)</option>
+          <option value="Liên kết góp vốn">Thành viên liên kết góp vốn</option>
+          <option value="Liên kết không góp vốn">Thành viên liên kết không góp vốn</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Tên Hộ Kinh Doanh / Điểm Bán (Nếu có)</label>
+        <input type="text" placeholder="Cửa hàng nông sản sạch An Tâm" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-xs shadow-md mt-2">
+        Nộp Đơn Đăng Ký Chờ Phê Duyệt →
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 3: ADD HKD TRANSACTION MODAL -->
+<div id="modal-add-tx" class="modal-backdrop hidden">
+  <div class="card p-6 bg-white max-w-md w-full border-[var(--line)] shadow-2xl relative">
+    <button onclick="closeAddTransactionModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+
+    <h3 class="font-display font-bold text-lg text-[var(--ink)] mb-4">＋ Nhập Giao Dịch Sổ Sách HKD Mới</h3>
+
+    <form onsubmit="handleAddTxForm(event)" class="space-y-3 text-xs">
+      <div>
+        <label class="block font-semibold mb-1">Loại giao dịch (*)</label>
+        <select id="tx-type" class="w-full p-2 rounded-lg border border-gray-300">
+          <option value="Thu Bán Hàng">Thu Bán Hàng (+)</option>
+          <option value="Chi Mua Hàng">Chi Mua Hàng / Nhập Kho (-)</option>
+          <option value="Chi Vận Hành">Chi Phí Vận Hành (-)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Nội dung diễn giải (*)</label>
+        <input type="text" id="tx-desc" placeholder="Bán lẻ gạo 369..." required class="w-full p-2 rounded-lg border border-gray-300">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Số tiền (VNĐ) (*)</label>
+        <input type="number" id="tx-amount" placeholder="1500000" required class="w-full p-2 rounded-lg border border-gray-300">
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-2.5 rounded-lg font-bold text-xs shadow mt-2">
+        Lưu Giao Dịch Vào Sổ Thật
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 4: CREATE SUPPORT TICKET MODAL -->
+<div id="modal-create-ticket" class="modal-backdrop hidden">
+  <div class="card p-6 bg-white max-w-md w-full border-[var(--line)] shadow-2xl relative">
+    <button onclick="closeCreateTicketModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+
+    <h3 class="font-display font-bold text-lg text-[var(--ink)] mb-4">🆘 Tạo Yêu Cầu Hỗ Trợ Mới</h3>
+
+    <form onsubmit="handleCreateTicketForm(event)" class="space-y-3 text-xs">
+      <div>
+        <label class="block font-semibold mb-1">Danh mục trợ giúp (*)</label>
+        <select id="ticket-cat" class="w-full p-2 rounded-lg border border-gray-300">
+          <option value="Khóa học">📚 Hỏi về Khóa học</option>
+          <option value="PM HKD">💻 Hỏi về PM Kế toán HKD</option>
+          <option value="Kế toán & Thuế">🧾 Hỏi về Kế toán & Thuế</option>
+          <option value="HTX 369">🤝 Hỏi về Quyền lợi HTX</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Tiêu đề yêu cầu (*)</label>
+        <input type="text" id="ticket-title" placeholder="Cần hướng dẫn về..." required class="w-full p-2 rounded-lg border border-gray-300">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Nội dung chi tiết (*)</label>
+        <textarea id="ticket-content" rows="3" placeholder="Mô tả cụ thể thắc mắc của bạn..." required class="w-full p-2 rounded-lg border border-gray-300"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-2.5 rounded-lg font-bold text-xs shadow mt-2">
+        Gửi Yêu Cầu Đến Ban Điều Hành
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 5: INFOGRAPHIC VIEWER MODAL (FULLSCREEN PRO) -->
+<div id="modal-infographic" class="fixed inset-0 z-[100] bg-black/95 flex flex-col hidden p-2 sm:p-4">
+  <!-- Top Control Bar -->
+  <div class="flex flex-wrap justify-between items-center bg-gray-900 text-white px-4 py-3 rounded-xl border border-gray-800 mb-2 gap-3 shadow-lg">
+    <div class="flex items-center gap-2">
+      <span class="text-xl">🖼️</span>
+      <h3 id="info-modal-title" class="font-display font-bold text-sm md:text-base text-amber-400">Sơ đồ Infographic HTX 369</h3>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <button onclick="openInfographicInNewTab()" class="bg-amber-500 hover:bg-amber-600 text-black px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+        🔍 Mở Hình Ảnh Riêng Tab Toàn Màn Hình
+      </button>
+      <button onclick="zoomInfographic(0.2)" class="bg-gray-800 hover:bg-gray-700 text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition">
+        ➕ Phóng to
+      </button>
+      <button onclick="zoomInfographic(-0.2)" class="bg-gray-800 hover:bg-gray-700 text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition">
+        ➖ Thu nhỏ
+      </button>
+      <button onclick="resetInfographicZoom()" class="bg-gray-800 hover:bg-gray-700 text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition">
+        🔄 100%
+      </button>
+      <button onclick="closeInfographicModal()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition ml-2">
+        ✕ Đóng
+      </button>
+    </div>
+  </div>
+
+  <!-- Image Display Viewport (2D Scrollable) -->
+  <div class="flex-1 overflow-auto bg-gray-950 rounded-xl p-4 flex items-start justify-center text-center cursor-grab active:cursor-grabbing border border-gray-800">
+    <img id="info-modal-img" src="" alt="Infographic" class="max-w-none transition-transform duration-200 ease-out shadow-2xl rounded" style="transform: scale(1); transform-origin: top center;">
+  </div>
+</div>
+
+<!-- ==================================================================================== -->
+<!-- APPLICATION LOGIC & STATE MANAGEMENT (JS) -->
+<!-- ==================================================================================== -->
+<script>
+  let currentImgScale = 1;
+  let currentImgSrc = '';
+
+  function openInfographicModal(imgSrc, title) {
+    currentImgSrc = imgSrc;
+    currentImgScale = 1;
+    const imgEl = document.getElementById('info-modal-img');
+    imgEl.src = imgSrc;
+    imgEl.style.transform = 'scale(1)';
+    document.getElementById('info-modal-title').innerText = title;
+    document.getElementById('modal-infographic').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInfographicModal() {
+    document.getElementById('modal-infographic').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function zoomInfographic(delta) {
+    currentImgScale = Math.min(3, Math.max(0.5, currentImgScale + delta));
+    document.getElementById('info-modal-img').style.transform = `scale(${currentImgScale})`;
+  }
+
+  function resetInfographicZoom() {
+    currentImgScale = 1;
+    document.getElementById('info-modal-img').style.transform = 'scale(1)';
+  }
+
+  function openInfographicInNewTab() {
+    if (currentImgSrc) {
+      window.open(currentImgSrc, '_blank');
+    }
+  }
+
+  // App State Model
+  const state = {
+    isLoggedIn: true, // Default to true for demo view
+    user: {
+      name: "Nguyễn Văn An",
+      phone: "0987654321",
+      role: "Thành viên", // Thành viên | Tổ trưởng | Cán bộ quản lý | Ban điều hành
+      status: "Chính thức", // Chính thức | Liên kết góp vốn | Liên kết không góp vốn | Đang chờ xác nhận | Tạm ngừng | Đã chấm dứt
+      joinedDate: "15/01/2025",
+      capital: "5.000.000 VNĐ",
+      competencyPoints: 82,
+      progress: 75,
+      completedCourses: 5,
+      certificates: 3,
+      badges: 6
+    },
+    activeTab: 'academy', // home | academy | pm_hkd | transactions | profile | support
+    tickets: [
+      { id: 'TK-9021', title: 'Hướng dẫn kê khai chi phí hợp lệ cho HKD bán lẻ', cat: '🧾 Kế toán & Thuế', date: '25/08/2026', status: 'Đã giải quyết' }
+    ],
+    hkdRevenue: 148500000
+  };
+
+  // Initialize UI on DOM Ready
+  document.addEventListener('DOMContentLoaded', () => {
+    updateSimControlsUI();
+    renderState();
+
+    // Intersection observer for scroll animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  });
+
+  // Render whole UI based on current State
+  function renderState() {
+    const publicNav = document.getElementById('public-nav');
+    const portalNav = document.getElementById('portal-nav');
+    const mobPortalNav = document.getElementById('mobile-portal-nav');
+    const loggedOutActions = document.getElementById('logged-out-actions');
+    const loggedInActions = document.getElementById('logged-in-actions');
+    const portalContainer = document.getElementById('portal-container');
+    const restrictionScreen = document.getElementById('status-restriction-screen');
+
+    // Update login status display
+    if (state.isLoggedIn) {
+      publicNav.classList.add('hidden');
+      portalNav.classList.remove('hidden');
+      mobPortalNav.classList.remove('hidden');
+      loggedOutActions.classList.add('hidden');
+      loggedInActions.classList.remove('hidden');
+
+      // Check member status permissions
+      if (['Đang chờ xác nhận', 'Tạm ngừng', 'Đã chấm dứt'].includes(state.user.status)) {
+        portalContainer.classList.add('hidden');
+        restrictionScreen.classList.remove('hidden');
+        document.getElementById('restriction-title').innerText = `Tài khoản ở trạng thái: ${state.user.status}`;
+        document.getElementById('restriction-desc').innerText = `Theo Điều lệ HTX Gia đình 369, tài khoản ở trạng thái "${state.user.status}" bị tạm khóa quyền truy cập Cổng thành viên. Vui lòng liên hệ Ban Điều Hành để được xác minh.`;
+      } else {
+        portalContainer.classList.remove('hidden');
+        restrictionScreen.classList.add('hidden');
+      }
+    } else {
+      publicNav.classList.remove('hidden');
+      portalNav.classList.add('hidden');
+      mobPortalNav.classList.add('hidden');
+      loggedOutActions.classList.remove('hidden');
+      loggedInActions.classList.add('hidden');
+      portalContainer.classList.add('hidden');
+      restrictionScreen.classList.add('hidden');
+      
+      // Force tab to home if public
+      switchTab('home');
+    }
+
+    // Update Header user info
+    document.getElementById('user-display-name').innerText = state.user.name;
+    document.getElementById('user-display-role').innerText = `${state.user.role} (${state.user.status})`;
+    document.getElementById('user-avatar-initial').innerText = state.user.name.charAt(0);
+
+    // Update Portal Header Banner
+    document.getElementById('banner-user-name').innerText = state.user.name;
+    document.getElementById('banner-avatar').innerText = state.user.name.charAt(0);
+    document.getElementById('banner-role-badge').innerText = state.user.role;
+    document.getElementById('banner-status-badge').innerText = `● ${state.user.status}`;
+    document.getElementById('metric-competency').innerText = `${state.user.competencyPoints} / 100`;
+    document.getElementById('metric-certificates').innerText = state.user.certificates;
+    document.getElementById('metric-badges').innerText = state.user.badges;
+
+    // Update Role Category Label
+    document.getElementById('cat-role-label').innerText = state.user.role;
+
+    // Apply 4-Tier Role Lock overlays on courses
+    const lockTotruong = document.getElementById('lock-totruong-overlay');
+    const lockCanbo = document.getElementById('lock-canbo-overlay');
+
+    if (['Thành viên'].includes(state.user.role)) {
+      lockTotruong.classList.remove('hidden');
+      lockCanbo.classList.remove('hidden');
+    } else if (['Tổ trưởng'].includes(state.user.role)) {
+      lockTotruong.classList.add('hidden');
+      lockCanbo.classList.remove('hidden');
+    } else { // Cán bộ quản lý or Ban điều hành
+      lockTotruong.classList.add('hidden');
+      lockCanbo.classList.add('hidden');
+    }
+
+    // Update Profile View data
+    document.getElementById('prof-avatar').innerText = state.user.name.charAt(0);
+    document.getElementById('prof-name').innerText = state.user.name;
+    document.getElementById('prof-type-badge').innerText = state.user.role;
+    document.getElementById('prof-member-type').innerText = state.user.status;
+    document.getElementById('prof-points').innerText = `${state.user.competencyPoints} / 100`;
+  }
+
+  // Switch Active Tab
+  function switchTab(tabId) {
+    state.activeTab = tabId;
+    
+    // Hide all view panels
+    document.querySelectorAll('.portal-view').forEach(view => view.classList.remove('active'));
+    
+    // Deactivate all nav pills
+    document.querySelectorAll('.nav-pill').forEach(pill => pill.classList.remove('active'));
+
+    // Show target view
+    const targetView = document.getElementById(`view-${tabId}`);
+    if (targetView) targetView.classList.add('active');
+
+    // Activate corresponding nav pill
+    const targetPill = document.getElementById(`tab-btn-${tabId}`);
+    if (targetPill) targetPill.classList.add('active');
+    const targetMobPill = document.getElementById(`mob-tab-${tabId}`);
+    if (targetMobPill) targetMobPill.classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Simulator Controls Handling
+  function toggleSimAuth(val) {
+    state.isLoggedIn = (val === 'logged');
+    renderState();
+  }
+
+  function changeSimRole(val) {
+    state.user.role = val;
+    document.getElementById('sim-role').value = val;
+    renderState();
+  }
+
+  function changeSimStatus(val) {
+    state.user.status = val;
+    document.getElementById('sim-status').value = val;
+    renderState();
+  }
+
+  function updateSimControlsUI() {
+    document.getElementById('sim-auth').value = state.isLoggedIn ? 'logged' : 'public';
+    document.getElementById('sim-role').value = state.user.role;
+    document.getElementById('sim-status').value = state.user.status;
+  }
+
+  function doLogout() {
+    state.isLoggedIn = false;
+    updateSimControlsUI();
+    renderState();
+  }
+
+  function doLoginSim() {
+    state.isLoggedIn = true;
+    state.user.status = "Chính thức";
+    updateSimControlsUI();
+    renderState();
+    switchTab('academy');
+  }
+
+  // Lesson Player Logic
+  function openLessonPlayer(title) {
+    document.getElementById('player-lesson-title').innerText = title;
+    document.getElementById('lesson-player-container').classList.remove('hidden');
+    window.scrollTo({ top: document.getElementById('lesson-player-container').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  function closeLessonPlayer() {
+    document.getElementById('lesson-player-container').classList.add('hidden');
+  }
+
+  function playLessonVideoSim() {
+    alert("▶ Đang phát bài giảng video mẫu chất lượng cao (HD). Bạn có thể xem hết video rồi bấm [💻 Thực hành trên PM]!");
+  }
+
+  // CRITICAL FEATURE: Jump from Lesson to PM Practice with Safety Warning!
+  function triggerPMPracticeFromLesson() {
+    closeLessonPlayer();
+    switchTab('pm_hkd');
+    alert("⚠️ CẢNH BÁO AN TOÀN DỮ LIỆU: Bạn đã chuyển sang Phần mềm Kế toán HKD thật. Hệ thống sẽ mở trang Đăng nhập PM HKD tại link https://hkd-backend.vercel.app/login !");
+    window.open('https://hkd-backend.vercel.app/login', '_blank');
+  }
+
+  function submitLessonQuiz() {
+    state.user.competencyPoints = Math.min(100, state.user.competencyPoints + 5);
+    state.user.badges += 1;
+    renderState();
+    alert("🎉 CHÚC MỪNG! Bạn đã trả lời đúng 100% Quiz bài học.\n+5 Điểm năng lực (Tổng: " + state.user.competencyPoints + "/100)\n+1 Huy hiệu thành tích mới!");
+  }
+
+  // Modals Handling
+  function openLoginModal() { document.getElementById('modal-login').classList.remove('hidden'); }
+  function closeLoginModal() { document.getElementById('modal-login').classList.add('hidden'); }
+  function togglePassVisibility() {
+    const passInput = document.getElementById('login-pass');
+    const eyeIcon = document.getElementById('pass-eye-icon');
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      eyeIcon.innerText = '🙈';
+    } else {
+      passInput.type = 'password';
+      eyeIcon.innerText = '👁️';
+    }
+  }
+  function handleLoginForm(e) {
+    e.preventDefault();
+    closeLoginModal();
+    doLoginSim();
+  }
+
+  function openRegisterModal() { document.getElementById('modal-register').classList.remove('hidden'); }
+  function closeRegisterModal() { document.getElementById('modal-register').classList.add('hidden'); }
+  function handleRegisterForm(e) {
+    e.preventDefault();
+    closeRegisterModal();
+    alert("✅ Đơn đăng ký tham gia HTX 369 đã gửi thành công!\nBan Điều Hành sẽ xác minh CCCD/SĐT và cập nhật vào Sổ đăng ký thành viên chính thức.");
+  }
+
+  function openAddTransactionModal() { document.getElementById('modal-add-tx').classList.remove('hidden'); }
+  function closeAddTransactionModal() { document.getElementById('modal-add-tx').classList.add('hidden'); }
+  function handleAddTxForm(e) {
+    e.preventDefault();
+    const type = document.getElementById('tx-type').value;
+    const desc = document.getElementById('tx-desc').value;
+    const amount = parseFloat(document.getElementById('tx-amount').value) || 0;
+
+    const tbody = document.getElementById('hkd-ledger-body');
+    const tr = document.createElement('tr');
+    const dateStr = new Date().toLocaleDateString('vi-VN');
+    const idStr = 'GD-' + Math.floor(1000 + Math.random() * 9000);
+
+    const isIncome = type === 'Thu Bán Hàng';
+    const amountFormatted = (isIncome ? '+' : '-') + amount.toLocaleString('vi-VN') + ' VNĐ';
+    const colorClass = isIncome ? 'text-emerald-700' : 'text-red-700';
+
+    tr.innerHTML = `
+      <td class="p-3 font-mono font-semibold">${idStr}</td>
+      <td class="p-3 text-[var(--muted)]">${dateStr}</td>
+      <td class="p-3 font-medium">${desc}</td>
+      <td class="p-3"><span class="${colorClass} font-bold bg-gray-50 px-2 py-0.5 rounded">${type}</span></td>
+      <td class="p-3 text-right font-bold ${colorClass}">${amountFormatted}</td>
+      <td class="p-3"><span class="text-xs text-emerald-700 font-semibold">Đã ghi sổ</span></td>
+    `;
+    tbody.prepend(tr);
+
+    if (isIncome) state.hkdRevenue += amount;
+    document.getElementById('hkd-revenue').innerText = state.hkdRevenue.toLocaleString('vi-VN') + ' VNĐ';
+
+    closeAddTransactionModal();
+    alert("✅ Đã ghi nhận giao dịch thành công vào Sổ Kế toán HKD thật!");
+  }
+
+  function exportHKDReport() {
+    alert("📄 Đã xuất báo cáo sổ sách doanh thu & thuế HKD dạng PDF / Excel chuẩn theo quy định!");
+  }
+
+  function openCreateTicketModal() { document.getElementById('modal-create-ticket').classList.remove('hidden'); }
+  function closeCreateTicketModal() { document.getElementById('modal-create-ticket').classList.add('hidden'); }
+  function handleCreateTicketForm(e) {
+    e.preventDefault();
+    const cat = document.getElementById('ticket-cat').value;
+    const title = document.getElementById('ticket-title').value;
+    const id = 'TK-' + Math.floor(1000 + Math.random() * 9000);
+
+    const list = document.getElementById('tickets-list');
+    const item = document.createElement('div');
+    item.className = "p-4 rounded-xl border border-[var(--line)] bg-[var(--paper)] flex justify-between items-center";
+    item.innerHTML = `
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-mono font-bold text-[var(--green-deep)]">#${id}</span>
+          <span class="font-bold text-sm text-[var(--ink)]">${title}</span>
+          <span class="status-badge status-pending">Đã tiếp nhận</span>
+        </div>
+        <p class="text-[11px] text-[var(--muted)] mt-1">Danh mục: ${cat} · Vừa khởi tạo</p>
+      </div>
+      <button onclick="alert('Yêu cầu đã được chuyển đến bộ phận chuyên môn. Ban Điều Hành sẽ xử lý trong vòng 24h.')" class="btn-ghost px-3 py-1.5 text-xs rounded-lg">Chi tiết</button>
+    `;
+    list.prepend(item);
+
+    closeCreateTicketModal();
+    alert("✅ Yêu cầu hỗ trợ đã tạo thành công với mã #" + id);
+  }
+
+  function showValDetail(num) {
+    const titles = ["", "Trao giá trị", "Kết nối", "Tin cậy", "Cộng sinh", "Nhân giá trị", "Chia sẻ", "Phát triển bền vững"];
+    alert("💎 Giá trị #" + num + ": " + titles[num] + "\nĐây là giá trị nền tảng trong 7 giá trị cốt lõi của HTX Gia đình 369!");
+  }
+
+  function viewCertificateSim(certName) {
+    alert("📜 Đang hiển thị bản sao điện tử Chứng chỉ: " + certName + " của Thành viên " + state.user.name + " (Mã TV: HTX369-0082).");
+  }
+</script>
+
+</body>
+</html>
