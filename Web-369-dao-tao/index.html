@@ -186,6 +186,12 @@
   .portal-view { display: none; }
   .portal-view.active { display: block; }
 
+  /* Portal Nav Desktop Responsive Fix */
+  #portal-nav { display: none !important; }
+  @media (min-width: 1024px) {
+    #portal-nav.is-logged-in { display: flex !important; }
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: var(--paper); }
@@ -1744,7 +1750,7 @@
     // Update login status display
     if (state.isLoggedIn) {
       publicNav.classList.add('hidden');
-      portalNav.classList.remove('hidden');
+      portalNav.classList.add('is-logged-in');
       mobPortalNav.classList.remove('hidden');
       loggedOutActions.classList.add('hidden');
       loggedInActions.classList.remove('hidden');
@@ -1761,7 +1767,7 @@
       }
     } else {
       publicNav.classList.remove('hidden');
-      portalNav.classList.add('hidden');
+      portalNav.classList.remove('is-logged-in');
       mobPortalNav.classList.add('hidden');
       loggedOutActions.classList.remove('hidden');
       loggedInActions.classList.add('hidden');
