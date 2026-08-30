@@ -1828,17 +1828,32 @@
     <form onsubmit="handleChangePassForm(event)" class="space-y-4 text-xs">
       <div>
         <label class="block font-semibold text-gray-700 mb-1">Mật khẩu hiện tại / OTP tạm (*)</label>
-        <input type="password" id="old-pass" required placeholder="Nhập 123456 hoặc mật khẩu hiện tại" value="123456" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+        <div class="relative">
+          <input type="password" id="old-pass" required placeholder="Nhập 123456 hoặc mật khẩu hiện tại" value="123456" class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+          <button type="button" onclick="togglePassField('old-pass', 'eye-icon-old')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-base focus:outline-none" title="Ẩn/Hiện mật khẩu">
+            <span id="eye-icon-old">👁️</span>
+          </button>
+        </div>
       </div>
 
       <div>
         <label class="block font-semibold text-gray-700 mb-1">Mật khẩu mới (*)</label>
-        <input type="password" id="new-pass" required placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+        <div class="relative">
+          <input type="password" id="new-pass" required placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)" class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+          <button type="button" onclick="togglePassField('new-pass', 'eye-icon-new')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-base focus:outline-none" title="Ẩn/Hiện mật khẩu">
+            <span id="eye-icon-new">👁️</span>
+          </button>
+        </div>
       </div>
 
       <div>
         <label class="block font-semibold text-gray-700 mb-1">Xác nhận Mật khẩu mới (*)</label>
-        <input type="password" id="confirm-new-pass" required placeholder="Nhập lại mật khẩu mới vừa gõ" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+        <div class="relative">
+          <input type="password" id="confirm-new-pass" required placeholder="Nhập lại mật khẩu mới vừa gõ" class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+          <button type="button" onclick="togglePassField('confirm-new-pass', 'eye-icon-confirm')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-base focus:outline-none" title="Ẩn/Hiện mật khẩu">
+            <span id="eye-icon-confirm">👁️</span>
+          </button>
+        </div>
       </div>
 
       <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-xs shadow-md mt-2">
@@ -2276,14 +2291,19 @@
   function openLoginModal() { document.getElementById('modal-login').classList.remove('hidden'); }
   function closeLoginModal() { document.getElementById('modal-login').classList.add('hidden'); }
   function togglePassVisibility() {
-    const passInput = document.getElementById('login-pass');
-    const eyeIcon = document.getElementById('pass-eye-icon');
-    if (passInput.type === 'password') {
-      passInput.type = 'text';
-      eyeIcon.innerText = '🙈';
+    togglePassField('login-pass', 'pass-eye-icon');
+  }
+
+  function togglePassField(inputId, iconId) {
+    const inputEl = document.getElementById(inputId);
+    const iconEl = document.getElementById(iconId);
+    if (!inputEl || !iconEl) return;
+    if (inputEl.type === 'password') {
+      inputEl.type = 'text';
+      iconEl.innerText = '🙈';
     } else {
-      passInput.type = 'password';
-      eyeIcon.innerText = '👁️';
+      inputEl.type = 'password';
+      iconEl.innerText = '👁️';
     }
   }
   function handleLoginForm(e) {
