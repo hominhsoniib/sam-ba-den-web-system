@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="vi" class="bg-[#070A12] text-[#F1F5F9]">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVA / NEXUS Enterprise — Hệ Sinh Thái Quản Trị Doanh Nghiệp 11 Mô-đun</title>
+<meta name="description" content="EVA / NEXUS Enterprise OS — Hệ sinh thái số hóa quản trị doanh nghiệp toàn diện 11 mô-đun liên thông từ Kế hoạch Kinh doanh đến CEO Dashboard.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          void: '#070A12',
+          panel: '#0F172A',
+          'panel-2': '#1E293B',
+          'panel-3': '#334155',
+          line: '#1E293B',
+          'line-soft': '#0F172A',
+          text: '#F8FAFC',
+          muted: '#94A3B8',
+          'muted-2': '#64748B',
+          signal: '#10B981',
+          focus: '#F59E0B',
+          data: '#3B82F6',
+          danger: '#EF4444',
+          cyan: '#38BDF8',
+          'cyan-dim': '#0284C7',
+          amber: '#F59E0B'
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #070A12;
+    --panel: #0F172A;
+    --panel-2: #1E293B;
+    --line: #1E293B;
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --signal: #10B981;
+    --focus: #F59E0B;
+    --cyan: #38BDF8;
+    --danger: #EF4444;
+  }
+  
+  html, body {
+    background-color: #070A12 !important;
+    color: #F8FAFC !important;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .font-display { font-family: 'Space Grotesk', sans-serif; }
+  .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* Ambient Glow Backgrounds — NO GRID LINES */
+  .ambient-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+      radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.07), transparent 45%),
+      radial-gradient(circle at 85% 25%, rgba(139, 92, 246, 0.06), transparent 45%),
+      radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.05), transparent 50%);
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #94A3B8;
+    border: 1px solid #334155;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 5px 14px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 10px #10B981; flex-shrink: 0; }
+  .dot-amber { background: #F59E0B; box-shadow: 0 0 10px #F59E0B; }
+  .dot-data { background: #38BDF8; box-shadow: 0 0 10px #38BDF8; }
+  .dot-danger { background: #EF4444; box-shadow: 0 0 10px #EF4444; }
+
+  .panel {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid #1E293B;
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .panel-2 {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid #334155;
+    border-radius: 10px;
+  }
+
+  .btn-primary {
+    background: #F8FAFC;
+    color: #070A12;
+    font-weight: 700;
+    transition: all .2s ease;
+    box-shadow: 0 0 20px rgba(248, 250, 252, 0.15);
+  }
+  .btn-primary:hover {
+    background: #38BDF8;
+    color: #070A12;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    border: 1px solid #334155;
+    color: #F8FAFC;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    transition: all .2s ease;
+  }
+  .btn-ghost:hover {
+    border-color: #38BDF8;
+    background: rgba(56, 189, 248, 0.1);
+    color: #38BDF8;
+  }
+
+  ::selection { background: #38BDF8; color: #070A12; }
+
+  /* Clean Flow Pipeline animation */
+  .pipe-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent, #334155 10%, #334155 90%, transparent);
+  }
+  .pulse {
+    position: absolute;
+    left: 50%;
+    width: 8px; height: 8px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #38BDF8;
+    box-shadow: 0 0 14px 3px #38BDF8;
+    animation: travel 6s linear infinite;
+    opacity: 0;
+  }
+  @keyframes travel {
+    0% { top: 0%; opacity: 0; }
+    5% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  .node-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #0F172A;
+    border: 2px solid #64748B;
+    transition: .3s;
+  }
+  .flow-node:hover .node-dot { border-color: #38BDF8; box-shadow: 0 0 12px #38BDF8; }
+  .flow-node:hover .node-label { color: #F8FAFC; border-color: #38BDF8; }
+
+  /* Scroll Reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .radar-blink { animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  table.compare td, table.compare th { border-color: #1E293B; }
+  .accordion-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+  .accordion.open .accordion-body { max-height: 400px; }
+  .accordion.open .chev { transform: rotate(45deg); }
+  .chev { transition: .25s; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #070A12; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #38BDF8; }
+</style>
+</head>
+<body class="relative min-h-screen">
+
+<!-- Ambient Background Glow (NO GRID LINES) -->
+<div class="ambient-glow"></div>
+
+<!-- Hidden File Input for Custom User Upload -->
+<input type="file" id="userFileInput" accept=".pdf,image/*,.txt" class="hidden" onchange="handleUserFileUpload(event)">
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 inset-x-0 z-50 border-b border-slate-800/80 bg-[#070A12]/80 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <img src="nexus-mark-dark.svg" alt="EVA/NEXUS Logo" class="h-7 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <span class="hidden w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#10B981]"></span>
+      <span class="font-display font-bold text-xl tracking-tight text-white">EVA / NEXUS</span>
+      <span class="hidden md:block font-mono text-[10px] text-slate-400 tracking-widest uppercase border-l border-slate-800 pl-3 ml-1">Enterprise OS · 11 Mô-đun</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6 font-medium text-sm text-slate-400">
+      <a href="#he-sinh-thai" class="hover:text-white transition">11 Mô-đun</a>
+      <a href="#thu-vien-so-do" class="hover:text-sky-400 transition flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>Thư viện Sơ đồ & PDF</a>
+      <a href="#van-hanh" class="hover:text-white transition">Vận hành PDCA</a>
+      <a href="#du-lieu" class="hover:text-white transition">Data & AI</a>
+      <a href="#phan-quyen" class="hover:text-white transition">Lương 3P & 5 Tầng</a>
+      <a href="#phuong-phap" class="hover:text-white transition">Lộ trình 9 bước</a>
+      <a href="#faq" class="hover:text-white transition">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button onclick="document.getElementById('userFileInput').click()" class="btn-ghost text-xs font-bold px-3.5 py-2 rounded-lg text-sky-400 border-sky-500/40 hover:bg-sky-500/10 flex items-center gap-1.5" title="Tải file PDF/Ảnh từ máy tính để đọc trực tiếp">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        Load File Lên Xem
+      </button>
+      <button onclick="openBookingModal()" class="hidden sm:block btn-primary text-xs font-bold px-4 py-2.5 rounded-lg">Đặt lịch Đánh giá</button>
+      <button id="menuBtn" class="lg:hidden w-9 h-9 flex items-center justify-center btn-ghost rounded-lg">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M1 3h14M1 8h14M1 13h14" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-[#070A12] px-5 py-4 flex flex-col gap-3.5 font-medium text-sm text-slate-400">
+    <a href="#he-sinh-thai" onclick="closeMobileMenu()" class="hover:text-white">11 Mô-đun Quản trị</a>
+    <a href="#thu-vien-so-do" onclick="closeMobileMenu()" class="hover:text-sky-400 font-bold text-sky-400">Thư viện Sơ đồ Master (16 Diagram)</a>
+    <button onclick="document.getElementById('userFileInput').click(); closeMobileMenu();" class="text-left font-bold text-sky-400 flex items-center gap-2 py-1">
+      <span>📂 Tải & Đọc File Của Bạn Trực Tuyến</span>
+    </button>
+    <a href="#van-hanh" onclick="closeMobileMenu()" class="hover:text-white">Vòng lặp PDCA</a>
+    <a href="#du-lieu" onclick="closeMobileMenu()" class="hover:text-white">Data Warehouse & AI</a>
+    <a href="#phan-quyen" onclick="closeMobileMenu()" class="hover:text-white">Lương 3P & 5 Tầng Quản lý</a>
+    <a href="#phuong-phap" onclick="closeMobileMenu()" class="hover:text-white">Phương pháp 9 Bước</a>
+    <a href="#faq" onclick="closeMobileMenu()" class="hover:text-white">Câu hỏi thường gặp</a>
+    <button onclick="openBookingModal(); closeMobileMenu();" class="btn-primary text-center py-2.5 rounded-lg text-xs font-bold w-full">Đặt lịch tư vấn</button>
+  </div>
+</header>
+
+<main id="top" class="pt-16 relative z-10">
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden border-b border-slate-800/80">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 pt-16 md:pt-24 pb-20 text-center">
+    <div class="flex justify-center mb-7 reveal">
+      <span class="tag"><span class="dot"></span>Hệ Thống Đang Vận Hành Thực Tế · 11 Mô-đun Liên Thông</span>
+    </div>
+    <h1 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl max-w-4xl mx-auto leading-tight reveal">
+      Doanh nghiệp của bạn đang vận hành bằng <span class="bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">một hệ thống</span> — hay bằng trí nhớ của vài người?
+    </h1>
+    <p class="mt-6 text-slate-400 text-base md:text-lg max-w-3xl mx-auto leading-relaxed reveal">
+      EVA / NEXUS Enterprise OS — Kết nối Chiến lược, Kế hoạch KHKD, Ngân sách, Phê duyệt, Vận hành QLCV, CRM, DMS, Lương 3P và CEO Dashboard trên một nguồn dữ liệu duy nhất.
+    </p>
+    <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
+      <button onclick="openBookingModal()" class="btn-primary rounded-lg px-8 py-3.5 text-xs font-bold w-full sm:w-auto uppercase tracking-wider">Đặt lịch đánh giá hiện trạng</button>
+      <a href="#thu-vien-so-do" class="btn-ghost rounded-lg px-8 py-3.5 text-xs font-bold w-full sm:w-auto text-sky-400 border-sky-500/40 hover:bg-sky-500/10">Xem Thư viện 16 Sơ đồ Master ↓</a>
+      <button onclick="document.getElementById('userFileInput').click()" class="btn-ghost rounded-lg px-6 py-3.5 text-xs font-bold w-full sm:w-auto text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center justify-center gap-2">
+        <span>📤 Load File Của Bạn Lên Đọc</span>
+      </button>
+    </div>
+    <div class="mt-10 flex flex-wrap justify-center gap-3 reveal">
+      <span class="tag"><span class="dot"></span>11 Mô-đun chuyên sâu</span>
+      <span class="tag"><span class="dot-data"></span>Core Hub PM QLCV Bộ Não</span>
+      <span class="tag"><span class="dot-amber"></span>Data Warehouse & AI Copilot</span>
+      <span class="tag"><span class="dot"></span>Đọc PDF & Docs Trực Tuyến</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE: CENTRAL FLOW DIAGRAM ============ -->
+<section id="so-do" class="relative border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-4 reveal">
+      <span class="tag">Luồng Dữ Liệu Liên Thông Single Source of Truth</span>
+    </div>
+    <h2 class="font-display font-semibold text-2xl md:text-4xl text-center max-w-3xl mx-auto reveal">
+      Luồng dữ liệu thật đang chạy giữa 11 mô-đun từ Kế hoạch đến CEO Dashboard
+    </h2>
+
+    <div class="relative mt-16 max-w-md mx-auto reveal">
+      <div class="pipe-line"></div>
+      <div class="pulse" style="animation-delay:0s"></div>
+      <div class="pulse" style="animation-delay:2s"></div>
+      <div class="pulse" style="animation-delay:4s"></div>
+
+      <!-- top label -->
+      <div class="relative text-center pb-10">
+        <span class="font-mono text-[10px] tracking-widest uppercase text-slate-500">NEXUS ENTERPRISE OPERATING SYSTEM</span>
+      </div>
+
+      <!-- nodes -->
+      <div class="space-y-6">
+        <div onclick="openModuleModal(1)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-slate-400 group-hover:text-sky-400 group-hover:border-sky-500">MOD 01: LẬP KẾ HOẠCH KINH DOANH ➔</div>
+        </div>
+        <div onclick="openModuleModal(2)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-slate-400 group-hover:text-sky-400 group-hover:border-sky-500">MOD 02-05: REVIEW, MA & NGÂN SÁCH DÒNG TIỀN ➔</div>
+        </div>
+        <div onclick="openModuleModal(6)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-slate-400 group-hover:text-sky-400 group-hover:border-sky-500">MOD 06: GIÁM SÁT & PHÊ DUYỆT (APPROVE) ➔</div>
+        </div>
+        <div onclick="openModuleModal(7)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10" style="border-color:#10B981;box-shadow:0 0 10px #10B981"></div>
+          <div class="panel px-6 py-3 rounded-lg font-mono text-xs tracking-wide font-bold text-emerald-400 border border-emerald-500/50 bg-emerald-500/10 group-hover:bg-emerald-500/20">MOD 07: CORE HUB PM QLCV (BỘ NÃO VẬN HÀNH) ➔</div>
+        </div>
+        <div onclick="openModuleModal(8)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-slate-400 group-hover:text-sky-400 group-hover:border-sky-500">MOD 08-09: CRM, BÁO GIÁ & KÊNH PHÂN PHỐI DMS ➔</div>
+        </div>
+        <div onclick="openModuleModal(10)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-slate-400 group-hover:text-sky-400 group-hover:border-sky-500">MOD 10: LƯƠNG 3P TỪ HIỆU SUẤT THẬT QLCV ➔</div>
+        </div>
+        <div onclick="openModuleModal(11)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10" style="border-color:#3B82F6"></div>
+          <div class="panel-2 px-5 py-2.5 rounded-lg font-mono text-xs tracking-wide node-label text-sky-400 border-sky-500/40 group-hover:bg-sky-500/10">DATA WAREHOUSE + AI COPILOT ➔</div>
+        </div>
+        <div onclick="openModuleModal(11)" class="flow-node relative flex items-center justify-center cursor-pointer group">
+          <div class="node-dot absolute left-1/2 -translate-x-1/2 z-10" style="border-color:#F59E0B"></div>
+          <div class="panel px-5 py-3 rounded-lg font-mono text-xs tracking-wide font-semibold text-amber-400 border border-amber-500/50 bg-amber-500/10 group-hover:bg-amber-500/20">MOD 11: CEO DASHBOARD & RADAR BÁO CÁO ➔</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-slate-400 text-sm mt-14 max-w-lg mx-auto reveal">
+      Bao quanh toàn bộ vòng lặp: <span class="text-white font-medium">Con người · Quy trình · Tài nguyên · Dữ liệu · Công nghệ · AI</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ ECOSYSTEM GRID (11 MODULES INTERACTIVE CARDS) ============ -->
+<section id="he-sinh-thai" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot"></span>Kiến trúc 11 Mô-đun Quản Trị</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Hệ Sinh Thái Số Hóa Doanh Nghiệp Toàn Diện</h2>
+      <p class="text-slate-400 mt-3 max-w-2xl mx-auto">Nhấp vào bất kỳ mô-đun nào bên dưới để **Mở Form Chức Năng & Xem Quy Trình Thao Tác Chi Tiết**.</p>
+      
+      <!-- Filter Buttons -->
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <button id="btnModAll" onclick="filterModules('all')" class="px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-white text-[#070A12]">Tất cả 11 Mô-đun</button>
+        <button id="btnModFinance" onclick="filterModules('finance')" class="px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700">Lớp Kế Hoạch – Tài Chính (Mod 01-06)</button>
+        <button id="btnModBusiness" onclick="filterModules('business')" class="px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700">Lớp Kinh Doanh & Con Người (Mod 08-11)</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal" id="modulesGrid">
+      
+      <!-- Mod 01 -->
+      <div onclick="openModuleModal(1)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 01</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Lập Kế Hoạch Kinh Doanh</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Kế hoạch kinh doanh, doanh thu, sản phẩm, marketing, nhân sự và chỉ tiêu KPI/OKR.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Kế hoạch doanh thu & chi phí</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Kế hoạch nhân sự & hoạt động</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Chỉ tiêu KPI/OKR mục tiêu</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 02 -->
+      <div onclick="openModuleModal(2)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 02</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Review & Phân Tích Insight</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Phân tích thị trường, đối thủ, đánh giá rủi ro & cơ hội với sự hỗ trợ của AI.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Phân tích SWOT / PESTEL</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Đánh giá rủi ro & cơ hội</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>AI phân tích insight thị trường</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 03 -->
+      <div onclick="openModuleModal(3)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 03</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Quản Trị Kế Hoạch (PM MA)</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Theo dõi thực hiện KPI/OKR, ngân sách, dự án và cảnh báo lệch kế hoạch.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Báo cáo P&L Quản trị</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Theo dõi tiến độ KPI/OKR</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Cảnh báo lệch kế hoạch</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 04 -->
+      <div onclick="openModuleModal(4)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 04</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Quản Trị Dòng Tiền (Cashflow)</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Kế hoạch dòng tiền thu – chi, dự báo dòng tiền, quản lý công nợ và cảnh báo thiếu hụt.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Dự báo thu – chi real-time</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Quản lý hạn mức công nợ</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Cảnh báo thâm hụt dòng tiền</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 05 -->
+      <div onclick="openModuleModal(5)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 05</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Quản Trị Ngân Sách (PM MA)</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Lập, phân bổ, theo dõi ngân sách; so sánh kế hoạch vs thực tế và phân tích nguyên nhân.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Phân bổ ngân sách phòng ban</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>So sánh Kế hoạch vs Thực tế</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Phân tích nguyên nhân lệch</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 06 -->
+      <div onclick="openModuleModal(6)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 06</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Giám Sát & Phê Duyệt (Approve)</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Phê duyệt online, giám sát quy trình mua hàng, thanh toán và kiểm soát ngân sách.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Quản lý đề xuất online</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Kiểm soát quy trình mua hàng</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Cảnh báo vượt ngân sách</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CORE HUB: MÔ-ĐUN 07 (FULL WIDTH FEATURED BANNER) -->
+      <div onclick="openModuleModal(7)" class="col-span-1 md:col-span-3 panel p-8 border-2 border-emerald-500/60 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-800/80 relative overflow-hidden my-2 shadow-2xl hover:border-emerald-400 cursor-pointer transition group">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <span class="tag border-emerald-500 text-emerald-400 font-bold bg-emerald-500/10"><span class="dot"></span>MÔ-ĐUN 07 — CORE HUB</span>
+          <span class="font-mono text-xs px-3 py-1 rounded-md bg-emerald-500 text-slate-950 font-bold">Mở Form Bộ Não QLCV Real-time ➔</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl md:text-3xl text-white mb-3 group-hover:text-emerald-400 transition">PM QLCV — Trung Tâm Điều Phối & Giám Sát Tự Động Real-time</h3>
+        <p class="text-sm text-slate-300 max-w-4xl mb-6 leading-relaxed">
+          QLCV tiếp nhận chỉ tiêu từ lớp Kế hoạch – Tài chính (Mod 1-6) để biến thành công việc thực thi daily, đồng thời truyền dữ liệu thực hiện thực tế về CRM, DMS, Lương 3P (Mod 8-10) và đẩy số liệu hội tụ lên CEO Dashboard (Mod 11).
+        </p>
+
+        <!-- 5 Core Functions Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div class="panel-2 p-4 border border-slate-700 bg-slate-800/50">
+            <span class="font-mono text-[10px] text-amber-400 block mb-1">01. LÕI VẬN HÀNH</span>
+            <h4 class="font-bold text-sm text-sky-400 mb-1">Quản lý Công việc</h4>
+            <p class="text-xs text-slate-400 leading-snug">Giao việc, deadline, tiến độ, KPI/OKR cá nhân & nhóm.</p>
+          </div>
+          <div class="panel-2 p-4 border border-slate-700 bg-slate-800/50">
+            <span class="font-mono text-[10px] text-amber-400 block mb-1">02. LÕI VẬN HÀNH</span>
+            <h4 class="font-bold text-sm text-sky-400 mb-1">Quản lý Tài nguyên</h4>
+            <p class="text-xs text-slate-400 leading-snug">Nhân sự, thiết bị máy móc, nguyên vật liệu, ngân sách.</p>
+          </div>
+          <div class="panel-2 p-4 border border-slate-700 bg-slate-800/50">
+            <span class="font-mono text-[10px] text-amber-400 block mb-1">03. LÕI VẬN HÀNH</span>
+            <h4 class="font-bold text-sm text-sky-400 mb-1">Quản lý Tri thức</h4>
+            <p class="text-xs text-slate-400 leading-snug">Thư viện SOP, tài liệu quy trình, best practices, kinh nghiệm.</p>
+          </div>
+          <div class="panel-2 p-4 border border-slate-700 bg-slate-800/50">
+            <span class="font-mono text-[10px] text-amber-400 block mb-1">04. LÕI VẬN HÀNH</span>
+            <h4 class="font-bold text-sm text-sky-400 mb-1">Quản lý Quy trình</h4>
+            <p class="text-xs text-slate-400 leading-snug">Chuẩn hóa, số hóa quy trình (BPM) & tự động hóa workflow.</p>
+          </div>
+          <div class="panel-2 p-4 border border-slate-700 bg-slate-800/50">
+            <span class="font-mono text-[10px] text-amber-400 block mb-1">05. LÕI VẬN HÀNH</span>
+            <h4 class="font-bold text-sm text-sky-400 mb-1">Giám sát Tự động</h4>
+            <p class="text-xs text-slate-400 leading-snug">Cảnh báo real-time & nhắc việc tự động không cần audit thủ công.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 font-mono gap-3">
+          <div class="flex items-center gap-4">
+            <span class="text-amber-400 font-semibold">Chức năng bổ trợ:</span>
+            <span>1. Truyền thông & Văn hóa DN</span>
+            <span>2. Đào tạo & E-Learning nội bộ</span>
+          </div>
+          <span class="text-emerald-400 font-semibold">🔍 Nhấp vào để Mở Form Thao Tác Thử Nghiệm</span>
+        </div>
+      </div>
+
+      <!-- Mod 08 -->
+      <div onclick="openModuleModal(8)" class="mod-card mod-business panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 08</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">CRM & Quản Lý Báo Giá</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Quản lý dữ liệu khách hàng, pipeline bán hàng, chăm sóc, báo giá và hợp đồng.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Master Data Khách hàng</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Pipeline cơ hội bán hàng</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Báo giá & Phê duyệt tự động</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 09 -->
+      <div onclick="openModuleModal(9)" class="mod-card mod-business panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 09</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">DMS — Kênh Phân Phối</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Điều hành mạng lưới nhà phân phối, đại lý, tuyến bán hàng sales route, tồn kho và công nợ.</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Quản lý Nhà phân phối/Đại lý</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Tuyến bán hàng Sales Route</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Đơn hàng, công nợ, tồn kho</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 10 -->
+      <div onclick="openModuleModal(10)" class="mod-card mod-business panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 10</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/40 group-hover:bg-sky-400 group-hover:text-slate-950 font-bold transition">Xem Form ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-sky-400 transition">Lương 3P — Đòn Bẩy Con Người</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">P1 (Position), P2 (Person), P3 (Performance lấy dữ liệu hiệu suất thật từ QLCV).</p>
+          <ul class="space-y-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>P1 — Giá trị vị trí công việc</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>P2 — Năng lực cá nhân</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>P3 — Hiệu suất thật từ QLCV</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mod 11 -->
+      <div onclick="openModuleModal(11)" class="mod-card mod-business panel p-6 flex flex-col justify-between hover:border-sky-400 hover:scale-[1.01] cursor-pointer transition group md:col-span-3">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400">MÔ-ĐUN 11</span>
+            <span class="font-mono text-[10px] px-3 py-1 rounded bg-amber-500 text-slate-950 font-bold transition">Mở CEO Control Console ➔</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-amber-400 transition">Báo Cáo & BI Dashboard CEO</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Dashboard điều hành CEO tổng hợp dữ liệu real-time từ cả 10 mô-đun trong hệ sinh thái.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 border-t border-slate-800 pt-4 text-xs text-slate-300">
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>CEO Dashboard điều hành</div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>BI Báo cáo Tài chính & MA</div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Phân tích Bán hàng & Thị trường</div>
+            <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Radar Cảnh báo & Quyết định</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ THƯ VIỆN SƠ ĐỒ MASTER & PDF VIEWER (16 DIAGRAM SHOWCASE) ============ -->
+<section id="thu-vien-so-do" class="border-b border-slate-800/80 py-20 md:py-28 relative">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag border-sky-500/40 text-sky-400"><span class="dot dot-data animate-pulse"></span>Thư Viện Thuyết Minh KH & NĐT</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Sơ Đồ Master & Đọc File PDF Trực Tuyến</h2>
+      <p class="text-slate-400 mt-3 max-w-3xl mx-auto">Trực quan hóa 16 sơ đồ Master chuyên sâu cùng bản đọc PDF trực tuyến & Nút cho phép tải/load file từ máy tính lên xem tức thì.</p>
+    </div>
+
+    <!-- Diagram Category Filter -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8 reveal">
+      <button onclick="filterDiagrams('all')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold" id="catBtnAll">Tất cả (16 Sơ đồ)</button>
+      <button onclick="filterDiagrams('he-sinh-thai')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnEco">Hệ Sinh Thái</button>
+      <button onclick="filterDiagrams('hr')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnHr">Quản Trị Nhân Sự</button>
+      <button onclick="filterDiagrams('3p')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtn3p">Lương 3P & Đòn Bẩy</button>
+      <button onclick="filterDiagrams('bctc')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnBctc">Phân Tích BCTC & Định Giá</button>
+      <button onclick="filterDiagrams('khkd')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnKhkd">Lập KHKD</button>
+      <button onclick="filterDiagrams('ma')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnMa">Phân Tích MA</button>
+      <button onclick="filterDiagrams('crm')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnCrm">CRM & Báo Giá</button>
+      <button onclick="filterDiagrams('dms')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnDms">DMS Kênh Phân Phối</button>
+      <button onclick="filterDiagrams('approve')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnApprove">Approve Phê Duyệt</button>
+      <button onclick="filterDiagrams('qlcv')" class="diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700" id="catBtnQlcv">Core Hub QLCV</button>
+    </div>
+
+    <!-- Active Diagram Main Display Panel -->
+    <div class="panel p-6 md:p-8 border-sky-500/40 bg-slate-900/90 reveal" id="diagramViewer">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Image Preview Column -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="relative group rounded-xl overflow-hidden border border-slate-800 bg-[#070A12] cursor-pointer" onclick="openLightbox()">
+            <img id="mainDiagImg" src="diagrams/tom_tat_he_sinh_thai_1.png" alt="Diagram Showcase" class="w-full h-auto object-contain max-h-[460px] transition duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 font-mono text-xs text-white">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              Click xem ảnh phóng to full HD
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono text-slate-500">
+            <span id="mainDiagIdTag" class="text-amber-400">ID: he-sinh-thai-1</span>
+            <span>🔍 Nhấp vào ảnh để phóng to hoặc chọn Đọc PDF Trực Tuyến</span>
+          </div>
+        </div>
+
+        <!-- Details & Action Buttons Column -->
+        <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
+          <div>
+            <span id="mainDiagCat" class="font-mono text-xs uppercase tracking-widest text-sky-400 font-semibold block mb-2">1. HỆ SINH THÁI — Master 11 Mô-đun</span>
+            <h3 id="mainDiagTitle" class="font-display font-bold text-xl md:text-2xl text-white mb-2 leading-snug">Sơ Đồ Master Hệ Sinh Thái 11 Mô-đun Quản Trị Doanh Nghiệp Số Hóa</h3>
+            <p id="mainDiagSub" class="text-xs text-slate-400 mb-5 leading-relaxed">Liên thông 11 phân hệ nghiệp vụ từ Chiến lược KHKD đến CEO Dashboard</p>
+
+            <!-- Highlights -->
+            <div class="space-y-3 mb-6">
+              <h4 class="font-mono text-xs uppercase text-amber-400 font-bold">Điểm Nổi Bật Kỹ Thuật:</h4>
+              <ul id="mainDiagHighlights" class="space-y-2 text-xs text-slate-200">
+                <li class="flex gap-2"><span class="text-sky-400">✓</span> Kiến trúc 4 lớp thống nhất: Lớp Kế hoạch - Tài chính (Mod 01-06) → Lớp Vận hành QLCV Core Hub (Mod 07) → Lớp Kinh doanh & Con người (Mod 08-11) → Lớp Nền tảng Dữ liệu Dùng chung</li>
+                <li class="flex gap-2"><span class="text-sky-400">✓</span> Lấy PM QLCV (Mod 07) làm 'Bộ não điều hành trung tâm' kết nối dữ liệu KHKD, MA, Ngân sách, CRM, DMS, Lương 3P và CEO Dashboard</li>
+                <li class="flex gap-2"><span class="text-sky-400">✓</span> Nền tảng Data Warehouse/Lake tập trung, tích hợp AI Copilot & 4 Trụ cột Bảo mật</li>
+              </ul>
+            </div>
+
+            <!-- Takeaways -->
+            <div class="panel-2 p-4 border-l-4 border-emerald-500 mb-6 bg-slate-800/40">
+              <span class="font-mono text-[10px] text-emerald-400 font-bold uppercase block mb-1">Góc Nhìn KH & Nhà Đầu Tư:</span>
+              <p id="mainDiagTakeaway" class="text-xs text-slate-300 leading-relaxed">Dành cho NĐT/KH: Chứng minh giải pháp quản trị số hóa 100% khép kín, loại bỏ hoàn toàn số liệu rời rạc giữa các phòng ban.</p>
+            </div>
+          </div>
+
+          <!-- Document Viewer & Action Buttons -->
+          <div class="pt-4 border-t border-slate-800 space-y-3">
+            <div class="flex flex-wrap gap-2.5">
+              <!-- Online PDF Reader Button -->
+              <button id="viewPdfModalBtn" onclick="openCurrentPdfModal()" class="btn-primary px-4 py-2.5 rounded-lg text-xs font-bold flex items-center gap-2 bg-sky-400 text-slate-950 hover:bg-sky-300">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Đọc File PDF Trực Tuyến
+              </button>
+
+              <!-- Upload User PDF File Button -->
+              <button onclick="document.getElementById('userFileInput').click()" class="btn-ghost px-4 py-2.5 rounded-lg text-xs font-bold text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 flex items-center gap-2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                Load File Của Bạn Lên Xem
+              </button>
+
+              <!-- Download PDF Button -->
+              <a id="mainDiagPdfBtn" href="docs/so_do_he_sinh_thai_v2.pdf" download target="_blank" class="btn-ghost px-4 py-2.5 rounded-lg text-xs font-bold flex items-center gap-2 text-slate-300 border-slate-700 hover:text-white">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Tải Về PDF
+              </a>
+            </div>
+            <div class="font-mono text-[11px] text-slate-500 flex items-center gap-2">
+              <span>File hiện tại:</span>
+              <span id="mainDiagPdfName" class="text-slate-300 font-semibold">so_do_he_sinh_thai_v2.pdf</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Diagram Thumbnails Carousel Grid -->
+    <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 reveal" id="diagThumbGrid">
+      <!-- Generated dynamically by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX IMAGE MODAL ============ -->
+<div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeLightbox()">
+  <div class="relative max-w-6xl w-full max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+    <button onclick="closeLightbox()" class="absolute -top-12 right-0 font-mono text-sm text-white hover:text-emerald-400 bg-white/10 px-3 py-1 rounded-lg">✕ Đóng (ESC)</button>
+    <img id="lightboxImg" src="" alt="Full view" class="max-w-full max-h-[82vh] object-contain rounded-xl border border-slate-800">
+    <p id="lightboxCaption" class="mt-3 font-mono text-xs text-slate-400 text-center"></p>
+  </div>
+</div>
+
+<!-- ============ IN-PAGE PDF & DOCUMENT VIEWER MODAL ============ -->
+<div id="pdfModal" class="fixed inset-0 z-[110] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4 md:p-6" onclick="closePdfModal()">
+  <div class="relative w-full max-w-6xl h-[90vh] bg-slate-900 border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+    
+    <!-- Modal Header -->
+    <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-sky-400 shadow-[0_0_10px_#38BDF8]"></span>
+        <div>
+          <h3 id="pdfModalTitle" class="font-bold text-sm text-white">Đang xem tài liệu</h3>
+          <p id="pdfModalSubtitle" class="font-mono text-[11px] text-slate-400">Trình đọc PDF / Document viewer trực tuyến</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="document.getElementById('userFileInput').click()" class="btn-ghost text-xs px-3 py-1.5 rounded-lg text-sky-400 font-bold border-sky-500/40 hover:bg-sky-500/10 flex items-center gap-1.5">
+          <span>📤 Tải File Khác Lên</span>
+        </button>
+        <button onclick="closePdfModal()" class="font-mono text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition">✕ Đóng</button>
+      </div>
+    </div>
+
+    <!-- Viewer Body (Embedded iFrame) -->
+    <div class="flex-1 w-full h-full bg-slate-950 relative">
+      <iframe id="pdfViewerFrame" src="about:blank" class="w-full h-full border-none"></iframe>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-6 py-3 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs font-mono text-slate-400">
+      <span>💡 Mẹo: Bạn có thể chọn file `.pdf` hoặc file ảnh từ máy tính để đọc ngay lập tức.</span>
+      <button onclick="closePdfModal()" class="text-sky-400 hover:underline">Hoàn tất đọc ✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INTERACTIVE MODULE FORM MODAL ============ -->
+<div id="moduleModal" class="fixed inset-0 z-[120] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4 md:p-6" onclick="closeModuleModal()">
+  <div class="relative w-full max-w-4xl max-h-[90vh] bg-slate-900 border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+    
+    <!-- Modal Header -->
+    <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+      <div class="flex items-center gap-3">
+        <span id="modModalBadge" class="font-mono text-xs font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 border border-amber-500/40">MÔ-ĐUN 01</span>
+        <div>
+          <h3 id="modModalTitle" class="font-bold text-lg text-white">Lập Kế Hoạch Kinh Doanh</h3>
+          <p id="modModalSubtitle" class="font-mono text-xs text-slate-400">Form nghiệp vụ & giao diện thao tác trực tuyến</p>
+        </div>
+      </div>
+      <button onclick="closeModuleModal()" class="font-mono text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition">✕ Đóng (ESC)</button>
+    </div>
+
+    <!-- Modal Body Dynamic Content -->
+    <div class="flex-1 p-6 overflow-y-auto space-y-6" id="modModalBody">
+      <!-- Dynamic Form HTML rendered by JS -->
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-6 py-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between">
+      <span class="font-mono text-xs text-slate-500">EVA / NEXUS Enterprise OS · Dynamic Module Form</span>
+      <div class="flex items-center gap-3">
+        <button onclick="openCurrentModulePdf()" class="btn-ghost px-4 py-2 rounded-lg text-xs font-bold text-sky-400 border-sky-500/40 hover:bg-sky-500/10">
+          📄 Xem Sơ Đồ PDF Liên Quan
+        </button>
+        <button onclick="submitModuleFormSim()" class="btn-primary px-5 py-2 rounded-lg text-xs font-bold bg-emerald-400 text-slate-950 hover:bg-emerald-300">
+          ✓ Lưu & Gửi Đề Xuất
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOOKING / LEAD FORM MODAL ============ -->
+<div id="bookingModal" class="fixed inset-0 z-[130] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4" onclick="closeBookingModal()">
+  <div class="relative w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
+      <div>
+        <span class="tag text-sky-400"><span class="dot-data"></span>Tư Vấn Trực Tiếp 1:1</span>
+        <h3 class="font-display font-bold text-xl text-white mt-2">Đặt Lịch Đánh Giá Hiện Trạng Quản Trị</h3>
+      </div>
+      <button onclick="closeBookingModal()" class="font-mono text-xs text-slate-400 hover:text-white bg-slate-800 px-3 py-1.5 rounded-lg">✕</button>
+    </div>
+
+    <form onsubmit="handleBookingSubmit(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-mono text-slate-300 mb-1">Họ và tên người đăng ký *</label>
+        <input type="text" required placeholder="Nguyễn Văn A" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Số điện thoại *</label>
+          <input type="tel" required placeholder="0901234567" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Email công ty *</label>
+          <input type="email" required placeholder="ceo@company.com" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Tên Doanh nghiệp</label>
+          <input type="text" placeholder="Công ty Cổ phần ABC" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Quy mô nhân sự</label>
+          <select class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+            <option value="10-30">10 – 30 nhân sự</option>
+            <option value="30-100">30 – 100 nhân sự</option>
+            <option value="100-300">100 – 300 nhân sự</option>
+            <option value="300+">Trên 300 nhân sự</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-mono text-slate-300 mb-1">Mô-đun quan tâm nhất</label>
+        <select class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white outline-none focus:border-sky-400">
+          <option value="all">Toàn bộ 11 Mô-đun Hệ Sinh Thái</option>
+          <option value="mod07">Core Hub PM QLCV (Bộ não vận hành)</option>
+          <option value="mod01">Mod 01 - Lập Kế Hoạch Kinh Doanh</option>
+          <option value="mod06">Mod 06 - Giám Sát & Phê Duyệt Approve</option>
+          <option value="mod08">Mod 08 - CRM & Báo Giá QuoteFlow</option>
+          <option value="mod09">Mod 09 - DMS Kênh Phân Phối</option>
+          <option value="mod10">Mod 10 - Lương 3P từ dữ liệu QLCV</option>
+          <option value="mod11">Mod 11 - CEO Dashboard & Radar BI</option>
+        </select>
+      </div>
+
+      <div class="pt-3 flex items-center justify-end gap-3">
+        <button type="button" onclick="closeBookingModal()" class="btn-ghost px-5 py-2.5 rounded-lg text-xs font-mono text-slate-400">Hủy</button>
+        <button type="submit" class="btn-primary px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-400 text-slate-950">Xác Nhận Đặt Lịch</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ OPERATING LOOP & PDCA ============ -->
+<section id="van-hanh" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot"></span>Chu Trình PDCA & Lộ Trình</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Vòng Lặp Cải Tiến Liên Tục & 4 Giai Đoạn Triển Khai</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Hệ sinh thái không dừng lại ở vận hành, mà liên tục tự cải tiến theo chu trình Plan – Do – Check – Act.</p>
+
+      <div class="mt-6 flex justify-center gap-3">
+        <button id="btnPdca" onclick="toggleLoopView('pdca')" class="px-5 py-2 rounded-full font-mono text-xs font-bold bg-white text-[#070A12] transition">Vòng lặp Cải tiến PDCA</button>
+        <button id="btnRoadmap" onclick="toggleLoopView('roadmap')" class="px-5 py-2 rounded-full font-mono text-xs font-bold bg-slate-800/80 text-slate-400 border border-slate-700 transition hover:text-white">Lộ trình Triển khai 4 Giai đoạn</button>
+      </div>
+    </div>
+
+    <!-- PDCA View -->
+    <div id="pdcaView" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+      <div onclick="openModuleModal(1)" class="panel p-6 border-t-4 border-t-sky-400 hover:border-sky-300 cursor-pointer transition">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-8 h-8 rounded-full bg-slate-800 font-mono text-xs font-bold flex items-center justify-center text-sky-400">01</span>
+          <span class="font-mono text-[10px] text-amber-400">Mô-đun 01</span>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">PLAN (Kế hoạch)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Đặt kế hoạch kinh doanh, mục tiêu doanh thu, chi phí và hạn mức ngân sách cho kỳ kế tiếp.</p>
+      </div>
+      <div onclick="openModuleModal(7)" class="panel p-6 border-t-4 border-t-emerald-400 hover:border-emerald-300 cursor-pointer transition">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-8 h-8 rounded-full bg-slate-800 font-mono text-xs font-bold flex items-center justify-center text-emerald-400">02</span>
+          <span class="font-mono text-[10px] text-amber-400">Mô-đun 07, 08, 09</span>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">DO (Thực thi)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">PM QLCV cùng CRM & DMS điều hành thực thi công việc daily, bán hàng và triển khai tuyến thị trường.</p>
+      </div>
+      <div onclick="openModuleModal(3)" class="panel p-6 border-t-4 border-t-amber-400 hover:border-amber-300 cursor-pointer transition">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-8 h-8 rounded-full bg-slate-800 font-mono text-xs font-bold flex items-center justify-center text-amber-400">03</span>
+          <span class="font-mono text-[10px] text-amber-400">Mô-đun 02-05 & 11</span>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">CHECK (Kiểm tra)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">PM MA & BI Dashboard tự động đối chiếu kết quả thực tế với kế hoạch, phát ra cảnh báo lệch chỉ tiêu.</p>
+      </div>
+      <div onclick="openModuleModal(6)" class="panel p-6 border-t-4 border-t-rose-500 hover:border-rose-400 cursor-pointer transition">
+        <div class="flex items-center justify-between mb-4">
+          <span class="w-8 h-8 rounded-full bg-slate-800 font-mono text-xs font-bold flex items-center justify-center text-rose-500">04</span>
+          <span class="font-mono text-[10px] text-amber-400">Mô-đun 06 (Approve)</span>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">ACT (Cải tiến)</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Điều chỉnh hạn mức ngân sách, cải tiến quy trình SOP; kế hoạch kỳ sau được cập nhật từ bài học thực tế.</p>
+      </div>
+    </div>
+
+    <!-- Roadmap View (Hidden by default) -->
+    <div id="roadmapView" class="hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="panel p-6 border border-sky-500/40 bg-slate-900/60">
+        <span class="font-mono text-xs font-bold text-amber-400 block mb-1">GIAI ĐOẠN 1</span>
+        <h3 class="font-bold text-base text-sky-400 mb-2">Nền Tảng Dữ Liệu & Kế Hoạch Gốc</h3>
+        <span class="font-mono text-[10px] text-slate-500 block mb-3">Data Warehouse + SSO + Mod 01 (Lập KHKD)</span>
+        <p class="text-xs text-slate-400 leading-relaxed">Xây dựng hạ tầng dữ liệu tập trung, phân quyền bảo mật 4 lớp và lập kế hoạch kinh doanh mục tiêu ban đầu.</p>
+      </div>
+      <div class="panel p-6 border border-sky-500/40 bg-slate-900/60">
+        <span class="font-mono text-xs font-bold text-amber-400 block mb-1">GIAI ĐOẠN 2</span>
+        <h3 class="font-bold text-base text-sky-400 mb-2">Vận Hành Lõi & Thị Trường</h3>
+        <span class="font-mono text-[10px] text-slate-500 block mb-3">Mod 07 (PM QLCV) + Mod 08 (CRM) + Mod 09 (DMS)</span>
+        <p class="text-xs text-slate-400 leading-relaxed">Đưa PM QLCV vào làm bộ não trung tâm điều phối công việc, kết nối ngay với CRM và DMS để có dữ liệu bán hàng real-time.</p>
+      </div>
+      <div class="panel p-6 border border-sky-500/40 bg-slate-900/60">
+        <span class="font-mono text-xs font-bold text-amber-400 block mb-1">GIAI ĐOẠN 3</span>
+        <h3 class="font-bold text-base text-sky-400 mb-2">Vòng Phân Tích & Kiểm Soát Ngân Sách</h3>
+        <span class="font-mono text-[10px] text-slate-500 block mb-3">Mod 02 - Mod 06 (PM MA & PM Approve)</span>
+        <p class="text-xs text-slate-400 leading-relaxed">Kích hoạt mô-đun Review, Quản trị dòng tiền, Kiểm soát ngân sách và Phê duyệt online để khép kín chuỗi tài chính.</p>
+      </div>
+      <div class="panel p-6 border border-sky-500/40 bg-slate-900/60">
+        <span class="font-mono text-xs font-bold text-amber-400 block mb-1">GIAI ĐOẠN 4</span>
+        <h3 class="font-bold text-base text-sky-400 mb-2">Đòn Bẩy Con Người & BI Tổng Hợp</h3>
+        <span class="font-mono text-[10px] text-slate-500 block mb-3">Mod 10 (Lương 3P) + Mod 11 (CEO Dashboard)</span>
+        <p class="text-xs text-slate-400 leading-relaxed">Áp dụng Lương 3P dựa trên dữ liệu hiệu suất thật từ QLCV, hội tụ toàn bộ chỉ số lên CEO Dashboard điều hành.</p>
+      </div>
+    </div>
+
+    <!-- Single Source of Truth Banner -->
+    <div class="mt-10 panel p-6 text-center border-slate-800">
+      <h4 class="font-bold text-base text-white mb-2">Nguyên Tắc Dữ Liệu Thống Nhất (Single Source of Truth)</h4>
+      <p class="text-xs text-slate-400 max-w-3xl mx-auto leading-relaxed">Một thông tin khách hàng hoặc đơn hàng bước vào ở đầu chuỗi (Marketing/CRM) sẽ được cùng một bộ dữ liệu đồng hành xuyên suốt hành trình — Báo giá, Đơn hàng, Xuất kho, Giao hàng, Thanh toán và Báo cáo BI — loại bỏ hoàn toàn việc nhập lại dữ liệu thủ công giữa các phòng ban.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DATA WAREHOUSE, AI & SECURITY ============ -->
+<section id="du-lieu" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot-data"></span>Nền Tảng Hạ Tầng Dùng Chung</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Dữ Liệu Tập Trung, AI Copilot & Bảo Mật 4 Lớp</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Lớp hạ tầng vững chắc đứng sau toàn bộ 11 mô-đun, đảm bảo mọi phần mềm nói cùng một ngôn ngữ dữ liệu.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 reveal">
+      <!-- 7 Data Groups -->
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-1">3.1 HỢP NHẤT DỮ LIỆU</span>
+        <h3 class="font-bold text-lg text-white mb-3">Data Warehouse / Lake</h3>
+        <p class="text-xs text-slate-400 mb-4 leading-relaxed">7 nhóm dữ liệu gốc được hợp nhất tập trung, tạo điều kiện cho AI & BI Dashboard hoạt động chính xác.</p>
+        <ul class="space-y-2 text-xs font-semibold text-slate-200 border-t border-slate-800 pt-3">
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Khách hàng</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Sản phẩm</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Tài chính & P&L</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Nhân sự & Lương 3P</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Đối tác & Nhà cung cấp</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Kho & Hàng hóa</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>Dữ liệu Vận hành & QLCV</li>
+        </ul>
+      </div>
+
+      <!-- AI Copilot -->
+      <div class="panel p-6 border-sky-500/40 bg-slate-900/80">
+        <span class="font-mono text-xs text-sky-400 font-bold block mb-1">3.2 AI & ANALYTICS</span>
+        <h3 class="font-bold text-lg text-white mb-3">AI Copilot Hỗ Trợ Ra Quyết Định</h3>
+        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Trợ lý trí tuệ nhân tạo khai thác dữ liệu sẵn có để tư vấn cho Ban lãnh đạo.</p>
+        <div class="space-y-3.5 border-t border-slate-800 pt-3">
+          <div>
+            <h4 class="text-xs font-bold text-sky-400">1. Phân Tích Chuyên Sâu</h4>
+            <p class="text-[11px] text-slate-400">Biến động doanh thu, chi phí, biên lợi nhuận & hiệu suất từng bộ phận.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-sky-400">2. Dự Báo & Mô Hình Hóa</h4>
+            <p class="text-[11px] text-slate-400">Dự báo dòng tiền thu - chi, nhu cầu hàng tồn kho & kịch bản kỳ tới.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-sky-400">3. Cảnh Báo Thông Minh</h4>
+            <p class="text-[11px] text-slate-400">Cảnh báo lệch kế hoạch, nguy cơ thâm hụt dòng tiền & quá hạn thanh toán.</p>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-sky-400">4. Đề Xuất & Khuyến Nghị</h4>
+            <p class="text-[11px] text-slate-400">Gợi ý định biên nhân sự, đề xuất chiết khấu & tối ưu quy trình SOP.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Pillars -->
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-1">3.3 BẢO MẬT & PHÂN QUYỀN</span>
+        <h3 class="font-bold text-lg text-white mb-3">4 Trụ Cột An Toàn Thông Tin</h3>
+        <p class="text-xs text-slate-400 mb-4 leading-relaxed">Bảo đảm tự động hóa giám sát không cần audit thủ công một cách đáng tin cậy.</p>
+        <div class="space-y-3 border-t border-slate-800 pt-3">
+          <div class="panel-2 p-3 border border-slate-800">
+            <div class="font-mono text-xs font-bold text-white">SSO & 2FA</div>
+            <div class="text-[11px] text-slate-400">Xác thực một lần kèm mã 2 lớp bảo mật tài khoản.</div>
+          </div>
+          <div class="panel-2 p-3 border border-slate-800">
+            <div class="font-mono text-xs font-bold text-white">Role-Based ACL</div>
+            <div class="text-[11px] text-slate-400">Phân quyền chặt chẽ theo chức danh & phòng ban.</div>
+          </div>
+          <div class="panel-2 p-3 border border-slate-800">
+            <div class="font-mono text-xs font-bold text-white">Mã Hóa & Sao Lưu</div>
+            <div class="text-[11px] text-slate-400">Mã hóa dữ liệu lưu trữ & tự động backup định kỳ.</div>
+          </div>
+          <div class="panel-2 p-3 border border-slate-800">
+            <div class="font-mono text-xs font-bold text-white">Audit Log System</div>
+            <div class="text-[11px] text-slate-400">Nhật ký hệ thống ghi lại 100% thao tác truy cập.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROLES LADDER & 3P ============ -->
+<section id="phan-quyen" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot"></span>Đòn Bẩy Con Người</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Phân Cấp Quản Trị 5 Tầng & Lương 3P Dữ Liệu Thật</h2>
+      <p class="text-slate-400 mt-3 max-w-2xl mx-auto">Điểm mấu chốt để Lương 3P vận hành hiệu quả là P3 (Performance) lấy dữ liệu hiệu suất thật từ PM QLCV, loại bỏ hoàn toàn đánh giá cảm tính.</p>
+    </div>
+
+    <!-- 3P Cards -->
+    <div class="grid md:grid-cols-3 gap-5 mb-10 reveal">
+      <div onclick="openModuleModal(10)" class="panel p-6 border-slate-800 hover:border-sky-400 cursor-pointer transition">
+        <span class="font-mono text-xs font-bold text-amber-400">P1 — POSITION</span>
+        <h4 class="font-bold text-base text-white mt-1 mb-2">Giá Trị Vị Trí Công Việc</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Đánh giá và trả lương dựa trên tầm quan trọng & giá trị của vị trí đối với tổ chức.</p>
+      </div>
+      <div onclick="openModuleModal(10)" class="panel p-6 border-slate-800 hover:border-sky-400 cursor-pointer transition">
+        <span class="font-mono text-xs font-bold text-amber-400">P2 — PERSON</span>
+        <h4 class="font-bold text-base text-white mt-1 mb-2">Năng Lực Cá Nhân</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Trả lương dựa trên kiến thức, kỹ năng, kinh nghiệm và năng lực thực tế của nhân sự.</p>
+      </div>
+      <div onclick="openModuleModal(10)" class="panel p-6 border-sky-500/40 bg-slate-900/80 hover:border-sky-300 cursor-pointer transition">
+        <span class="font-mono text-xs font-bold text-sky-400">P3 — PERFORMANCE</span>
+        <h4 class="font-bold text-base text-white mt-1 mb-2">Kết Quả Thật Từ QLCV</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">Lấy dữ liệu hoàn thành công việc real-time từ PM QLCV, trả lương minh bạch 100%.</p>
+      </div>
+    </div>
+
+    <!-- 5 Levels Ladder -->
+    <div class="space-y-3.5 reveal">
+      <div onclick="openModuleModal(11)" class="panel p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition">
+        <div class="flex items-center gap-4 md:w-1/3">
+          <span class="px-3 py-1 rounded-lg bg-slate-800 font-mono text-xs font-bold text-sky-400 border border-slate-700">LV.01</span>
+          <div>
+            <h4 class="font-bold text-white text-sm">CEO / Tổng Giám Đốc</h4>
+            <span class="font-mono text-[11px] text-amber-400">CEO Dashboard & Radar BI</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 md:w-2/3 leading-relaxed">Mục tiêu chiến lược, P&L toàn cty, dự báo dòng tiền, cảnh báo rủi ro & phê duyệt ngân sách tổng.</p>
+      </div>
+      <div onclick="openModuleModal(5)" class="panel p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition">
+        <div class="flex items-center gap-4 md:w-1/3">
+          <span class="px-3 py-1 rounded-lg bg-slate-800 font-mono text-xs font-bold text-sky-400 border border-slate-700">LV.02</span>
+          <div>
+            <h4 class="font-bold text-white text-sm">Giám Đốc Chức Năng (CFO, CMO, COO)</h4>
+            <span class="font-mono text-[11px] text-amber-400">Dashboard Chuyên môn</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 md:w-2/3 leading-relaxed">Kế hoạch khối, ngân sách phân bổ, tiến độ KPI phòng ban & điều phối dòng tiền chi tiết.</p>
+      </div>
+      <div onclick="openModuleModal(7)" class="panel p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition">
+        <div class="flex items-center gap-4 md:w-1/3">
+          <span class="px-3 py-1 rounded-lg bg-slate-800 font-mono text-xs font-bold text-sky-400 border border-slate-700">LV.03</span>
+          <div>
+            <h4 class="font-bold text-white text-sm">Trưởng Phòng / Bộ Phận</h4>
+            <span class="font-mono text-[11px] text-amber-400">Giao việc & BPM Workflow</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 md:w-2/3 leading-relaxed">Giao việc daily, giám sát tiến độ dự án, kiểm soát SOP quy trình & đánh giá hiệu suất nhân viên.</p>
+      </div>
+      <div onclick="openModuleModal(9)" class="panel p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition">
+        <div class="flex items-center gap-4 md:w-1/3">
+          <span class="px-3 py-1 rounded-lg bg-slate-800 font-mono text-xs font-bold text-sky-400 border border-slate-700">LV.04</span>
+          <div>
+            <h4 class="font-bold text-white text-sm">Tổ Trưởng / Supervisor</h4>
+            <span class="font-mono text-[11px] text-amber-400">Quản lý nhóm & Tuyến bán</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 md:w-2/3 leading-relaxed">Theo dõi task nhóm, giám sát sales route DMS, nhắc nhở deadline & kiểm soát nguyên vật liệu.</p>
+      </div>
+      <div onclick="openModuleModal(7)" class="panel p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-800 hover:border-sky-500/50 cursor-pointer transition">
+        <div class="flex items-center gap-4 md:w-1/3">
+          <span class="px-3 py-1 rounded-lg bg-slate-800 font-mono text-xs font-bold text-sky-400 border border-slate-700">LV.05</span>
+          <div>
+            <h4 class="font-bold text-white text-sm">Nhân Viên Thực Thi</h4>
+            <span class="font-mono text-[11px] text-amber-400">App Cá nhân QLCV / CRM</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 md:w-2/3 leading-relaxed">Thực hiện task công việc, cập nhật tiến độ, báo giá khách hàng & theo dõi điểm KPI Lương 3P cá nhân.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD CEO PREVIEW ============ -->
+<section id="dashboard" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot-amber"></span>Phòng Điều Hành Số CEO</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">CEO Dashboard & Radar Cảnh Báo Real-time</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Một màn hình điều khiển — toàn bộ sức khỏe doanh nghiệp trong tầm mắt mỗi sáng.</p>
+    </div>
+
+    <div class="panel p-5 md:p-8 reveal border-slate-800">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+        <span class="font-mono text-xs text-slate-500">EVA / NEXUS CONTROL CENTER</span>
+        <button onclick="openModuleModal(11)" class="flex items-center gap-2 font-mono text-xs text-emerald-400 hover:underline"><span class="dot"></span>SYSTEM LIVE · MỞ FULL DASHBOARD ➔</button>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div onclick="openModuleModal(1)" class="panel-2 p-5 border border-slate-800 hover:border-sky-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mb-2">Chiến lược & Kế hoạch</p>
+          <h4 class="text-sm font-bold text-white">KPI / OKR Toàn Cty</h4>
+          <p class="text-xs text-emerald-400 mt-1">Đạt 84.5% KHKD Tháng 8</p>
+        </div>
+        <div onclick="openModuleModal(4)" class="panel-2 p-5 border border-slate-800 hover:border-sky-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mb-2">Tài chính & MA</p>
+          <h4 class="text-sm font-bold text-white">Doanh thu & Dòng tiền</h4>
+          <p class="text-xs text-sky-400 mt-1">P&L Quản trị: +18.2% YoY</p>
+        </div>
+        <div onclick="openModuleModal(6)" class="panel-2 p-5 border border-slate-800 hover:border-sky-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mb-2">Kiểm soát Ngân sách</p>
+          <h4 class="text-sm font-bold text-white">Đề xuất & Thanh toán</h4>
+          <p class="text-xs text-amber-400 mt-1">12 Đề xuất chờ duyệt ($42.5K)</p>
+        </div>
+        <div onclick="openModuleModal(7)" class="panel-2 p-5 border border-slate-800 hover:border-sky-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mb-2">Vận hành QLCV</p>
+          <h4 class="text-sm font-bold text-white">Tiến độ Task & SOP</h4>
+          <p class="text-xs text-emerald-400 mt-1">92% Task đúng deadline</p>
+        </div>
+        <div onclick="openModuleModal(9)" class="panel-2 p-5 border border-slate-800 hover:border-sky-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mb-2">Kinh doanh & DMS</p>
+          <h4 class="text-sm font-bold text-white">Pipeline & Win-Rate</h4>
+          <p class="text-xs text-sky-400 mt-1">1,420 Đại lý / Win-rate 34%</p>
+        </div>
+        <div onclick="openModuleModal(11)" class="p-5 rounded-xl border border-rose-500/40 bg-rose-500/10 hover:border-rose-400 cursor-pointer transition">
+          <p class="font-mono text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2 text-rose-400">
+            <span class="dot dot-danger radar-blink"></span>Radar Alert Risk
+          </p>
+          <h4 class="text-sm font-bold text-white">Cảnh báo Nguy cơ Thâm hụt</h4>
+          <p class="text-xs text-rose-400 mt-1">3 Task quá hạn Escalate ➔ CEO</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 VALUE PILLARS ============ -->
+<section id="gia-tri" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag"><span class="dot"></span>Giá Trị Mang Lại</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">8 Đòn Bẩy Tăng Trưởng Bền Vững</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Mục tiêu không phải là dùng nhiều phần mềm hơn, mà là sở hữu một hệ thống quản trị xuất sắc hơn.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">01</span>
+        <h4 class="font-bold text-base text-white mb-1">Rõ mục tiêu</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Mục tiêu chiến lược từ CEO được chuyển thành KPI và công việc cụ thể đến từng nhân sự.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">02</span>
+        <h4 class="font-bold text-base text-white mb-1">Điều hành nhanh</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Ban quản lý nhìn thấy tiến độ real-time, phát hiện điểm nghẽn và nhận cảnh báo sớm.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">03</span>
+        <h4 class="font-bold text-base text-white mb-1">Kiểm soát nguồn lực</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Kế hoạch, ngân sách, dòng tiền và quy trình phê duyệt được liên thông chặt chẽ.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">04</span>
+        <h4 class="font-bold text-base text-white mb-1">Phối hợp liên thông</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Giảm đứt gãy thông tin giữa Kinh doanh, Marketing, Sản xuất, Mua hàng, Tài chính & Nhân sự.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">05</span>
+        <h4 class="font-bold text-base text-white mb-1">Bảo toàn tri thức</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Tài nguyên, SOP, dữ liệu và kinh nghiệm được bảo lưu trong hệ thống khi nhân sự nghỉ việc.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">06</span>
+        <h4 class="font-bold text-base text-white mb-1">Bứt phá hiệu suất</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Lương 3P gắn kết vị trí, năng lực và kết quả thực tế từ PM QLCV tạo động lực làm việc.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">07</span>
+        <h4 class="font-bold text-base text-white mb-1">Kiểm soát minh bạch</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Phân quyền 4 lớp, nhật ký Audit Log và quy trình duyệt đề xuất minh bạch 100%.</p>
+      </div>
+      <div class="panel p-6 border-slate-800">
+        <span class="font-mono text-xs text-amber-400 font-bold block mb-2">08</span>
+        <h4 class="font-bold text-base text-white mb-1">Tăng trưởng bền vững</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">Ra quyết định điều hành dựa trên dữ liệu thật và cải tiến liên tục theo chu trình PDCA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHODOLOGY (9 STEPS) ============ -->
+<section id="phuong-phap" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-4xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-14 reveal">
+      <span class="tag">Phương pháp triển khai</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">EVA Setup — 9 bước có kiểm chứng</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Đây là phương pháp triển khai chuyên nghiệp theo trình tự khoa học, không phải phần mềm đóng gói bán đứt.</p>
+    </div>
+
+    <div class="space-y-0 reveal">
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">01</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Assess</h3><p class="text-sm text-slate-400 mt-1">Đánh giá hiện trạng quản trị hiện tại của doanh nghiệp.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">02</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Design</h3><p class="text-sm text-slate-400 mt-1">Thiết kế hệ quản trị phù hợp quy mô và đặc thù ngành nghề.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">03</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Standardize</h3><p class="text-sm text-slate-400 mt-1">Chuẩn hóa cơ cấu tổ chức và quy trình trước khi số hóa.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">04</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Digitalize</h3><p class="text-sm text-slate-400 mt-1">Số hóa hệ thống theo đúng kiến trúc thiết kế đã chuẩn hóa.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">05</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Integrate</h3><p class="text-sm text-slate-400 mt-1">Kết nối dữ liệu liên thông giữa 11 mô-đun thành nguồn dữ liệu chung.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">06</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Train</h3><p class="text-sm text-slate-400 mt-1">Đào tạo đội ngũ nhân sự sử dụng hệ thống đúng quy chuẩn.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">07</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Operate</h3><p class="text-sm text-slate-400 mt-1">Đưa hệ thống vào vận hành thực tế hàng ngày.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 group-hover:border-emerald-400 group-hover:text-emerald-400 transition">08</span>
+          <span class="w-px flex-1 bg-slate-800"></span>
+        </div>
+        <div class="pb-7"><h3 class="font-display font-semibold text-white">Measure</h3><p class="text-sm text-slate-400 mt-1">Đo lường hiệu quả bằng chỉ số thật trên CEO Dashboard.</p></div>
+      </div>
+      <div class="flex gap-5 group">
+        <div class="flex flex-col items-center">
+          <span class="font-mono text-xs w-9 h-9 flex items-center justify-center rounded-full border border-amber-500 text-amber-400">09</span>
+        </div>
+        <div><h3 class="font-display font-semibold text-white">Optimize</h3><p class="text-sm text-slate-400 mt-1">Tối ưu liên tục — vòng lặp cải tiến không dừng lại.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON TABLE ============ -->
+<section class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-5xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-14 reveal">
+      <span class="tag">Khác Biệt Vượt Trội</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">Vì Sao Không Phải Là Mua Rời Phân Hệ</h2>
+    </div>
+
+    <div class="overflow-x-auto reveal">
+      <table class="compare w-full text-sm border-collapse min-w-[620px]">
+        <thead>
+          <tr class="text-left font-mono text-[11px] uppercase tracking-widest text-slate-500">
+            <th class="py-3 pr-4 border-b">Tiêu chí</th>
+            <th class="py-3 px-4 border-b font-normal">Mua rời từng phần mềm</th>
+            <th class="py-3 px-4 border-b font-normal">ERP truyền thống</th>
+            <th class="py-3 pl-4 border-b font-bold text-emerald-400">EVA / NEXUS 11 Mô-đun</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-400">
+          <tr>
+            <td class="py-4 pr-4 border-b text-white font-semibold">Tích hợp dữ liệu</td>
+            <td class="py-4 px-4 border-b">Dữ liệu phân tán, nhập tay lại</td>
+            <td class="py-4 px-4 border-b">Tập trung nhưng cứng nhắc</td>
+            <td class="py-4 pl-4 border-b text-white font-semibold">Liên thông Single Source of Truth</td>
+          </tr>
+          <tr>
+            <td class="py-4 pr-4 border-b text-white font-semibold">Bộ não vận hành</td>
+            <td class="py-4 px-4 border-b">Không có trung tâm điều phối</td>
+            <td class="py-4 px-4 border-b">Nghiêng về kế toán kiểm soát</td>
+            <td class="py-4 pl-4 border-b text-white font-semibold">PM QLCV điều phối real-time</td>
+          </tr>
+          <tr>
+            <td class="py-4 pr-4 border-b text-white font-semibold">Lương 3P & Con người</td>
+            <td class="py-4 px-4 border-b">Đánh giá cảm tính cuối năm</td>
+            <td class="py-4 px-4 border-b">Tính lương C&B đơn thuần</td>
+            <td class="py-4 pl-4 border-b text-white font-semibold">Lương 3P từ dữ liệu QLCV thật</td>
+          </tr>
+          <tr>
+            <td class="py-4 pr-4 border-b text-white font-semibold">Thời gian triển khai</td>
+            <td class="py-4 px-4 border-b">Nhanh nhưng gãy đứt sau đó</td>
+            <td class="py-4 px-4 border-b">6 – 18 tháng tốn kém</td>
+            <td class="py-4 pl-4 border-b text-white font-semibold">9 Bước cuốn chiếu theo giai đoạn</td>
+          </tr>
+          <tr>
+            <td class="py-4 pr-4 text-white font-semibold">Bảo mật & Phụ thuộc</td>
+            <td class="py-4 px-4">Tri thức nằm ở từng cá nhân</td>
+            <td class="py-4 px-4">Phụ thuộc vendor chỉnh sửa</td>
+            <td class="py-4 pl-4 text-white font-semibold">Bảo mật 4 lớp, quy trình số hóa</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="border-b border-slate-800/80 py-20 md:py-28">
+  <div class="max-w-3xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 reveal">
+      <span class="tag">Câu Hỏi Thường Gặp</span>
+      <h2 class="font-display font-semibold text-2xl md:text-4xl mt-4">FAQ</h2>
+    </div>
+    <div class="space-y-3 reveal" id="faqList">
+      <div class="accordion panel-2 rounded-xl overflow-hidden border border-slate-800">
+        <button class="faq-btn w-full flex items-center justify-between text-left px-5 py-4 font-medium text-sm text-white">
+          Dữ liệu doanh nghiệp có được bảo mật và cách ly riêng không?
+          <span class="chev font-mono text-lg text-sky-400">+</span>
+        </button>
+        <div class="accordion-body px-5"><p class="text-xs text-slate-400 pb-4 leading-relaxed">Có. Hệ thống hỗ trợ kiến trúc Multi-tenant cách ly dữ liệu từng doanh nghiệp kèm 4 Trụ cột an toàn thông tin: SSO & 2FA, Role-based ACL, Encrypted Audit Log và tự động sao lưu định kỳ.</p></div>
+      </div>
+      <div class="accordion panel-2 rounded-xl overflow-hidden border border-slate-800">
+        <button class="faq-btn w-full flex items-center justify-between text-left px-5 py-4 font-medium text-sm text-white">
+          Doanh nghiệp có cần triển khai cả 11 mô-đun cùng lúc không?
+          <span class="chev font-mono text-lg text-sky-400">+</span>
+        </button>
+        <div class="accordion-body px-5"><p class="text-xs text-slate-400 pb-4 leading-relaxed">Không bắt buộc. EVA/NEXUS cho phép triển khai cuốn chiếu qua 4 Giai đoạn: từ Nền tảng KHKD (Mod 01) ➔ Vận hành QLCV & Bán hàng (Mod 07-09) ➔ Quản trị MA & Phê duyệt (Mod 02-06) ➔ Lương 3P & CEO Dashboard (Mod 10-11).</p></div>
+      </div>
+      <div class="accordion panel-2 rounded-xl overflow-hidden border border-slate-800">
+        <button class="faq-btn w-full flex items-center justify-between text-left px-5 py-4 font-medium text-sm text-white">
+          Lương 3P lấy dữ liệu từ PM QLCV như thế nào?
+          <span class="chev font-mono text-lg text-sky-400">+</span>
+        </button>
+        <div class="accordion-body px-5"><p class="text-xs text-slate-400 pb-4 leading-relaxed">P3 (Performance) được tính tự động từ tỷ lệ hoàn thành công việc, tiến độ KPI và điểm đánh giá thực tế cập nhật hàng ngày trong PM QLCV, loại bỏ hoàn toàn việc chấm điểm cảm tính cuối tháng.</p></div>
+      </div>
+      <div class="accordion panel-2 rounded-xl overflow-hidden border border-slate-800">
+        <button class="faq-btn w-full flex items-center justify-between text-left px-5 py-4 font-medium text-sm text-white">
+          Xem và tải 16 sơ đồ Master cùng tài liệu thuyết minh ở đâu?
+          <span class="chev font-mono text-lg text-sky-400">+</span>
+        </button>
+        <div class="accordion-body px-5"><p class="text-xs text-slate-400 pb-4 leading-relaxed">Bạn có thể xem trực quan và phóng to full HD ngay tại phần <a href="#thu-vien-so-do" class="text-sky-400 underline">Thư viện Sơ đồ Master</a> ở trên, đồng thời tải trực tiếp file PDF tương ứng cho từng mô-đun.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEAD MAGNET & FINAL CTA ============ -->
+<section id="cta" class="py-24 md:py-32 text-center border-b border-slate-800/80">
+  <div class="max-w-3xl mx-auto px-5 reveal">
+    <span class="tag mb-6"><span class="dot-data"></span>Đánh Giá Hiện Trạng Quản Trị</span>
+    <h2 class="font-display font-semibold text-3xl md:text-5xl leading-tight text-white mt-4">
+      Doanh nghiệp của bạn đã sẵn sàng trở thành <span class="text-emerald-400">một hệ thống?</span>
+    </h2>
+    <p class="text-slate-400 mt-5 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+      EVA / NEXUS đồng hành từ thiết kế hệ quản trị ➔ chuẩn hóa ➔ số hóa 11 mô-đun ➔ vận hành ➔ đo lường ➔ tối ưu.
+    </p>
+
+    <div class="mt-10 panel p-8 border-sky-500/40 text-left max-w-xl mx-auto">
+      <h3 class="font-bold text-base text-white mb-2">Đăng ký Nhận Bộ Đánh Giá Mức Độ Trưởng Thành Quản Trị</h3>
+      <p class="text-xs text-slate-400 mb-5 leading-relaxed">Chấm điểm nhanh độ trưởng thành 11 mô-đun quản trị và nhận báo cáo khuyến nghị riêng từ Chuyên gia EVA.</p>
+      <form class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); openBookingModal();">
+        <input type="email" required placeholder="Nhập email công ty của bạn" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-xs outline-none focus:border-sky-400 text-white">
+        <button class="btn-primary rounded-lg px-6 py-3 text-xs font-bold whitespace-nowrap uppercase tracking-wider">Nhận Tư Vấn</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="py-12 bg-[#070A12] relative z-10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <img src="nexus-logo-full-dark.svg" alt="EVA Logo Full" class="h-8 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="hidden text-lg font-bold font-display text-white">EVA / NEXUS Enterprise OS</span>
+      </div>
+      <p class="text-xs text-slate-400 max-w-xl text-center md:text-right leading-relaxed">
+        Nơi chiến lược được chuyển thành kế hoạch, kế hoạch thành hành động, hành động tạo ra dữ liệu, dữ liệu trở thành quyết định và quyết định tạo ra giá trị.
+      </p>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 text-xs text-slate-500 font-mono">
+      <span>© 2026 EVA / NEXUS Enterprise OS — All rights reserved.</span>
+      <div class="flex gap-5">
+        <a href="#he-sinh-thai" class="hover:text-white">11 Mô-đun</a>
+        <a href="#thu-vien-so-do" class="hover:text-sky-400">Thư viện Sơ đồ</a>
+        <a href="#van-hanh" class="hover:text-white">PDCA</a>
+        <a href="#faq" class="hover:text-white">FAQ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ JAVASCRIPT DATA & INTERACTION LOGIC ============ -->
+<script>
+  // 16 MASTER DIAGRAMS DATA
+  const DIAGRAMS_DATA = [
+    {
+      id: "he-sinh-thai-1",
+      category: "he-sinh-thai",
+      catName: "1. HỆ SINH THÁI — Master 11 Mô-đun",
+      title: "Sơ Đồ Master Hệ Sinh Thái 11 Mô-đun Quản Trị Doanh Nghiệp Số Hóa",
+      subtitle: "Liên thông 11 phân hệ nghiệp vụ từ Chiến lược KHKD đến CEO Dashboard",
+      imageSrc: "diagrams/tom_tat_he_sinh_thai_1.png",
+      pdfSrc: "docs/so_do_he_sinh_thai_v2.pdf",
+      pdfFileName: "so_do_he_sinh_thai_v2.pdf",
+      highlights: [
+        "Kiến trúc 4 lớp thống nhất: Lớp Kế hoạch - Tài chính (Mod 01-06) → Lớp Vận hành QLCV Core Hub (Mod 07) → Lớp Kinh doanh & Con người (Mod 08-11) → Lớp Nền tảng Dữ liệu Dùng chung",
+        "Lấy PM QLCV (Mod 07) làm 'Bộ não điều hành trung tâm' kết nối dữ liệu KHKD, MA, Ngân sách, CRM, DMS, Lương 3P và CEO Dashboard",
+        "Nền tảng Data Warehouse/Lake tập trung, tích hợp AI Copilot & 4 Trụ cột Bảo mật (SSO 2FA, Role-based ACL, Encrypted Audit Log)"
+      ],
+      takeaways: "Dành cho NĐT/KH: Chứng minh giải pháp quản trị số hóa 100% khép kín, loại bỏ hoàn toàn số liệu rời rạc giữa các phòng ban."
+    },
+    {
+      id: "he-sinh-thai-2",
+      category: "he-sinh-thai",
+      catName: "2. HỆ SINH THÁI — Luồng Vận Hành",
+      title: "Sơ Đồ Tổng Quan Luồng Vận Hành Liên Thông Hệ Sinh Thái Số Hóa",
+      subtitle: "Điểm gốc từ Kế hoạch Kinh doanh, Điểm hội tụ tại CEO Dashboard",
+      imageSrc: "diagrams/tom_tat_he_sinh_thai_2.png",
+      pdfSrc: "docs/so_do_he_sinh_thai.pdf",
+      pdfFileName: "so_do_he_sinh_thai.pdf",
+      highlights: [
+        "Luồng dữ liệu liên thông Single Source of Truth: Một thông tin khách hàng hay đơn hàng bước vào ở CRM/DMS sẽ đồng hành xuyên suốt Báo giá → Đơn hàng → Xuất kho → Giao hàng → Báo cáo BI",
+        "Chu trình cải tiến liên tục PDCA (Plan → Do → Check → Act) tự động đối chiếu số liệu Kế hoạch vs Thực tế để cảnh báo rủi ro",
+        "Tối ưu hóa nguồn lực, tăng năng suất lao động toàn công ty và thúc đẩy tăng trưởng doanh thu bền vững"
+      ],
+      takeaways: "Dành cho NĐT/KH: Giúp Ban lãnh đạo đưa ra quyết định điều hành chính xác 100% dựa trên dữ liệu thật."
+    },
+    {
+      id: "nexus-hr-toan-dien",
+      category: "hr",
+      catName: "3. HR — Quản Trị Nhân Sự All-in-One",
+      title: "Sơ Đồ Master NEXUS-HR — Hệ Thống Quản Trị Nhân Sự Toàn Diện",
+      subtitle: "Quản lý vòng đời nhân sự 11 khối từ Tuyển dụng → Chấm công → Tính lương C&B → Đánh giá",
+      imageSrc: "diagrams/so_do_nexus_hr_toan_dien.png",
+      pdfSrc: "docs/NEXUS-HR.pdf",
+      pdfFileName: "NEXUS-HR.pdf",
+      highlights: [
+        "Quy trình Tuyển dụng 6 bước & Quản lý Hồ sơ nhân viên, Hợp đồng, BHXH, Thuế TNCN",
+        "Hệ thống Chấm công đa phương thức (Vân tay, Face ID, GPS Mobile App) tự động tổng hợp công phép để kết nối Payroll tính lương",
+        "Cổng thông tin tự phục vụ nhân viên Employee Portal ESS & Đánh giá hiệu suất KPI/OKR kèm Lộ trình thăng tiến IDP"
+      ],
+      takeaways: "Dành cho NĐT/KH: Tự động hóa 100% nghiệp vụ C&B, giảm thiểu sai sót tính lương và nâng cao tỷ lệ giữ chân nhân tài."
+    },
+    {
+      id: "hr-3p",
+      category: "3p",
+      catName: "4. LƯƠNG 3P — Khung Đòn Bẩy Nhân Sự",
+      title: "Sơ Đồ Lương 3P & Khung Đòn Bẩy Động Lực Nhân Sự",
+      subtitle: "P1 Position – P2 Person – P3 Performance lấy dữ liệu thật",
+      imageSrc: "diagrams/so_do_3p.png",
+      pdfSrc: "docs/3P_so_do.pdf",
+      pdfFileName: "3P_so_do.pdf",
+      highlights: [
+        "P1 theo Giá trị vị trí, P2 theo Năng lực cá nhân, P3 theo Hiệu suất thật từ QLCV",
+        "Loại bỏ hoàn toàn đánh giá cảm tính, trả lương công bằng 100%",
+        "Chuỗi đòn bẩy: Trả lương đúng → Tạo động lực → Tăng năng suất"
+      ],
+      takeaways: "Dành cho NĐT/KH: Thu hút và giữ chân nhân tài bằng cơ chế minh bạch và công bằng."
+    },
+    {
+      id: "nexus-analytics-mindmap",
+      category: "bctc",
+      catName: "5. BCTC — Phân Tích & Định Giá CFA",
+      title: "Sơ Đồ Trí Tuệ NEXUS Analytics — Phân Tích Tài Chính & Định Giá (Chuẩn CFA & Big4)",
+      subtitle: "Xếp hạng doanh nghiệp A+ đến D & Mô hình Định giá Fair Value chuyên nghiệp",
+      imageSrc: "diagrams/so_do_nexus_analytics_mindmap.png",
+      pdfSrc: "docs/pt-bctc.pdf",
+      pdfFileName: "pt-bctc.pdf",
+      highlights: [
+        "Chuẩn hóa dữ liệu BCTC tự động theo Thông tư 200 & Phân tích chuyên sâu Dupont (ROE = Lợi nhuận x Vòng quay TS x Đòn bẩy TC)",
+        "Hệ thống Chấm điểm & Xếp hạng 5 bậc dựa trên 5 tiêu chí quản trị",
+        "Định giá doanh nghiệp đa phương pháp: DCF, P/E, P/B, EV/EBITDA, NAV & Insight AI hỗ trợ ra quyết định"
+      ],
+      takeaways: "Dành cho NĐT/KH: Cung cấp bức tranh tài chính chuẩn Big4 & định giá giá trị thực doanh nghiệp cho M&A và gọi vốn."
+    },
+    {
+      id: "dinh-gia-cfa-big4",
+      category: "bctc",
+      catName: "6. BCTC — Định Giá 9 Khối Big4",
+      title: "Sơ Đồ Cấu Trúc Khối Phân Tích Tình Hình Tài Chính & Định Giá Doanh Nghiệp",
+      subtitle: "Từ Thu thập Dữ liệu → Phân tích Dòng tiền CFO/CFI/CFF → Xếp hạng & Định giá",
+      imageSrc: "diagrams/so_do_dinh_gia_cfa_big4.png",
+      pdfSrc: "docs/pt-bctc.pdf",
+      pdfFileName: "pt-bctc.pdf",
+      highlights: [
+        "Phân tích dòng tiền 3 trụ cột (CFO, CFI, CFF) & Đánh giá chất lượng lợi nhuận CFO/LNST",
+        "Phân tích triển vọng ngành & DN (Mô hình 5 Forces Porter, Lợi thế bền vững Moat, 3 kịch bản)",
+        "Báo cáo & Khuyến nghị tự động bằng AI (Claude & Gemini): Xuất Dashboard, Word/PDF/Excel"
+      ],
+      takeaways: "Dành cho NĐT/KH: Giúp các quỹ đầu tư & chủ doanh nghiệp xác định chính xác khoảng giá trị giao dịch."
+    },
+    {
+      id: "khkd-ma-toan-dien",
+      category: "khkd",
+      catName: "7. KHKD — Lập Kế Hoạch Kinh Doanh Toàn Diện",
+      title: "Sơ Đồ Hệ Thống Lập Kế Hoạch & Phân Tích Quản Trị (MA) Toàn Diện",
+      subtitle: "Lập kế hoạch chủ động – Thực thi kỷ luật – Phân tích sâu sắc – Ra quyết định chính xác",
+      imageSrc: "diagrams/so_do_khkd_ma_toan_dien.png",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      pdfFileName: "Lap_khkd-ma.pdf",
+      highlights: [
+        "Quản lý 7 loại kế hoạch chuẩn hóa: KHKD, KHTC, KHĐT, KHNS, KHSX, Mua hàng & Dự án",
+        "Quy trình Phân tích MA chuyên sâu: P&L Quản trị, Cost Center, Điểm hòa vốn BEP, Chỉ số ROI/ROA/ROE",
+        "Bảng So sánh Thực hiện vs Kế hoạch vs Cùng kỳ (TH vs KH vs CK) tự động tính % chênh lệch"
+      ],
+      takeaways: "Dành cho NĐT/KH: Bảo đảm mọi kế hoạch kinh doanh và dòng tiền đều được quản trị bằng số liệu khoa học."
+    },
+    {
+      id: "khkd-ma-tu-dong",
+      category: "ma",
+      catName: "8. MA — Phân Tích Quản Trị Tự Động",
+      title: "Sơ Đồ KHKD & Phân Tích MA — Tự Động Kết Nối Dữ Liệu Đầu Vào",
+      subtitle: "Hợp nhất 8 nguồn dữ liệu → Xây dựng 3 kịch bản Ngân sách Base / Optimistic / Conservative",
+      imageSrc: "diagrams/so_do_khkd_ma_tu_dong.png",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      pdfFileName: "Lap_khkd-ma.pdf",
+      highlights: [
+        "Kết nối tự động 8 nguồn dữ liệu: CRM, DMS, Sản xuất, Mua hàng, Kho, Kế toán, Dự án & Thị trường",
+        "Lập 3 kịch bản ngân sách linh hoạt & Cân đối P&L doanh thu - chi phí - lợi nhuận trước khi duyệt",
+        "Radar tự động phát hiện Top 3 vấn đề cần hành động khẩn cấp"
+      ],
+      takeaways: "Dành cho NĐT/KH: Giúp doanh nghiệp chủ động ứng phó với biến động thị trường nhờ kịch bản dự phòng."
+    },
+    {
+      id: "nexus-master-flow",
+      category: "he-sinh-thai",
+      catName: "9. NEXUS — Master Flow Vận Hành",
+      title: "Sơ Đồ Vận Hành Master NEXUS Enterprise OS & QuoteFlow OS",
+      subtitle: "Từ Chiến lược đến Kết quả – Vận hành toàn diện – Dữ liệu liền mạch",
+      imageSrc: "diagrams/so_do_nexus_master_flow.png",
+      pdfSrc: "docs/so_do_he_sinh_thai_v2.pdf",
+      pdfFileName: "so_do_he_sinh_thai_v2.pdf",
+      highlights: [
+        "Vòng quay 6 khối liên thông: Chiến lược → Lập KHKD → Ngân sách → Thực thi → Báo cáo BI → Chu trình PDCA",
+        "Phân bổ ngân sách toàn diện 8 phòng ban: Kinh doanh, Marketing, Sản xuất, Mua hàng, HR, TCKT, R&D, Pháp chế",
+        "Tích hợp AI Copilot & AI Sales Coach (Đào tạo kỹ năng chốt đơn & Xử lý phản đối)"
+      ],
+      takeaways: "Dành cho NĐT/KH: Mô hình master thể hiện toàn bộ sức mạnh kiến trúc quản trị doanh nghiệp số hóa."
+    },
+    {
+      id: "crm-bg-tom-tat",
+      category: "crm",
+      catName: "10. CRM — Tóm Tắt Quy Trình Báo Giá",
+      title: "Sơ Đồ Tóm Tắt Phần Mềm CRM & Quản Lý Báo Giá",
+      subtitle: "Quản lý khách hàng – Quy trình báo giá – Phê duyệt – AI Copilot & Sales Coach",
+      imageSrc: "diagrams/so_do_crm_bg_tom_tat.png",
+      pdfSrc: "docs/crm-bg.pdf",
+      pdfFileName: "crm-bg.pdf",
+      highlights: [
+        "Quy trình CRM 5 bước: Tiếp nhận KH → Quản lý thông tin → Quản lý cơ hội → Chăm sóc → Chuyển báo giá",
+        "Quy trình Báo giá 5 bước: Tạo báo giá → Quản lý phiên bản → Phê duyệt → Gửi & Theo dõi → Hợp đồng",
+        "Tích hợp AI Copilot (Dự báo doanh số) & AI Sales Coach (Đào tạo kỹ năng chốt đơn)"
+      ],
+      takeaways: "Dành cho NĐT/KH: Chuẩn hóa quy trình báo giá, rút ngắn 70% thời gian và đào tạo Sales tự động."
+    },
+    {
+      id: "cskh-van-hanh-bg",
+      category: "crm",
+      catName: "11. CRM — Vận Hành CSKH & QuoteFlow",
+      title: "Sơ Đồ Vận Hành PM CSKH & Quản Lý Báo Giá (QuoteFlow OS)",
+      subtitle: "Từ Khách hàng → Cơ hội bán hàng → Báo giá → Chốt sale → Doanh thu → Dashboard",
+      imageSrc: "diagrams/so_do_cskh_van_hanh_bg.png",
+      pdfSrc: "docs/crm-bg.pdf",
+      pdfFileName: "crm-bg.pdf",
+      highlights: [
+        "Pipeline CSKH 7 bước: Lead mới → Nhu cầu → Đã liên hệ → Giải pháp → Báo giá → Đàm phán → WON/LOST",
+        "Cơ chế Phê duyệt Báo giá tự động (QuoteFlow OS): Kiểm tra chiết khấu trong hạn mức vs Vượt hạn mức",
+        "Đơn hàng & Hợp đồng → Thanh toán & Doanh thu → Vòng lặp cải tiến liên tục"
+      ],
+      takeaways: "Dành cho NĐT/KH: Minh bạch mọi giao dịch, loại bỏ duyệt ngầm sai chiết khấu & theo dõi Win-rate real-time."
+    },
+    {
+      id: "dms-to-chuc",
+      category: "dms",
+      catName: "12. DMS — Tổ Chức Kênh Bán 5 Tầng",
+      title: "Sơ Đồ Tổ Chức Kênh Bán Hàng DMS Xuyên Suốt 5 Tầng Quản Lý",
+      subtitle: "Từ GĐKD → RSM Miền → ASM Khu vực → SS Giám sát → NV Sales → Đại lý / NPP",
+      imageSrc: "diagrams/so_do_to_chuc_dms.png",
+      pdfSrc: "docs/DMS-QT-BH.pdf",
+      pdfFileName: "DMS-QT-BH.pdf",
+      highlights: [
+        "Phân cấp 5 tầng rõ ràng: GĐKD → RSM → ASM → SS → Sale Đi tuyến → Đại lý/NPP",
+        "Trung tâm Kiểm soát Dữ liệu: Tồn kho (Kho tổng, NPP/ĐL), Đơn hàng In/Out, Check-in GPS điểm bán",
+        "Minh bạch dữ liệu toàn kênh: Giám sát thị trường real-time & theo dõi hiệu suất tuyến bán"
+      ],
+      takeaways: "Dành cho NĐT/KH: Giúp doanh nghiệp mở rộng hàng nghìn đại lý mà vẫn kiểm soát chặt chẽ."
+    },
+    {
+      id: "dms-ban-hang",
+      category: "dms",
+      catName: "13. DMS — Luồng Quản Lý Tổng Thể",
+      title: "Tóm Tắt Hướng Dẫn – Luồng Quản Lý Kênh Phân Phối DMS",
+      subtitle: "Kiểm soát Hàng hóa – Kênh bán hàng – Đội ngũ Sales – Giao hàng POD",
+      imageSrc: "diagrams/so_do_ban_hang_dms.png",
+      pdfSrc: "docs/DMS-QT-BH.pdf",
+      pdfFileName: "DMS-QT-BH.pdf",
+      highlights: [
+        "Luồng 7 bước chuẩn hóa: Tạo nhu cầu → Duyệt đơn → Xuất hàng → Giao hàng → Nghiệm thu → Thanh toán → Báo cáo BI",
+        "Quản lý tồn kho real-time 3 cấp kèm Cảnh báo hàng tồn thấp/hết hàng/chậm luân chuyển",
+        "Giám sát NV Sales thị trường: Check-in GPS vị trí & thời gian, chụp ảnh thực địa trưng bày"
+      ],
+      takeaways: "Dành cho NĐT/KH: Loại bỏ hoàn toàn rủi ro thất thoát hàng hóa hay NV Sales ảo báo cáo."
+    },
+    {
+      id: "approve-master",
+      category: "approve",
+      catName: "14. APPROVE — Giám Sát Ngân Sách",
+      title: "Sơ Đồ Master APPROVE — Quản Lý Đề Xuất, Giám Sát Ngân Sách & Mua Hàng/Thanh Toán",
+      subtitle: "Đảm bảo đúng ngân sách, đúng quy trình, đúng người, đúng thời điểm",
+      imageSrc: "diagrams/so_do_approve_master.png",
+      pdfSrc: "docs/Approve_Management_V2.pdf",
+      pdfFileName: "Approve_Management_V2.pdf",
+      highlights: [
+        "Quản lý 6 loại đề xuất (Mua hàng, Chi phí, Thanh toán, Đầu tư, Tạm ứng...) & Quy trình 6 trạng thái",
+        "Giám sát ngân sách real-time 4 chỉ số & 3 Cấp cảnh báo (An toàn <90%, Cảnh báo 90-100%, Vượt >100%)",
+        "Kiểm soát đối chiếu 3 chứng từ (PO - GR - Invoice), loại bỏ thanh toán trùng hay khống"
+      ],
+      takeaways: "Dành cho NĐT/KH: Bảo đảm 100% dòng tiền chi ra đều đúng mục tiêu kế hoạch, minh bạch."
+    },
+    {
+      id: "qlcv-toan-dien",
+      category: "qlcv",
+      catName: "15. QLCV — Sơ Đồ Toàn Diện",
+      title: "Sơ Đồ Hệ Thống Quản Lý Công Việc (QLCV) Toàn Diện",
+      subtitle: "Bộ Não Điều Hành Doanh Nghiệp: Từ chiến lược đến thực thi xuyên suốt 8 phòng ban",
+      imageSrc: "diagrams/so_do_qlcv_toan_dien.png",
+      pdfSrc: "docs/Enterprise_Nervous_System.pdf",
+      pdfFileName: "Enterprise_Nervous_System.pdf",
+      highlights: [
+        "Vòng đời công việc 8 bước: Mục tiêu → Kế hoạch → Giao việc → Thực hiện → Theo dõi → Đo kết quả → Phản hồi → Cải tiến",
+        "Liên kết dữ liệu xuyên 8 phòng ban: Kinh doanh, Marketing, Sản xuất, Mua hàng, Kho, Tài chính, Nhân sự, IT",
+        "Giám sát & Cảnh báo thời gian thực: Đúng tiến độ, Nguy cơ, Trễ hạn, Quá hạn trên Web/Mobile"
+      ],
+      takeaways: "Dành cho NĐT/KH: Minh chứng tính toàn diện của Bộ Não QLCV — mọi công việc rõ ràng, mọi kết quả đo lường được."
+    },
+    {
+      id: "qlcv-phan-ra-kpi",
+      category: "qlcv",
+      catName: "16. QLCV — Phân Rã KPI",
+      title: "Quy Trình CEO Giao KPI Đầu Tháng → Tự Động Phân Rã Xuống Các Cấp",
+      subtitle: "Cơ chế Cascade Down từ mục tiêu chiến lược 20 Tỷ đến từng thẻ task nhân viên",
+      imageSrc: "diagrams/so_do_qlcv_phan_ra_kpi.png",
+      pdfSrc: "docs/qlcv.pdf",
+      pdfFileName: "qlcv.pdf",
+      highlights: [
+        "Hệ thống tự động phân rã chỉ tiêu: CEO (20 tỷ) → GĐKD (12 tỷ) → TPKD (4 tỷ) → Team (2 tỷ) → Sale (400tr)",
+        "Theo dõi tiến độ KPI real-time & Top công việc quá hạn kèm Thẻ công việc chuẩn hóa",
+        "Quy tắc Escalate 3 Mức Cảnh Báo: Mức 1 (<90%), Mức 2 (<70%), Mức 3 (Quá hạn -> Escalate trực tiếp lên GĐ & CEO)"
+      ],
+      takeaways: "Dành cho NĐT/KH: Đảm bảo mục tiêu chiến lược của CEO được thực thi chuẩn xác đến từng cá nhân."
+    }
+  ];
+
+  // 11 MODULE FORMS DATA & SCHEMAS
+  const MODULE_FORMS = {
+    1: {
+      code: "MOD 01",
+      title: "Lập Kế Hoạch Kinh Doanh & Mục Tiêu KPI/OKR",
+      subtitle: "Biến mục tiêu doanh thu thành kế hoạch hành động cụ thể cho từng kỳ",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="panel-2 p-3 border border-slate-800">
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Mục tiêu Doanh Thu Kỳ (VND)</label>
+              <input type="text" value="20,000,000,000" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-emerald-400 font-bold">
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Hạn mức Chi phí Tối đa (%)</label>
+              <input type="text" value="65%" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-sky-400 font-bold">
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Lợi Nhuận Mục Tiêu (EBITDA)</label>
+              <input type="text" value="7,000,000,000" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-amber-400 font-bold">
+            </div>
+          </div>
+
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Phân Rã Chỉ Tiêu KPI/OKR Theo Phòng Ban:</h4>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded bg-slate-900 border border-slate-800">
+                <span>1. Khối Kinh Doanh (Sales & CRM)</span>
+                <span class="font-mono text-emerald-400 font-bold">12,000,000,000 VND</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-slate-900 border border-slate-800">
+                <span>2. Khối Kênh Phân Phối DMS</span>
+                <span class="font-mono text-emerald-400 font-bold">8,000,000,000 VND</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-slate-900 border border-slate-800">
+                <span>3. Ngân sách Marketing & Lead Gen</span>
+                <span class="font-mono text-sky-400 font-bold">1,200,000,000 VND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    2: {
+      code: "MOD 02",
+      title: "Review & Phân Tích Insight AI Thị Trường",
+      subtitle: "Phân tích rủi ro, cơ hội và đối thủ bằng mô hình trí tuệ nhân tạo",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <label class="block text-xs font-mono text-slate-300 mb-2">Nhập từ khóa hoặc đối thủ cần AI phân tích insight:</label>
+            <div class="flex gap-2">
+              <input type="text" value="Đối thủ A launching dòng sản phẩm B2B giá rẻ" class="flex-1 bg-slate-950 border border-slate-700 rounded px-3 py-2 text-xs text-white">
+              <button onclick="alert('AI Copilot đã hoàn tất quét 142 bài báo và báo cáo ngành. Đã phát hiện 3 nguy cơ đe dọa biên lợi nhuận nhóm B2B!')" class="btn-primary px-4 py-2 rounded text-xs bg-sky-400 text-slate-950 font-bold">🤖 Chạy AI Insight</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="panel-2 p-4 border border-emerald-500/40 bg-emerald-500/5">
+              <span class="font-mono text-[10px] text-emerald-400 font-bold">CƠ HỘI ĐƯỢC AI GỢI Ý</span>
+              <p class="text-xs text-slate-300 mt-1">Mở rộng kênh DMS miền Nam với gói chiết khấu đại lý 12% để chiếm thị phần trước quý 4.</p>
+            </div>
+            <div class="panel-2 p-4 border border-rose-500/40 bg-rose-500/5">
+              <span class="font-mono text-[10px] text-rose-400 font-bold">CẢNH BÁO RỦI RO CHI PHÍ</span>
+              <p class="text-xs text-slate-300 mt-1">Giá nguyên liệu đầu vào có xu hướng tăng 4.2% trong 30 ngày tới. Đề xuất chốt đơn mua hàng sớm.</p>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    3: {
+      code: "MOD 03",
+      title: "Quản Trị Kế Hoạch (PM MA — Management Accounting)",
+      subtitle: "Báo cáo P&L Quản trị và giám sát độ lệch KPI/OKR real-time",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Bảng Báo Cáo P&L Quản Trị Theo Thời Gian Thực (Real-time P&L):</h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-500 font-mono text-[10px]">
+                    <th class="py-2">Chỉ số P&L</th>
+                    <th class="py-2">Kế hoạch</th>
+                    <th class="py-2">Thực tế</th>
+                    <th class="py-2">Chênh lệch</th>
+                    <th class="py-2">Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60 text-slate-300 font-mono">
+                  <tr>
+                    <td class="py-2 text-white font-bold">Doanh thu thuần</td>
+                    <td>20,000,000,000</td>
+                    <td class="text-emerald-400">18,500,000,000</td>
+                    <td class="text-amber-400">-7.5%</td>
+                    <td><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">An toàn</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 text-white font-bold">Giá vốn COGS</td>
+                    <td>10,000,000,000</td>
+                    <td>9,200,000,000</td>
+                    <td class="text-emerald-400">-8.0%</td>
+                    <td><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">Tối ưu</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 text-white font-bold">Chi phí Quản lý OPEX</td>
+                    <td>3,000,000,000</td>
+                    <td class="text-rose-400">3,400,000,000</td>
+                    <td class="text-rose-400">+13.3%</td>
+                    <td><span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 text-[10px]">Vượt NS</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    4: {
+      code: "MOD 04",
+      title: "Quản Trị Dòng Tiền (Cashflow Management)",
+      subtitle: "Dự báo dòng tiền thu - chi, kiểm soát hạn mức công nợ & cảnh báo thâm hụt",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">DÒNG TIỀN ĐẦU KỲ</span>
+              <div class="font-mono text-sm font-bold text-white mt-1">4,250,000,000 VND</div>
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">DỰ BÁO DÒNG THU (30 NGÀY)</span>
+              <div class="font-mono text-sm font-bold text-emerald-400 mt-1">+12,800,000,000 VND</div>
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">DỰ BÁO DÒNG CHI (30 NGÀY)</span>
+              <div class="font-mono text-sm font-bold text-rose-400 mt-1">-11,100,000,000 VND</div>
+            </div>
+          </div>
+
+          <div class="panel-2 p-4 border border-amber-500/40 bg-amber-500/10">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs text-amber-400 font-bold">⚠️ CẢNH BÁO THÂM HỤT DÒNG TIỀN TUẦN 3</span>
+              <span class="font-mono text-[10px] text-slate-400">Escalate ➔ CFO</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-2">Dự kiến đợt thanh toán đơn hàng nhập khẩu ngày 22/08 sẽ khiến tồn quỹ giảm xuống dưới mức an toàn 1 Tỷ. Đề xuất giục thu công nợ 3 Khách hàng đại lý quá hạn.</p>
+          </div>
+        </div>
+      `
+    },
+    5: {
+      code: "MOD 05",
+      title: "Quản Trị Ngân Sách (Budget Management)",
+      subtitle: "Phân bổ hạn mức ngân sách phòng ban và kiểm soát tiêu dùng real-time",
+      pdfSrc: "docs/Lap_khkd-ma.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Phân Bổ Ngân Sách Kỳ Tháng 8 (Budget Allocation):</h4>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span>1. Khối Marketing & Quảng cáo</span>
+                  <span class="text-sky-400 font-bold">780 / 1,000 Triệu (78%)</span>
+                </div>
+                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                  <div class="bg-sky-400 h-full" style="width: 78%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span>2. Khối Công Nghệ & R&D</span>
+                  <span class="text-emerald-400 font-bold">450 / 600 Triệu (75%)</span>
+                </div>
+                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                  <div class="bg-emerald-400 h-full" style="width: 75%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span>3. Khối Hành Chính & Tiếp Khách</span>
+                  <span class="text-rose-400 font-bold">195 / 200 Triệu (97.5% - Cảnh báo vượt)</span>
+                </div>
+                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                  <div class="bg-rose-500 h-full" style="width: 97.5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    6: {
+      code: "MOD 06",
+      title: "Giám Sát & Phê Duyệt Online (PM Approve)",
+      subtitle: "Quy trình đề xuất chi phí, mua hàng & thanh toán online 100% minh bạch",
+      pdfSrc: "docs/Approve_Management_V2.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Tạo Đề Xuất Phê Duyệt Mới:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 mb-1">Loại đề xuất</label>
+                <select class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs text-white">
+                  <option>Đề xuất Mua sắm Thiết bị IT</option>
+                  <option>Đề xuất Tạm ứng Ngân sách Marketing</option>
+                  <option>Đề xuất Thanh toán Hợp đồng Cung ứng</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 mb-1">Số tiền đề xuất (VND)</label>
+                <input type="text" value="45,000,000" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-amber-400 font-bold">
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Cấp phê duyệt tự động</label>
+              <div class="p-2 rounded bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
+                <span>NV Đề xuất ➔ Trưởng phòng (Duyệt) ➔ CFO (Duyệt) ➔ CEO (Phê duyệt chung)</span>
+                <span class="text-emerald-400 font-bold">✓ Đúng hạn mức</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    7: {
+      code: "MOD 07 — CORE HUB",
+      title: "PM QLCV — Bộ Não Điều Hành & Vận Hành Doanh Nghiệp Trung Tâm",
+      subtitle: "Trung tâm điều phối công việc daily, quản lý tài nguyên, tri thức SOP & tự động giám sát",
+      pdfSrc: "docs/Enterprise_Nervous_System.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-emerald-500/50 bg-emerald-500/10">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs font-bold text-emerald-400">LÕI VẬN HÀNH THỜI GIAN THỰC (REAL-TIME OPERATION HUB)</span>
+              <span class="font-mono text-[10px] text-slate-400">92% Task Đúng Deadline</span>
+            </div>
+            <p class="text-xs text-slate-300">QLCV tự động tiếp nhận mục tiêu từ KHKD (Mod 01) để phân rã thành thẻ công việc cá nhân, đồng thời ghi nhận điểm hiệu suất P3 để tính Lương 3P (Mod 10).</p>
+          </div>
+
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Tạo & Giao Thẻ Công Việc Daily (Task Card):</h4>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 mb-1">Tên công việc / Dự án *</label>
+                <input type="text" value="Triển khai chiến dịch ra mắt sản phẩm mới Q3" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs text-white">
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">Người thực hiện</label>
+                  <input type="text" value="Nguyễn Văn B (MKT Lead)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs text-slate-300">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">Deadline hoàn thành</label>
+                  <input type="text" value="31/08/2026 17:00" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-amber-400">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-mono text-slate-400 mb-1">Gắn Quy trình SOP</label>
+                  <input type="text" value="SOP-MKT-04 Launch Product" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs text-sky-400">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    8: {
+      code: "MOD 08",
+      title: "CRM & Quản Lý Báo Giá Automated (QuoteFlow OS)",
+      subtitle: "Quản lý cơ hội bán hàng, tự động tính báo giá & chiết khấu trong hạn mức",
+      pdfSrc: "docs/crm-bg.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Tạo Báo Giá Khách Hàng B2B:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 mb-1">Tên Khách hàng / Doanh nghiệp</label>
+                <input type="text" value="Tập đoàn Công nghệ XYZ" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs text-white">
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 mb-1">Giá trị Báo giá (VND)</label>
+                <input type="text" value="850,000,000" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-xs font-mono text-emerald-400 font-bold">
+              </div>
+            </div>
+            <div class="p-3 rounded bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
+              <span>Chiết khấu yêu cầu: 8% (Trong hạn mức cho phép <= 10%)</span>
+              <span class="text-emerald-400 font-bold">✓ Tự động duyệt báo giá</span>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    9: {
+      code: "MOD 09",
+      title: "DMS — Quản Lý Kênh Phân Phối & Tuyến Bán Hàng",
+      subtitle: "Điều hành mạng lưới Nhà phân phối, Đại lý & Sales Route theo dõi GPS real-time",
+      pdfSrc: "docs/DMS-QT-BH.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">TỔNG ĐẠI LÝ / NPP</span>
+              <div class="font-mono text-sm font-bold text-white mt-1">1,420 Điểm bán</div>
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">SALES CHECK-IN HÔM NAY</span>
+              <div class="font-mono text-sm font-bold text-emerald-400 mt-1">98.4% Tuyến đúng lịch</div>
+            </div>
+            <div class="panel-2 p-3 border border-slate-800">
+              <span class="font-mono text-[10px] text-slate-500">TỒN KHO KÊNH PHÂN PHỐI</span>
+              <div class="font-mono text-sm font-bold text-sky-400 mt-1">Đủ cung ứng 24 ngày</div>
+            </div>
+          </div>
+
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-2">Giám Sát Đơn Hàng In/Out Kênh DMS:</h4>
+            <p class="text-xs text-slate-400">Đơn hàng mới từ Đại lý Hà Nội #DMS-8891 đã tự động trừ tồn kho tổng và phát lệnh xuất hàng đến Đội vận chuyển POD.</p>
+          </div>
+        </div>
+      `
+    },
+    10: {
+      code: "MOD 10",
+      title: "Lương 3P — Khung Đòn Bẩy Con Người & Năng Suất",
+      subtitle: "Tính lương P1 (Vị trí) + P2 (Năng lực) + P3 (Hiệu suất thật lấy tự động từ QLCV)",
+      pdfSrc: "docs/3P_so_do.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-slate-800">
+            <h4 class="font-bold text-xs text-white mb-3">Bảng Tính Thu Nhập Lương 3P Nhân Viên:</h4>
+            <div class="space-y-2 font-mono text-xs">
+              <div class="flex justify-between p-2 rounded bg-slate-950 border border-slate-800">
+                <span>P1 (Position — Lương Vị Trí Cố Định):</span>
+                <span class="text-white font-bold">12,000,000 VND</span>
+              </div>
+              <div class="flex justify-between p-2 rounded bg-slate-950 border border-slate-800">
+                <span>P2 (Person — Phụ Cấp Năng Lực & Khung Kỹ Năng):</span>
+                <span class="text-sky-400 font-bold">+ 3,500,000 VND</span>
+              </div>
+              <div class="flex justify-between p-2 rounded bg-slate-950 border border-emerald-500/40 bg-emerald-500/10">
+                <span>P3 (Performance — Lương Hiệu Suất Thật Từ QLCV: 94.2% KPI):</span>
+                <span class="text-emerald-400 font-bold">+ 6,800,000 VND</span>
+              </div>
+              <div class="flex justify-between p-3 rounded bg-slate-900 border border-slate-700 text-sm font-bold">
+                <span class="text-white">TỔNG THU NHẬP THỰC LĨNH THÁNG 8:</span>
+                <span class="text-amber-400">22,300,000 VND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    11: {
+      code: "MOD 11",
+      title: "CEO Dashboard & Radar BI Điều Hành Số",
+      subtitle: "Bảng điều khiển trung tâm hội tụ dữ liệu toàn bộ 10 mô-đun trong hệ sinh thái",
+      pdfSrc: "docs/so_do_he_sinh_thai_v2.pdf",
+      html: `
+        <div class="space-y-4">
+          <div class="panel-2 p-4 border border-sky-500/40 bg-slate-900">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs text-sky-400 font-bold">EXECUTIVE RADAR CONTROL CONSOLE</span>
+              <span class="font-mono text-[10px] text-emerald-400 flex items-center gap-1.5"><span class="dot"></span>ALL SYSTEMS OPERATIONAL</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 block">KHKD TOÀN CTY</span>
+                <span class="text-emerald-400 text-sm font-bold">84.5% Hoàn thành</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 block">BIÊN LỢI NHUẬN MA</span>
+                <span class="text-sky-400 text-sm font-bold">22.4% EBITDA</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 block">TIẾN ĐỘ QLCV DAILY</span>
+                <span class="text-emerald-400 text-sm font-bold">92% Task Đúng Hạn</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-rose-500/40 bg-rose-500/10">
+                <span class="text-rose-400 block font-bold">RỦI RO CẦN DUYỆT</span>
+                <span class="text-rose-400 text-sm font-bold">3 Task quá hạn Escalate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    }
+  };
+
+  let activeModuleId = 1;
+
+  function openModuleModal(modId) {
+    const data = MODULE_FORMS[modId] || MODULE_FORMS[1];
+    activeModuleId = modId;
+
+    document.getElementById("modModalBadge").innerText = data.code;
+    document.getElementById("modModalTitle").innerText = data.title;
+    document.getElementById("modModalSubtitle").innerText = data.subtitle;
+    document.getElementById("modModalBody").innerHTML = data.html;
+
+    const modal = document.getElementById("moduleModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeModuleModal() {
+    const modal = document.getElementById("moduleModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+
+  function openCurrentModulePdf() {
+    const data = MODULE_FORMS[activeModuleId] || MODULE_FORMS[1];
+    closeModuleModal();
+    openPdfModal(data.pdfSrc, data.title + " (PDF Thuyết Minh)");
+  }
+
+  function submitModuleFormSim() {
+    alert("Đã lưu và ghi nhận dữ liệu vào Hệ thống Single Source of Truth của EVA / NEXUS thành công!");
+    closeModuleModal();
+  }
+
+  // Booking Modal
+  function openBookingModal() {
+    const modal = document.getElementById("bookingModal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeBookingModal() {
+    const modal = document.getElementById("bookingModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+
+  function handleBookingSubmit(e) {
+    e.preventDefault();
+    alert("Cảm ơn anh/chị! Đã ghi nhận lịch hẹn đánh giá hiện trạng quản trị. Chuyên gia EVA sẽ liên hệ thoại / gửi thông báo qua email ngay!");
+    closeBookingModal();
+  }
+
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('hidden');
+  }
+
+  // --- ONLINE PDF & DOCUMENT VIEWER LOGIC ---
+  function openCurrentPdfModal() {
+    const item = DIAGRAMS_DATA.find(d => d.id === currentDiagramId);
+    if (!item) return;
+    openPdfModal(item.pdfSrc, item.title + " (" + item.pdfFileName + ")");
+  }
+
+  function openPdfModal(fileUrl, fileTitle) {
+    const modal = document.getElementById("pdfModal");
+    const iframe = document.getElementById("pdfViewerFrame");
+    const title = document.getElementById("pdfModalTitle");
+
+    title.innerText = fileTitle || "Trình đọc tài liệu trực tuyến";
+    iframe.src = fileUrl;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closePdfModal() {
+    const modal = document.getElementById("pdfModal");
+    const iframe = document.getElementById("pdfViewerFrame");
+    iframe.src = "about:blank";
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+
+  function handleUserFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const fileUrl = URL.createObjectURL(file);
+    openPdfModal(fileUrl, "Tải lên từ máy: " + file.name);
+  }
+
+  // Lightbox
+  function openLightbox() {
+    const item = DIAGRAMS_DATA.find(d => d.id === currentDiagramId);
+    if (!item) return;
+    document.getElementById("lightboxImg").src = item.imageSrc;
+    document.getElementById("lightboxCaption").innerText = item.title + " (" + item.pdfFileName + ")";
+    document.getElementById("lightbox").classList.remove("hidden");
+    document.getElementById("lightbox").classList.add("flex");
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").classList.add("hidden");
+    document.getElementById("lightbox").classList.remove("flex");
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+      closeLightbox();
+      closePdfModal();
+      closeModuleModal();
+      closeBookingModal();
+    }
+  });
+
+  // Module Filtering
+  function filterModules(type) {
+    const cards = document.querySelectorAll(".mod-card");
+    const btnAll = document.getElementById("btnModAll");
+    const btnFin = document.getElementById("btnModFinance");
+    const btnBiz = document.getElementById("btnModBusiness");
+
+    btnAll.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700";
+    btnFin.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700";
+    btnBiz.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700";
+
+    if (type === "all") {
+      btnAll.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-white text-[#070A12]";
+      cards.forEach(c => c.style.display = "flex");
+    } else if (type === "finance") {
+      btnFin.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-white text-[#070A12]";
+      cards.forEach(c => {
+        if (c.classList.contains("mod-finance")) c.style.display = "flex";
+        else c.style.display = "none";
+      });
+    } else if (type === "business") {
+      btnBiz.className = "px-5 py-2 rounded-full font-mono text-xs font-bold transition bg-white text-[#070A12]";
+      cards.forEach(c => {
+        if (c.classList.contains("mod-business")) c.style.display = "flex";
+        else c.style.display = "none";
+      });
+    }
+  }
+
+  // Toggle Loop View (PDCA vs Roadmap)
+  function toggleLoopView(mode) {
+    const pdca = document.getElementById("pdcaView");
+    const roadmap = document.getElementById("roadmapView");
+    const btnP = document.getElementById("btnPdca");
+    const btnR = document.getElementById("btnRoadmap");
+
+    if (mode === "pdca") {
+      pdca.classList.remove("hidden");
+      roadmap.classList.add("hidden");
+      btnP.className = "px-5 py-2 rounded-full font-mono text-xs font-bold bg-white text-[#070A12] transition";
+      btnR.className = "px-5 py-2 rounded-full font-mono text-xs font-bold bg-slate-800/80 text-slate-400 border border-slate-700 transition hover:text-white";
+    } else {
+      pdca.classList.add("hidden");
+      roadmap.classList.remove("hidden");
+      btnR.className = "px-5 py-2 rounded-full font-mono text-xs font-bold bg-white text-[#070A12] transition";
+      btnP.className = "px-5 py-2 rounded-full font-mono text-xs font-bold bg-slate-800/80 text-slate-400 border border-slate-700 transition hover:text-white";
+    }
+  }
+
+  // Mobile Menu
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.accordion').classList.toggle('open');
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Diagram Showcase Logic
+  let currentDiagramId = "he-sinh-thai-1";
+
+  function renderThumbnails(filterCategory = "all") {
+    const container = document.getElementById("diagThumbGrid");
+    container.innerHTML = "";
+    
+    const filtered = filterCategory === "all" 
+      ? DIAGRAMS_DATA 
+      : DIAGRAMS_DATA.filter(d => d.category === filterCategory);
+
+    filtered.forEach((d) => {
+      const isSelected = d.id === currentDiagramId;
+      const thumb = document.createElement("div");
+      thumb.className = `p-2 rounded-lg border cursor-pointer transition text-left ${
+        isSelected 
+          ? "border-sky-400 bg-slate-800 shadow-[0_0_15px_rgba(56,189,248,0.25)]" 
+          : "border-slate-800 bg-slate-900/60 hover:border-slate-700 opacity-70 hover:opacity-100"
+      }`;
+      thumb.onclick = () => selectDiagram(d.id);
+      
+      thumb.innerHTML = `
+        <div class="aspect-video w-full overflow-hidden rounded bg-black mb-1.5 border border-slate-800">
+          <img src="${d.imageSrc}" alt="${d.id}" class="w-full h-full object-cover" onerror="this.src='nexus-mark-dark.svg'">
+        </div>
+        <div class="font-mono text-[9px] text-amber-400 truncate font-bold">${d.id}</div>
+        <div class="text-[10px] text-white font-semibold line-clamp-1">${d.title.split("—")[0]}</div>
+      `;
+      container.appendChild(thumb);
+    });
+  }
+
+  function selectDiagram(id) {
+    const item = DIAGRAMS_DATA.find(d => d.id === id);
+    if (!item) return;
+    currentDiagramId = id;
+
+    const mainImg = document.getElementById("mainDiagImg");
+    mainImg.src = item.imageSrc;
+    mainImg.alt = item.title;
+
+    document.getElementById("mainDiagIdTag").innerText = "ID: " + item.id;
+    document.getElementById("mainDiagCat").innerText = item.catName;
+    document.getElementById("mainDiagTitle").innerText = item.title;
+    document.getElementById("mainDiagSub").innerText = item.subtitle;
+    document.getElementById("mainDiagTakeaway").innerText = item.takeaways;
+    document.getElementById("mainDiagPdfBtn").href = item.pdfSrc;
+    document.getElementById("mainDiagPdfName").innerText = item.pdfFileName;
+
+    const hlList = document.getElementById("mainDiagHighlights");
+    hlList.innerHTML = item.highlights.map(h => `<li class="flex gap-2"><span class="text-sky-400 font-bold">✓</span> ${h}</li>`).join("");
+
+    renderThumbnails(activeDiagramCat);
+  }
+
+  let activeDiagramCat = "all";
+  function filterDiagrams(cat) {
+    activeDiagramCat = cat;
+    document.querySelectorAll(".diag-cat-btn").forEach(b => {
+      b.className = "diag-cat-btn px-3.5 py-2 rounded-lg font-mono text-xs font-semibold bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700";
+    });
+    
+    if (cat === 'all') document.getElementById("catBtnAll").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'he-sinh-thai') document.getElementById("catBtnEco").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'hr') document.getElementById("catBtnHr").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === '3p') document.getElementById("catBtn3p").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'bctc') document.getElementById("catBtnBctc").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'khkd') document.getElementById("catBtnKhkd").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'ma') document.getElementById("catBtnMa").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'crm') document.getElementById("catBtnCrm").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'dms') document.getElementById("catBtnDms").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'approve') document.getElementById("catBtnApprove").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+    if (cat === 'qlcv') document.getElementById("catBtnQlcv").className = "diag-cat-btn px-3 py-1.5 rounded-lg font-mono text-xs font-semibold bg-sky-400 text-[#070A12] font-bold";
+
+    const filtered = cat === 'all' 
+      ? DIAGRAMS_DATA 
+      : DIAGRAMS_DATA.filter(d => d.category === cat);
+
+    if (filtered.length > 0) {
+      const isCurrentInFiltered = filtered.some(d => d.id === currentDiagramId);
+      if (!isCurrentInFiltered) {
+        selectDiagram(filtered[0].id);
+      } else {
+        renderThumbnails(cat);
+      }
+    }
+  }
+
+  // Initialize
+  renderThumbnails("all");
+</script>
+</body>
+</html>

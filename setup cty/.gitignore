@@ -1,0 +1,11 @@
+﻿node_modules/
+.next/
+.vercel/
+*.tar.gz
+.env.local
+.env.production
+.env*.local
+tsconfig.tsbuildinfo
+{app,components,public}/
+
+Thu-vien-setup/
