@@ -829,7 +829,7 @@
             <span id="banner-status-badge" class="status-badge status-active">● Chính thức</span>
           </div>
           <p class="text-xs text-[var(--muted)] mt-1">
-            Mã TV: <span class="font-mono font-semibold text-[var(--ink)]">HTX369-0082</span> · Ngày tham gia: 15/01/2025 · Vốn góp: <span class="font-semibold text-[var(--green-deep)]">5.000.000 VNĐ</span>
+            Mã TV: <span id="banner-user-id" class="font-mono font-semibold text-[var(--ink)]">HTX369-0082</span> · Ngày tham gia: <span id="banner-joined-date">15/01/2025</span> · Vốn góp: <span id="banner-capital" class="font-semibold text-[var(--green-deep)]">5.000.000 VNĐ</span>
           </p>
         </div>
       </div>
@@ -1338,7 +1338,7 @@
             </div>
             <h3 id="prof-name" class="font-display font-bold text-xl text-[var(--ink)]">Nguyễn Văn An</h3>
             <span id="prof-type-badge" class="role-badge mt-1">Thành viên chính thức</span>
-            <p class="text-xs text-[var(--muted)] mt-2">SĐT: 0987.654.321 · Sổ TV #: HTX369-0082</p>
+            <p class="text-xs text-[var(--muted)] mt-2">SĐT: <span id="prof-phone">0987.654.321</span> · Sổ TV #: <span id="prof-user-id">HTX369-0082</span></p>
           </div>
 
           <div class="space-y-3 text-xs">
@@ -1360,11 +1360,11 @@
             </div>
             <div class="flex justify-between py-1 border-b border-gray-100">
               <span class="text-[var(--muted)]">Ngày tham gia:</span>
-              <span class="font-medium">15/01/2025</span>
+              <span id="prof-joined-date" class="font-medium">15/01/2025</span>
             </div>
             <div class="flex justify-between py-1 border-b border-gray-100">
               <span class="text-[var(--muted)]">Vốn đã góp:</span>
-              <span class="font-bold text-[var(--green-deep)]">5.000.000 VNĐ</span>
+              <span id="prof-capital" class="font-bold text-[var(--green-deep)]">5.000.000 VNĐ</span>
             </div>
             <div class="flex justify-between py-1 border-b border-gray-100">
               <span class="text-[var(--muted)]">Điểm năng lực:</span>
@@ -1926,6 +1926,8 @@
     document.getElementById('banner-avatar').innerText = state.user.name.charAt(0);
     document.getElementById('banner-role-badge').innerText = state.user.role;
     document.getElementById('banner-status-badge').innerText = `● ${state.user.status}`;
+    if (document.getElementById('banner-user-id')) document.getElementById('banner-user-id').innerText = state.user.id || 'HTX369-0082';
+    if (document.getElementById('banner-capital')) document.getElementById('banner-capital').innerText = state.user.capital || '5.000.000 VNĐ';
     document.getElementById('metric-competency').innerText = `${state.user.competencyPoints} / 100`;
     document.getElementById('metric-certificates').innerText = state.user.certificates;
     document.getElementById('metric-badges').innerText = state.user.badges;
@@ -1953,6 +1955,12 @@
     document.getElementById('prof-name').innerText = state.user.name;
     document.getElementById('prof-type-badge').innerText = state.user.role;
     document.getElementById('prof-member-type').innerText = state.user.status;
+    if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = state.user.phone || '0987654321';
+    if (document.getElementById('prof-user-id')) document.getElementById('prof-user-id').innerText = state.user.id || 'HTX369-0082';
+    if (document.getElementById('prof-cccd')) document.getElementById('prof-cccd').innerText = state.user.cccd || '001095012345';
+    if (document.getElementById('prof-cccd-date')) document.getElementById('prof-cccd-date').innerText = state.user.cccdDate || '15/03/2021';
+    if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = state.user.email || 'nguyenvanan@gmail.com';
+    if (document.getElementById('prof-capital')) document.getElementById('prof-capital').innerText = state.user.capital || '5.000.000 VNĐ';
     document.getElementById('prof-points').innerText = `${state.user.competencyPoints} / 100`;
 
     // Render Member List table for Admin
@@ -2194,6 +2202,29 @@
   }
   function handleLoginForm(e) {
     e.preventDefault();
+    const loginPhone = document.getElementById('login-phone') ? document.getElementById('login-phone').value.trim() : '0987654321';
+    
+    // Search memberList by phone number
+    const foundMember = memberList.find(m => m.phone === loginPhone || m.phone.replace(/[\s\.]/g, '') === loginPhone.replace(/[\s\.]/g, ''));
+
+    if (foundMember) {
+      state.user.name = foundMember.name;
+      state.user.phone = foundMember.phone;
+      state.user.status = foundMember.status;
+      state.user.id = foundMember.id;
+      state.user.capital = foundMember.capital;
+      state.user.cccd = foundMember.cccd || '001095012345';
+      state.user.cccdDate = foundMember.cccdDate || '15/03/2025';
+      state.user.email = foundMember.email || 'member@gmail.com';
+    } else if (loginPhone) {
+      // Fallback for new number
+      state.user.name = 'Thành viên (' + loginPhone + ')';
+      state.user.phone = loginPhone;
+      state.user.status = 'Chính thức';
+      state.user.id = 'HTX369-' + String(memberList.length + 82).padStart(4, '0');
+      state.user.capital = '0 VNĐ';
+    }
+
     closeLoginModal();
     doLoginSim();
   }
