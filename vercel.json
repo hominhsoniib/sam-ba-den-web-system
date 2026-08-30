@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/EVA-SETUP-CTY/index.html" },
+    { "source": "/eva-website", "destination": "/EVA-SETUP-CTY/eva-website.html" },
+    { "source": "/eva-website.html", "destination": "/EVA-SETUP-CTY/eva-website.html" },
+    { "source": "/docs/:path*", "destination": "/EVA-SETUP-CTY/docs/:path*" },
+    { "source": "/diagrams/:path*", "destination": "/EVA-SETUP-CTY/diagrams/:path*" }
+  ]
+}
