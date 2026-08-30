@@ -1307,7 +1307,8 @@
               <tr>
                 <th class="p-3">Mã TV</th>
                 <th class="p-3">Họ và Tên</th>
-                <th class="p-3">Số Điện Thoại</th>
+                <th class="p-3">SĐT & Email</th>
+                <th class="p-3">Số CCCD & Ngày Cấp</th>
                 <th class="p-3">Phân Loại Thành Viên</th>
                 <th class="p-3 text-right">Vốn Góp</th>
                 <th class="p-3">Trạng Thái</th>
@@ -1344,6 +1345,18 @@
             <div class="flex justify-between py-1 border-b border-gray-100">
               <span class="text-[var(--muted)]">Loại thành viên:</span>
               <span id="prof-member-type" class="font-bold text-[var(--ink)]">Chính thức</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Số CCCD / CMND:</span>
+              <span id="prof-cccd" class="font-mono font-semibold text-[var(--ink)]">001095012345</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Ngày cấp CCCD:</span>
+              <span id="prof-cccd-date" class="font-medium text-[var(--ink)]">15/03/2021</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-[var(--muted)]">Email liên hệ:</span>
+              <span id="prof-email" class="font-medium text-[var(--green-deep)]">nguyenvanan@gmail.com</span>
             </div>
             <div class="flex justify-between py-1 border-b border-gray-100">
               <span class="text-[var(--muted)]">Ngày tham gia:</span>
@@ -1567,11 +1580,22 @@
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block font-semibold text-gray-700 mb-1">Số điện thoại (*)</label>
-          <input type="tel" placeholder="0901234567" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+          <input type="tel" id="reg-phone" placeholder="0901234567" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
         </div>
         <div>
           <label class="block font-semibold text-gray-700 mb-1">Số CCCD / CMND (*)</label>
-          <input type="text" placeholder="0123456789" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+          <input type="text" id="reg-cccd" placeholder="001095012345" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] font-mono">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Ngày cấp CCCD (*)</label>
+          <input type="date" id="reg-cccd-date" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Email liên hệ (*)</label>
+          <input type="email" id="reg-email" placeholder="nguyenvana@gmail.com" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
         </div>
       </div>
 
@@ -1719,9 +1743,26 @@
         <input type="text" id="member-edit-name" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
       </div>
 
-      <div>
-        <label class="block font-semibold text-gray-700 mb-1">Số Điện Thoại (*)</label>
-        <input type="text" id="member-edit-phone" required class="w-full p-2.5 rounded-lg border border-gray-300 font-mono focus:outline-none focus:border-[var(--green)]">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Số Điện Thoại (*)</label>
+          <input type="text" id="member-edit-phone" required class="w-full p-2.5 rounded-lg border border-gray-300 font-mono focus:outline-none focus:border-[var(--green)]">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Số CCCD / CMND (*)</label>
+          <input type="text" id="member-edit-cccd" placeholder="001095012345" required class="w-full p-2.5 rounded-lg border border-gray-300 font-mono focus:outline-none focus:border-[var(--green)]">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Ngày Cấp CCCD (*)</label>
+          <input type="text" id="member-edit-cccd-date" placeholder="15/03/2021" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Email Liên Hệ (*)</label>
+          <input type="email" id="member-edit-email" placeholder="example@gmail.com" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
       </div>
 
       <div>
@@ -1915,10 +1956,10 @@
 
   // Co-op Member Registration List (Admin Control)
   const memberList = [
-    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ' },
-    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ' },
-    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ' },
-    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ' }
+    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ' },
+    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ' },
+    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ' },
+    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ' }
   ];
 
   function renderMemberList() {
@@ -1939,17 +1980,24 @@
 
       tr.innerHTML = `
         <td class="p-3 font-mono font-semibold text-[var(--ink)]">${m.id}</td>
-        <td class="p-3 font-bold">${m.name}</td>
-        <td class="p-3 font-mono text-[var(--muted)]">${m.phone}</td>
+        <td class="p-3 font-bold text-sm">${m.name}</td>
+        <td class="p-3 text-xs">
+          <div class="font-mono font-semibold text-[var(--ink)]">${m.phone}</div>
+          <div class="text-[11px] text-[var(--muted)]">${m.email || 'N/A'}</div>
+        </td>
+        <td class="p-3 text-xs">
+          <div class="font-mono text-[var(--ink)]">${m.cccd || 'N/A'}</div>
+          <div class="text-[10px] text-[var(--muted)]">Cấp: ${m.cccdDate || 'N/A'}</div>
+        </td>
         <td class="p-3"><span class="role-badge">${m.type}</span></td>
         <td class="p-3 text-right font-bold text-[var(--green-deep)]">${m.capital}</td>
         <td class="p-3"><span class="px-2 py-0.5 rounded font-semibold text-xs ${statusColor}">${m.status}</span></td>
         <td class="p-3 text-center">
           <div class="flex items-center justify-center gap-1.5">
-            <button onclick="openEditMemberModal(${idx})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold transition" title="Chỉnh sửa thông tin">
+            <button onclick="openEditMemberModal(${idx})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Chỉnh sửa thông tin">
               ✏️ Sửa
             </button>
-            <button onclick="deleteMember(${idx})" class="bg-red-50 hover:bg-red-100 text-red-700 px-2 py-1 rounded text-[11px] font-semibold transition" title="Xóa thành viên">
+            <button onclick="deleteMember(${idx})" class="bg-red-50 hover:bg-red-100 text-red-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Xóa thành viên">
               🗑️ Xóa
             </button>
           </div>
@@ -1968,6 +2016,9 @@
     document.getElementById('member-edit-id').value = m.id;
     document.getElementById('member-edit-name').value = m.name;
     document.getElementById('member-edit-phone').value = m.phone;
+    document.getElementById('member-edit-cccd').value = m.cccd || '001095012345';
+    document.getElementById('member-edit-cccd-date').value = m.cccdDate || '15/03/2021';
+    document.getElementById('member-edit-email').value = m.email || 'example@gmail.com';
     document.getElementById('member-edit-type').value = m.type;
     document.getElementById('member-edit-capital').value = m.capital;
     document.getElementById('member-edit-status').value = m.status;
@@ -1981,6 +2032,9 @@
     document.getElementById('member-edit-id').value = newId;
     document.getElementById('member-edit-name').value = '';
     document.getElementById('member-edit-phone').value = '';
+    document.getElementById('member-edit-cccd').value = '';
+    document.getElementById('member-edit-cccd-date').value = '';
+    document.getElementById('member-edit-email').value = '';
     document.getElementById('member-edit-type').value = 'Thành viên chính thức';
     document.getElementById('member-edit-capital').value = '5.000.000 VNĐ';
     document.getElementById('member-edit-status').value = 'Chính thức';
@@ -1999,6 +2053,9 @@
       id: document.getElementById('member-edit-id').value,
       name: document.getElementById('member-edit-name').value,
       phone: document.getElementById('member-edit-phone').value,
+      cccd: document.getElementById('member-edit-cccd').value || 'N/A',
+      cccdDate: document.getElementById('member-edit-cccd-date').value || 'N/A',
+      email: document.getElementById('member-edit-email').value || 'N/A',
       type: document.getElementById('member-edit-type').value,
       capital: document.getElementById('member-edit-capital').value || '0 VNĐ',
       status: document.getElementById('member-edit-status').value
@@ -2009,7 +2066,7 @@
       alert("✅ Đã cập nhật thành công hồ sơ Thành viên: " + mData.name);
     } else {
       memberList.push(mData);
-      alert("✅ Đã thêm mới thành công Thành viên: " + mData.name + " vào Sổ đăng ký HTX 369!");
+      alert("✅ Đã thêm mới thành công Thành viên: " + mData.name + " (CCCD: " + mData.cccd + ") vào Sổ đăng ký HTX 369!");
     }
     closeEditMemberModal();
     renderMemberList();
