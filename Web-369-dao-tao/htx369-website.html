@@ -289,9 +289,9 @@
         <button onclick="openRegisterModal()" class="btn-primary text-[13px] px-4 py-2 rounded-full hidden sm:block">Tham gia HTX 369</button>
       </div>
 
-      <div id="logged-in-actions" class="hidden flex items-center gap-3">
-        <div class="flex items-center gap-2 bg-[var(--panel)] border border-[var(--line)] rounded-full pl-2 pr-3 py-1 text-left cursor-pointer" onclick="switchTab('profile')">
-          <div class="w-8 h-8 rounded-full bg-[var(--green-tint)] text-[var(--green-deep)] font-bold text-xs flex items-center justify-center border border-[var(--green)]">
+      <div id="logged-in-actions" class="hidden flex items-center gap-2">
+        <div class="flex items-center gap-2 bg-[var(--panel)] border border-[var(--line)] rounded-full pl-2 pr-3 py-1 text-left cursor-pointer hover:border-[var(--green)] transition" onclick="switchTab('profile')">
+          <div class="w-7 h-7 rounded-full bg-[var(--green-tint)] text-[var(--green-deep)] font-bold text-xs flex items-center justify-center border border-[var(--green)]">
             <span id="user-avatar-initial">A</span>
           </div>
           <div class="hidden sm:block leading-none">
@@ -299,8 +299,11 @@
             <span id="user-display-role" class="text-[10px] text-[var(--muted)]">Thành viên chính thức</span>
           </div>
         </div>
-        <button onclick="doLogout()" class="p-2 text-[var(--muted)] hover:text-red-600 transition text-sm" title="Đăng xuất">
-          🚪
+        <button onclick="openChangePassModal()" class="bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1.5 rounded-full border border-amber-200 transition flex items-center gap-1 shadow-sm" title="Đổi mật khẩu tài khoản">
+          🔑 <span class="hidden sm:inline">Đổi MK</span>
+        </button>
+        <button onclick="confirmLogout()" class="bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold px-2.5 py-1.5 rounded-full border border-red-200 transition flex items-center gap-1 shadow-sm" title="Đăng xuất tài khoản">
+          🚪 <span class="hidden sm:inline">Đăng xuất</span>
         </button>
       </div>
     </div>
@@ -1372,8 +1375,18 @@
             </div>
           </div>
 
+          <!-- ACCOUNT MANAGEMENT ACTION BUTTONS -->
+          <div class="mt-5 space-y-2">
+            <button onclick="openChangePassModal()" class="w-full py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+              🔑 Đổi Mật Khẩu Tài Khoản
+            </button>
+            <button onclick="confirmLogout()" class="w-full py-2.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+              🚪 Đăng Xuất Hoàn Toàn
+            </button>
+          </div>
+
           <!-- NOTICE: NO CREDIT 369 HERE -->
-          <div class="mt-6 p-3 rounded-lg bg-[var(--paper-deep)] text-[11px] text-[var(--muted)] leading-relaxed border border-[var(--line)]">
+          <div class="mt-4 p-3 rounded-lg bg-[var(--paper-deep)] text-[11px] text-[var(--muted)] leading-relaxed border border-[var(--line)]">
             ℹ️ Hồ sơ thành viên 360° phản ánh kết quả học tập và năng lực thực hành kinh doanh. Số dư Credit 369 thuộc App 369 CLUB riêng biệt.
           </div>
         </div>
@@ -1801,6 +1814,40 @@
   </div>
 </div>
 
+<!-- MODAL 7: CHANGE PASSWORD MODAL -->
+<div id="modal-change-pass" class="modal-backdrop hidden">
+  <div class="card p-6 sm:p-8 bg-white max-w-md w-full border-[var(--line)] shadow-2xl relative">
+    <button onclick="closeChangePassModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+    
+    <div class="text-center mb-6">
+      <span class="w-12 h-12 rounded-full bg-amber-100 text-amber-800 text-2xl flex items-center justify-center mx-auto mb-2 font-bold shadow-sm">🔑</span>
+      <h3 class="font-display font-bold text-xl text-[var(--ink)]">Đổi Mật Khẩu Tài Khoản</h3>
+      <p class="text-xs text-[var(--muted)] mt-1">Đổi từ Mật khẩu tạm (123456) sang Mật khẩu mới bảo mật của bạn</p>
+    </div>
+
+    <form onsubmit="handleChangePassForm(event)" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Mật khẩu hiện tại / OTP tạm (*)</label>
+        <input type="password" id="old-pass" required placeholder="Nhập 123456 hoặc mật khẩu hiện tại" value="123456" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Mật khẩu mới (*)</label>
+        <input type="password" id="new-pass" required placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+      </div>
+
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Xác nhận Mật khẩu mới (*)</label>
+        <input type="password" id="confirm-new-pass" required placeholder="Nhập lại mật khẩu mới vừa gõ" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+      </div>
+
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-xs shadow-md mt-2">
+        💾 Cập Nhật Mật Khẩu Mới →
+      </button>
+    </form>
+  </div>
+</div>
+
 <!-- ==================================================================================== -->
 <!-- APPLICATION LOGIC & STATE MANAGEMENT (JS) -->
 <!-- ==================================================================================== -->
@@ -2148,6 +2195,45 @@
     state.isLoggedIn = false;
     updateSimControlsUI();
     renderState();
+    switchTab('home');
+  }
+
+  function confirmLogout() {
+    if (confirm("🚪 XÁC NHẬN ĐĂNG XUẤT:\n\nBạn có chắc chắn muốn đăng xuất hoàn toàn khỏi Cổng Thành Viên HTX 369 không?")) {
+      doLogout();
+      alert("👋 Đã đăng xuất thành công khỏi Cổng Thành Viên HTX 369!");
+    }
+  }
+
+  function openChangePassModal() {
+    document.getElementById('old-pass').value = '123456';
+    document.getElementById('new-pass').value = '';
+    document.getElementById('confirm-new-pass').value = '';
+    document.getElementById('modal-change-pass').classList.remove('hidden');
+  }
+
+  function closeChangePassModal() {
+    document.getElementById('modal-change-pass').classList.add('hidden');
+  }
+
+  function handleChangePassForm(e) {
+    e.preventDefault();
+    const oldPass = document.getElementById('old-pass').value;
+    const newPass = document.getElementById('new-pass').value;
+    const confirmPass = document.getElementById('confirm-new-pass').value;
+
+    if (newPass.length < 6) {
+      alert("⚠️ Mật khẩu mới phải có ít nhất 6 ký tự để đảm bảo an toàn!");
+      return;
+    }
+
+    if (newPass !== confirmPass) {
+      alert("❌ Mật khẩu mới và Xác nhận mật khẩu không khớp nhau! Vui lòng kiểm tra lại.");
+      return;
+    }
+
+    closeChangePassModal();
+    alert("🎉 ĐỔI MẬT KHẨU THÀNH CÔNG!\n\nMật khẩu tài khoản của " + state.user.name + " đã được cập nhật từ mật khẩu tạm sang mật khẩu mới bảo mật.\n\nHãy ghi nhớ mật khẩu mới cho các lần đăng nhập tiếp theo!");
   }
 
   function doLoginSim() {
