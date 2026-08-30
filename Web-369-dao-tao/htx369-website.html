@@ -1573,6 +1573,11 @@
 
     <form onsubmit="handleRegisterForm(event)" class="space-y-4 text-xs">
       <div>
+        <label class="block font-semibold text-gray-700 mb-1">Mã Số Thành Viên HTX 369 (Hệ thống tự động cấp)</label>
+        <input type="text" id="reg-id" readonly value="HTX369-0086" class="w-full p-2.5 rounded-lg border border-gray-200 bg-gray-100 font-mono font-bold text-[var(--green-deep)] text-sm">
+      </div>
+
+      <div>
         <label class="block font-semibold text-gray-700 mb-1">Họ và tên đầy đủ (*)</label>
         <input type="text" id="reg-name" placeholder="Nguyễn Văn A" required class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
       </div>
@@ -2193,10 +2198,18 @@
     doLoginSim();
   }
 
-  function openRegisterModal() { document.getElementById('modal-register').classList.remove('hidden'); }
+  function openRegisterModal() {
+    const nextId = 'HTX369-' + String(memberList.length + 82).padStart(4, '0');
+    const regIdEl = document.getElementById('reg-id');
+    if (regIdEl) regIdEl.value = nextId;
+    document.getElementById('modal-register').classList.remove('hidden');
+  }
+
   function closeRegisterModal() { document.getElementById('modal-register').classList.add('hidden'); }
+
   function handleRegisterForm(e) {
     e.preventDefault();
+    const regId = document.getElementById('reg-id') ? document.getElementById('reg-id').value : ('HTX369-' + String(memberList.length + 82).padStart(4, '0'));
     const regName = document.getElementById('reg-name') ? document.getElementById('reg-name').value : 'Thành viên mới';
     const regPhone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value : '0987654321';
     const regCccd = document.getElementById('reg-cccd') ? document.getElementById('reg-cccd').value : '001095012345';
@@ -2204,12 +2217,9 @@
     const regEmail = document.getElementById('reg-email') ? document.getElementById('reg-email').value : 'newmember@gmail.com';
     const regType = document.getElementById('reg-type') ? document.getElementById('reg-type').value : 'Thành viên chính thức';
 
-    // Auto-generate new member ID
-    const newId = 'HTX369-' + String(memberList.length + 82).padStart(4, '0');
-
-    // Create new member object
+    // Create new member object with auto-generated ID
     const newMember = {
-      id: newId,
+      id: regId,
       name: regName,
       phone: regPhone,
       cccd: regCccd,
@@ -2232,7 +2242,7 @@
 
     closeRegisterModal();
     document.getElementById('login-phone').value = regPhone;
-    alert("✅ Nộp đơn đăng ký Thành viên HTX 369 thành công!\n\nHồ sơ thành viên " + regName + " (Mã: " + newId + ") đã được TỰ ĐỘNG CẬP NHẬT vào Sổ Đăng Ký Thành Viên HTX 369 ở trạng thái 'Đang chờ xác nhận'.\n\nBạn có thể đăng nhập ngay:\n• SĐT: " + regPhone + "\n• Mật khẩu mặc định: 123456");
+    alert("✅ Nộp đơn đăng ký Thành viên HTX 369 thành công!\n\nHồ sơ thành viên " + regName + " (Mã tự động cấp: " + regId + ") đã được TỰ ĐỘNG CẬP NHẬT vào Sổ Đăng Ký Thành Viên HTX 369 ở trạng thái 'Đang chờ xác nhận'.\n\nBạn có thể đăng nhập ngay:\n• SĐT: " + regPhone + "\n• Mật khẩu mặc định: 123456");
     openLoginModal();
   }
 
