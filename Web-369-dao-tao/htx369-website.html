@@ -1158,16 +1158,27 @@
             <p class="text-xs text-[var(--muted)] mt-0.5">Tên HKD: <b>Cửa Hàng Thực Phẩm Sạch An Tâm (Mã HKD: HKD-369-042)</b></p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="openAddTransactionModal()" class="btn-primary text-xs px-4 py-2 rounded-lg font-bold shadow">
+            <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-primary text-xs px-4 py-2 rounded-lg font-bold shadow-md flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white">
+              🚀 Đăng Nhập PM HKD Thật (hkd-backend.vercel.app/login) ↗
+            </a>
+            <button onclick="openAddTransactionModal()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
               ＋ Nhập Giao Dịch Mới
             </button>
             <button onclick="exportHKDReport()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
               📄 Báo Cáo Thuế
             </button>
-            <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-ghost text-xs px-3 py-2 rounded-lg font-semibold text-[var(--muted)]">
-              🔗 Máy Chủ Vercel ↗
-            </a>
           </div>
+        </div>
+
+        <!-- LINK ĐĂNG NHẬP PM HKD THẬT BANNER -->
+        <div class="mt-4 p-3.5 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🔐</span>
+            <span>Link Đăng nhập PM Kế Toán HKD Thật: <strong class="font-mono text-amber-300">https://hkd-backend.vercel.app/login</strong></span>
+          </div>
+          <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-gold px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap shadow">
+            👉 Mở Trang Đăng Nhập ↗
+          </a>
         </div>
 
         <!-- HKD Key Indicators -->
