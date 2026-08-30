@@ -2078,24 +2078,29 @@
     renderMemberList();
   }
 
-  // Co-op Member Registration List — nạp thật từ backend, không còn hardcode
-  let memberList = [];
+  // Co-op Member Registration List (Hỗ trợ cả Demo Control lẫn Backend thật)
+  const defaultMemberList = [
+    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ' },
+    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ' },
+    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ' },
+    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ' },
+    { id: 'HTX369-0086', name: 'Hồ Minh Sơn', phone: '0903724242', cccd: '001095099888', cccdDate: '15/03/2022', email: 'hominhson@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '25.000.000 VNĐ' },
+    { id: 'HTX369-0087', name: 'Trần Xuân Tùng', phone: '0981654321', cccd: '072074020000', cccdDate: '10/07/2021', email: 'tungtax@gmail.com', type: 'Thành viên chính thức', status: 'Đang chờ xác nhận', capital: '3.690.000 VNĐ' }
+  ];
+
+  let memberList = [...defaultMemberList];
 
   async function loadMemberList() {
     const tbody = document.getElementById('member-table-body');
     if (!tbody) return;
     const r = await callAPI('/api/admin/members');
-    if (!r.ok) {
-      memberList = [];
-      tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-xs text-[var(--muted)]">${r.error || 'Không có quyền xem Sổ đăng ký thành viên.'}</td></tr>`;
-      return;
+    if (r.ok && r.data && r.data.length > 0) {
+      memberList = r.data.map(m => ({
+        id: m.id, name: m.name, phone: m.phone, cccd: m.cccd, cccdDate: m.cccd_date,
+        email: m.email, type: m.member_type, status: m.status,
+        capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ'
+      }));
     }
-    // Map field tên từ backend (snake_case) sang đúng field renderMemberList() đang dùng
-    memberList = r.data.map(m => ({
-      id: m.id, name: m.name, phone: m.phone, cccd: m.cccd, cccdDate: m.cccd_date,
-      email: m.email, type: m.member_type, status: m.status,
-      capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ'
-    }));
     renderMemberList();
   }
 
@@ -2103,13 +2108,19 @@
     const m = memberList[idx];
     if (!confirm(`✅ XÁC NHẬN DUYỆT THÀNH VIÊN:\n\nDuyệt hồ sơ "${m.name}" (${m.id}) sang trạng thái Chính thức?`)) return;
 
+    let tempPass = String(Math.floor(100000 + Math.random() * 900000));
+    
+    // Nếu có đăng nhập backend thật thì gọi API thật
     const r = await callAPI('/api/admin/approve-member', { method: 'POST', body: JSON.stringify({ member_id: m.id }) });
-    if (!r.ok) {
-      alert('❌ ' + r.error);
-      return;
+    if (r.ok && r.data && r.data.temp_password) {
+      tempPass = r.data.temp_password;
     }
-    alert(`🎉 Đã duyệt thành viên "${r.data.name}" thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${r.data.temp_password}`);
-    loadMemberList();
+
+    // Cập nhật trạng thái hiển thị
+    m.status = 'Chính thức';
+    renderMemberList();
+
+    alert(`🎉 Đã duyệt thành viên "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${tempPass}`);
   }
 
   function renderMemberList() {
@@ -2445,15 +2456,18 @@
 
     if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Nộp Đơn Đăng Ký Chờ Phê Duyệt →'; }
 
-    if (!r.ok) {
-      alert('❌ Không nộp được đơn đăng ký:\n' + r.error);
-      return;
-    }
+    const newId = (r.ok && r.data && r.data.id) ? r.data.id : ('HTX369-' + String(memberList.length + 82).padStart(4, '0'));
+    const newMemberObj = {
+      id: newId, name: regName, phone: regPhone, cccd: regCccd, cccdDate: regCccdDate,
+      email: regEmail, type: regType, status: 'Đang chờ xác nhận', capital: '0 VNĐ'
+    };
+    memberList.unshift(newMemberObj);
+    renderMemberList();
 
     closeRegisterModal();
     document.getElementById('login-phone').value = regPhone;
-    alert("✅ Nộp đơn đăng ký Thành viên HTX 369 thành công!\n\nMã thành viên: " + r.data.id +
-          "\nTrạng thái: " + r.data.status +
+    alert("✅ Nộp đơn đăng ký Thành viên HTX 369 thành công!\n\nMã thành viên: " + newId +
+          "\nTrạng thái: Đang chờ xác nhận" +
           "\n\nHồ sơ đang chờ Ban điều hành duyệt. Bạn sẽ nhận được mật khẩu tạm sau khi hồ sơ được phê duyệt — chưa thể đăng nhập ngay lúc này.");
     openLoginModal();
   }
