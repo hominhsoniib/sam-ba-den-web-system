@@ -1158,32 +1158,16 @@
             <p class="text-xs text-[var(--muted)] mt-0.5">Tên HKD: <b>Cửa Hàng Thực Phẩm Sạch An Tâm (Mã HKD: HKD-369-042)</b></p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-primary text-xs px-4 py-2 rounded-lg font-bold shadow-md flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white">
-              🚀 Truy cập Đăng nhập PM HKD Thật (hkd-backend.vercel.app/login) ↗
-            </a>
-            <button onclick="openAddTransactionModal()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
-              ＋ Nhập Giao Dịch
+            <button onclick="openAddTransactionModal()" class="btn-primary text-xs px-4 py-2 rounded-lg font-bold shadow">
+              ＋ Nhập Giao Dịch Mới
             </button>
             <button onclick="exportHKDReport()" class="btn-ghost text-xs px-3 py-2 rounded-lg font-bold">
               📄 Báo Cáo Thuế
             </button>
+            <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-ghost text-xs px-3 py-2 rounded-lg font-semibold text-[var(--muted)]">
+              🔗 Máy Chủ Vercel ↗
+            </a>
           </div>
-        </div>
-
-        <!-- LIVE PM HKD EMBED CARD -->
-        <div class="mt-6 p-4 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 text-xl flex items-center justify-center font-bold">
-              💻
-            </div>
-            <div>
-              <h4 class="font-bold text-sm text-emerald-400">Hệ Thống Phần Mềm Kế Toán HKD Trực Tuyến</h4>
-              <p class="text-xs text-gray-300">Cổng đăng nhập chính thức: <span class="font-mono text-amber-300">https://hkd-backend.vercel.app/login</span></p>
-            </div>
-          </div>
-          <a href="https://hkd-backend.vercel.app/login" target="_blank" class="btn-gold text-xs px-5 py-2.5 rounded-lg font-bold whitespace-nowrap shadow">
-            👉 Đăng Nhập Ngay Trên Vercel ↗
-          </a>
         </div>
 
         <!-- HKD Key Indicators -->
@@ -1898,8 +1882,6 @@
   function triggerPMPracticeFromLesson() {
     closeLessonPlayer();
     switchTab('pm_hkd');
-    alert("⚠️ CẢNH BÁO AN TOÀN DỮ LIỆU: Bạn đã chuyển sang Phần mềm Kế toán HKD thật. Hệ thống sẽ mở trang Đăng nhập PM HKD tại link https://hkd-backend.vercel.app/login !");
-    window.open('https://hkd-backend.vercel.app/login', '_blank');
   }
 
   function submitLessonQuiz() {
