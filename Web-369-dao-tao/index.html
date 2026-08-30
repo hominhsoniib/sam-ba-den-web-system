@@ -1926,8 +1926,11 @@
   function closeRegisterModal() { document.getElementById('modal-register').classList.add('hidden'); }
   function handleRegisterForm(e) {
     e.preventDefault();
+    const regPhone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value : '0987654321';
     closeRegisterModal();
-    alert("✅ Đơn đăng ký tham gia HTX 369 đã gửi thành công!\nBan Điều Hành sẽ xác minh CCCD/SĐT và cập nhật vào Sổ đăng ký thành viên chính thức.");
+    document.getElementById('login-phone').value = regPhone || '0987654321';
+    alert("✅ Nộp đơn đăng ký Thành viên HTX 369 thành công!\n\nHệ thống đã cấp quyền đăng nhập thử nghiệm:\n• Số điện thoại: " + (regPhone || '0987654321') + "\n• Mật khẩu / Mã OTP mặc định: 123456\n\nVui lòng bấm [Đăng Nhập] để vào Cổng Thành Viên!");
+    openLoginModal();
   }
 
   function openAddTransactionModal() { document.getElementById('modal-add-tx').classList.remove('hidden'); }
