@@ -226,6 +226,9 @@
     </nav>
 
     <nav id="portal-nav" class="hidden lg:flex items-center gap-1 bg-[var(--paper-deep)] p-1 rounded-full border border-[var(--line)]">
+      <button onclick="switchTab('home')" id="tab-btn-home" class="nav-pill">
+        <span>🏠 Giới thiệu</span>
+      </button>
       <button onclick="switchTab('academy')" id="tab-btn-academy" class="nav-pill active">
         <span>🎓 Học viện</span>
       </button>
@@ -275,6 +278,7 @@
 <!-- Mobile Navigation Bar for Portal (Shows on small screens) -->
 <div id="mobile-portal-nav" class="hidden border-b border-[var(--line)] bg-[var(--paper-deep)] px-3 py-2 overflow-x-auto lg:hidden">
   <div class="flex items-center gap-1 min-w-max">
+    <button onclick="switchTab('home')" id="mob-tab-home" class="nav-pill text-xs py-1.5 px-3">🏠 Giới thiệu</button>
     <button onclick="switchTab('academy')" id="mob-tab-academy" class="nav-pill text-xs py-1.5 px-3 active">🎓 Học viện</button>
     <button onclick="switchTab('pm_hkd')" id="mob-tab-pm_hkd" class="nav-pill text-xs py-1.5 px-3">💻 PM HKD</button>
     <button onclick="switchTab('transactions')" id="mob-tab-transactions" class="nav-pill text-xs py-1.5 px-3">🤝 Giao dịch</button>
@@ -1958,11 +1962,29 @@
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   });
 
-  // Render whole UI based on current State
-  function renderState() {
+  // Thanh menu công khai và menu thành viên không còn loại trừ nhau theo trạng thái đăng nhập —
+  // mà theo tab đang xem: đang ở tab "home" thì hiện menu công khai (kể cả khi đã đăng nhập,
+  // để thành viên vẫn xem được trang giới thiệu mà không cần đăng xuất); đang ở tab khác (chỉ
+  // thành viên đã đăng nhập mới vào được) thì hiện menu thành viên. Tránh 2 menu đè lên nhau.
+  function updateNavVisibility() {
     const publicNav = document.getElementById('public-nav');
     const portalNav = document.getElementById('portal-nav');
     const mobPortalNav = document.getElementById('mobile-portal-nav');
+    const onHome = (state.activeTab === 'home');
+
+    if (state.isLoggedIn && !onHome) {
+      publicNav.style.display = 'none';
+      portalNav.classList.add('is-logged-in');
+      mobPortalNav.classList.remove('hidden');
+    } else {
+      publicNav.style.display = '';
+      portalNav.classList.remove('is-logged-in');
+      mobPortalNav.classList.add('hidden');
+    }
+  }
+
+  // Render whole UI based on current State
+  function renderState() {
     const loggedOutActions = document.getElementById('logged-out-actions');
     const loggedInActions = document.getElementById('logged-in-actions');
     const portalContainer = document.getElementById('portal-container');
@@ -1970,9 +1992,6 @@
 
     // Update login status display
     if (state.isLoggedIn) {
-      publicNav.style.display = 'none';
-      portalNav.classList.add('is-logged-in');
-      mobPortalNav.classList.remove('hidden');
       loggedOutActions.classList.add('hidden');
       loggedInActions.classList.remove('hidden');
 
@@ -1987,17 +2006,16 @@
         restrictionScreen.classList.add('hidden');
       }
     } else {
-      publicNav.style.display = '';
-      portalNav.classList.remove('is-logged-in');
-      mobPortalNav.classList.add('hidden');
       loggedOutActions.classList.remove('hidden');
       loggedInActions.classList.add('hidden');
       portalContainer.classList.add('hidden');
       restrictionScreen.classList.add('hidden');
-      
+
       // Force tab to home if public
       switchTab('home');
     }
+
+    updateNavVisibility();
 
     // Update Header user info
     document.getElementById('user-display-name').innerText = state.user.name;
@@ -2317,6 +2335,7 @@
     if (tabId === 'academy') loadCourseLocks();
     if (tabId === 'transactions') loadMemberList();
 
+    updateNavVisibility();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
