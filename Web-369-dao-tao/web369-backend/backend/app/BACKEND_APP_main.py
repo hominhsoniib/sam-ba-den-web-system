@@ -236,6 +236,7 @@ def create_member(payload: dict = Body(...), w369_token: str = Cookie(default=No
         member_type=payload.get("member_type", ""),
         capital=capital_int,
         status=payload.get("status", ""),
+        role=payload.get("role", "Thành viên"),
     )
     status_code = 200 if result["ok"] else 403
     return JSONResponse(content=result, status_code=status_code)
@@ -263,6 +264,7 @@ def update_member(payload: dict = Body(...), w369_token: str = Cookie(default=No
         email=payload.get("email"),
         member_type=payload.get("member_type"),
         status=payload.get("status"),
+        role=payload.get("role"),
         capital=capital_int,
     )
     status_code = 200 if result["ok"] else 403

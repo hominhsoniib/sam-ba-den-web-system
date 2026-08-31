@@ -1247,7 +1247,8 @@
         </div>
       </div>
 
-      <!-- BẢNG SỔ ĐĂNG KÝ THÀNH VIÊN HTX 369 (ADMIN / BAN ĐIỀU HÀNH) -->
+      <!-- BẢNG SỔ ĐĂNG KÝ THÀNH VIÊN HTX 369 — CHỈ HIỆN CHO BAN ĐIỀU HÀNH / CÁN BỘ QUẢN LÝ -->
+      <div id="admin-member-registry-block" class="hidden">
       <div class="card p-6 bg-white border-[var(--line)] shadow-sm">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-4 border-b border-[var(--line)]">
           <div>
@@ -1280,6 +1281,7 @@
                 <th class="p-3">SĐT & Email</th>
                 <th class="p-3">Số CCCD & Ngày Cấp</th>
                 <th class="p-3">Phân Loại Thành Viên</th>
+                <th class="p-3">Vai Trò</th>
                 <th class="p-3 text-right">Vốn Góp</th>
                 <th class="p-3">Trạng Thái</th>
                 <th class="p-3 text-center">Thao Tác Admin</th>
@@ -1290,6 +1292,7 @@
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </div>
 
@@ -1766,6 +1769,17 @@
       </div>
 
       <div>
+        <label class="block font-semibold text-gray-700 mb-1">Vai Trò (*)</label>
+        <select id="member-edit-role" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+          <option value="Thành viên">Thành viên (thành viên HTX thông thường)</option>
+          <option value="Tổ trưởng">Tổ trưởng</option>
+          <option value="Cán bộ quản lý">Cán bộ quản lý (Manager)</option>
+          <option value="Ban điều hành">Ban điều hành (BOD / Admin)</option>
+        </select>
+        <p class="text-[10px] text-gray-500 mt-1">Quyết định quyền truy cập khóa học và quyền quản trị Sổ đăng ký thành viên.</p>
+      </div>
+
+      <div>
         <label class="block font-semibold text-gray-700 mb-1">Vốn Đã Góp (VNĐ)</label>
         <input type="text" id="member-edit-capital" placeholder="5.000.000 VNĐ" class="w-full p-2.5 rounded-lg border border-gray-300 font-mono focus:outline-none focus:border-[var(--green)]">
       </div>
@@ -2072,12 +2086,12 @@
 
   // Co-op Member Registration List (dữ liệu mẫu dự phòng khi API lỗi — xem loadMemberList)
   const defaultMemberList = [
-    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ', hasPassword: true },
-    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ', hasPassword: true },
-    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ', hasPassword: false },
-    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ', hasPassword: true },
-    { id: 'HTX369-0086', name: 'Hồ Minh Sơn', phone: '0903724242', cccd: '001095099888', cccdDate: '15/03/2022', email: 'hominhson@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '25.000.000 VNĐ', hasPassword: true },
-    { id: 'HTX369-0087', name: 'Trần Xuân Tùng', phone: '0981654321', cccd: '072074020000', cccdDate: '10/07/2021', email: 'tungtax@gmail.com', type: 'Thành viên chính thức', status: 'Đang chờ xác nhận', capital: '3.690.000 VNĐ', hasPassword: false }
+    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ', hasPassword: true, role: 'Thành viên' },
+    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ', hasPassword: true, role: 'Tổ trưởng' },
+    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ', hasPassword: false, role: 'Thành viên' },
+    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ', hasPassword: true, role: 'Thành viên' },
+    { id: 'HTX369-0086', name: 'Hồ Minh Sơn', phone: '0903724242', cccd: '001095099888', cccdDate: '15/03/2022', email: 'hominhson@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '25.000.000 VNĐ', hasPassword: true, role: 'Cán bộ quản lý' },
+    { id: 'HTX369-0087', name: 'Trần Xuân Tùng', phone: '0981654321', cccd: '072074020000', cccdDate: '10/07/2021', email: 'tungtax@gmail.com', type: 'Thành viên chính thức', status: 'Đang chờ xác nhận', capital: '3.690.000 VNĐ', hasPassword: false, role: 'Thành viên' }
   ];
 
   let memberList = [...defaultMemberList];
@@ -2090,7 +2104,7 @@
     if (r.ok && r.data && r.data.length > 0) {
       memberList = r.data.map(m => ({
         id: m.id, name: m.name, phone: m.phone, cccd: m.cccd, cccdDate: m.cccd_date,
-        email: m.email, type: m.member_type, status: m.status,
+        email: m.email, type: m.member_type, status: m.status, role: m.role,
         capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
         hasPassword: !!m.has_password
       }));
@@ -2157,6 +2171,11 @@
       if (m.status === 'Tạm ngừng') statusColor = 'text-red-700 bg-red-50';
       if (m.status === 'Đã chấm dứt') statusColor = 'text-gray-700 bg-gray-100';
 
+      let roleColor = 'text-gray-700 bg-gray-100';
+      if (m.role === 'Tổ trưởng') roleColor = 'text-blue-700 bg-blue-50';
+      if (m.role === 'Cán bộ quản lý') roleColor = 'text-purple-700 bg-purple-50';
+      if (m.role === 'Ban điều hành') roleColor = 'text-amber-800 bg-amber-100';
+
       tr.innerHTML = `
         <td class="p-3 font-mono font-semibold text-[var(--ink)]">${m.id}</td>
         <td class="p-3 font-bold text-sm">${m.name}</td>
@@ -2169,6 +2188,7 @@
           <div class="text-[10px] text-[var(--muted)]">Cấp: ${m.cccdDate || 'N/A'}</div>
         </td>
         <td class="p-3"><span class="role-badge">${m.type}</span></td>
+        <td class="p-3"><span class="px-2 py-0.5 rounded font-semibold text-xs ${roleColor}">${m.role || 'Thành viên'}</span></td>
         <td class="p-3 text-right font-bold text-[var(--green-deep)]">${m.capital}</td>
         <td class="p-3"><span class="px-2 py-0.5 rounded font-semibold text-xs ${statusColor}">${m.status}</span></td>
         <td class="p-3 text-center">
@@ -2195,7 +2215,8 @@
 
   function openEditMemberModal(idx) {
     if (state.user.role !== 'Ban điều hành' && state.user.role !== 'Cán bộ quản lý') {
-      alert("⚠️ THÔNG BÁO PHÂN QUYỀN ADMIN:\nTính năng Sửa / Xóa thành viên yêu cầu vai trò 'Ban điều hành' hoặc 'Cán bộ quản lý'!\nBạn vẫn có thể thử nghiệm chỉnh sửa trong phiên Demo này.");
+      alert("⚠️ THÔNG BÁO PHÂN QUYỀN ADMIN:\nTính năng Sửa / Xóa thành viên yêu cầu vai trò 'Ban điều hành' hoặc 'Cán bộ quản lý'.");
+      return;
     }
     const m = memberList[idx];
     document.getElementById('member-edit-index').value = idx;
@@ -2206,6 +2227,7 @@
     document.getElementById('member-edit-cccd-date').value = m.cccdDate || '15/03/2021';
     document.getElementById('member-edit-email').value = m.email || 'example@gmail.com';
     document.getElementById('member-edit-type').value = m.type;
+    document.getElementById('member-edit-role').value = m.role || 'Thành viên';
     document.getElementById('member-edit-capital').value = m.capital;
     document.getElementById('member-edit-status').value = m.status;
     document.getElementById('member-modal-title').innerText = "✏️ Chỉnh Sửa Hồ Sơ Thành Viên: " + m.name;
@@ -2221,6 +2243,7 @@
     document.getElementById('member-edit-cccd-date').value = '';
     document.getElementById('member-edit-email').value = '';
     document.getElementById('member-edit-type').value = 'Thành viên chính thức';
+    document.getElementById('member-edit-role').value = 'Thành viên';
     document.getElementById('member-edit-capital').value = '5.000.000 VNĐ';
     document.getElementById('member-edit-status').value = 'Chính thức';
     document.getElementById('member-modal-title').innerText = "＋ Thêm Thành Viên HTX Mới";
@@ -2242,6 +2265,7 @@
       cccdDate: document.getElementById('member-edit-cccd-date').value || 'N/A',
       email: document.getElementById('member-edit-email').value || 'N/A',
       type: document.getElementById('member-edit-type').value,
+      role: document.getElementById('member-edit-role').value,
       capital: document.getElementById('member-edit-capital').value || '0 VNĐ',
       status: document.getElementById('member-edit-status').value
     };
@@ -2261,6 +2285,7 @@
           cccd_date: mData.cccdDate,
           email: mData.email,
           member_type: mData.type,
+          role: mData.role,
           capital: mData.capital,
           status: mData.status,
         })
@@ -2276,7 +2301,7 @@
       memberList[idx] = {
         id: r.data.id, name: r.data.name, phone: r.data.phone, cccd: r.data.cccd,
         cccdDate: r.data.cccd_date, email: r.data.email, type: r.data.member_type,
-        status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
+        role: r.data.role, status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
         hasPassword: !!r.data.has_password
       };
       closeEditMemberModal();
@@ -2297,6 +2322,7 @@
           cccd_date: mData.cccdDate,
           email: mData.email,
           member_type: mData.type,
+          role: mData.role,
           capital: mData.capital,
           status: mData.status,
         })
@@ -2312,7 +2338,7 @@
       memberList.unshift({
         id: r.data.id, name: r.data.name, phone: r.data.phone, cccd: r.data.cccd,
         cccdDate: r.data.cccd_date, email: r.data.email, type: r.data.member_type,
-        status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
+        role: r.data.role, status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
         hasPassword: false
       });
       closeEditMemberModal();
@@ -2362,7 +2388,16 @@
     if (targetMobPill) targetMobPill.classList.add('active');
 
     if (tabId === 'academy') loadCourseLocks();
-    if (tabId === 'transactions') loadMemberList();
+    if (tabId === 'transactions') {
+      const isAdminRole = (state.user.role === 'Ban điều hành' || state.user.role === 'Cán bộ quản lý');
+      const adminBlock = document.getElementById('admin-member-registry-block');
+      if (isAdminRole) {
+        adminBlock.classList.remove('hidden');
+        loadMemberList();
+      } else {
+        adminBlock.classList.add('hidden');
+      }
+    }
 
     updateNavVisibility();
     window.scrollTo({ top: 0, behavior: 'smooth' });

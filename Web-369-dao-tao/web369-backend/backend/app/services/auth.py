@@ -165,7 +165,7 @@ class AuthService:
     @staticmethod
     def admin_create_member(db: Session, approver_role: str, name: str, phone: str, cccd: str,
                              cccd_date: str, email: str, member_type: str, capital: int,
-                             status: str) -> dict:
+                             status: str, role: str = "Thành viên") -> dict:
         if approver_role not in settings.APPROVER_ROLES:
             return _fail("Bạn không có quyền thêm thành viên mới (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")
 
@@ -174,6 +174,9 @@ class AuthService:
 
         if db.query(Member).filter(Member.phone == phone).first():
             return _fail(f"Số điện thoại {phone} đã được dùng bởi thành viên khác.")
+
+        if role not in settings.ROLE_RANK:
+            return _fail(f"Vai trò '{role}' không hợp lệ. Chọn một trong: {', '.join(settings.ROLE_RANK.keys())}.")
 
         member = Member(
             id=_next_member_id(db),
@@ -184,7 +187,7 @@ class AuthService:
             email=email,
             member_type=member_type or "Thành viên chính thức",
             status=status or "Chính thức",
-            role="Thành viên",
+            role=role,
             capital=capital or 0,
         )
         db.add(member)
@@ -233,6 +236,10 @@ class AuthService:
             member.member_type = fields["member_type"]
         if fields.get("status"):
             member.status = fields["status"]
+        if fields.get("role"):
+            if fields["role"] not in settings.ROLE_RANK:
+                return _fail(f"Vai trò '{fields['role']}' không hợp lệ. Chọn một trong: {', '.join(settings.ROLE_RANK.keys())}.")
+            member.role = fields["role"]
         if "capital" in fields and fields["capital"] is not None:
             member.capital = fields["capital"]
 
