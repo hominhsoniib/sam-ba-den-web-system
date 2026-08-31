@@ -18,6 +18,10 @@ def _next_member_id(db: Session) -> str:
     return f"HTX369-{count + 1:04d}"
 
 
+def _gen_temp_password() -> str:
+    return str(random.randint(100000, 999999))
+
+
 class AuthService:
 
     @staticmethod
@@ -63,6 +67,7 @@ class AuthService:
             "phone": member.phone,
             "role": member.role,
             "status": member.status,
+            "must_change_password": bool(member.must_change_password),
         }
         return _ok(session_data)
 
@@ -86,6 +91,7 @@ class AuthService:
             "certificates": member.certificates,
             "badges": member.badges,
             "joined_date": member.joined_date.strftime("%d/%m/%Y") if member.joined_date else None,
+            "must_change_password": bool(member.must_change_password),
         })
 
     @staticmethod
@@ -98,6 +104,7 @@ class AuthService:
         if len(new_password) < 6:
             return _fail("Mật khẩu mới phải có ít nhất 6 ký tự.")
         member.password_hash = hash_password(new_password)
+        member.must_change_password = False
         db.commit()
         return _ok(True)
 
@@ -112,9 +119,10 @@ class AuthService:
         if member.status == "Chính thức":
             return _fail("Thành viên này đã ở trạng thái Chính thức.")
 
-        temp_password = str(random.randint(100000, 999999))
+        temp_password = _gen_temp_password()
         member.status = "Chính thức"
         member.password_hash = hash_password(temp_password)
+        member.must_change_password = True
         db.commit()
 
         return _ok({
@@ -123,6 +131,35 @@ class AuthService:
             "status": member.status,
             "temp_password": temp_password,
             "note": "Mật khẩu tạm chỉ hiển thị một lần — hãy gửi cho thành viên qua kênh liên lạc an toàn."
+        })
+
+    @staticmethod
+    def reset_password(db: Session, approver_role: str, member_id: str) -> dict:
+        """
+        Cấp lại mật khẩu tạm cho thành viên bất kỳ (không đổi status, không yêu cầu
+        đang ở trạng thái chờ duyệt) — dùng khi: quên mật khẩu, hoặc thành viên đang
+        "Đang chờ xác nhận" cần đăng nhập tạm trước khi Ban điều hành duyệt hồ sơ đầy đủ.
+        Bắt buộc thành viên đổi mật khẩu ở lần đăng nhập kế tiếp (must_change_password).
+        """
+        if approver_role not in settings.APPROVER_ROLES:
+            return _fail("Bạn không có quyền cấp mật khẩu (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")
+
+        member = db.query(Member).filter(Member.id == member_id).first()
+        if not member:
+            return _fail("Không tìm thấy hồ sơ thành viên.")
+
+        temp_password = _gen_temp_password()
+        member.password_hash = hash_password(temp_password)
+        member.must_change_password = True
+        db.commit()
+
+        return _ok({
+            "id": member.id,
+            "name": member.name,
+            "status": member.status,
+            "temp_password": temp_password,
+            "note": "Mật khẩu tạm chỉ hiển thị một lần — hãy gửi cho thành viên qua kênh liên lạc an toàn. "
+                    "Thành viên sẽ bị bắt buộc đổi mật khẩu ngay ở lần đăng nhập đầu tiên."
         })
 
     @staticmethod
@@ -162,5 +199,6 @@ class AuthService:
                 "role": m.role,
                 "capital": m.capital,
                 "has_password": bool(m.password_hash),
+                "must_change_password": bool(m.must_change_password),
             })
         return _ok(result)

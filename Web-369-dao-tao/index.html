@@ -201,47 +201,8 @@
 </head>
 <body class="paper-texture min-h-screen flex flex-col">
 
-<!-- STICKY TOP CONTAINER FOR DEMO BAR AND HEADER -->
+<!-- STICKY TOP CONTAINER FOR HEADER -->
 <div class="sticky top-0 z-50 bg-[var(--paper)]">
-  <!-- ============ DEMO CONTROL BAR (SIMULATOR) ============ -->
-  <div id="demo-bar" class="bg-[var(--ink)] text-white text-xs py-2 px-4 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3 shadow-md">
-    <div class="flex items-center gap-2">
-      <span class="bg-amber-500 text-black px-2 py-0.5 rounded font-bold text-[10px] uppercase tracking-wider">Demo Control</span>
-      <span class="hidden md:inline text-gray-300">Bảng điều khiển phân quyền 4 tầng & trạng thái theo Điều lệ HTX:</span>
-    </div>
-    <div class="flex flex-wrap items-center gap-3">
-      <label class="flex items-center gap-1">
-        <span class="text-gray-400">Trạng thái Login:</span>
-        <select id="sim-auth" onchange="toggleSimAuth(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
-          <option value="public">🔒 Công khai (Chưa đăng nhập)</option>
-          <option value="logged" selected>🔓 Cổng Thành Viên (Đã đăng nhập)</option>
-        </select>
-      </label>
-
-      <label class="flex items-center gap-1">
-        <span class="text-gray-400">Vai trò:</span>
-        <select id="sim-role" onchange="changeSimRole(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
-          <option value="Thành viên">Thành viên</option>
-          <option value="Tổ trưởng">Tổ trưởng</option>
-          <option value="Cán bộ quản lý">Cán bộ quản lý</option>
-          <option value="Ban điều hành">Ban điều hành</option>
-        </select>
-      </label>
-
-      <label class="flex items-center gap-1">
-        <span class="text-gray-400">Trạng thái TV:</span>
-        <select id="sim-status" onchange="changeSimStatus(this.value)" class="bg-gray-800 text-white rounded px-2 py-1 border border-gray-700 text-xs font-medium cursor-pointer">
-          <option value="Chính thức" selected>Chính thức</option>
-          <option value="Liên kết góp vốn">Liên kết góp vốn</option>
-          <option value="Liên kết không góp vốn">Liên kết không góp vốn</option>
-          <option value="Đang chờ xác nhận">⏳ Đang chờ xác nhận</option>
-          <option value="Tạm ngừng">🚫 Tạm ngừng</option>
-          <option value="Đã chấm dứt">❌ Đã chấm dứt</option>
-        </select>
-      </label>
-    </div>
-  </div>
-
   <!-- ============ MAIN HEADER NAV ============ -->
   <header class="border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-[66px] flex items-center justify-between">
@@ -336,8 +297,7 @@
         Trạng thái thành viên của bạn hiện tại không đủ điều kiện để xem nội dung Cổng thành viên. Theo Điều lệ HTX Gia đình 369, chỉ thành viên hợp lệ trong Sổ đăng ký thành viên mới có quyền sử dụng tài nguyên học tập và công cụ quản trị.
       </p>
       <div class="inline-flex flex-wrap gap-3 justify-center">
-        <button onclick="changeSimStatus('Chính thức')" class="btn-primary rounded-full px-5 py-2 text-xs">Mô phỏng: Chuyển sang Chính Thức</button>
-        <button onclick="switchTab('support')" class="btn-ghost rounded-full px-5 py-2 text-xs">Liên hệ Ban Điều Hành</button>
+        <button onclick="switchTab('support')" class="btn-primary rounded-full px-5 py-2 text-xs">Liên hệ Ban Điều Hành</button>
       </div>
     </div>
   </div>
@@ -363,8 +323,8 @@
           <button onclick="openRegisterModal()" class="btn-primary rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
             Tham gia HTX 369 ngay
           </button>
-          <button onclick="doLoginSim()" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
-            Trải nghiệm Cổng Thành Viên Pro →
+          <button onclick="openLoginModal()" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
+            Đăng nhập Cổng Thành Viên →
           </button>
         </div>
 
@@ -788,7 +748,7 @@
               <p class="text-xs text-[var(--muted)] mb-4">Vui lòng đăng nhập tài khoản thành viên để học tập và thực hành phần mềm.</p>
               <div class="flex gap-2 justify-center">
                 <button onclick="openLoginModal()" class="btn-primary rounded-full px-5 py-2 text-xs">Đăng nhập ngay</button>
-                <button onclick="doLoginSim()" class="btn-gold rounded-full px-5 py-2 text-xs">Vào cổng Demo</button>
+                <button onclick="openRegisterModal()" class="btn-ghost rounded-full px-5 py-2 text-xs">Tham gia HTX 369</button>
               </div>
             </div>
           </div>
@@ -1059,8 +1019,8 @@
             <span class="text-2xl mb-1">🔒</span>
             <h5 class="font-bold text-xs text-amber-900">Yêu cầu Vai trò: Tổ trưởng trở lên</h5>
             <p class="text-[11px] text-gray-600 mt-1 max-w-xs">Bạn chưa đủ phân quyền vai trò để xem nội dung khóa học quản lý này.</p>
-            <button onclick="changeSimRole('Tổ trưởng')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
-              Mô phỏng nâng vai trò Tổ trưởng
+            <button onclick="switchTab('support')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
+              Liên hệ Ban Điều Hành để nâng vai trò
             </button>
           </div>
 
@@ -1088,8 +1048,8 @@
             <span class="text-2xl mb-1">🔒</span>
             <h5 class="font-bold text-xs text-amber-900">Yêu cầu Vai trò: Cán bộ quản lý trở lên</h5>
             <p class="text-[11px] text-gray-600 mt-1 max-w-xs">Khóa học quản trị cấp cao dành cho cán bộ quản lý HTX.</p>
-            <button onclick="changeSimRole('Cán bộ quản lý')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
-              Mô phỏng nâng lên Cán bộ quản lý
+            <button onclick="switchTab('support')" class="mt-3 btn-primary rounded-full px-4 py-1.5 text-[11px]">
+              Liên hệ Ban Điều Hành để nâng vai trò
             </button>
           </div>
 
@@ -1301,7 +1261,6 @@
         <!-- Role Permission Warning Banner if role is not Admin -->
         <div id="admin-permission-note" class="p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-900 mb-4 flex items-center justify-between">
           <span>👑 <b>Quyền Hạn Admin:</b> Vai trò hiện tại: <b id="current-role-badge">Ban điều hành</b>. Đầy đủ quyền Chỉnh sửa / Phê duyệt / Xóa hồ sơ thành viên.</span>
-          <span class="text-[10px] text-amber-800 italic">(Đổi vai trò trên Demo Control để thử nghiệm phân quyền)</span>
         </div>
 
         <div id="demo-data-banner" class="hidden p-3 rounded-lg bg-red-50 border-2 border-red-400 text-xs text-red-900 mb-4 font-semibold">
@@ -1826,14 +1785,18 @@
     <div class="text-center mb-6">
       <span class="w-12 h-12 rounded-full bg-amber-100 text-amber-800 text-2xl flex items-center justify-center mx-auto mb-2 font-bold shadow-sm">🔑</span>
       <h3 class="font-display font-bold text-xl text-[var(--ink)]">Đổi Mật Khẩu Tài Khoản</h3>
-      <p class="text-xs text-[var(--muted)] mt-1">Đổi từ Mật khẩu tạm (123456) sang Mật khẩu mới bảo mật của bạn</p>
+      <p class="text-xs text-[var(--muted)] mt-1">Đổi từ Mật khẩu tạm (do Ban điều hành cấp) sang Mật khẩu mới bảo mật của bạn</p>
+    </div>
+
+    <div id="change-pass-mandatory-note" class="hidden p-3 rounded-lg bg-amber-50 border-2 border-amber-400 text-xs text-amber-900 mb-4 font-semibold">
+      ⚠️ Tài khoản của bạn đang dùng mật khẩu tạm. Vui lòng đặt mật khẩu mới ngay để tiếp tục sử dụng Cổng thành viên.
     </div>
 
     <form onsubmit="handleChangePassForm(event)" class="space-y-4 text-xs">
       <div>
-        <label class="block font-semibold text-gray-700 mb-1">Mật khẩu hiện tại / OTP tạm (*)</label>
+        <label class="block font-semibold text-gray-700 mb-1">Mật khẩu hiện tại / Mật khẩu tạm (*)</label>
         <div class="relative">
-          <input type="password" id="old-pass" required placeholder="Nhập 123456 hoặc mật khẩu hiện tại" value="123456" class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
+          <input type="password" id="old-pass" required placeholder="Nhập mật khẩu tạm hoặc mật khẩu hiện tại" class="w-full p-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-sm">
           <button type="button" onclick="togglePassField('old-pass', 'eye-icon-old')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 text-base focus:outline-none" title="Ẩn/Hiện mật khẩu">
             <span id="eye-icon-old">👁️</span>
           </button>
@@ -1957,7 +1920,6 @@
     } else {
       state.isLoggedIn = false;
     }
-    updateSimControlsUI();
     renderState();
   }
 
@@ -2082,14 +2044,14 @@
     renderMemberList();
   }
 
-  // Co-op Member Registration List (Hỗ trợ cả Demo Control lẫn Backend thật)
+  // Co-op Member Registration List (dữ liệu mẫu dự phòng khi API lỗi — xem loadMemberList)
   const defaultMemberList = [
-    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ' },
-    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ' },
-    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ' },
-    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ' },
-    { id: 'HTX369-0086', name: 'Hồ Minh Sơn', phone: '0903724242', cccd: '001095099888', cccdDate: '15/03/2022', email: 'hominhson@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '25.000.000 VNĐ' },
-    { id: 'HTX369-0087', name: 'Trần Xuân Tùng', phone: '0981654321', cccd: '072074020000', cccdDate: '10/07/2021', email: 'tungtax@gmail.com', type: 'Thành viên chính thức', status: 'Đang chờ xác nhận', capital: '3.690.000 VNĐ' }
+    { id: 'HTX369-0082', name: 'Nguyễn Văn An', phone: '0987654321', cccd: '001095012345', cccdDate: '15/03/2021', email: 'nguyenvanan@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '5.000.000 VNĐ', hasPassword: true },
+    { id: 'HTX369-0083', name: 'Trần Thị Bình', phone: '0912345678', cccd: '001096088999', cccdDate: '10/05/2022', email: 'tranbinh369@gmail.com', type: 'Liên kết góp vốn', status: 'Chính thức', capital: '10.000.000 VNĐ', hasPassword: true },
+    { id: 'HTX369-0084', name: 'Lê Văn Cường', phone: '0909888777', cccd: '001094055666', cccdDate: '20/11/2020', email: 'cuong.le@gmail.com', type: 'Liên kết không góp vốn', status: 'Đang chờ xác nhận', capital: '0 VNĐ', hasPassword: false },
+    { id: 'HTX369-0085', name: 'Phạm Thị Dung', phone: '0977112233', cccd: '001097033444', cccdDate: '05/08/2023', email: 'dung.pham@gmail.com', type: 'Thành viên chính thức', status: 'Tạm ngừng', capital: '5.000.000 VNĐ', hasPassword: true },
+    { id: 'HTX369-0086', name: 'Hồ Minh Sơn', phone: '0903724242', cccd: '001095099888', cccdDate: '15/03/2022', email: 'hominhson@gmail.com', type: 'Thành viên chính thức', status: 'Chính thức', capital: '25.000.000 VNĐ', hasPassword: true },
+    { id: 'HTX369-0087', name: 'Trần Xuân Tùng', phone: '0981654321', cccd: '072074020000', cccdDate: '10/07/2021', email: 'tungtax@gmail.com', type: 'Thành viên chính thức', status: 'Đang chờ xác nhận', capital: '3.690.000 VNĐ', hasPassword: false }
   ];
 
   let memberList = [...defaultMemberList];
@@ -2103,7 +2065,8 @@
       memberList = r.data.map(m => ({
         id: m.id, name: m.name, phone: m.phone, cccd: m.cccd, cccdDate: m.cccd_date,
         email: m.email, type: m.member_type, status: m.status,
-        capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ'
+        capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
+        hasPassword: !!m.has_password
       }));
       if (banner) banner.classList.add('hidden');
     } else {
@@ -2128,9 +2091,28 @@
 
     // Cập nhật trạng thái hiển thị — chỉ khi API thật xác nhận thành công
     m.status = 'Chính thức';
+    m.hasPassword = true;
     renderMemberList();
 
-    alert(`🎉 Đã duyệt thành viên "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${r.data.temp_password}`);
+    alert(`🎉 Đã duyệt thành viên "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${r.data.temp_password}\n\nThành viên sẽ bị bắt buộc đổi mật khẩu ngay ở lần đăng nhập đầu tiên.`);
+  }
+
+  async function resetPasswordReal(idx) {
+    const m = memberList[idx];
+    const verb = m.hasPassword ? 'Cấp lại mật khẩu tạm mới (mật khẩu cũ sẽ bị vô hiệu)' : 'Cấp mật khẩu tạm để đăng nhập lần đầu';
+    if (!confirm(`🔑 XÁC NHẬN CẤP MẬT KHẨU TẠM:\n\n${verb} cho "${m.name}" (${m.id})?\n\nTrạng thái thành viên sẽ KHÔNG đổi — chỉ cấp mật khẩu để đăng nhập tạm.`)) return;
+
+    const r = await callAPI('/api/admin/reset-password', { method: 'POST', body: JSON.stringify({ member_id: m.id }) });
+
+    if (!r.ok || !r.data || !r.data.temp_password) {
+      alert(`🔴 (CHƯA LƯU VÀO HỆ THỐNG THẬT)\n\nKhông cấp được mật khẩu cho "${m.name}" trên máy chủ thật.\n\nLý do: ${r.error || 'Không kết nối được API'}`);
+      return;
+    }
+
+    m.hasPassword = true;
+    renderMemberList();
+
+    alert(`🎉 Đã cấp mật khẩu tạm cho "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${r.data.temp_password}\n\nThành viên sẽ bị bắt buộc đổi mật khẩu ngay ở lần đăng nhập đầu tiên. Trạng thái hồ sơ vẫn giữ nguyên "${m.status}".`);
   }
 
   function renderMemberList() {
@@ -2169,6 +2151,9 @@
             <button onclick="approveMemberReal(${idx})" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Duyệt thành viên (thao tác thật, lưu vào hệ thống)">
               ✅ Duyệt
             </button>` : ''}
+            <button onclick="resetPasswordReal(${idx})" class="${m.hasPassword ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200' : 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-400 animate-pulse'} px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="${m.hasPassword ? 'Cấp lại mật khẩu tạm mới' : 'Cấp mật khẩu tạm để đăng nhập lần đầu'} (thao tác thật)">
+              🔑 ${m.hasPassword ? 'Reset MK' : 'Cấp MK tạm'}
+            </button>
             <button onclick="openEditMemberModal(${idx})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Chỉnh sửa (demo — chưa lưu vào hệ thống thật)">
               ✏️ Sửa
             </button>
@@ -2285,34 +2270,9 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Simulator Controls Handling
-  function toggleSimAuth(val) {
-    state.isLoggedIn = (val === 'logged');
-    renderState();
-  }
-
-  function changeSimRole(val) {
-    state.user.role = val;
-    document.getElementById('sim-role').value = val;
-    renderState();
-  }
-
-  function changeSimStatus(val) {
-    state.user.status = val;
-    document.getElementById('sim-status').value = val;
-    renderState();
-  }
-
-  function updateSimControlsUI() {
-    document.getElementById('sim-auth').value = state.isLoggedIn ? 'logged' : 'public';
-    document.getElementById('sim-role').value = state.user.role;
-    document.getElementById('sim-status').value = state.user.status;
-  }
-
   function doLogout() {
     callAPI('/api/logout', { method: 'POST' });
     state.isLoggedIn = false;
-    updateSimControlsUI();
     renderState();
     switchTab('home');
   }
@@ -2325,9 +2285,11 @@
   }
 
   function openChangePassModal() {
-    document.getElementById('old-pass').value = '123456';
+    document.getElementById('old-pass').value = '';
     document.getElementById('new-pass').value = '';
     document.getElementById('confirm-new-pass').value = '';
+    const note = document.getElementById('change-pass-mandatory-note');
+    if (note) note.classList.add('hidden');
     document.getElementById('modal-change-pass').classList.remove('hidden');
   }
 
@@ -2358,14 +2320,6 @@
 
     closeChangePassModal();
     alert("🎉 ĐỔI MẬT KHẨU THÀNH CÔNG!\n\nMật khẩu tài khoản của " + state.user.name + " đã được cập nhật.\n\nHãy ghi nhớ mật khẩu mới cho các lần đăng nhập tiếp theo!");
-  }
-
-  function doLoginSim() {
-    state.isLoggedIn = true;
-    state.user.status = "Chính thức";
-    updateSimControlsUI();
-    renderState();
-    switchTab('academy');
   }
 
   // Lesson Player Logic
@@ -2433,6 +2387,16 @@
 
     closeLoginModal();
     await loadSession();
+
+    if (r.data && r.data.must_change_password) {
+      // Tài khoản đang dùng mật khẩu tạm — bắt buộc đổi ngay trước khi vào Cổng thành viên
+      openChangePassModal();
+      document.getElementById('old-pass').value = loginPass;
+      const note = document.getElementById('change-pass-mandatory-note');
+      if (note) note.classList.remove('hidden');
+      return;
+    }
+
     switchTab('academy');
   }
 

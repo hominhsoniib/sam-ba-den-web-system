@@ -200,6 +200,17 @@ def approve_member(payload: dict = Body(...), w369_token: str = Cookie(default=N
     return JSONResponse(content=result, status_code=status_code)
 
 
+@app.post("/api/admin/reset-password")
+def reset_password(payload: dict = Body(...), w369_token: str = Cookie(default=None),
+                    db: Session = Depends(get_db)):
+    session = _current_session(w369_token)
+    if not session:
+        return JSONResponse(content={"ok": False, "error": "Chưa đăng nhập."}, status_code=401)
+    result = AuthService.reset_password(db, session["role"], payload.get("member_id", ""))
+    status_code = 200 if result["ok"] else 403
+    return JSONResponse(content=result, status_code=status_code)
+
+
 @app.get("/api/admin/members")
 def list_members(w369_token: str = Cookie(default=None), db: Session = Depends(get_db)):
     session = _current_session(w369_token)

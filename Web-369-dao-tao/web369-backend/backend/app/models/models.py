@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, Boolean
 from datetime import datetime
 from app.core.database import Base
 
@@ -10,6 +10,7 @@ class Member(Base):
     name = Column(String, nullable=False)
     phone = Column(String, unique=True, nullable=False, index=True)
     password_hash = Column(String, nullable=True)  # null cho tới khi được duyệt & cấp mật khẩu tạm
+    must_change_password = Column(Boolean, nullable=False, default=False)  # True sau khi admin cấp mật khẩu tạm — bắt buộc đổi ở lần đăng nhập kế tiếp
     cccd = Column(String, nullable=True)
     cccd_date = Column(String, nullable=True)
     email = Column(String, nullable=True)
