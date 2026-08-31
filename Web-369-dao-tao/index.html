@@ -1304,6 +1304,10 @@
           <span class="text-[10px] text-amber-800 italic">(Đổi vai trò trên Demo Control để thử nghiệm phân quyền)</span>
         </div>
 
+        <div id="demo-data-banner" class="hidden p-3 rounded-lg bg-red-50 border-2 border-red-400 text-xs text-red-900 mb-4 font-semibold">
+          🔴 ĐANG XEM DỮ LIỆU DEMO — KHÔNG PHẢI DỮ LIỆU THẬT. Máy chủ không phản hồi được (mất kết nối / lỗi quyền truy cập), hệ thống tạm hiển thị danh sách mẫu để không bị trống trang. Các thao tác Duyệt/Sửa/Xóa bên dưới sẽ KHÔNG được lưu vào hệ thống thật cho tới khi mục này biến mất.
+        </div>
+
         <div class="overflow-x-auto">
           <table class="w-full text-xs text-left">
             <thead class="bg-[var(--paper-deep)] text-[var(--muted)] font-semibold border-b border-[var(--line)]">
@@ -2092,6 +2096,7 @@
 
   async function loadMemberList() {
     const tbody = document.getElementById('member-table-body');
+    const banner = document.getElementById('demo-data-banner');
     if (!tbody) return;
     const r = await callAPI('/api/admin/members');
     if (r.ok && r.data && r.data.length > 0) {
@@ -2100,6 +2105,11 @@
         email: m.email, type: m.member_type, status: m.status,
         capital: (m.capital || 0).toLocaleString('vi-VN') + ' VNĐ'
       }));
+      if (banner) banner.classList.add('hidden');
+    } else {
+      // Không lấy được dữ liệu thật -> dùng danh sách mẫu, PHẢI cảnh báo rõ
+      memberList = [...defaultMemberList];
+      if (banner) banner.classList.remove('hidden');
     }
     renderMemberList();
   }
@@ -2108,19 +2118,19 @@
     const m = memberList[idx];
     if (!confirm(`✅ XÁC NHẬN DUYỆT THÀNH VIÊN:\n\nDuyệt hồ sơ "${m.name}" (${m.id}) sang trạng thái Chính thức?`)) return;
 
-    let tempPass = String(Math.floor(100000 + Math.random() * 900000));
-    
-    // Nếu có đăng nhập backend thật thì gọi API thật
     const r = await callAPI('/api/admin/approve-member', { method: 'POST', body: JSON.stringify({ member_id: m.id }) });
-    if (r.ok && r.data && r.data.temp_password) {
-      tempPass = r.data.temp_password;
+
+    if (!r.ok || !r.data || !r.data.temp_password) {
+      // KHÔNG giả vờ thành công — báo đúng sự thật, không đổi trạng thái hiển thị
+      alert(`🔴 (DEMO — CHƯA LƯU VÀO HỆ THỐNG THẬT)\n\nKhông duyệt được "${m.name}" trên máy chủ thật.\n\nLý do: ${r.error || 'Không kết nối được API'}\n\nMật khẩu tạm KHÔNG được tạo — thành viên này vẫn CHƯA đăng nhập được.`);
+      return;
     }
 
-    // Cập nhật trạng thái hiển thị
+    // Cập nhật trạng thái hiển thị — chỉ khi API thật xác nhận thành công
     m.status = 'Chính thức';
     renderMemberList();
 
-    alert(`🎉 Đã duyệt thành viên "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${tempPass}`);
+    alert(`🎉 Đã duyệt thành viên "${m.name}" (${m.id}) thành công!\n\nMật khẩu tạm (chỉ hiển thị 1 lần — hãy gửi cho thành viên qua kênh an toàn):\n\n🔑 ${r.data.temp_password}`);
   }
 
   function renderMemberList() {
@@ -2456,7 +2466,12 @@
 
     if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Nộp Đơn Đăng Ký Chờ Phê Duyệt →'; }
 
-    const newId = (r.ok && r.data && r.data.id) ? r.data.id : ('HTX369-' + String(memberList.length + 82).padStart(4, '0'));
+    if (!r.ok) {
+      alert(`🔴 (DEMO — CHƯA LƯU VÀO HỆ THỐNG THẬT)\n\nKhông nộp được đơn đăng ký lên máy chủ thật.\n\nLý do: ${r.error || 'Không kết nối được API'}\n\nĐơn này CHƯA được ghi nhận — vui lòng thử lại sau hoặc liên hệ quản trị viên.`);
+      return;
+    }
+
+    const newId = r.data.id;
     const newMemberObj = {
       id: newId, name: regName, phone: regPhone, cccd: regCccd, cccdDate: regCccdDate,
       email: regEmail, type: regType, status: 'Đang chờ xác nhận', capital: '0 VNĐ'
