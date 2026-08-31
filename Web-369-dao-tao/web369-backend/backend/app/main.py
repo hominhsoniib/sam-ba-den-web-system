@@ -139,7 +139,11 @@ def login(payload: dict = Body(...), db: Session = Depends(get_db)):
         value=token,
         httponly=True,
         secure=True,
-        samesite="lax",
+        samesite="none",  # frontend (369-daotao.vercel.app) và backend (web369-backend.vercel.app)
+                           # là 2 domain khác nhau — SameSite=Lax bị trình duyệt chặn không gửi cookie
+                           # trên request fetch() cross-site, khiến /api/me luôn trả 401 sau khi login.
+                           # SameSite=None (bắt buộc đi kèm Secure=True, đã có sẵn) mới cho phép cookie
+                           # gửi kèm trên request cross-site qua fetch(credentials:'include').
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
     return resp
@@ -148,7 +152,7 @@ def login(payload: dict = Body(...), db: Session = Depends(get_db)):
 @app.post("/api/logout")
 def logout():
     resp = JSONResponse(content={"ok": True})
-    resp.delete_cookie(COOKIE_NAME)
+    resp.delete_cookie(COOKIE_NAME, secure=True, samesite="none")
     return resp
 
 
@@ -207,6 +211,45 @@ def reset_password(payload: dict = Body(...), w369_token: str = Cookie(default=N
     if not session:
         return JSONResponse(content={"ok": False, "error": "Chưa đăng nhập."}, status_code=401)
     result = AuthService.reset_password(db, session["role"], payload.get("member_id", ""))
+    status_code = 200 if result["ok"] else 403
+    return JSONResponse(content=result, status_code=status_code)
+
+
+@app.post("/api/admin/update-member")
+def update_member(payload: dict = Body(...), w369_token: str = Cookie(default=None),
+                   db: Session = Depends(get_db)):
+    session = _current_session(w369_token)
+    if not session:
+        return JSONResponse(content={"ok": False, "error": "Chưa đăng nhập."}, status_code=401)
+
+    capital_raw = payload.get("capital")
+    capital_int = None
+    if capital_raw is not None:
+        digits = "".join(ch for ch in str(capital_raw) if ch.isdigit())
+        capital_int = int(digits) if digits else 0
+
+    result = AuthService.update_member(
+        db, session["role"], payload.get("member_id", ""),
+        name=payload.get("name"),
+        phone=payload.get("phone"),
+        cccd=payload.get("cccd"),
+        cccd_date=payload.get("cccd_date"),
+        email=payload.get("email"),
+        member_type=payload.get("member_type"),
+        status=payload.get("status"),
+        capital=capital_int,
+    )
+    status_code = 200 if result["ok"] else 403
+    return JSONResponse(content=result, status_code=status_code)
+
+
+@app.post("/api/admin/delete-member")
+def delete_member(payload: dict = Body(...), w369_token: str = Cookie(default=None),
+                   db: Session = Depends(get_db)):
+    session = _current_session(w369_token)
+    if not session:
+        return JSONResponse(content={"ok": False, "error": "Chưa đăng nhập."}, status_code=401)
+    result = AuthService.delete_member(db, session["role"], session["id"], payload.get("member_id", ""))
     status_code = 200 if result["ok"] else 403
     return JSONResponse(content=result, status_code=status_code)
 

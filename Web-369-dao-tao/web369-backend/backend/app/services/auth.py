@@ -163,6 +163,78 @@ class AuthService:
         })
 
     @staticmethod
+    def update_member(db: Session, approver_role: str, member_id: str, **fields) -> dict:
+        if approver_role not in settings.APPROVER_ROLES:
+            return _fail("Bạn không có quyền chỉnh sửa hồ sơ thành viên (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")
+
+        member = db.query(Member).filter(Member.id == member_id).first()
+        if not member:
+            return _fail("Không tìm thấy hồ sơ thành viên.")
+
+        new_phone = fields.get("phone")
+        if new_phone and new_phone != member.phone:
+            clash = db.query(Member).filter(Member.phone == new_phone, Member.id != member_id).first()
+            if clash:
+                return _fail(f"Số điện thoại {new_phone} đã được dùng bởi thành viên khác ({clash.id}).")
+            member.phone = new_phone
+
+        if fields.get("name"):
+            member.name = fields["name"]
+        if "cccd" in fields:
+            member.cccd = fields["cccd"]
+        if "cccd_date" in fields:
+            member.cccd_date = fields["cccd_date"]
+        if "email" in fields:
+            member.email = fields["email"]
+        if fields.get("member_type"):
+            member.member_type = fields["member_type"]
+        if fields.get("status"):
+            member.status = fields["status"]
+        if "capital" in fields and fields["capital"] is not None:
+            member.capital = fields["capital"]
+
+        db.commit()
+        db.refresh(member)
+        return _ok({
+            "id": member.id,
+            "name": member.name,
+            "phone": member.phone,
+            "cccd": member.cccd,
+            "cccd_date": member.cccd_date,
+            "email": member.email,
+            "member_type": member.member_type,
+            "status": member.status,
+            "role": member.role,
+            "capital": member.capital,
+            "has_password": bool(member.password_hash),
+            "must_change_password": bool(member.must_change_password),
+        })
+
+    @staticmethod
+    def delete_member(db: Session, approver_role: str, approver_id: str, member_id: str) -> dict:
+        if approver_role not in settings.APPROVER_ROLES:
+            return _fail("Bạn không có quyền xóa hồ sơ thành viên (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")
+
+        if member_id == approver_id:
+            return _fail("Không thể tự xóa hồ sơ của chính mình khi đang đăng nhập.")
+
+        member = db.query(Member).filter(Member.id == member_id).first()
+        if not member:
+            return _fail("Không tìm thấy hồ sơ thành viên.")
+
+        if member.role == "Ban điều hành":
+            remaining_admins = db.query(Member).filter(
+                Member.role == "Ban điều hành", Member.id != member_id
+            ).count()
+            if remaining_admins == 0:
+                return _fail("Không thể xóa — đây là tài khoản Ban điều hành cuối cùng còn lại trong hệ thống.")
+
+        deleted_name = member.name
+        db.delete(member)
+        db.commit()
+        return _ok({"id": member_id, "name": deleted_name})
+
+    @staticmethod
     def list_courses(db: Session, member_role: str) -> dict:
         courses = db.query(Course).order_by(Course.sort_order).all()
         my_rank = settings.ROLE_RANK.get(member_role, 0)

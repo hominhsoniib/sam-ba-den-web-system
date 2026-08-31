@@ -2154,10 +2154,10 @@
             <button onclick="resetPasswordReal(${idx})" class="${m.hasPassword ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200' : 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-400 animate-pulse'} px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="${m.hasPassword ? 'Cấp lại mật khẩu tạm mới' : 'Cấp mật khẩu tạm để đăng nhập lần đầu'} (thao tác thật)">
               🔑 ${m.hasPassword ? 'Reset MK' : 'Cấp MK tạm'}
             </button>
-            <button onclick="openEditMemberModal(${idx})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Chỉnh sửa (demo — chưa lưu vào hệ thống thật)">
+            <button onclick="openEditMemberModal(${idx})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Chỉnh sửa hồ sơ (thao tác thật, lưu vào hệ thống)">
               ✏️ Sửa
             </button>
-            <button onclick="deleteMember(${idx})" class="bg-red-50 hover:bg-red-100 text-red-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Xóa (demo — chưa lưu vào hệ thống thật)">
+            <button onclick="deleteMember(${idx})" class="bg-red-50 hover:bg-red-100 text-red-700 px-2 py-1 rounded text-[11px] font-semibold transition shadow-sm" title="Xóa vĩnh viễn (thao tác thật, không thể hoàn tác)">
               🗑️ Xóa
             </button>
           </div>
@@ -2206,7 +2206,7 @@
     document.getElementById('modal-edit-member').classList.add('hidden');
   }
 
-  function handleSaveMemberForm(e) {
+  async function handleSaveMemberForm(e) {
     e.preventDefault();
     const idx = parseInt(document.getElementById('member-edit-index').value);
     const mData = {
@@ -2222,26 +2222,68 @@
     };
 
     if (idx >= 0) {
-      memberList[idx] = mData;
-      alert("✅ (DEMO — chưa lưu vào hệ thống thật) Đã cập nhật tạm hồ sơ: " + mData.name + "\n\nChức năng Sửa hồ sơ chưa nối với backend thật, chỉ đổi tạm trên màn hình.");
+      // Sửa hồ sơ thành viên có sẵn — thao tác thật, lưu vào hệ thống
+      const submitBtn = e.target.querySelector('button[type=submit]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = 'Đang lưu...'; }
+
+      const r = await callAPI('/api/admin/update-member', {
+        method: 'POST',
+        body: JSON.stringify({
+          member_id: mData.id,
+          name: mData.name,
+          phone: mData.phone,
+          cccd: mData.cccd,
+          cccd_date: mData.cccdDate,
+          email: mData.email,
+          member_type: mData.type,
+          capital: mData.capital,
+          status: mData.status,
+        })
+      });
+
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = '💾 Lưu Cập Nhật Hồ Sơ Thành Viên'; }
+
+      if (!r.ok || !r.data) {
+        alert(`🔴 KHÔNG LƯU ĐƯỢC HỒ SƠ THẬT:\n\n"${mData.name}" chưa được cập nhật.\n\nLý do: ${r.error || 'Không kết nối được API'}`);
+        return;
+      }
+
+      memberList[idx] = {
+        id: r.data.id, name: r.data.name, phone: r.data.phone, cccd: r.data.cccd,
+        cccdDate: r.data.cccd_date, email: r.data.email, type: r.data.member_type,
+        status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
+        hasPassword: !!r.data.has_password
+      };
+      closeEditMemberModal();
+      renderMemberList();
+      alert("✅ Đã lưu cập nhật hồ sơ thật cho: " + mData.name);
     } else {
+      // Thêm thành viên mới — chưa nối backend thật, dùng form Đơn Đăng Ký công khai để đăng ký thật
       memberList.push(mData);
       alert("✅ (DEMO — chưa lưu vào hệ thống thật) Đã thêm tạm: " + mData.name + "\n\nChức năng Thêm thành viên chưa nối với backend thật — dùng nút '📋 Đơn Đăng Ký Tham Gia HTX 369' để đăng ký thật.");
+      closeEditMemberModal();
+      renderMemberList();
     }
-    closeEditMemberModal();
-    renderMemberList();
   }
 
-  function deleteMember(idx) {
+  async function deleteMember(idx) {
     if (state.user.role !== 'Ban điều hành' && state.user.role !== 'Cán bộ quản lý') {
       alert("⚠️ CẢNH BÁO PHÂN QUYỀN:\nThao tác Xóa thành viên yêu cầu quyền 'Ban điều hành' hoặc 'Cán bộ quản lý'!");
+      return;
     }
     const m = memberList[idx];
-    if (confirm(`❌ (DEMO — chưa lưu vào hệ thống thật) XÁC NHẬN XÓA THÀNH VIÊN:\n\nBạn có chắc chắn muốn xóa tạm thành viên "${m.name}" (Mã: ${m.id}) khỏi danh sách hiển thị không?`)) {
-      memberList.splice(idx, 1);
-      renderMemberList();
-      alert("🗑️ Đã xóa tạm khỏi màn hình (chưa xóa khỏi hệ thống thật — chức năng Xóa thật chưa được xây).");
+    if (!confirm(`❌ XÁC NHẬN XÓA THÀNH VIÊN (thao tác thật, không thể hoàn tác):\n\nBạn có chắc chắn muốn xóa vĩnh viễn thành viên "${m.name}" (Mã: ${m.id}) khỏi hệ thống không?`)) return;
+
+    const r = await callAPI('/api/admin/delete-member', { method: 'POST', body: JSON.stringify({ member_id: m.id }) });
+
+    if (!r.ok) {
+      alert(`🔴 KHÔNG XÓA ĐƯỢC:\n\n"${m.name}" vẫn còn trong hệ thống.\n\nLý do: ${r.error || 'Không kết nối được API'}`);
+      return;
     }
+
+    memberList.splice(idx, 1);
+    renderMemberList();
+    alert(`🗑️ Đã xóa vĩnh viễn "${m.name}" khỏi hệ thống thật.`);
   }
 
   // Switch Active Tab
