@@ -1359,8 +1359,11 @@
 
           <!-- Badges & Achievements -->
           <div class="card p-6 bg-white border-[var(--line)]">
-            <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">🏅 Huy hiệu & Thành tích Học tập</h4>
-            
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-display font-bold text-base text-[var(--ink)]">🏅 Huy hiệu & Thành tích Học tập</h4>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">Bản xem trước — sắp ra mắt</span>
+            </div>
+            <p class="text-[11px] text-[var(--muted)] mb-4">Minh họa giao diện huy hiệu sẽ đạt được — hệ thống theo dõi tiến độ học và trao huy hiệu thật đang được xây dựng.</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div class="p-3 rounded-xl bg-[var(--green-tint)] border border-[var(--green)] flex items-center gap-3">
                 <span class="text-2xl">🌱</span>
@@ -1414,8 +1417,11 @@
 
           <!-- Certificates List -->
           <div class="card p-6 bg-white border-[var(--line)]">
-            <h4 class="font-display font-bold text-base mb-4 text-[var(--ink)]">📜 Chứng chỉ Đào tạo Đã Cấp</h4>
-            
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-display font-bold text-base text-[var(--ink)]">📜 Chứng chỉ Đào tạo Đã Cấp</h4>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">Bản xem trước — sắp ra mắt</span>
+            </div>
+            <p class="text-[11px] text-[var(--muted)] mb-4">Minh họa giao diện chứng chỉ — chức năng cấp chứng chỉ thật sau khi hoàn thành khóa học đang được xây dựng.</p>
             <div class="space-y-3 text-xs">
               <div class="p-3 rounded-lg bg-[var(--paper)] border border-[var(--line)] flex justify-between items-center">
                 <div>
@@ -1964,7 +1970,7 @@
 
     // Update login status display
     if (state.isLoggedIn) {
-      publicNav.classList.add('hidden');
+      publicNav.style.display = 'none';
       portalNav.classList.add('is-logged-in');
       mobPortalNav.classList.remove('hidden');
       loggedOutActions.classList.add('hidden');
@@ -1981,7 +1987,7 @@
         restrictionScreen.classList.add('hidden');
       }
     } else {
-      publicNav.classList.remove('hidden');
+      publicNav.style.display = '';
       portalNav.classList.remove('is-logged-in');
       mobPortalNav.classList.add('hidden');
       loggedOutActions.classList.remove('hidden');
@@ -2003,8 +2009,9 @@
     document.getElementById('banner-avatar').innerText = state.user.name.charAt(0);
     document.getElementById('banner-role-badge').innerText = state.user.role;
     document.getElementById('banner-status-badge').innerText = `● ${state.user.status}`;
-    if (document.getElementById('banner-user-id')) document.getElementById('banner-user-id').innerText = state.user.id || 'HTX369-0082';
-    if (document.getElementById('banner-capital')) document.getElementById('banner-capital').innerText = state.user.capital || '5.000.000 VNĐ';
+    if (document.getElementById('banner-user-id')) document.getElementById('banner-user-id').innerText = state.user.id || 'Chưa cập nhật';
+    if (document.getElementById('banner-capital')) document.getElementById('banner-capital').innerText = state.user.capital || '0 VNĐ';
+    if (document.getElementById('banner-joined-date')) document.getElementById('banner-joined-date').innerText = state.user.joinedDate || 'Chưa cập nhật';
     document.getElementById('metric-competency').innerText = `${state.user.competencyPoints} / 100`;
     document.getElementById('metric-certificates').innerText = state.user.certificates;
     document.getElementById('metric-badges').innerText = state.user.badges;
@@ -2032,12 +2039,13 @@
     document.getElementById('prof-name').innerText = state.user.name;
     document.getElementById('prof-type-badge').innerText = state.user.role;
     document.getElementById('prof-member-type').innerText = state.user.status;
-    if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = state.user.phone || '0987654321';
-    if (document.getElementById('prof-user-id')) document.getElementById('prof-user-id').innerText = state.user.id || 'HTX369-0082';
-    if (document.getElementById('prof-cccd')) document.getElementById('prof-cccd').innerText = state.user.cccd || '001095012345';
-    if (document.getElementById('prof-cccd-date')) document.getElementById('prof-cccd-date').innerText = state.user.cccdDate || '15/03/2021';
-    if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = state.user.email || 'nguyenvanan@gmail.com';
-    if (document.getElementById('prof-capital')) document.getElementById('prof-capital').innerText = state.user.capital || '5.000.000 VNĐ';
+    if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = state.user.phone || 'Chưa cập nhật';
+    if (document.getElementById('prof-user-id')) document.getElementById('prof-user-id').innerText = state.user.id || 'Chưa cập nhật';
+    if (document.getElementById('prof-cccd')) document.getElementById('prof-cccd').innerText = state.user.cccd || 'Chưa cập nhật';
+    if (document.getElementById('prof-cccd-date')) document.getElementById('prof-cccd-date').innerText = state.user.cccdDate || 'Chưa cập nhật';
+    if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = state.user.email || 'Chưa cập nhật';
+    if (document.getElementById('prof-capital')) document.getElementById('prof-capital').innerText = state.user.capital || '0 VNĐ';
+    if (document.getElementById('prof-joined-date')) document.getElementById('prof-joined-date').innerText = state.user.joinedDate || 'Chưa cập nhật';
     document.getElementById('prof-points').innerText = `${state.user.competencyPoints} / 100`;
 
     // Render Member List table for Admin
