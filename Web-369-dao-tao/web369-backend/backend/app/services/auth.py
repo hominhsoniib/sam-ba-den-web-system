@@ -163,6 +163,49 @@ class AuthService:
         })
 
     @staticmethod
+    def admin_create_member(db: Session, approver_role: str, name: str, phone: str, cccd: str,
+                             cccd_date: str, email: str, member_type: str, capital: int,
+                             status: str) -> dict:
+        if approver_role not in settings.APPROVER_ROLES:
+            return _fail("Bạn không có quyền thêm thành viên mới (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")
+
+        if not name or not phone:
+            return _fail("Họ tên và Số điện thoại là bắt buộc.")
+
+        if db.query(Member).filter(Member.phone == phone).first():
+            return _fail(f"Số điện thoại {phone} đã được dùng bởi thành viên khác.")
+
+        member = Member(
+            id=_next_member_id(db),
+            name=name,
+            phone=phone,
+            cccd=cccd,
+            cccd_date=cccd_date,
+            email=email,
+            member_type=member_type or "Thành viên chính thức",
+            status=status or "Chính thức",
+            role="Thành viên",
+            capital=capital or 0,
+        )
+        db.add(member)
+        db.commit()
+        db.refresh(member)
+        return _ok({
+            "id": member.id,
+            "name": member.name,
+            "phone": member.phone,
+            "cccd": member.cccd,
+            "cccd_date": member.cccd_date,
+            "email": member.email,
+            "member_type": member.member_type,
+            "status": member.status,
+            "role": member.role,
+            "capital": member.capital,
+            "has_password": False,
+            "must_change_password": False,
+        })
+
+    @staticmethod
     def update_member(db: Session, approver_role: str, member_id: str, **fields) -> dict:
         if approver_role not in settings.APPROVER_ROLES:
             return _fail("Bạn không có quyền chỉnh sửa hồ sơ thành viên (yêu cầu vai trò Ban điều hành hoặc Cán bộ quản lý).")

@@ -2213,9 +2213,8 @@
   }
 
   function openAddMemberModal() {
-    const newId = 'HTX369-' + String(memberList.length + 82).padStart(4, '0');
     document.getElementById('member-edit-index').value = -1;
-    document.getElementById('member-edit-id').value = newId;
+    document.getElementById('member-edit-id').value = 'Hệ thống tự cấp sau khi lưu';
     document.getElementById('member-edit-name').value = '';
     document.getElementById('member-edit-phone').value = '';
     document.getElementById('member-edit-cccd').value = '';
@@ -2284,11 +2283,41 @@
       renderMemberList();
       alert("✅ Đã lưu cập nhật hồ sơ thật cho: " + mData.name);
     } else {
-      // Thêm thành viên mới — chưa nối backend thật, dùng form Đơn Đăng Ký công khai để đăng ký thật
-      memberList.push(mData);
-      alert("✅ (DEMO — chưa lưu vào hệ thống thật) Đã thêm tạm: " + mData.name + "\n\nChức năng Thêm thành viên chưa nối với backend thật — dùng nút '📋 Đơn Đăng Ký Tham Gia HTX 369' để đăng ký thật.");
+      // Thêm thành viên mới — thao tác thật, lưu vào hệ thống (chưa có mật khẩu, dùng nút
+      // "Cấp MK tạm" sau khi thêm để kích hoạt đăng nhập cho thành viên này)
+      const submitBtn = e.target.querySelector('button[type=submit]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = 'Đang thêm...'; }
+
+      const r = await callAPI('/api/admin/create-member', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: mData.name,
+          phone: mData.phone,
+          cccd: mData.cccd,
+          cccd_date: mData.cccdDate,
+          email: mData.email,
+          member_type: mData.type,
+          capital: mData.capital,
+          status: mData.status,
+        })
+      });
+
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = '＋ Thêm Thành Viên HTX Mới'; }
+
+      if (!r.ok || !r.data) {
+        alert(`🔴 KHÔNG THÊM ĐƯỢC THÀNH VIÊN:\n\n"${mData.name}" chưa được lưu vào hệ thống.\n\nLý do: ${r.error || 'Không kết nối được API'}`);
+        return;
+      }
+
+      memberList.unshift({
+        id: r.data.id, name: r.data.name, phone: r.data.phone, cccd: r.data.cccd,
+        cccdDate: r.data.cccd_date, email: r.data.email, type: r.data.member_type,
+        status: r.data.status, capital: (r.data.capital || 0).toLocaleString('vi-VN') + ' VNĐ',
+        hasPassword: false
+      });
       closeEditMemberModal();
       renderMemberList();
+      alert(`✅ Đã thêm thành viên thật: ${mData.name} (${r.data.id})\n\nThành viên này CHƯA có mật khẩu — dùng nút "🔑 Cấp MK tạm" trên dòng của họ để kích hoạt đăng nhập.`);
     }
   }
 
