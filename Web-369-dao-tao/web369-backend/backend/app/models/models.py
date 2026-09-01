@@ -18,6 +18,8 @@ class Member(Base):
     status = Column(String, nullable=False, default="Đang chờ xác nhận")
     role = Column(String, nullable=False, default="Thành viên")
     capital = Column(Integer, default=0)
+    referrer_id = Column(String, nullable=True)  # Mã TV người giới thiệu (nếu có)
+    referrer_name = Column(String, nullable=True)  # Tên người giới thiệu (nếu có)
     competency_points = Column(Integer, default=0)
     certificates = Column(Integer, default=0)
     badges = Column(Integer, default=0)

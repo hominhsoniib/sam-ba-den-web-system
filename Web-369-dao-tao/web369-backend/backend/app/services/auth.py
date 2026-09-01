@@ -26,7 +26,7 @@ class AuthService:
 
     @staticmethod
     def register(db: Session, name: str, phone: str, cccd: str, cccd_date: str,
-                  email: str, member_type: str) -> dict:
+                  email: str, member_type: str, referrer_id: str = "", referrer_name: str = "") -> dict:
         if db.query(Member).filter(Member.phone == phone).first():
             return _fail("Số điện thoại này đã đăng ký thành viên trước đó.")
 
@@ -41,6 +41,8 @@ class AuthService:
             status="Đang chờ xác nhận",
             role="Thành viên",
             capital=0,
+            referrer_id=referrer_id or None,
+            referrer_name=referrer_name or None,
         )
         db.add(member)
         db.commit()
@@ -320,6 +322,8 @@ class AuthService:
                 "status": m.status,
                 "role": m.role,
                 "capital": m.capital,
+                "referrer_id": m.referrer_id,
+                "referrer_name": m.referrer_name,
                 "has_password": bool(m.password_hash),
                 "must_change_password": bool(m.must_change_password),
             })

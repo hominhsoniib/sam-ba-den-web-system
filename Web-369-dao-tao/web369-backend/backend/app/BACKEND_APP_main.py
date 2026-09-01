@@ -119,6 +119,8 @@ def register(payload: dict = Body(...), db: Session = Depends(get_db)):
         cccd_date=payload.get("cccd_date", ""),
         email=payload.get("email", ""),
         member_type=payload.get("member_type", "Thành viên chính thức"),
+        referrer_id=payload.get("referrer_id", ""),
+        referrer_name=payload.get("referrer_name", ""),
     )
     status_code = 200 if result["ok"] else 400
     return JSONResponse(content=result, status_code=status_code)
