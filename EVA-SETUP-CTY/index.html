@@ -212,6 +212,7 @@
     <nav class="hidden lg:flex items-center gap-6 font-medium text-sm text-[#5B6858]">
       <a href="#he-sinh-thai" class="hover:text-[#182619] transition">11 Mô-đun</a>
       <a href="#thu-vien-so-do" class="hover:text-[#A87D1E] transition flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#C99A2E] animate-pulse"></span>Thư viện Sơ đồ & PDF</a>
+      <a href="http://app.badenfarm.com.vn:8081/guide" target="_blank" rel="noopener noreferrer" class="hover:text-[#A87D1E] font-bold text-[#A87D1E] transition flex items-center gap-1.5" title="Hướng Dẫn Sử Dụng & Vận Hành Hệ Thống AMS PRO"><span class="w-2 h-2 rounded-full bg-[#2F6B3A] animate-ping"></span>HDSD AMS PRO</a>
       <a href="#van-hanh" class="hover:text-[#182619] transition">Vận hành PDCA</a>
       <a href="#du-lieu" class="hover:text-[#182619] transition">Data & AI</a>
       <a href="#phan-quyen" class="hover:text-[#182619] transition">Lương 3P & 5 Tầng</a>
@@ -232,6 +233,9 @@
   <div id="mobileMenu" class="hidden lg:hidden border-t border-[#E4DDC8] bg-[#FBF8F1] px-5 py-4 flex flex-col gap-3.5 font-medium text-sm text-[#5B6858]">
     <a href="#he-sinh-thai" onclick="closeMobileMenu()" class="hover:text-[#182619]">11 Mô-đun Quản trị</a>
     <a href="#thu-vien-so-do" onclick="closeMobileMenu()" class="hover:text-[#A87D1E] font-bold text-[#A87D1E]">Thư viện Sơ đồ Master (16 Diagram)</a>
+    <a href="http://app.badenfarm.com.vn:8081/guide" target="_blank" rel="noopener noreferrer" onclick="closeMobileMenu()" class="hover:text-[#A87D1E] font-bold text-[#A87D1E] flex items-center gap-2 py-1">
+      <span>📘 Hướng Dẫn Sử Dụng & Vận Hành AMS PRO</span>
+    </a>
     <button onclick="document.getElementById('userFileInput').click(); closeMobileMenu();" class="text-left font-bold text-[#A87D1E] flex items-center gap-2 py-1">
       <span>📂 Tải & Đọc File Của Bạn Trực Tuyến</span>
     </button>
@@ -462,7 +466,10 @@
       <div onclick="openModuleModal(7)" class="col-span-1 md:col-span-3 panel p-8 border-2 border-[#2F6B3A]/60 bg-gradient-to-br from-white via-white/90 to-[#F3EEE1]/80 relative overflow-hidden my-2 shadow-2xl hover:border-[#2F6B3A] cursor-pointer transition group">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
           <span class="tag border-[#2F6B3A] text-[#2F6B3A] font-bold bg-[#2F6B3A]/10"><span class="dot"></span>MÔ-ĐUN 07 — CORE HUB</span>
-          <span class="font-mono text-xs px-3 py-1 rounded-md bg-[#2F6B3A] text-[#FBF8F1] font-bold">Mở Form Bộ Não QLCV Real-time ➔</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="http://app.badenfarm.com.vn:8081/guide" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-xs px-3 py-1 rounded-md bg-[#A87D1E] text-[#FBF8F1] font-bold hover:bg-[#C99A2E] transition flex items-center gap-1.5 shadow-md" title="Mở trang Hướng Dẫn Sử Dụng & Vận Hành AMS PRO">📘 Xem HDSD AMS PRO ➔</a>
+            <span class="font-mono text-xs px-3 py-1 rounded-md bg-[#2F6B3A] text-[#FBF8F1] font-bold">Mở Form Bộ Não QLCV Real-time ➔</span>
+          </div>
         </div>
         <h3 class="font-display font-bold text-2xl md:text-3xl text-[#182619] mb-3 group-hover:text-[#2F6B3A] transition">PM QLCV — Trung Tâm Điều Phối & Giám Sát Tự Động Real-time</h3>
         <p class="text-sm text-[#182619] max-w-4xl mb-6 leading-relaxed">
