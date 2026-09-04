@@ -448,9 +448,12 @@
       <!-- Mod 06 -->
       <div onclick="openModuleModal(6)" class="mod-card mod-finance panel p-6 flex flex-col justify-between hover:border-[#C99A2E] hover:scale-[1.01] cursor-pointer transition group">
         <div>
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-3 gap-2">
             <span class="font-mono text-xs font-bold text-[#A87D1E]">MÔ-ĐUN 06</span>
-            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#C99A2E]/20 text-[#A87D1E] border border-[#C99A2E]/40 group-hover:bg-[#C99A2E] group-hover:text-[#182619] font-bold transition">Xem Form ➔</span>
+            <div class="flex items-center gap-1.5" onclick="event.stopPropagation()">
+              <a href="http://approve.badenfarm.com.vn/" target="_blank" rel="noopener noreferrer" class="font-mono text-xs px-2.5 py-1 rounded bg-[#A87D1E] text-[#FBF8F1] hover:bg-[#C99A2E] font-bold transition shadow-sm flex items-center gap-1" title="Hướng Dẫn Sử Dụng Approve">📘 Xem HDSD Approve ➔</a>
+              <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-[#C99A2E]/20 text-[#A87D1E] border border-[#C99A2E]/40 group-hover:bg-[#C99A2E] group-hover:text-[#182619] font-bold transition">Xem Form ➔</span>
+            </div>
           </div>
           <h3 class="font-display font-bold text-lg text-[#182619] mb-2 group-hover:text-[#A87D1E] transition">Giám Sát & Phê Duyệt (Approve)</h3>
           <p class="text-xs text-[#5B6858] mb-4 leading-relaxed">Phê duyệt online, giám sát quy trình mua hàng, thanh toán và kiểm soát ngân sách.</p>
@@ -459,11 +462,6 @@
             <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C99A2E]"></span>Kiểm soát quy trình mua hàng</li>
             <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C99A2E]"></span>Cảnh báo vượt ngân sách</li>
           </ul>
-          <div class="mt-4 pt-3 border-t border-[#E4DDC8]" onclick="event.stopPropagation()">
-            <a href="http://approve.badenfarm.com.vn/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded bg-[#A87D1E]/10 hover:bg-[#A87D1E] text-[#A87D1E] hover:text-white border border-[#A87D1E]/30 text-xs font-bold font-mono transition flex items-center justify-center gap-1.5 shadow-sm" title="Mở Sổ Tay Vận Hành Hệ Thống NEXUS APPROVAL">
-              <span>📘 Sổ Tay Vận Hành NEXUS APPROVAL ➔</span>
-            </a>
-          </div>
         </div>
       </div>
 
@@ -1876,13 +1874,10 @@
       pdfSrc: "docs/Approve_Management_V2.pdf",
       html: `
         <div class="space-y-4">
-          <div class="panel-2 p-4 border border-[#A87D1E]/40 bg-[#A87D1E]/10 flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h4 class="font-bold text-xs text-[#182619]">📘 Sổ Tay Vận Hành Hệ Thống NEXUS APPROVAL</h4>
-              <p class="text-xs text-[#5B6858]">Hướng dẫn toàn diện quy trình Quản lý Đề xuất – Phê duyệt – Mua sắm – Kiểm soát Ngân sách.</p>
-            </div>
-            <a href="http://approve.badenfarm.com.vn/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded bg-[#A87D1E] hover:bg-[#C99A2E] text-white font-mono text-xs font-bold transition shadow flex items-center gap-1.5">
-              🚀 Mở Sổ Tay Vận Hành ➔
+          <div class="panel-2 p-3 border border-[#A87D1E]/40 bg-[#A87D1E]/10 flex items-center justify-between gap-3">
+            <span class="font-bold text-xs text-[#182619]">📘 Hướng Dẫn Sử Dụng & Vận Hành Hệ Thống Approve</span>
+            <a href="http://approve.badenfarm.com.vn/" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded bg-[#A87D1E] hover:bg-[#C99A2E] text-white font-mono text-xs font-bold transition flex items-center gap-1">
+              Xem HDSD Approve ➔
             </a>
           </div>
 
