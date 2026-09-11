@@ -5,279 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTX Gia đình 369 — Cổng thành viên & Đào tạo Pro</title>
 <meta name="description" content="Website HTX Gia đình 369 — Nơi giá trị trao đi và cùng nhau phát triển. Đào tạo thành viên, PM Hộ kinh doanh, Hồ sơ Member 360° & Hệ thống hỗ trợ.">
-<script src="https://cdn.tailwindcss.com">
-  // ====================================================================================
-  // SLIDE PRESENTATION & INFOGRAPHIC LIGHTBOX LOGIC
-  // ====================================================================================
-  const slidesData = [
-    {
-      id: 0,
-      title: "Slide 1: Tầm nhìn & Sứ mệnh HTX 369",
-      img: "./so-do-tam-nhin.png",
-      subtitle: "Sứ mệnh cốt lõi & Giá trị phục vụ gia đình",
-      badge: "Tầm Nhìn & Sứ Mệnh",
-      desc: "Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên HTX Gia đình 369 — thông qua học viện đào tạo, phần mềm kế toán kinh doanh thật và cộng đồng cùng chia sẻ giá trị.",
-      bullets: [
-        "Thông điệp trung tâm: '369 — Nơi giá trị trao đi và cùng nhau phát triển.'",
-        "Mô hình phục vụ 6 nhu cầu thiết yếu gia đình: Ăn uống, Mặc, Chỗ ở, Đi lại, Học tập, Vui chơi.",
-        "Nền tảng công nghệ 369: App 369, SKU 369, Product Passport QR Code, Credit 369 & Dữ liệu AI."
-      ]
-    },
-    {
-      id: 1,
-      title: "Slide 2: 7 Giá trị Cốt lõi HTX 369",
-      img: "./7_Giá_Trị_Cốt_Lõi_369v2.png",
-      subtitle: "Bánh xe 7 Giá Trị Cốt Lõi 369",
-      badge: "7 Giá Trị Cốt Lõi",
-      desc: "7 giá trị cốt lõi là kim chỉ nam cho mọi hành động và ứng xử trong cộng đồng HTX 369 — Cho đi trước, nhận lại sau.",
-      bullets: [
-        "1. Trao giá trị: Cho đi trước, nhận lại sau.",
-        "2. Kết nối: Đúng người, đúng giá trị.",
-        "3. Tin cậy: Uy tín làm nền tảng — nói thật, làm thật.",
-        "4. Cộng sinh: Cùng thắng, phát triển bền vững.",
-        "5. Nhân giá trị · 6. Chia sẻ · 7. Phát triển bền vững."
-      ]
-    },
-    {
-      id: 2,
-      title: "Slide 3: Sơ đồ Chiến lược 5 Tam giác Kiến tạo",
-      img: "./HTX 369 so do chien luoc.png",
-      subtitle: "Chiến lược 5 Tam giác Kiến tạo Giá trị",
-      badge: "5 Tam Giác Chiến Lược",
-      desc: "Kiến trúc 5 tam giác đảm bảo hài hòa giữa Mục tiêu, Kinh tế, Kết nối, Kinh doanh và Phúc lợi xã hội.",
-      bullets: [
-        "1. Tam giác Mục tiêu: Sức khỏe đồng đảo · Tự do dân tộc.",
-        "2. Tam giác Kinh tế: Kinh tế tuần hoàn · Cộng đồng · Chia sẻ.",
-        "3. Tam giác Kết nối: Chính quyền · Doanh nghiệp/HKD · Người tiêu dùng.",
-        "4. Tam giác Kinh doanh: Nhà tổ chức 369 · Doanh nghiệp · NTD.",
-        "5. Tam giác Phúc lợi: Quỹ phúc lợi hỗ trợ người có công & hộ nghèo."
-      ]
-    },
-    {
-      id: 3,
-      title: "Slide 4: Sơ đồ Cơ cấu Tổ chức HTX 369",
-      img: "./so-do-co-cau-to-chuc-htx-369.png",
-      subtitle: "Bộ máy quản trị & điều hành chuyên nghiệp",
-      badge: "Cơ Cấu Tổ Chức",
-      desc: "Cơ cấu tổ chức minh bạch, dân chủ theo Luật Hợp tác xã và Điều lệ HTX Gia đình 369.",
-      bullets: [
-        "Đại hội thành viên: Cơ quan quyết định cao nhất.",
-        "Hội đồng quản trị & Ban kiểm soát: Định hướng & Giám sát hoạt động.",
-        "Ban điều hành & Các phòng ban chuyên môn: Quản lý trực tiếp các hộ kinh doanh và điểm bán."
-      ]
-    },
-    {
-      id: 4,
-      title: "Slide 5: Sơ đồ Hệ sinh thái 369 CLUB",
-      img: "./he sinh thai 369.png",
-      subtitle: "Chuỗi giá trị 6 mắt xích vận hành tuần hoàn",
-      badge: "Hệ Sinh Thái 369",
-      desc: "6 thành phần trong hệ sinh thái tương trợ lẫn nhau, tạo thành vòng quay dòng tiền và hàng hóa khép kín.",
-      bullets: [
-        "01. Người tiêu dùng ➔ 02. Điểm bán / HKD ➔ 03. Người kết nối.",
-        "04. Người khởi nghiệp (NKN) ➔ 05. Nhà phân phối (NPP) ➔ 06. Khu vực (Quay lại 01).",
-        "Nguyên tắc: Kết nối – Minh bạch – Chia sẻ – Cùng nhau thịnh vượng."
-      ]
-    },
-    {
-      id: 5,
-      title: "Slide 6: Sơ đồ Mô hình Điều hành HTX 369",
-      img: "./so-do-dh-369.png",
-      subtitle: "Mô hình điều hành & Hạ tầng nền tảng 369",
-      badge: "Mô Hình Điều Hành",
-      desc: "Vận hành đồng bộ từ quản trị thành viên, sản xuất nông sản, phần mềm kế toán HKD đến mạng lưới bán lẻ.",
-      bullets: [
-        "Tích hợp PM Kế toán HKD quản lý dòng tiền thật.",
-        "Mã hóa sản phẩm toàn hệ thống với SKU 369.",
-        "Có thể xem bản interactive HTML trực tiếp ngay trên web."
-      ]
-    },
-    {
-      id: 6,
-      title: "Slide 7: Sơ đồ Quy trình Vận hành 369",
-      img: "./so-do-qt369 v2.png",
-      subtitle: "Quy trình giao dịch & luồng hàng hóa chuẩn hóa",
-      badge: "Quy Trình 369",
-      desc: "Chuẩn hóa các bước giao dịch, đặt hàng, thanh toán và đối soát lợi tức giữa các thành viên.",
-      bullets: [
-        "Tiếp nhận đơn hàng qua App 369.",
-        "Điều phối hàng hóa từ Nhà phân phối đến Điểm bán HKD.",
-        "Thanh toán & đối soát minh bạch."
-      ]
-    },
-    {
-      id: 7,
-      title: "Slide 8: Quy trình Kiểm duyệt SPHH 369",
-      img: "./quy-trinh-kiem-duyet-sphh-369.png",
-      subtitle: "5 Bước kiểm định chất lượng & Cấp Product Passport",
-      badge: "Kiểm Duyệt SPHH",
-      desc: "Đảm bảo 100% sản phẩm phân phối trong hệ sinh thái có nguồn gốc rõ ràng, đạt chuẩn an toàn vệ sinh thực phẩm.",
-      bullets: [
-        "B1. Đăng ký & Nộp hồ sơ sản phẩm ➔ B2. Đánh giá thực tế cơ sở.",
-        "B3. Kiểm định chất lượng & Cấp mã Product Passport QR Code.",
-        "B4. Niêm yết lên App 369 ➔ B5. Đánh giá định kỳ từ cộng đồng."
-      ]
-    },
-    {
-      id: 8,
-      title: "Slide 9: Sơ đồ Lợi ích Thành viên & NTD",
-      img: "./so-do-loi-ich-tv.png",
-      subtitle: "Quyền lợi thành viên HTX & Người tiêu dùng 369",
-      badge: "Lợi Ích Thành Viên",
-      desc: "Mang lại giá trị thiết thực về tri thức, công cụ quản trị, lợi tức tài chính và chất lượng cuộc sống.",
-      bullets: [
-        "Học tập miễn phí tại Học viện HTX 369.",
-        "Công cụ Kế toán HKD quản lý sổ sách chuẩn quy định thuế.",
-        "Hưởng phân phối lợi tức theo Điều lệ HTX Gia đình 369."
-      ]
-    },
-    {
-      id: 9,
-      title: "Slide 10: Mô hình Phục vụ 6 Nhu cầu Gia đình",
-      img: "./so-do-ql-gd.png",
-      subtitle: "Chăm sóc 6 nhu cầu thiết yếu gia đình",
-      badge: "6 Nhu Cầu Gia Đình",
-      desc: "Đáp ứng đầy đủ, tiện lợi, minh bạch 6 nhu cầu cơ bản của từng hộ gia đình thành viên.",
-      bullets: [
-        "Ăn uống (Thực phẩm sạch) · Mặc · Chỗ ở · Đi lại · Học tập · Vui chơi.",
-        "Nguyên tắc: Đủ đầy – Tiện lợi – Chất lượng – Minh bạch – Giá hợp lý."
-      ]
-    },
-    {
-      id: 10,
-      title: "Slide 11: Sơ đồ Tóm tắt Điều lệ HTX 369",
-      img: "./so-do-tom-tat-dieu-le-htx-369.png",
-      subtitle: "Tóm tắt pháp lý Điều lệ HTX Gia đình 369",
-      badge: "Điều Lệ HTX 369",
-      desc: "Căn cứ pháp lý chính thức quy định quyền hạn, nghĩa vụ, phân loại thành viên và cơ chế phân phối lợi tức.",
-      bullets: [
-        "Phân loại thành viên: Chính thức, Liên kết góp vốn, Liên kết không góp vốn.",
-        "Quản lý Sổ đăng ký thành viên chính thức.",
-        "Bảo vệ quyền lợi chính đáng của thành viên theo Luật HTX."
-      ]
-    }
-  ];
-
-  let currentSlideIndex = 0;
-
-  function goToSlide(index) {
-    if (index < 0 || index >= slidesData.length) return;
-    currentSlideIndex = index;
-    renderSlideDisplay();
-  }
-
-  function nextSlide() {
-    currentSlideIndex = (currentSlideIndex + 1) % slidesData.length;
-    renderSlideDisplay();
-  }
-
-  function prevSlide() {
-    currentSlideIndex = (currentSlideIndex - 1 + slidesData.length) % slidesData.length;
-    renderSlideDisplay();
-  }
-
-  function renderSlideDisplay() {
-    const slide = slidesData[currentSlideIndex];
-    const titleEl = document.getElementById('slide-title');
-    const counterEl = document.getElementById('slide-counter');
-    const displayArea = document.getElementById('slide-display-area');
-
-    if (titleEl) titleEl.innerText = slide.title;
-    if (counterEl) counterEl.innerText = `${slide.id + 1} / ${slidesData.length}`;
-
-    document.querySelectorAll('.slide-thumb-btn').forEach((btn, idx) => {
-      if (idx === currentSlideIndex) btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
-
-    if (displayArea) {
-      displayArea.innerHTML = `
-        <div class="lg:col-span-6">
-          <div class="relative group cursor-pointer overflow-hidden rounded-xl border border-[var(--line)] bg-slate-900/5 p-2 shadow-inner" onclick="openInfographicModal('${slide.img}', '${slide.title}')">
-            <img src="${slide.img}" alt="${slide.title}" class="w-full h-[280px] md:h-[340px] object-contain group-hover:scale-[1.02] transition duration-300" loading="lazy">
-            <div class="absolute bottom-3 right-3 bg-black/75 text-white text-xs px-3 py-1.5 rounded-full font-semibold backdrop-blur flex items-center gap-1 shadow-md">
-              🔍 Phóng To Sơ Đồ Full HD
-            </div>
-          </div>
-        </div>
-        <div class="lg:col-span-6 space-y-3">
-          <span class="eyebrow">${slide.badge}</span>
-          <h4 class="font-display font-bold text-xl md:text-2xl text-[var(--green-deep)]">${slide.subtitle}</h4>
-          <p class="text-xs md:text-sm text-[var(--muted)] leading-relaxed">${slide.desc}</p>
-          <div class="space-y-2 pt-2 border-t border-[var(--line)]">
-            ${slide.bullets.map(b => `
-              <div class="flex items-start gap-2 text-xs font-semibold text-[var(--ink)]">
-                <span class="text-[var(--gold-deep)] font-bold text-sm">✓</span>
-                <span>${b}</span>
-              </div>
-            `).join('')}
-          </div>
-          <div class="pt-3 flex flex-wrap gap-2">
-            <button onclick="openInfographicModal('${slide.img}', '${slide.title}')" class="btn-gold rounded-full px-5 py-2.5 text-xs font-bold shadow flex items-center gap-1.5">
-              🖼️ Phóng To Sơ Đồ Chi Tiết (Full HD)
-            </button>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  // Infographic Lightbox Modal Zoom Logic
-  let currentInfographicZoom = 1;
-
-  function openInfographicModal(imgSrc, title) {
-    const modal = document.getElementById('modal-infographic-viewer');
-    const img = document.getElementById('infographic-modal-img');
-    const titleEl = document.getElementById('infographic-modal-title');
-    if (titleEl) titleEl.innerText = title || 'Sơ Đồ Infographic HTX 369';
-    if (img) {
-      img.src = imgSrc;
-      currentInfographicZoom = 1;
-      img.style.transform = 'scale(1)';
-    }
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeInfographicModal() {
-    const modal = document.getElementById('modal-infographic-viewer');
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-  }
-
-  function zoomInfographic(delta) {
-    const img = document.getElementById('infographic-modal-img');
-    if (!img) return;
-    currentInfographicZoom = Math.max(0.5, Math.min(3.5, currentInfographicZoom + delta));
-    img.style.transform = `scale(${currentInfographicZoom})`;
-  }
-
-  function resetInfographicZoom() {
-    const img = document.getElementById('infographic-modal-img');
-    if (!img) return;
-    currentInfographicZoom = 1;
-    img.style.transform = 'scale(1)';
-  }
-
-  function openInfographicInNewTab() {
-    const img = document.getElementById('infographic-modal-img');
-    if (img && img.src) {
-      window.open(img.src, '_blank');
-    }
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeInfographicModal();
-      closeDiagramModal();
-    }
-  });
-
-</script>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -718,22 +446,56 @@
       <div class="deco-circle deco-circle-ring" style="width:120px; height:120px; right:8%; top:18%;"></div>
       <div class="max-w-5xl mx-auto px-5 md:px-8 pt-14 md:pt-24 pb-20 text-center relative z-10">
         <span class="eyebrow justify-center reveal">Hợp tác xã Gia đình 369</span>
-        <h1 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl leading-[1.18] mt-5 max-w-4xl mx-auto reveal text-white">
+        <h1 class="font-display font-semibold text-3xl sm:text-5xl md:text-6xl leading-[1.18] mt-4 max-w-4xl mx-auto reveal text-white">
           Nơi giá trị <span style="color:var(--gold-bright)">trao đi</span>,<br class="hidden sm:inline">
           và cùng nhau <span style="color:var(--gold-bright)">phát triển</span>
         </h1>
-        <p class="mt-6 text-base md:text-xl max-w-3xl mx-auto leading-relaxed reveal" style="color:rgba(244,241,230,0.82)">
-          Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên HTX —
-          thông qua học viện đào tạo, phần mềm kế toán kinh doanh thật, và cộng đồng cùng chia sẻ giá trị.
-        </p>
+
+        <!-- Highlight Tầm Nhìn Quote Box -->
+        <div class="mt-6 p-6 rounded-2xl bg-white/10 backdrop-blur border-2 border-[var(--gold)]/40 max-w-4xl mx-auto shadow-2xl reveal text-center">
+          <span class="inline-block px-4 py-1 rounded-full bg-[var(--gold-bright)] text-[var(--green-darkest)] text-xs font-extrabold uppercase tracking-wider mb-3 shadow">
+            TẦM NHÌN HTX GIA ĐÌNH 369
+          </span>
+          <p class="text-base md:text-xl font-bold text-emerald-100 uppercase tracking-wide">
+            KIẾN TẠO CUỘC SỐNG THỊNH VƯỢNG,
+          </p>
+          <div class="my-1.5">
+            <span class="font-display font-black text-5xl sm:text-6xl md:text-7xl text-[var(--gold-bright)] uppercase tracking-widest drop-shadow-xl inline-block transform hover:scale-105 transition duration-300">
+              GIÀU
+            </span>
+          </div>
+          <p class="text-lg md:text-2xl font-extrabold text-white uppercase tracking-wider">
+            TỰ DO &nbsp;·&nbsp; HẠNH PHÚC &nbsp;·&nbsp; BÌNH AN
+          </p>
+          <p class="text-xs md:text-sm font-bold text-emerald-200 uppercase tracking-widest mt-2">
+            CHO CÁC THÀNH VIÊN HTX GIA ĐÌNH 369
+          </p>
+        </div>
 
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
           <button onclick="openRegisterModal()" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
             Tham gia HTX 369 ngay
           </button>
+          <button onclick="openInfographicModal('./so-do-tam-nhin.png', 'Sơ Đồ Tầm Nhìn HTX Gia Đình 369')" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md flex items-center justify-center gap-2">
+            🔍 Phóng To Sơ Đồ Tầm Nhìn Full HD
+          </button>
           <button onclick="openLoginModal()" class="rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md font-semibold border-1.5 transition-all hover:bg-white/10" style="border:1.5px solid rgba(244,241,230,0.35); color:#F4F1E6;">
             Đăng nhập Cổng Thành Viên →
           </button>
+        </div>
+
+        <!-- Full Width Hero Visual Showcase for Sơ đồ Tầm nhìn (Trang 1 Full Màn Hình) -->
+        <div class="mt-10 max-w-5xl mx-auto reveal">
+          <div class="card overflow-hidden group border-4 border-[var(--gold)]/40 hover:border-[var(--gold-bright)] transition-all duration-300 shadow-2xl relative bg-white/95 p-3 rounded-3xl">
+            <img src="./so-do-tam-nhin.png" alt="Sơ đồ Tầm nhìn HTX Gia đình 369" class="w-full h-auto object-contain rounded-2xl group-hover:scale-[1.01] transition duration-300" loading="eager">
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-3 backdrop-blur-sm rounded-3xl">
+              <button onclick="openInfographicModal('./so-do-tam-nhin.png', 'Sơ Đồ Tầm Nhìn HTX Gia Đình 369')" class="btn-gold rounded-full px-7 py-3 text-sm font-bold shadow-2xl flex items-center gap-2 transform hover:scale-105 transition">
+                🔍 Xem Phóng To Sơ Đồ Full HD
+              </button>
+              <span class="text-white text-xs font-semibold bg-black/60 px-4 py-1.5 rounded-full">Sơ đồ Tầm nhìn Cốt lõi HTX Gia đình 369</span>
+            </div>
+          </div>
+          <p class="text-center text-xs text-emerald-100/70 mt-3 font-medium">🖼️ Sơ đồ Tầm nhìn HTX Gia đình 369 — Kiến tạo cuộc sống thịnh vượng, GIÀU Tự do · Hạnh phúc · Bình an</p>
         </div>
 
         <!-- Quick Stats Badge Bar -->
@@ -818,9 +580,169 @@
           </div>
         </div>
 
-        <!-- 2. DETAIL VISUAL SECTIONS (DIRECT EMBEDDED DIAGRAM CARDS) -->
-        
-        <!-- SECTION A: TẦM NHÌN & 7 GIÁ TRỊ CỐT LÕI -->
+        <!-- SECTION A1: TẦM NHÌN HTX GIA ĐÌNH 369 -->
+        <div class="mb-20">
+          <div class="text-center max-w-4xl mx-auto mb-10 reveal">
+            <span class="eyebrow justify-center">Định Hướng Chiến Lược Cốt Lõi</span>
+            <h3 class="font-display font-semibold text-2xl md:text-4xl mt-2 text-[var(--green-deep)]">TẦM NHÌN HTX GIA ĐÌNH 369</h3>
+            
+            <!-- Quote Banner -->
+            <div class="mt-4 p-6 md:p-8 rounded-3xl bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 border-2 border-[var(--gold)]/50 shadow-2xl relative text-center text-white">
+              <span class="inline-block px-4 py-1 rounded-full bg-[var(--gold-bright)] text-[var(--green-darkest)] text-xs font-extrabold uppercase tracking-wider mb-3 shadow">
+                TẦM NHÌN HTX GIA ĐÌNH 369
+              </span>
+              <p class="text-base md:text-2xl font-bold text-emerald-100 uppercase tracking-wide">
+                KIẾN TẠO CUỘC SỐNG THỊNH VƯỢNG,
+              </p>
+              <div class="my-2">
+                <span class="font-display font-black text-5xl sm:text-6xl md:text-7xl text-[var(--gold-bright)] uppercase tracking-widest drop-shadow-xl inline-block transform hover:scale-105 transition duration-300">
+                  GIÀU
+                </span>
+              </div>
+              <p class="text-xl md:text-3xl font-extrabold text-white uppercase tracking-wider">
+                TỰ DO &nbsp;·&nbsp; HẠNH PHÚC &nbsp;·&nbsp; BÌNH AN
+              </p>
+              <p class="text-xs md:text-sm font-bold text-emerald-200 uppercase tracking-widest mt-3">
+                CHO CÁC THÀNH VIÊN HTX GIA ĐÌNH 369
+              </p>
+            </div>
+          </div>
+
+          <!-- Main Diagram & 4 Vision Pillars -->
+          <div class="grid lg:grid-cols-12 gap-8 items-stretch mb-10">
+            <!-- Diagram Image Display Card -->
+            <div class="lg:col-span-6 reveal flex flex-col">
+              <div class="card overflow-hidden group border-2 border-[var(--green)]/30 hover:border-[var(--green)] transition shadow-xl relative bg-white p-2 flex-1 flex flex-col justify-center">
+                <img src="./so-do-tam-nhin.png" alt="Sơ đồ Tầm nhìn HTX Gia đình 369" class="w-full h-auto max-h-[460px] object-contain transition duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
+                  <button onclick="openInfographicModal('./so-do-tam-nhin.png', 'Sơ Đồ Tầm Nhìn HTX Gia Đình 369')" class="btn-gold rounded-full px-5 py-2.5 text-xs font-bold shadow-lg flex items-center gap-1.5">
+                    🔍 Xem Phóng To Full HD
+                  </button>
+                </div>
+              </div>
+              <p class="text-center text-xs text-[var(--muted)] mt-2">🖼️ Sơ đồ minh họa gốc: Tầm nhìn HTX Gia đình 369</p>
+            </div>
+
+            <!-- 4 Vision Pillars Grid -->
+            <div class="lg:col-span-6 reveal grid sm:grid-cols-2 gap-4">
+              <!-- Pillar 1: Thịnh Vượng -->
+              <div class="p-4 rounded-2xl bg-emerald-50/90 border-2 border-emerald-300 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2.5 mb-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-bold flex items-center justify-center text-base shadow">💰</div>
+                    <h4 class="font-display font-bold text-emerald-900 text-base">THỊNH VƯỢNG</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-xs font-semibold text-emerald-950">
+                    <li class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">•</span> Thu nhập bền vững</li>
+                    <li class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">•</span> Cơ hội phát triển</li>
+                    <li class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">•</span> Tài sản gia tăng</li>
+                    <li class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">•</span> Cuộc sống sung túc</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Pillar 2: Tự Do -->
+              <div class="p-4 rounded-2xl bg-sky-50/90 border-2 border-sky-300 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2.5 mb-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-sky-600 text-white font-bold flex items-center justify-center text-base shadow">🕊️</div>
+                    <h4 class="font-display font-bold text-sky-900 text-base">TỰ DO</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-xs font-semibold text-sky-950">
+                    <li class="flex items-center gap-1.5"><span class="text-sky-600 font-bold">•</span> Tự do tài chính</li>
+                    <li class="flex items-center gap-1.5"><span class="text-sky-600 font-bold">•</span> Tự do thời gian</li>
+                    <li class="flex items-center gap-1.5"><span class="text-sky-600 font-bold">•</span> Tự do lựa chọn</li>
+                    <li class="flex items-center gap-1.5"><span class="text-sky-600 font-bold">•</span> Sống theo giá trị của mình</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Pillar 3: Hạnh Phúc -->
+              <div class="p-4 rounded-2xl bg-rose-50/90 border-2 border-rose-300 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2.5 mb-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-rose-600 text-white font-bold flex items-center justify-center text-base shadow">❤️</div>
+                    <h4 class="font-display font-bold text-rose-900 text-base">HẠNH PHÚC</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-xs font-semibold text-rose-950">
+                    <li class="flex items-center gap-1.5"><span class="text-rose-600 font-bold">•</span> Gia đình gắn kết</li>
+                    <li class="flex items-center gap-1.5"><span class="text-rose-600 font-bold">•</span> Yêu thương, sẻ chia</li>
+                    <li class="flex items-center gap-1.5"><span class="text-rose-600 font-bold">•</span> Cân bằng công việc - cuộc sống</li>
+                    <li class="flex items-center gap-1.5"><span class="text-rose-600 font-bold">•</span> Niềm vui mỗi ngày</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Pillar 4: Bình An -->
+              <div class="p-4 rounded-2xl bg-purple-50/90 border-2 border-purple-300 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2.5 mb-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-base shadow">🧘</div>
+                    <h4 class="font-display font-bold text-purple-900 text-base">BÌNH AN</h4>
+                  </div>
+                  <ul class="space-y-1.5 text-xs font-semibold text-purple-950">
+                    <li class="flex items-center gap-1.5"><span class="text-purple-600 font-bold">•</span> Sức khỏe tốt</li>
+                    <li class="flex items-center gap-1.5"><span class="text-purple-600 font-bold">•</span> Tinh thần an yên</li>
+                    <li class="flex items-center gap-1.5"><span class="text-purple-600 font-bold">•</span> Môi trường sống trong lành</li>
+                    <li class="flex items-center gap-1.5"><span class="text-purple-600 font-bold">•</span> Cộng đồng nhân văn</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NỀN TẢNG GIÁ TRỊ (4 Khối Hành Động Cùng Nhau) -->
+          <div class="card p-6 md:p-8 bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white rounded-3xl shadow-xl reveal">
+            <div class="text-center mb-6">
+              <span class="inline-block px-4 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold uppercase tracking-wider mb-2">Móng Cọc Bền Vững</span>
+              <h4 class="font-display font-bold text-xl md:text-2xl text-amber-300 uppercase tracking-wide">NỀN TẢNG GIÁ TRỊ</h4>
+              <p class="text-xs text-emerald-200 mt-1 uppercase font-bold tracking-wider">
+                CON NGƯỜI &nbsp;|&nbsp; GIA ĐÌNH &nbsp;|&nbsp; CỘNG ĐỒNG &nbsp;|&nbsp; PHÁT TRIỂN BỀN VỮNG
+              </p>
+            </div>
+
+            <!-- 4 Action Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500 text-white font-bold flex items-center justify-center mb-2 text-sm shadow">🌱</div>
+                <h5 class="font-bold text-sm text-white mb-1">CÙNG HỌC HỎI</h5>
+                <p class="text-xs text-emerald-100">Nâng cao kiến thức, kỹ năng</p>
+              </div>
+
+              <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition">
+                <div class="w-8 h-8 rounded-lg bg-blue-500 text-white font-bold flex items-center justify-center mb-2 text-sm shadow">🤝</div>
+                <h5 class="font-bold text-sm text-white mb-1">CÙNG HỢP TÁC</h5>
+                <p class="text-xs text-blue-100">Khai thác thế mạnh, tạo giá trị chung</p>
+              </div>
+
+              <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition">
+                <div class="w-8 h-8 rounded-lg bg-amber-500 text-white font-bold flex items-center justify-center mb-2 text-sm shadow">💡</div>
+                <h5 class="font-bold text-sm text-white mb-1">CÙNG PHÁT TRIỂN</h5>
+                <p class="text-xs text-amber-100">Đổi mới sáng tạo, bền vững</p>
+              </div>
+
+              <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition">
+                <div class="w-8 h-8 rounded-lg bg-rose-500 text-white font-bold flex items-center justify-center mb-2 text-sm shadow">💖</div>
+                <h5 class="font-bold text-sm text-white mb-1">CÙNG LAN TỎA</h5>
+                <p class="text-xs text-rose-100">Chia sẻ giá trị tốt đẹp cho cộng đồng</p>
+              </div>
+            </div>
+
+            <!-- Calligraphy Mottos Footer -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/15 text-xs text-emerald-200">
+              <div class="flex items-center gap-2">
+                <span class="text-amber-400 text-base font-bold">✍️</span>
+                <span class="font-medium italic">Gia đình mạnh — Cộng đồng mạnh — Xã hội thịnh vượng</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-amber-400 text-base font-bold">✨</span>
+                <span class="font-bold text-amber-300 tracking-wide">Cùng nhau Kiến tạo tương lai</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION A2: 7 GIÁ TRỊ CỐT LÕI -->
         <div class="mb-20">
           <div class="text-center max-w-3xl mx-auto mb-10 reveal">
             <span class="eyebrow justify-center">Bánh xe 7 Giá Trị Gốc</span>
@@ -3599,15 +3521,16 @@
   const slidesData = [
     {
       id: 0,
-      title: "Slide 1: Tầm nhìn & Sứ mệnh HTX 369",
+      title: "Slide 1: Tầm nhìn HTX Gia đình 369",
       img: "./so-do-tam-nhin.png",
-      subtitle: "Sứ mệnh cốt lõi & Giá trị phục vụ gia đình",
-      badge: "Tầm Nhìn & Sứ Mệnh",
-      desc: "Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên HTX Gia đình 369 — thông qua học viện đào tạo, phần mềm kế toán kinh doanh thật và cộng đồng cùng chia sẻ giá trị.",
+      subtitle: "Kiến tạo cuộc sống thịnh vượng, GIÀU Tự Do, Hạnh Phúc, Bình An",
+      badge: "Tầm Nhìn 369",
+      desc: "Tầm nhìn chiến lược HTX Gia đình 369: Kiến tạo cuộc sống thịnh vượng, giàu tự do, hạnh phúc và bình an cho các thành viên — Dựa trên Nền Tảng Giá Trị: Con người – Gia đình – Cộng đồng – Phát triển bền vững.",
       bullets: [
-        "Thông điệp trung tâm: '369 — Nơi giá trị trao đi và cùng nhau phát triển.'",
-        "Mô hình phục vụ 6 nhu cầu thiết yếu gia đình: Ăn uống, Mặc, Chỗ ở, Đi lại, Học tập, Vui chơi.",
-        "Nền tảng công nghệ 369: App 369, SKU 369, Product Passport QR Code, Credit 369 & Dữ liệu AI."
+        "Khẩu hiệu cốt lõi: 'Kiến tạo cuộc sống thịnh vượng, GIÀU Tự Do, Hạnh Phúc, Bình An cho các thành viên HTX Gia đình 369.'",
+        "4 Mục tiêu Tầm nhìn: THỊNH VƯỢNG (Thu nhập, tài sản) · TỰ DO (Tài chính, thời gian, lựa chọn) · HẠNH PHÚC (Gắn kết, sẻ chia) · BÌNH AN (Sức khỏe, tinh thần).",
+        "Nền tảng hành động 4 Cùng: Cùng Học Hỏi · Cùng Hợp Tác · Cùng Phát Triển · Cùng Lan Tỏa.",
+        "Triết lý phát triển: Gia đình mạnh – Cộng đồng mạnh – Xã hội thịnh vượng · Cùng nhau kiến tạo tương lai."
       ]
     },
     {
