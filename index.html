@@ -3870,35 +3870,50 @@
 <!-- ==================================================================================== -->
 <!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER -->
 <!-- ==================================================================================== -->
-<div id="modal-infographic-viewer" class="fixed inset-0 z-[120] bg-black/90 backdrop-blur-md hidden flex flex-col justify-between p-4 md:p-6 transition-all">
-  <!-- Header -->
-  <div class="flex items-center justify-between text-white border-b border-white/10 pb-3">
-    <div class="flex items-center gap-3">
-      <span class="w-8 h-8 rounded-full bg-[var(--gold)] text-slate-900 font-bold flex items-center justify-center text-sm shadow-md">🖼️</span>
-      <div>
-        <h3 id="infographic-modal-title" class="font-display font-bold text-base md:text-lg">Sơ Đồ Infographic HTX 369</h3>
-        <p class="text-[11px] text-gray-300">Nhấn ESC hoặc click nền tối để đóng cửa sổ xem ảnh</p>
+<!-- ==================================================================================== -->
+<!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER (MOBILE OPTIMIZED) -->
+<!-- ==================================================================================== -->
+<div id="modal-infographic-viewer" class="fixed inset-0 z-[120] bg-black/95 backdrop-blur-md hidden flex flex-col justify-between p-2.5 sm:p-4 md:p-6 transition-all">
+  <!-- Top Bar -->
+  <div class="flex items-center justify-between gap-2 text-white border-b border-white/10 pb-2.5 px-1">
+    <!-- Title & Icon -->
+    <div class="flex items-center gap-2 min-w-0 flex-1">
+      <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--gold)] text-slate-900 font-bold flex items-center justify-center text-xs sm:text-sm shadow-md flex-shrink-0">🖼️</span>
+      <div class="min-w-0 flex-1">
+        <h3 id="infographic-modal-title" class="font-display font-bold text-xs sm:text-base md:text-lg text-white truncate max-w-[180px] sm:max-w-md">Sơ Đồ Infographic HTX 369</h3>
+        <p class="text-[10px] sm:text-[11px] text-gray-400 hidden sm:block">Chạm nền tối hoặc chạm ✕ để đóng</p>
       </div>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="zoomInfographic(0.25)" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold">🔍 Phóng To (+)</button>
-      <button onclick="zoomInfographic(-0.25)" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold">🔍 Thu Nhỏ (-)</button>
-      <button onclick="resetInfographicZoom()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold">🔄 Đặt Lại</button>
-      <button onclick="openInfographicInNewTab()" class="px-3 py-1.5 rounded-lg bg-[var(--gold)] text-slate-900 text-xs font-bold hover:bg-yellow-400">↗ Tải / Mở Tab Mới</button>
-      <button onclick="closeInfographicModal()" class="w-9 h-9 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold flex items-center justify-center text-base ml-2 shadow">✕</button>
+
+    <!-- Mobile-Optimized Action Toolbar -->
+    <div class="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+      <button onclick="zoomInfographic(0.25)" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1" title="Phóng to">
+        <span>➕</span><span class="hidden sm:inline"> Zoom (+)</span>
+      </button>
+      <button onclick="zoomInfographic(-0.25)" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1" title="Thu nhỏ">
+        <span>➖</span><span class="hidden sm:inline"> Thu nhỏ (-)</span>
+      </button>
+      <button onclick="resetInfographicZoom()" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-[11px] sm:text-xs font-semibold flex items-center gap-1" title="Đặt lại kích thước">
+        <span>🔄</span><span class="hidden sm:inline"> Đặt lại</span>
+      </button>
+      <button onclick="openInfographicInNewTab()" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[var(--gold)] text-slate-900 text-[11px] sm:text-xs font-bold hover:bg-yellow-400 flex items-center gap-1 shadow" title="Tải hoặc mở tab mới">
+        <span>↗</span><span class="hidden sm:inline"> Tab Mới</span>
+      </button>
+      <button onclick="closeInfographicModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold flex items-center justify-center text-sm sm:text-base ml-1 shadow flex-shrink-0" title="Đóng">✕</button>
     </div>
   </div>
 
   <!-- Image Display Canvas -->
-  <div class="flex-1 flex items-center justify-center overflow-auto p-4 select-none" onclick="if(event.target === this) closeInfographicModal()">
-    <img id="infographic-modal-img" src="" alt="Infographic Viewer" class="max-h-[85vh] max-w-full object-contain rounded-xl shadow-2xl transition-transform duration-200" style="transform: scale(1);">
+  <div class="flex-1 flex items-center justify-center overflow-auto p-1 sm:p-4 select-none my-auto" onclick="if(event.target === this) closeInfographicModal()">
+    <img id="infographic-modal-img" src="" alt="Infographic Viewer" class="max-h-[78vh] sm:max-h-[85vh] max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl transition-transform duration-200" style="transform: scale(1);">
   </div>
 
-  <!-- Footer Tip -->
-  <div class="text-center text-xs text-gray-400 pt-2 border-t border-white/10">
-    💡 Gợi ý: Bạn có thể click chuột phải vào sơ đồ chọn <b>"Lưu hình ảnh thành..."</b> để tải file ảnh gốc về máy.
+  <!-- Mobile Footer Tip -->
+  <div class="text-center text-[10px] sm:text-xs text-gray-400 pt-1.5 border-t border-white/10">
+    💡 Chạm nền tối hoặc nút ✕ để đóng · Chạm nút ↗ để mở tab ảnh gốc chất lượng cao.
   </div>
 </div>
+
 
 </body>
 </html>
