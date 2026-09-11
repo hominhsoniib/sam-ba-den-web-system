@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTX 369 — Mô hình vận hành &amp; Kiến trúc nền tảng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF8F1;
+    --panel:#FFFFFF;
+    --ink:#182619;
+    --ink-soft:#5B6858;
+    --line:#E4DDC8;
+    --green:#2F6B3A;
+    --green-deep:#16321E;
+    --green-tint:#EAF2E9;
+    --gold-deep:#A87D1E;
+    --gold-tint:#FBF1DA;
+    --gold-bright:#F2B703;
+    --rose:#B0521F;
+    --rose-tint:#FBEDE3;
+    --green-darkest:#0F2E1C;
+    --blue-tint:#E7EFF7;
+    --radius:2px;
+  }
+  html, body {
+    margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; box-sizing:border-box;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Be Vietnam Pro',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Lora',serif;
+    font-weight:600;
+    margin:0 0 .4em 0;
+    color:var(--ink);
+  }
+  .mono{font-family:'Be Vietnam Pro',monospace;}
+  a{color:var(--green);}
+
+  /* ---------- Header ---------- */
+  header.hero{
+    padding:64px 24px 40px;
+    max-width:1100px;
+    margin:0 auto;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-family:'Be Vietnam Pro',monospace;
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--green);
+    margin-bottom:14px;
+  }
+  h1.title{
+    font-size:clamp(28px,4vw,44px);
+    line-height:1.15;
+    max-width:16ch;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:17px;
+    max-width:60ch;
+    margin-top:10px;
+  }
+  .legal-name{
+    margin-top:22px;
+    font-size:14px;
+    color:var(--ink-soft);
+    border-left:2px solid var(--green);
+    padding-left:14px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.toc{
+    position:sticky; top:0; z-index:20;
+    background:rgba(244,245,242,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.toc ul{
+    list-style:none; display:flex; flex-wrap:wrap; gap:2px 0;
+    max-width:1100px; margin:0 auto; padding:0 24px;
+  }
+  nav.toc a{
+    display:block;
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    padding:14px 14px;
+    border-bottom:2px solid transparent;
+  }
+  nav.toc a:hover{color:var(--green); border-bottom-color:var(--green);}
+  nav.toc a.active{color:var(--green-deep); border-bottom-color:var(--gold-bright); font-weight:600;}
+
+  /* ---------- Sections ---------- */
+  main{max-width:1100px; margin:0 auto; padding:0 24px;}
+  section{padding:56px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:8px;
+    flex-wrap:wrap;
+  }
+  .section-num{
+    font-family:'Be Vietnam Pro',monospace;
+    color:var(--green);
+    font-size:14px;
+  }
+  .section-desc{
+    color:var(--ink-soft);
+    max-width:74ch;
+    margin-bottom:28px;
+  }
+
+  .diagram-wrap{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:20px;
+    overflow-x:auto;
+    cursor:zoom-in;
+    position:relative;
+    transition:box-shadow .2s ease;
+  }
+  .diagram-wrap:hover{box-shadow:0 8px 24px -10px rgba(24,38,25,.18);}
+  .diagram-wrap::after{
+    content:'⤢ Bấm để phóng to'; position:absolute; top:10px; right:12px;
+    font-size:11px; font-weight:600; color:var(--green-deep); background:var(--green-tint);
+    padding:3px 9px; border-radius:20px; opacity:0; transition:opacity .15s ease;
+  }
+  .diagram-wrap:hover::after{opacity:1;}
+  .diagram-wrap svg{ width:100%; height:auto; display:block; min-width:640px; pointer-events:none; }
+  .diagram-caption{
+    font-size:13px; color:var(--ink-soft); margin-top:10px; font-family:'Be Vietnam Pro',monospace;
+  }
+
+  /* ---------- Module grid (Phần B) ---------- */
+  .module-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .module-card{
+    background:var(--panel);
+    padding:22px 20px;
+    border-left:4px solid var(--green);
+  }
+  .module-card .code{
+    font-family:'Be Vietnam Pro',monospace;
+    font-size:12.5px;
+    color:var(--green);
+    margin-bottom:8px;
+  }
+  .module-card h3{font-size:17px; margin-bottom:6px;}
+  .module-card p{font-size:14px; color:var(--ink-soft); margin:0;}
+
+  /* ---------- Timeline (Phần F) ---------- */
+  .timeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute; top:22px; left:4%; right:4%; height:2px;
+    background:var(--line);
+  }
+  .phase{
+    padding:0 14px 0 0;
+    position:relative;
+  }
+  .phase .dot{
+    width:44px; height:44px; border-radius:50%;
+    background:var(--green-darkest); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Be Vietnam Pro',monospace; font-size:14px;
+    position:relative; z-index:2; margin-bottom:16px;
+  }
+  .phase h3{font-size:15.5px; margin-bottom:6px;}
+  .phase p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+
+  /* ---------- Risk callouts (Phần G) ---------- */
+  .risk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .risk{
+    background:var(--rose-tint);
+    border-left:4px solid var(--rose);
+    padding:18px 20px;
+  }
+  .risk h3{ font-size:15px; color:var(--rose); margin-bottom:8px; }
+  .risk p{ font-size:14px; color:var(--ink); margin:0; }
+  .decided{
+    background:var(--green-tint);
+    border-left:4px solid var(--green);
+    padding:18px 20px;
+  }
+  .decided h3{ font-size:15px; color:var(--green-deep); margin-bottom:8px; }
+  .decided p{ font-size:14px; margin:0; }
+
+  footer{
+    max-width:1100px; margin:0 auto; padding:40px 24px 60px;
+    color:var(--ink-soft); font-size:13px;
+  }
+
+  @media (max-width:768px){
+    html, body { overflow-x:hidden; width:100%; max-width:100%; }
+    header.hero{ padding:20px 12px 16px; }
+    h1.title{ font-size:24px; max-width:100%; }
+    .subtitle{ font-size:13.5px; }
+    nav.toc ul{ padding:0 8px; overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; }
+    nav.toc a{ padding:8px 8px; font-size:11.5px; white-space:nowrap; }
+    main{ padding:0 10px; width:100%; max-width:100%; box-sizing:border-box; }
+    section{ padding:24px 0; }
+    .diagram-wrap::before{ display:block; content:"👈 Vuốt ngang để xem toàn bộ sơ đồ"; font-size:11px; color:var(--green); margin-bottom:6px; font-weight:600; }
+    .diagram-wrap{ padding:8px; border-radius:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; box-sizing:border-box; }
+    .diagram-wrap svg{ min-width:580px; height:auto; }
+    .module-grid{ grid-template-columns:1fr; }
+    .timeline{ grid-template-columns:1fr; gap:16px; }
+    .timeline::before{ display:none; }
+    .phase{ padding:0 0 0 14px; border-left:2px solid var(--green); }
+    .phase .dot{ width:34px; height:34px; font-size:12px; margin-bottom:8px; }
+    .risk-grid{ grid-template-columns:1fr; gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">HTX GIA ĐÌNH 369 — TÀI LIỆU MÔ HÌNH VẬN HÀNH</div>
+  <h1 class="title">HTX 369<br>One Platform</h1>
+  <p class="subtitle">Sơ đồ minh họa toàn bộ mô hình vận hành, 8 phân hệ nghiệp vụ, luồng thanh toán 2 ví, và kiến trúc tích hợp kỹ thuật Marketplace ↔ Finance.</p>
+  <div class="legal-name">Tên pháp lý: <strong>HTX Gia đình 369</strong> &nbsp;·&nbsp; Thương hiệu vận hành: <strong>HTX 369</strong></div>
+</header>
+
+<nav class="toc">
+  <ul>
+    <li><a href="#tongthe">Sơ đồ tổng thể</a></li>
+    <li><a href="#phanhe">8 phân hệ</a></li>
+    <li><a href="#vanhanh">Luồng đặt hàng</a></li>
+    <li><a href="#vi">Cơ chế 2 ví</a></li>
+    <li><a href="#tichhop">Kiến trúc tích hợp</a></li>
+    <li><a href="#lotrinh">Lộ trình</a></li>
+    <li><a href="#ruiro">Rủi ro pháp lý</a></li>
+  </ul>
+</nav>
+
+<!-- shared arrow markers -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2F6B3A"></path>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A87D1E"></path>
+    </marker>
+    <marker id="arrowNavy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0F2E1C"></path>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+  <!-- ============ A. SƠ ĐỒ TỔNG THỂ ============ -->
+  <section id="tongthe">
+    <div class="section-head">
+      <span class="section-num">A</span>
+      <h2>Sơ đồ tổng thể</h2>
+    </div>
+    <p class="section-desc">Toàn bộ hệ sinh thái xoay quanh Trung tâm điều hành, kết nối Sàn TMĐT — Kho tổng — Kế toán, khép vòng qua Logistics tới khách hàng, với Thành viên và Nhà cung cấp là 2 đầu vào chính.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" font-family="Be Vietnam Pro, sans-serif">
+        <!-- center hub -->
+        <rect x="330" y="16" width="340" height="56" fill="#0F2E1C"></rect>
+        <text x="500" y="40" text-anchor="middle" fill="#fff" font-size="14" font-family="Be Vietnam Pro, monospace">TRUNG TÂM ĐIỀU HÀNH</text>
+        <text x="500" y="60" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">HTX 369</text>
+
+        <!-- connectors from hub down to 3 nodes -->
+        <path d="M500,72 L500,100 L150,100 L150,120" fill="none" stroke="#2F6B3A" stroke-width="2" marker-end="url(#arrow)"></path>
+        <path d="M500,72 L500,120" fill="none" stroke="#2F6B3A" stroke-width="2" marker-end="url(#arrow)"></path>
+        <path d="M500,72 L500,100 L850,100 L850,120" fill="none" stroke="#2F6B3A" stroke-width="2" marker-end="url(#arrow)"></path>
+
+        <!-- 3 hubs -->
+        <rect x="40" y="122" width="220" height="52" fill="#fff" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="150" y="153" text-anchor="middle" font-size="14.5" font-weight="600" fill="#2F6B3A">SÀN TMĐT</text>
+
+        <rect x="390" y="122" width="220" height="52" fill="#fff" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="500" y="153" text-anchor="middle" font-size="14.5" font-weight="600" fill="#2F6B3A">KHO TỔNG</text>
+
+        <rect x="740" y="122" width="220" height="52" fill="#fff" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="850" y="153" text-anchor="middle" font-size="14.5" font-weight="600" fill="#2F6B3A">KẾ TOÁN</text>
+
+        <!-- sub labels -->
+        <text x="150" y="196" text-anchor="middle" font-size="12" fill="#5B6858">Đơn hàng</text>
+        <text x="500" y="196" text-anchor="middle" font-size="12" fill="#5B6858">Nhập – xuất – tồn</text>
+        <text x="850" y="196" text-anchor="middle" font-size="12" fill="#5B6858">Thu – chi – công nợ</text>
+
+        <!-- merge lines to GIAO HANG -->
+        <path d="M150,174 L150,230 L500,230 L500,246" fill="none" stroke="#2F6B3A" stroke-width="2"></path>
+        <path d="M500,174 L500,246" fill="none" stroke="#2F6B3A" stroke-width="2" marker-end="url(#arrow)"></path>
+
+        <rect x="390" y="248" width="220" height="52" fill="#EAF2E9" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="500" y="279" text-anchor="middle" font-size="14.5" font-weight="600" fill="#16321E">GIAO HÀNG</text>
+
+        <!-- 3 logistics partners -->
+        <path d="M500,300 L500,320 L200,320 L200,340" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M500,300 L500,340" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M500,300 L500,320 L800,320 L800,340" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <rect x="110" y="342" width="180" height="42" fill="#fff" stroke="#E4DDC8"></rect>
+        <text x="200" y="368" text-anchor="middle" font-size="13" fill="#182619">Viettel Post</text>
+        <rect x="410" y="342" width="180" height="42" fill="#fff" stroke="#E4DDC8"></rect>
+        <text x="500" y="368" text-anchor="middle" font-size="13" fill="#182619">GHN / GHTK</text>
+        <rect x="710" y="342" width="180" height="42" fill="#fff" stroke="#E4DDC8"></rect>
+        <text x="800" y="368" text-anchor="middle" font-size="13" fill="#182619">Đơn vị khác</text>
+
+        <!-- to khach hang -->
+        <path d="M200,384 L200,410 L500,410 L500,424" fill="none" stroke="#2F6B3A" stroke-width="1.5"></path>
+        <path d="M500,384 L500,424" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M800,384 L800,410 L500,410 L500,424" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <rect x="390" y="426" width="220" height="52" fill="#A87D1E" stroke="#A87D1E"></rect>
+        <text x="500" y="457" text-anchor="middle" font-size="14.5" font-weight="600" fill="#fff">KHÁCH HÀNG</text>
+
+        <!-- side inputs: THANH VIEN + NHA CUNG CAP -->
+        <rect x="20" y="426" width="220" height="52" fill="#FBF1DA" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="130" y="450" text-anchor="middle" font-size="13.5" font-weight="600" fill="#A87D1E">THÀNH VIÊN 369</text>
+        <text x="130" y="466" text-anchor="middle" font-size="10.5" fill="#5B6858">giới thiệu · bán · đại lý</text>
+
+        <rect x="760" y="426" width="220" height="52" fill="#FBF1DA" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="870" y="450" text-anchor="middle" font-size="13.5" font-weight="600" fill="#A87D1E">NHÀ CUNG CẤP</text>
+        <text x="870" y="466" text-anchor="middle" font-size="10.5" fill="#5B6858">sản xuất · hộ KD · liên kết</text>
+
+        <path d="M130,426 L130,100 L150,100" fill="none" stroke="#A87D1E" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowAmber)"></path>
+        <path d="M870,426 L870,100 L850,100" fill="none" stroke="#A87D1E" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowAmber)"></path>
+      </svg>
+      <div class="diagram-caption">Đường nét liền: dòng hàng &amp; dòng tiền chính · Đường nét đứt: dòng cung ứng đầu vào (thành viên / nhà cung cấp)</div>
+    </div>
+  </section>
+
+  <!-- ============ B. 8 PHÂN HỆ ============ -->
+  <section id="phanhe">
+    <div class="section-head">
+      <span class="section-num">B</span>
+      <h2>8 phân hệ nghiệp vụ — HTX 369 One Platform</h2>
+    </div>
+    <p class="section-desc">Tất cả 8 hệ thống dùng chung một tài khoản đăng nhập, một mã sản phẩm, một mã đơn hàng và một mã thành viên — không phân hệ nào tự tạo lại dữ liệu gốc.</p>
+
+    <div class="module-grid">
+      <div class="module-card">
+        <div class="code">01 · MARKETPLACE</div>
+        <h3>Sàn thương mại điện tử</h3>
+        <p>Sản phẩm, giỏ hàng, đặt hàng, thanh toán, đánh giá — nơi phát sinh doanh thu.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">02 · MEMBER</div>
+        <h3>Thành viên &amp; giới thiệu</h3>
+        <p>Hồ sơ thành viên, cây giới thiệu, hoa hồng có mã giao dịch.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">03 · OMS</div>
+        <h3>Quản lý đơn hàng</h3>
+        <p>Trung tâm điều phối một mã đơn hàng duy nhất cho toàn hệ thống.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">04 · WMS</div>
+        <h3>Quản lý kho tổng</h3>
+        <p>Nhập – xuất – tồn – điều chuyển – lô hàng – hạn sử dụng.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">05 · LOGISTICS</div>
+        <h3>Điều phối giao hàng</h3>
+        <p>Đa đơn vị vận chuyển, trạng thái vận đơn, đối soát COD.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">06 · FINANCE</div>
+        <h3>Tài chính – kế toán</h3>
+        <p>Doanh thu, chi phí, công nợ, đối soát, ví thành viên.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">07 · CRM</div>
+        <h3>Quản lý khách hàng</h3>
+        <p>Hồ sơ người mua, lịch sử mua hàng, chăm sóc sau bán.</p>
+      </div>
+      <div class="module-card">
+        <div class="code">08 · BI</div>
+        <h3>Báo cáo &amp; điều hành</h3>
+        <p>Dashboard tổng hợp kinh doanh – kho – tài chính – logistics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C. VÒNG VẬN HÀNH KHÉP KÍN ============ -->
+  <section id="vanhanh">
+    <div class="section-head">
+      <span class="section-num">C</span>
+      <h2>Luồng đặt hàng &amp; xử lý đơn — khách hàng → đối soát</h2>
+    </div>
+    <p class="section-desc">Từ lúc khách mở app đến khi HTX 369 đối soát xong. Có <strong>2 lần kiểm tra tồn kho</strong> (khi xem sản phẩm, khi đặt hàng) và cơ chế ví đúng theo quyết định đã chốt ở Phần D. Ô viền nét đứt màu hổ phách là <strong>đề xuất bổ sung</strong> — giữ tồn kho tạm trước khi thanh toán, tránh bán vượt tồn khi nhiều khách cùng mua 1 sản phẩm sắp hết.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 900 2110" xmlns="http://www.w3.org/2000/svg" font-family="Be Vietnam Pro, sans-serif" font-size="12.5">
+
+        <!-- 1 start -->
+        <rect x="270" y="10" width="360" height="44" rx="22" fill="#0F2E1C"></rect>
+        <text x="450" y="37" text-anchor="middle" fill="#fff">NGƯỜI TIÊU DÙNG / KHÁCH HÀNG</text>
+        <path d="M450,54 L450,78" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 2 -->
+        <rect x="330" y="78" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="105" text-anchor="middle">Mở App 369</text>
+        <path d="M450,122 L450,146" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 3 -->
+        <rect x="330" y="146" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="173" text-anchor="middle">Sàn TMĐT</text>
+        <path d="M450,190 L450,214" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 4 -->
+        <rect x="300" y="214" width="300" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="241" text-anchor="middle">Bấm vào sản phẩm</text>
+        <path d="M450,258 L450,282" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- diamond 1: kiem tra ton kho -->
+        <polygon points="450,282 560,327 450,372 340,327" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></polygon>
+        <text x="450" y="322" text-anchor="middle" font-size="12">Kiểm tra</text>
+        <text x="450" y="337" text-anchor="middle" font-size="12">tồn kho</text>
+        <text x="466" y="316" font-size="11" fill="#5B6858">còn hàng</text>
+        <text x="568" y="322" font-size="11" fill="#5B6858">hết hàng</text>
+        <path d="M560,327 L650,327" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <rect x="650" y="303" width="220" height="48" fill="#FBEDE3" stroke="#B0521F" stroke-width="1.5"></rect>
+        <text x="760" y="322" text-anchor="middle" font-size="11.5" fill="#B0521F">Thông báo "hết hàng"</text>
+        <text x="760" y="338" text-anchor="middle" font-size="11.5" fill="#B0521F">→ không được đặt</text>
+        <path d="M450,372 L450,396" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 6 -->
+        <rect x="270" y="396" width="360" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="423" text-anchor="middle">Hiển thị số lượng có thể mua</text>
+        <path d="M450,440 L450,464" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 7 -->
+        <rect x="330" y="464" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="491" text-anchor="middle">Chọn số lượng</text>
+        <path d="M450,508 L450,532" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 8 -->
+        <rect x="330" y="532" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="559" text-anchor="middle">Thêm giỏ hàng</text>
+        <path d="M450,576 L450,600" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 9 -->
+        <rect x="330" y="600" width="240" height="44" fill="#EAF2E9" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="450" y="627" text-anchor="middle" fill="#16321E">Đặt hàng</text>
+        <path d="M450,644 L450,668" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- diamond 2: kiem tra ton kho lan 2 -->
+        <polygon points="450,668 560,713 450,758 340,713" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></polygon>
+        <text x="450" y="705" text-anchor="middle" font-size="11.5">Kiểm tra tồn</text>
+        <text x="450" y="720" text-anchor="middle" font-size="11.5">kho lần 2</text>
+        <text x="466" y="702" font-size="11" fill="#5B6858">đủ hàng</text>
+        <text x="568" y="708" font-size="11" fill="#5B6858">không đủ</text>
+        <path d="M560,713 L650,713" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <rect x="650" y="689" width="220" height="48" fill="#FBEDE3" stroke="#B0521F" stroke-width="1.5"></rect>
+        <text x="760" y="708" text-anchor="middle" font-size="11.5" fill="#B0521F">Thông báo "số lượng</text>
+        <text x="760" y="724" text-anchor="middle" font-size="11.5" fill="#B0521F">không đủ"</text>
+        <path d="M450,758 L450,782" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 11 bo sung: giu ton kho tam -->
+        <rect x="270" y="782" width="360" height="44" fill="#FBF1DA" stroke="#A87D1E" stroke-width="1.5" stroke-dasharray="5 4"></rect>
+        <text x="450" y="805" text-anchor="middle" font-size="12" fill="#A87D1E">🔧 Giữ tồn kho tạm (đặt cọc số lượng)</text>
+        <text x="450" y="819" text-anchor="middle" font-size="9.5" fill="#A87D1E">— đề xuất bổ sung, xem chú thích bên dưới</text>
+        <path d="M450,826 L450,850" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- 12 -->
+        <rect x="330" y="850" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="877" text-anchor="middle">Tính tổng tiền</text>
+        <path d="M450,894 L450,918" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- diamond 3: kiem tra vi tieu dung -->
+        <polygon points="450,918 560,963 450,1008 340,963" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></polygon>
+        <text x="450" y="955" text-anchor="middle" font-size="11.5">Kiểm tra Ví</text>
+        <text x="450" y="970" text-anchor="middle" font-size="11.5">tiêu dùng</text>
+        <text x="466" y="952" font-size="11" fill="#5B6858">đủ tiền</text>
+        <text x="568" y="958" font-size="11" fill="#5B6858">thiếu</text>
+        <path d="M450,1008 L450,1268" stroke="#2F6B3A" stroke-width="1.5"></path>
+        <path d="M560,963 L620,963 L620,1023 L650,1023" fill="none" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+
+        <!-- branch: chuyen vi -->
+        <rect x="650" y="1000" width="220" height="46" fill="#FBF1DA" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="760" y="1019" text-anchor="middle" font-size="11.5" fill="#A87D1E">Chuyển tay Ví chính</text>
+        <text x="760" y="1035" text-anchor="middle" font-size="11.5" fill="#A87D1E">→ Ví tiêu dùng</text>
+        <path d="M760,1046 L760,1070" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+
+        <!-- diamond 4: kiem tra lai -->
+        <polygon points="760,1070 870,1115 760,1160 650,1115" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></polygon>
+        <text x="760" y="1107" text-anchor="middle" font-size="11">Kiểm tra lại</text>
+        <text x="760" y="1121" text-anchor="middle" font-size="11">Ví tiêu dùng</text>
+        <text x="640" y="1109" text-anchor="end" font-size="11" fill="#5B6858">đủ</text>
+        <text x="765" y="1178" font-size="11" fill="#5B6858">vẫn thiếu</text>
+
+        <!-- du -> merge -->
+        <path d="M650,1115 L620,1115 L620,1280 L600,1280" fill="none" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <!-- van thieu -> CK/TM -->
+        <path d="M760,1160 L760,1184" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <rect x="650" y="1184" width="220" height="44" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="760" y="1211" text-anchor="middle" font-size="12" fill="#A87D1E">Chuyển khoản / Tiền mặt</text>
+        <path d="M760,1228 L760,1300 L600,1300" fill="none" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+
+        <!-- merge box: thanh toan du -->
+        <rect x="300" y="1268" width="300" height="44" fill="#2F6B3A"></rect>
+        <text x="450" y="1295" text-anchor="middle" fill="#fff">Thanh toán đủ</text>
+        <path d="M450,1312 L450,1336" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- chot don hang -->
+        <rect x="300" y="1336" width="300" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1363" text-anchor="middle">Chốt đơn hàng</text>
+        <path d="M450,1380 L450,1404" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- tru ton kho chinh thuc -->
+        <rect x="270" y="1404" width="360" height="44" fill="#EAF2E9" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="450" y="1431" text-anchor="middle" fill="#16321E">Trừ tồn kho chính thức</text>
+        <path d="M450,1448 L450,1472" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- kho tong -->
+        <rect x="330" y="1472" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1499" text-anchor="middle">Kho tổng</text>
+        <path d="M450,1516 L450,1540" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- soan hang -->
+        <rect x="270" y="1540" width="360" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1567" text-anchor="middle">Soạn hàng → đóng gói</text>
+        <path d="M450,1584 L450,1608" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- tao van don -->
+        <rect x="330" y="1608" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1635" text-anchor="middle">Tạo vận đơn</text>
+        <path d="M450,1652 L450,1676" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- doi van chuyen -->
+        <rect x="270" y="1676" width="360" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1703" text-anchor="middle">Viettel / GHN / GHTK...</text>
+        <path d="M450,1720 L450,1744" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- giao khach -->
+        <rect x="330" y="1744" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1771" text-anchor="middle">Giao khách hàng</text>
+        <path d="M450,1788 L450,1812" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- khach nhan -->
+        <rect x="330" y="1812" width="240" height="44" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1839" text-anchor="middle">Khách nhận hàng</text>
+        <path d="M450,1856 L450,1880" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- hoan tat don -->
+        <rect x="300" y="1880" width="300" height="44" fill="#0F2E1C"></rect>
+        <text x="450" y="1907" text-anchor="middle" fill="#fff">Hoàn tất đơn</text>
+
+        <!-- split 3 -->
+        <path d="M370,1924 L150,1924 L150,1960" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M450,1924 L450,1960" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <path d="M530,1924 L750,1924 L750,1960" fill="none" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <rect x="40" y="1962" width="220" height="42" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="150" y="1988" text-anchor="middle">Kho</text>
+        <rect x="340" y="1962" width="220" height="42" fill="#fff" stroke="#2F6B3A"></rect>
+        <text x="450" y="1988" text-anchor="middle">Kế toán</text>
+        <rect x="640" y="1962" width="220" height="42" fill="#FBF1DA" stroke="#A87D1E"></rect>
+        <text x="750" y="1988" text-anchor="middle" fill="#A87D1E">Hoa hồng</text>
+
+        <path d="M150,2004 L150,2028 L450,2028 L450,2040" fill="none" stroke="#2F6B3A" stroke-width="1.5"></path>
+        <path d="M450,2004 L450,2040" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrowNavy)"></path>
+        <path d="M750,2004 L750,2028 L450,2028" fill="none" stroke="#2F6B3A" stroke-width="1.5"></path>
+
+        <rect x="300" y="2040" width="300" height="46" fill="#0F2E1C"></rect>
+        <text x="450" y="2068" text-anchor="middle" fill="#fff">Đối soát HTX 369</text>
+      </svg>
+      <div class="diagram-caption">🔧 Ô nét đứt = đề xuất bổ sung của kiến trúc kỹ thuật: khóa tạm số lượng ngay khi qua kiểm tra lần 2, tránh 2 khách cùng mua hết 1 sản phẩm trong lúc chờ thanh toán (oversell). Nếu khách không thanh toán trong thời gian giữ (VD 15 phút), hệ thống tự nhả lại tồn kho.</div>
+    </div>
+  </section>
+
+  <!-- ============ D. CƠ CHẾ 2 VÍ ============ -->
+  <section id="vi">
+    <div class="section-head">
+      <span class="section-num">D</span>
+      <h2>Cơ chế thanh toán 2 ví</h2>
+    </div>
+    <p class="section-desc">Ví tiêu dùng là ví duy nhất được trừ tự động. Ví chính <strong>không</strong> tự động tham gia thanh toán — thành viên phải chủ động chuyển tay sang Ví tiêu dùng trước.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" font-family="Be Vietnam Pro, sans-serif">
+        <rect x="330" y="10" width="240" height="46" fill="#0F2E1C"></rect>
+        <text x="450" y="38" text-anchor="middle" fill="#fff" font-size="13.5">Tổng thanh toán</text>
+        <path d="M450,56 L450,80" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <rect x="300" y="82" width="300" height="46" fill="#EAF2E9" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="450" y="110" text-anchor="middle" font-size="13.5" fill="#16321E">① Trừ Ví tiêu dùng (tự động)</text>
+        <path d="M450,128 L450,152" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+
+        <!-- diamond -->
+        <polygon points="450,154 540,196 450,238 360,196" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></polygon>
+        <text x="450" y="192" text-anchor="middle" font-size="12.5">Còn</text>
+        <text x="450" y="207" text-anchor="middle" font-size="12.5">thiếu?</text>
+
+        <!-- KHONG -> hoan tat -->
+        <path d="M450,238 L450,300" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <text x="466" y="270" font-size="12" fill="#5B6858">Không</text>
+        <rect x="330" y="284" width="240" height="42" fill="#2F6B3A"></rect>
+        <text x="450" y="310" text-anchor="middle" fill="#fff" font-size="13">THANH TOÁN HOÀN TẤT</text>
+
+        <!-- CO -> 2 lua chon -->
+        <text x="558" y="192" font-size="12" fill="#5B6858">Có</text>
+        <path d="M540,196 L640,196" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+
+        <rect x="642" y="130" width="240" height="56" fill="#FBF1DA" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="762" y="153" text-anchor="middle" font-size="12.5" fill="#A87D1E">(a) Chuyển tay</text>
+        <text x="762" y="169" text-anchor="middle" font-size="12.5" fill="#A87D1E">Ví chính → Ví tiêu dùng</text>
+
+        <rect x="642" y="210" width="240" height="46" fill="#fff" stroke="#A87D1E" stroke-width="1.5"></rect>
+        <text x="762" y="238" text-anchor="middle" font-size="12.5" fill="#A87D1E">(b) Chuyển khoản / Tiền mặt</text>
+
+        <path d="M642,158 L620,158 L620,196 L540,196" fill="none" stroke="#A87D1E" stroke-width="1.5"></path>
+        <path d="M642,233 L620,233 L620,196" fill="none" stroke="#A87D1E" stroke-width="1.5"></path>
+
+        <path d="M762,186 L762,210" stroke="#A87D1E" stroke-width="1.2" stroke-dasharray="3 3"></path>
+        <text x="762" y="203" text-anchor="middle" font-size="10" fill="#5B6858">nếu vẫn còn thiếu</text>
+
+        <path d="M762,130 L762,110 L600,110 L600,82" fill="none" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <text x="690" y="103" font-size="10.5" fill="#5B6858">quay lại kiểm tra Ví tiêu dùng</text>
+      </svg>
+      <div class="diagram-caption">Công thức: Ví tiêu dùng (đã cộng phần chuyển tay nếu có) + CK/TM = Tổng giá trị đơn hàng</div>
+    </div>
+  </section>
+
+  <!-- ============ E. KIẾN TRÚC TÍCH HỢP ============ -->
+  <section id="tichhop">
+    <div class="section-head">
+      <span class="section-num">E</span>
+      <h2>Kiến trúc tích hợp — Marketplace ↔ Finance</h2>
+    </div>
+    <p class="section-desc">Hai service độc lập, hai database riêng, giao tiếp qua Webhook thời gian thực và REST API đồng bộ định kỳ.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" font-family="Be Vietnam Pro, sans-serif">
+        <rect x="300" y="10" width="300" height="56" fill="#fff" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="450" y="34" text-anchor="middle" font-size="14" font-weight="600" fill="#2F6B3A">369 MARKETPLACE</text>
+        <text x="450" y="52" text-anchor="middle" font-size="11" fill="#5B6858">Frontend + Backend riêng · DB riêng</text>
+
+        <path d="M400,66 L250,120" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <text x="290" y="95" font-size="11.5" fill="#2F6B3A">(A) Webhook — real-time</text>
+
+        <path d="M500,66 L650,120" stroke="#A87D1E" stroke-width="1.5" marker-end="url(#arrowAmber)"></path>
+        <text x="590" y="95" font-size="11.5" fill="#A87D1E">(B) REST API — batch</text>
+
+        <rect x="130" y="122" width="640" height="150" fill="#0F2E1C"></rect>
+        <text x="450" y="148" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">369 FINANCE BACKEND — Python / FastAPI</text>
+
+        <g font-size="12" fill="#0F2E1C">
+          <rect x="155" y="166" width="140" height="82" fill="#fff"></rect>
+          <text x="225" y="192" text-anchor="middle" font-weight="600">Inventory</text>
+          <text x="225" y="208" text-anchor="middle" font-size="10.5" fill="#5B6858">(WMS)</text>
+
+          <rect x="305" y="166" width="140" height="82" fill="#fff"></rect>
+          <text x="375" y="192" text-anchor="middle" font-weight="600">Finance</text>
+          <text x="375" y="208" text-anchor="middle" font-size="10.5" fill="#5B6858">công nợ · đối soát</text>
+
+          <rect x="455" y="166" width="140" height="82" fill="#fff"></rect>
+          <text x="525" y="192" text-anchor="middle" font-weight="600">Payment</text>
+          <text x="525" y="208" text-anchor="middle" font-size="10.5" fill="#5B6858">2 ví · thanh toán</text>
+
+          <rect x="605" y="166" width="140" height="82" fill="#fff"></rect>
+          <text x="675" y="192" text-anchor="middle" font-weight="600">BI</text>
+          <text x="675" y="208" text-anchor="middle" font-size="10.5" fill="#5B6858">dashboard aggregate</text>
+        </g>
+
+        <path d="M450,272 L450,300" stroke="#2F6B3A" stroke-width="1.5" marker-end="url(#arrow)"></path>
+        <rect x="330" y="302" width="240" height="46" fill="#EAF2E9" stroke="#2F6B3A" stroke-width="1.5"></rect>
+        <text x="450" y="330" text-anchor="middle" font-size="13" fill="#16321E">PostgreSQL (Finance DB)</text>
+
+        <text x="450" y="372" text-anchor="middle" font-size="11" fill="#5B6858">Xác thực webhook: HMAC-SHA256 · Idempotency: event_id · Cron: Vercel Cron Jobs</text>
+      </svg>
+      <div class="diagram-caption">Modular monolith giai đoạn đầu — tách microservice khi có tải thực tế</div>
+    </div>
+  </section>
+
+  <!-- ============ F. LỘ TRÌNH ============ -->
+  <section id="lotrinh">
+    <div class="section-head">
+      <span class="section-num">F</span>
+      <h2>Lộ trình triển khai — 4 phase</h2>
+    </div>
+    <p class="section-desc">Không triển khai đồng loạt 8 phân hệ — ưu tiên phân hệ tạo dòng tiền và dòng hàng trước.</p>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="dot">1</div>
+        <h3>Lõi giao dịch</h3>
+        <p>Marketplace + OMS + WMS — bán được hàng, xuất kho đúng, 1 mã đơn hàng thống nhất.</p>
+      </div>
+      <div class="phase">
+        <div class="dot">2</div>
+        <h3>Dòng tiền &amp; dòng hàng</h3>
+        <p>Finance + Logistics — đối soát COD, tích hợp API GHN/GHTK/Viettel Post.</p>
+      </div>
+      <div class="phase">
+        <div class="dot">3</div>
+        <h3>Thành viên &amp; khách hàng</h3>
+        <p>Member + cơ chế giới thiệu + CRM — hoa hồng có mã giao dịch, chăm sóc khách hàng.</p>
+      </div>
+      <div class="phase">
+        <div class="dot">4</div>
+        <h3>Điều hành &amp; tối ưu</h3>
+        <p>BI — dashboard tổng hợp cho HĐQT/Ban điều hành, chuẩn hóa báo cáo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ G. RỦI RO PHÁP LÝ ============ -->
+  <section id="ruiro">
+    <div class="section-head">
+      <span class="section-num">G</span>
+      <h2>Rủi ro cần rà soát trước khi triển khai</h2>
+    </div>
+
+    <div class="risk-grid">
+      <div class="risk">
+        <h3>Hoa hồng theo cây giới thiệu nhiều tầng</h3>
+        <p>Đối chiếu Nghị định 40/2018/NĐ-CP về bán hàng đa cấp và Điều lệ HTX Gia đình 369 theo Luật HTX 2023, tránh chồng vai trò với Credit 369 / App 369 CLUB.</p>
+      </div>
+      <div class="risk">
+        <h3>Ví lưu trữ giá trị (Ví chính / Ví tiêu dùng)</h3>
+        <p>Nếu cho rút tiền mặt hoặc chuyển khoản ra ngoài hệ thống → có thể chạm ngưỡng hoạt động trung gian thanh toán, cần rà soát quy định NHNN.</p>
+      </div>
+      <div class="decided" style="grid-column:1/-1;">
+        <h3>✅ Đã chốt</h3>
+        <p>Ví chính không tự động trừ khi thanh toán — thành viên phải chủ động chuyển tay sang Ví tiêu dùng, ghi nhận thành giao dịch chuyển ví độc lập, tách biệt khỏi giao dịch thanh toán đơn hàng.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  HTX Gia đình 369 — Tài liệu nội bộ, đi kèm "Mô hình điều hành HTX Gia đình 369" và "Kiến trúc tích hợp Marketplace ↔ Finance".
+</footer>
+
+<!-- Lightbox for zooming into any diagram -->
+<div id="lightbox" style="display:none; position:fixed; inset:0; z-index:100; background:rgba(15,46,28,.88); backdrop-filter:blur(3px); align-items:center; justify-content:center; padding:24px; cursor:zoom-out;">
+  <div id="lightbox-inner" style="max-width:1100px; width:100%; max-height:90vh; overflow:auto; background:#fff; border-radius:8px; padding:24px; cursor:default;"></div>
+</div>
+
+<style>
+  #lightbox.open{ display:flex; }
+  #lightbox-inner svg{ width:100%; height:auto; display:block; }
+</style>
+
+<script>
+  // Active-section highlight on the sticky TOC, tracked via scroll position.
+  (function () {
+    const links = Array.from(document.querySelectorAll('nav.toc a'));
+    const sections = links
+      .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+      .filter(Boolean);
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(a => a.classList.remove('active'));
+        const link = links.find(a => a.getAttribute('href') === '#' + entry.target.id);
+        if (link) link.classList.add('active');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(s => io.observe(s));
+  })();
+
+  // Click any diagram to open a full-size lightbox version of its SVG.
+  (function () {
+    const lightbox = document.getElementById('lightbox');
+    const inner = document.getElementById('lightbox-inner');
+
+    document.querySelectorAll('.diagram-wrap').forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        const svg = wrap.querySelector('svg');
+        if (!svg) return;
+        inner.innerHTML = '';
+        inner.appendChild(svg.cloneNode(true));
+        lightbox.classList.add('open');
+      });
+    });
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+    });
+  })();
+</script>
+
+</body>
+</html>
