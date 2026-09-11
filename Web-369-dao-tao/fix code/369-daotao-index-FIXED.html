@@ -2654,15 +2654,7 @@
   let quizInterval = null;
 
   function openThiTNModal() {
-    const modal = document.getElementById('modal-thi-tn');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    currentQuizIdx = 0;
-    userAnswers = {};
-    startQuizTimer();
-    renderQuizQuestion();
+    window.open('https://trac-nghiem-weld.vercel.app/', '_blank');
   }
 
   function closeThiTNModal() {
