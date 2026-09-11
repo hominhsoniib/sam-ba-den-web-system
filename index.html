@@ -476,11 +476,11 @@
           <button onclick="openRegisterModal()" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md">
             Tham gia HTX 369 ngay
           </button>
-          <button onclick="openInfographicModal('./so-do-tam-nhin.png', 'Sơ Đồ Tầm Nhìn HTX Gia Đình 369')" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md flex items-center justify-center gap-2">
-            🔍 Phóng To Sơ Đồ Tầm Nhìn Full HD
+          <button onclick="document.getElementById('hero-video-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md flex items-center justify-center gap-2">
+            🎬 Xem Video Clip HTX 369 (FINAL 2.mp4)
           </button>
-          <button onclick="openLoginModal()" class="rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md font-semibold border-1.5 transition-all hover:bg-white/10" style="border:1.5px solid rgba(244,241,230,0.35); color:#F4F1E6;">
-            Đăng nhập Cổng Thành Viên →
+          <button onclick="openInfographicModal('./so-do-tam-nhin.png', 'Sơ Đồ Tầm Nhìn HTX Gia Đình 369')" class="rounded-full px-8 py-3.5 text-sm w-full sm:w-auto shadow-md font-semibold border-1.5 transition-all hover:bg-white/10" style="border:1.5px solid rgba(244,241,230,0.35); color:#F4F1E6;">
+            🔍 Phóng To Sơ Đồ Tầm Nhìn →
           </button>
         </div>
 
@@ -496,6 +496,29 @@
             </div>
           </div>
           <p class="text-center text-xs text-emerald-100/70 mt-3 font-medium">🖼️ Sơ đồ Tầm nhìn HTX Gia đình 369 — Kiến tạo cuộc sống thịnh vượng, GIÀU Tự do · Hạnh phúc · Bình an</p>
+        </div>
+
+        <!-- Video Player Showcase Card for FINAL 2.mp4 -->
+        <div id="hero-video-section" class="mt-12 max-w-5xl mx-auto reveal">
+          <div class="card overflow-hidden border-4 border-[var(--gold)]/50 shadow-2xl bg-slate-950 rounded-3xl relative">
+            <div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 px-6 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-white">
+              <div class="flex items-center gap-3">
+                <span class="w-3.5 h-3.5 rounded-full bg-red-500 animate-pulse shadow-lg shadow-red-500/50"></span>
+                <span class="font-display font-bold text-sm md:text-base text-amber-300 tracking-wide">🎬 THƯỚC PHIM GIỚI THIỆU TẦM NHÌN HTX GIA ĐÌNH 369</span>
+              </div>
+              <span class="text-xs text-emerald-200 bg-white/10 px-3 py-1 rounded-full border border-white/20 font-mono">Clip Gốc: FINAL 2.mp4</span>
+            </div>
+            
+            <div class="relative aspect-video w-full bg-black flex items-center justify-center">
+              <video id="main-htx-video" controls preload="metadata" poster="./so-do-tam-nhin.png" class="w-full h-full object-contain rounded-b-2xl shadow-inner">
+                <source src="./FINAL 2.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ thẻ video HTML5. Bạn có thể xem trực tiếp file FINAL 2.mp4.
+              </video>
+            </div>
+          </div>
+          <p class="text-center text-xs text-emerald-100/80 mt-3 font-medium flex items-center justify-center gap-1.5">
+            <span>🎥</span> Video clip giới thiệu chính thức: Tầm nhìn, Sứ mệnh & Hoạt động HTX Gia đình 369 (FINAL 2.mp4)
+          </p>
         </div>
 
         <!-- Quick Stats Badge Bar -->

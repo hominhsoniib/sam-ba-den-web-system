@@ -13,5 +13,6 @@ node_modules/
 *.log
 *.pptx
 *.pdf
+*.mp4
 web369-backend/
 fix code/web369-backend/
