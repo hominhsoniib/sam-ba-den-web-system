@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTX 369 — Mô hình Thành viên · NCC · Người kết nối</title>
+<style>
+  :root{
+    --navy:#0f2440; --navy2:#16324f; --gold:#b8873a; --gold2:#d9a44e;
+    --bg:#f6f3ee; --card:#ffffff; --ink:#1c2a37; --muted:#5b6b78;
+    --line:#e3ddd0; --green:#2f6f4f; --red:#a3402f; --blue:#2b5f8a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:48px 24px 40px;}
+  header.hero .wrap{max-width:980px;margin:0 auto;}
+  header.hero .tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    padding:4px 12px;border-radius:20px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);margin-bottom:14px;}
+  header.hero h1{margin:0 0 8px;font-size:30px;font-weight:700;}
+  header.hero p{margin:0;color:#cfd9e2;font-size:15px;max-width:720px;}
+  .wrap{max-width:980px;margin:0 auto;padding:36px 24px;}
+  .callout{border:1px solid var(--gold);background:#fbf3e4;border-left:6px solid var(--gold);
+    border-radius:8px;padding:16px 20px;margin:0 0 32px;}
+  .callout b{color:var(--navy2)}
+  section{margin-bottom:42px;}
+  h2{font-size:20px;color:var(--navy2);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px;
+     display:flex;align-items:center;gap:10px;}
+  h2 .num{background:var(--navy2);color:#fff;width:28px;height:28px;border-radius:6px;display:flex;
+     align-items:center;justify-content:center;font-size:13px;flex:none;}
+  h3{font-size:15px;color:var(--gold);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px;}
+  p{color:var(--ink);font-size:14.5px}
+  .muted{color:var(--muted);font-size:13.5px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;
+    box-shadow:0 1px 3px rgba(20,30,40,.04);}
+  ul.tight{margin:8px 0;padding-left:20px}
+  ul.tight li{margin-bottom:6px;font-size:14.5px}
+
+  /* flow diagram */
+  .flow{display:flex;flex-direction:column;align-items:center;gap:2px;margin:18px 0;}
+  .flow .box{background:#fff;border:1.5px solid var(--navy2);color:var(--navy2);border-radius:8px;
+    padding:9px 16px;font-size:13.5px;font-weight:600;text-align:center;min-width:220px;}
+  .flow .box.alt{border-color:var(--gold);color:#8a611e;background:#fdf6ea}
+  .flow .box.end{background:var(--navy2);color:#fff;border-color:var(--navy2)}
+  .flow .arrow{color:var(--muted);font-size:16px;line-height:1;}
+  .flow-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  /* role grid */
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0;}
+  .role{border:1px solid var(--line);border-radius:10px;padding:16px;background:#fff;}
+  .role .name{font-weight:700;color:var(--navy2);font-size:14px}
+  .role .code{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:5px;
+    padding:2px 8px;font-size:11.5px;color:var(--muted);margin:6px 0;}
+  .role p{font-size:13px;color:var(--muted);margin:6px 0 0}
+
+  /* wallet cards */
+  .wallets{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+  .wallet{border-radius:10px;padding:18px;color:#fff;}
+  .wallet.main{background:linear-gradient(135deg,#1d3a5f,#274a72)}
+  .wallet.tieudung{background:linear-gradient(135deg,#2f6f4f,#3c8a63)}
+  .wallet.ansinh{background:linear-gradient(135deg,#8a611e,#b8873a)}
+  .wallet h4{margin:0 0 8px;font-size:15px}
+  .wallet p{color:rgba(255,255,255,.88);font-size:13px;margin:0}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0;}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left}
+  th{background:var(--navy2);color:#fff;font-weight:600}
+  tr:nth-child(even){background:#faf8f4}
+
+  .tree{font-family:Consolas,Menlo,monospace;font-size:13px;background:#101c2c;color:#dbe7f2;
+    border-radius:8px;padding:18px;overflow-x:auto;line-height:1.7;}
+  .tree .a{color:var(--gold2);font-weight:700}
+  .tree .b{color:#7ec7ff}
+
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;margin-left:6px}
+  .badge.ok{background:#e2f2e8;color:var(--green)}
+  .badge.warn{background:#fdebe6;color:var(--red)}
+  .badge.open{background:#fdf1da;color:#8a611e}
+
+  .qa{border:1px solid var(--line);border-left:5px solid var(--red);background:#fff;border-radius:8px;
+    padding:14px 18px;margin-bottom:14px;}
+  .qa .q{font-weight:700;color:var(--navy2);font-size:14px;margin-bottom:6px}
+  .qa .why{font-size:13px;color:var(--muted)}
+
+  footer{text-align:center;padding:24px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">HTX Gia đình 369 · One Platform</span>
+    <h1>Mô hình Thành viên — NCC — Người kết nối (NKN/NĐK)</h1>
+    <p>Chuẩn hoá quy tắc bắt buộc: NCC/nhà bán hàng trên sàn 369 phải là thành viên HTX; mọi quan hệ kết nối (giới thiệu) phải có mã định danh, được hệ thống ghi nhận và theo dõi trọn vòng đời để tính quyền hưởng 1%.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="callout">
+    <b>⚠ Có 1 điểm mâu thuẫn với quyết định đã chốt trước đó</b><br>
+    Tài liệu gốc (mục 10) mô tả luồng thanh toán: nếu Ví tiêu dùng không đủ tiền thì tự động lấy từ
+    <b>Ví chính → Ví tiêu dùng</b>. Nhưng theo ghi chú kiến trúc NEXUS-DMS/HTX 369 One Platform trước đây,
+    Ví chính <b>không được trừ/chuyển tự động</b> — thành viên phải chủ động chuyển tiền sang Ví tiêu dùng trước khi
+    dùng để thanh toán. Xem câu hỏi số 1 ở cuối trang.
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <h2><span class="num">1</span>Hai nguyên tắc bắt buộc của hệ thống</h2>
+    <div class="card">
+      <ul class="tight">
+        <li><b>NCC/nhà bán hàng</b> muốn bán trên sàn 369 <b>bắt buộc là thành viên HTX 369</b> (không có NCC độc lập ngoài HTX).</li>
+        <li>Mọi quan hệ <b>Người kết nối (NKN) ↔ Người được kết nối (NĐK)</b> phải có <b>mã quan hệ kết nối</b> do hệ thống cấp và ghi nhận, vì quyền hưởng <b>1% giá trị mua hàng</b> được theo dõi lâu dài theo từng giao dịch của NĐK.</li>
+      </ul>
+      <p class="muted">Hai nguyên tắc này nên được đưa vào <b>Điều lệ / Quy chế thành viên / Quy chế sàn / Hợp đồng NCC</b> — không chỉ dừng ở chính sách vận hành, để có căn cứ pháp lý khi xử lý tranh chấp.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2><span class="num">2</span>Mô hình vai trò trên một mã thành viên duy nhất</h2>
+    <p>Một người chỉ có <b>một mã thành viên (TV369xxxxxx)</b>, có thể đồng thời giữ nhiều vai trò — hệ thống không tạo tài khoản rời rạc cho từng vai trò.</p>
+    <div class="roles">
+      <div class="role"><div class="name">TV — Thành viên</div><span class="code">bắt buộc, gốc</span><p>Tư cách nền tảng để được cấp mọi vai trò khác.</p></div>
+      <div class="role"><div class="name">NTD — Người tiêu dùng</div><span class="code">mặc định</span><p>Mua hàng trên App/Sàn 369.</p></div>
+      <div class="role"><div class="name">NKN — Người kết nối</div><span class="code">có mã NKN riêng</span><p>Giới thiệu người khác tham gia, hưởng 1% từ giao dịch của NĐK.</p></div>
+      <div class="role"><div class="name">NCC — Nhà bán hàng</div><span class="code">phải qua thẩm định</span><p>Thành viên đã ký cam kết cung ứng, được duyệt bán hàng.</p></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2><span class="num">3</span>Quy trình NCC gia nhập</h2>
+    <div class="flow">
+      <div class="box">NCC (cá nhân/tổ chức muốn bán hàng)</div><div class="arrow">↓</div>
+      <div class="box">Đăng ký làm thành viên HTX 369</div><div class="arrow">↓</div>
+      <div class="box">Xác minh hồ sơ</div><div class="arrow">↓</div>
+      <div class="box">Được công nhận thành viên</div><div class="arrow">↓</div>
+      <div class="box">Ký cam kết / hợp đồng cung ứng</div><div class="arrow">↓</div>
+      <div class="box">Đăng ký trở thành NCC</div><div class="arrow">↓</div>
+      <div class="box">HTX thẩm định</div><div class="arrow">↓</div>
+      <div class="box end">Được đưa sản phẩm lên sàn → Bán hàng</div>
+    </div>
+    <h3>Trách nhiệm ràng buộc theo tư cách thành viên</h3>
+    <p class="muted">Chất lượng sản phẩm · nguồn gốc hàng hoá · an toàn sản phẩm · giá & chính sách bán · trách nhiệm với khách hàng · đổi trả · nghĩa vụ với HTX · quy tắc ứng xử · trách nhiệm cộng đồng · nghĩa vụ khác theo Điều lệ/quy chế.</p>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2><span class="num">4</span>Mã thành viên & mã quan hệ kết nối</h2>
+    <p>Hệ thống <b>không</b> quản lý quan hệ bằng tên/số điện thoại — mọi thứ đi qua mã định danh:</p>
+    <table>
+      <tr><th>Trường</th><th>Ví dụ</th><th>Ghi chú</th></tr>
+      <tr><td>Mã thành viên</td><td>TV369000125</td><td>Duy nhất, gắn với toàn bộ vai trò/ví/lịch sử của người dùng</td></tr>
+      <tr><td>Mã NKN</td><td>TV369000125</td><td>Chính là mã thành viên của người giới thiệu</td></tr>
+      <tr><td>Mã NĐK</td><td>TV369000836</td><td>Mã thành viên của người được giới thiệu</td></tr>
+      <tr><td>Mã quan hệ kết nối</td><td>KN36920260000125</td><td>Bản ghi quan hệ chính thức — không chỉ ghi "được giới thiệu bởi"</td></tr>
+    </table>
+    <h3>Bản ghi quan hệ lưu trong hệ thống</h3>
+    <table>
+      <tr><th>Trường</th><th>Nội dung</th></tr>
+      <tr><td>Mã quan hệ</td><td>KN36920260000125</td></tr>
+      <tr><td>Mã NKN</td><td>TV369000125</td></tr>
+      <tr><td>Mã NĐK</td><td>TV369000836</td></tr>
+      <tr><td>Ngày kết nối</td><td>08/09/2026</td></tr>
+      <tr><td>Trạng thái</td><td>Đang hiệu lực</td></tr>
+      <tr><td>Chính sách</td><td>1%</td></tr>
+      <tr><td>Thời hạn</td><td>Theo chính sách HTX <span class="badge open">chưa chốt</span></td></tr>
+      <tr><td>Căn cứ tính</td><td>Giao dịch phát sinh từ NĐK</td></tr>
+    </table>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2><span class="num">5</span>Khóa quan hệ kết nối tại thời điểm đăng ký</h2>
+    <div class="flow">
+      <div class="box">B nhập mã kết nối của A</div><div class="arrow">↓</div>
+      <div class="box">Hệ thống kiểm tra mã</div><div class="arrow">↓</div>
+      <div class="box">Xác nhận NKN</div><div class="arrow">↓</div>
+      <div class="box">Tạo quan hệ kết nối</div><div class="arrow">↓</div>
+      <div class="box end">Khóa quan hệ → theo dõi toàn bộ giao dịch mua hàng của B</div>
+    </div>
+    <p class="muted">Không cho nhân viên sửa tuỳ tiện. Muốn thay đổi phải có: <b>quyền phê duyệt + lý do + lịch sử thay đổi + người thực hiện</b>. <span class="badge open">Cần chốt vai trò nào được phê duyệt</span></p>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2><span class="num">6</span>Tính 1% khi NĐK mua hàng</h2>
+    <div class="flow">
+      <div class="box">Đơn hàng của B (NĐK) — 5.000.000đ, hoàn tất</div><div class="arrow">↓</div>
+      <div class="box">Kiểm tra mã NĐK → tìm NKN (A – TV369000125)</div><div class="arrow">↓</div>
+      <div class="box">Tính 1% : 5.000.000 × 1% = 50.000đ</div><div class="arrow">↓</div>
+      <div class="box end">Ghi nhận quyền hưởng cho A → Ví tiêu dùng A +50.000đ</div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <h2><span class="num">7</span>Theo dõi trọn vòng đời & truy vấn</h2>
+    <div class="flow">
+      <div class="box">A kết nối B</div><div class="arrow">↓</div>
+      <div class="box">B có mã TV</div><div class="arrow">↓</div>
+      <div class="box">B mua lần 1 → tính 1%</div><div class="arrow">↓</div>
+      <div class="box">B mua lần 2 → tính 1%</div><div class="arrow">↓</div>
+      <div class="box">B mua lần 3 … → tính 1%</div><div class="arrow">↓</div>
+      <div class="box end">Mọi đơn hàng đủ điều kiện đều tự động tính 1%</div>
+    </div>
+    <p>Cho phép truy vấn: số người A đã kết nối · doanh số từng người · tổng doanh số mạng kết nối của A · tổng quyền hưởng 1% của A.</p>
+    <p class="muted">"Đơn hàng đủ điều kiện" <span class="badge open">chưa định nghĩa rõ</span> — xem câu hỏi cuối trang.</p>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <h2><span class="num">8</span>Mô hình cây kết nối — chỉ 1 tầng (mặc định)</h2>
+    <div class="tree">
+<span class="a">A · TV369000001</span>
+   │
+   ├──► <span class="b">B · TV369...</span>  ← A hưởng 1% khi B mua
+   ├──► <span class="b">C · TV369...</span>  ← A hưởng 1% khi C mua
+   └──► <span class="b">D · TV369...</span>  ← A hưởng 1% khi D mua
+
+<span class="b">B</span>
+   ├──► E   ← B hưởng 1% khi E mua — <b>A KHÔNG</b> tự động hưởng
+   ├──► F
+   └──► G
+    </div>
+    <p class="muted">Chỉ trả 1% cho <b>người kết nối trực tiếp</b>. Không phải mô hình đa tầng (đa cấp) — nên khoá rõ trong quy chế để tránh hiểu nhầm. Câu "trừ khi HTX có chính sách tầng khác" để ngỏ khả năng mở rộng. <span class="badge open">Cần chốt: có mở đa tầng trong tương lai không?</span></p>
+  </section>
+
+  <!-- 9 -->
+  <section>
+    <h2><span class="num">9</span>Ba loại ví</h2>
+    <div class="wallets">
+      <div class="wallet main">
+        <h4>Ví chính</h4>
+        <p>Tiền bán hàng của NCC / tiền phải trả cho thành viên → HTX ghi nhận công nợ → thanh toán định kỳ.</p>
+      </div>
+      <div class="wallet tieudung">
+        <h4>Ví tiêu dùng</h4>
+        <p>Dùng để mua hàng trên App 369. Cashback + khoản 1% kết nối được ghi nhận vào đây.</p>
+      </div>
+      <div class="wallet ansinh">
+        <h4>Ví an sinh <span class="badge open">mới, chưa có quy chế</span></h4>
+        <p>Khoản đóng góp/trích lập theo chính sách → phục vụ phúc lợi xã hội của HTX.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section>
+    <h2><span class="num">10</span>Luồng khách hàng hoàn chỉnh</h2>
+    <div class="flow">
+      <div class="box">Cài App 369 → Tạo tài khoản → Có mã thành viên</div><div class="arrow">↓</div>
+      <div class="box">Nhập mã người kết nối → hệ thống xác nhận → tạo quan hệ kết nối</div><div class="arrow">↓</div>
+      <div class="box">Xem sản phẩm → kiểm tra tồn kho</div><div class="arrow">↓</div>
+      <div class="box alt">Còn hàng → Đặt hàng &nbsp;|&nbsp; Hết hàng → Dừng</div><div class="arrow">↓</div>
+      <div class="box">Thanh toán: Ví tiêu dùng → (nếu thiếu) Ví chính → Ví TD ⚠ → (nếu vẫn thiếu) CK/TM</div><div class="arrow">↓</div>
+      <div class="box">Thanh toán đủ → Kho tổng → Giao hàng → Hoàn tất</div><div class="arrow">↓</div>
+      <div class="box end">Cashback → Ví TD &nbsp;|&nbsp; 1% kết nối → Ví TD &nbsp;|&nbsp; An sinh → Ví an sinh</div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section>
+    <h2><span class="num">11</span>Cấu trúc dữ liệu lõi đề xuất</h2>
+    <div class="card">
+      <pre style="font-family:Consolas,Menlo,monospace;font-size:13px;margin:0;white-space:pre-wrap;">MÃ THÀNH VIÊN (TV369xxxxxx)
+ ├── Vai trò[]           : NTD | NKN | NCC
+ ├── Ví chính            : số dư, lịch sử ghi có/thanh toán định kỳ
+ ├── Ví tiêu dùng        : số dư, cashback, 1% kết nối
+ ├── Ví an sinh          : số dư, nguồn trích lập, quy tắc sử dụng
+ ├── Mã NKN của mình     : = mã thành viên
+ ├── Danh sách NĐK[]     : mã quan hệ, ngày kết nối, trạng thái
+ ├── Đơn hàng[]          : giá trị, trạng thái, đủ điều kiện tính 1%?
+ ├── Doanh số            : theo NCC (nếu có vai trò NCC)
+ ├── Sản phẩm[]          : (nếu có vai trò NCC, đã được duyệt)
+ └── Lịch sử giao dịch   : toàn bộ log ví + đơn hàng + kết nối</pre>
+      <p class="muted" style="margin-top:12px">Mục tiêu: từ 1 đơn hàng có thể truy ngược ra toàn bộ chuỗi — khách nào mua → ai kết nối → sản phẩm của NCC nào → xuất kho nào → ví thanh toán → cashback bao nhiêu → 1% cho ai → tiền NCC bao nhiêu → đối soát kế toán thế nào.</p>
+    </div>
+  </section>
+
+  <!-- OPEN QUESTIONS -->
+  <section>
+    <h2><span class="num">?</span>Những điểm chưa rõ — cần anh Sơn chốt trước khi dựng schema/API</h2>
+
+    <div class="qa">
+      <div class="q">1. Ví chính → Ví tiêu dùng có tự động chuyển khi thiếu tiền thanh toán không?</div>
+      <div class="why">Tài liệu gốc mô tả tự động fallback. Nhưng quyết định trước đó (đang lưu trong kiến trúc HTX 369 One Platform) là Ví chính không tự động trừ — thành viên phải chủ động chuyển trước. Giữ nguyên rule cũ (thủ công) hay cho phép auto top-up riêng ở bước checkout?</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">2. "Đơn hàng đủ điều kiện" tính 1% là những đơn nào?</div>
+      <div class="why">Cần định nghĩa: có loại trừ đơn huỷ/hoàn trả không? có giá trị tối thiểu không? đơn mua bởi chính NKN cho bản thân có tính không? NĐK đồng thời cũng có vai trò NKN của người khác thì tính thế nào (tránh double-count)?</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">3. Thời hạn hưởng 1% là bao lâu?</div>
+      <div class="why">"Theo chính sách HTX" chưa có con số. Vĩnh viễn theo vòng đời NĐK, hay có hạn (vd 12/24 tháng kể từ ngày kết nối)? Ảnh hưởng trực tiếp field expiry trong bảng quan hệ kết nối.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">4. Mô hình có chắc chắn chỉ 1 tầng (không đa cấp) hay cần thiết kế sẵn cho khả năng mở rộng đa tầng sau này?</div>
+      <div class="why">Việt Nam quản lý chặt mô hình đa cấp (Nghị định về kinh doanh đa cấp) — nếu chốt chỉ 1 tầng thì nên khoá cứng trong Điều lệ/quy chế để tránh rủi ro pháp lý, và schema có thể đơn giản hơn (không cần cây quan hệ nhiều cấp).</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">5. Ai có quyền phê duyệt thay đổi quan hệ kết nối đã khoá?</div>
+      <div class="why">Cổng thành viên HTX 369 hiện có 4 vai trò: Thành viên / Tổ trưởng / Cán bộ quản lý / Ban điều hành (portal đào tạo) — nhưng NKN/NCC là vai trò kinh doanh, tách biệt hệ thống. Vai trò nào trong 2 hệ thống này có quyền duyệt đổi mã kết nối?</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">6. Mã thành viên TV369xxxxxx có phải là ID gốc dùng chung cho cả 3 hệ thống: Cổng đào tạo (369-daotao), App 369 CLUB, và Sàn 369 Marketplace không?</div>
+      <div class="why">Portal đào tạo hiện tách biệt hoàn toàn vai trò kinh doanh (NKN, NPP...). Nếu mã thành viên là ID chung xuyên hệ thống thì cần 1 "Member Identity Service" trung tâm để 3 hệ thống tra cứu chéo, thay vì mỗi hệ thống tự sinh mã riêng.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">7. Ví an sinh: nguồn trích lập từ đâu, và ai/khi nào được rút hoặc sử dụng?</div>
+      <div class="why">Ví mới xuất hiện trong tài liệu này, chưa có quy chế trước đó. Cần % trích từ đơn hàng nào, và cơ chế chi (HTX quyết định chi phúc lợi tập thể, hay từng thành viên có thể yêu cầu sử dụng phần của mình)?</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">8. Yêu cầu "NCC phải là thành viên HTX" áp dụng hồi tố với NCC hiện hữu (vd nhà cung cấp Bà Đen Farm) hay chỉ áp dụng từ nay trở đi?</div>
+      <div class="why">Ảnh hưởng lộ trình migrate dữ liệu NCC cũ (nếu có) sang mô hình thành viên mới.</div>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>HTX 369 ONE PLATFORM — Mô hình Thành viên · NCC · Người kết nối — tài liệu nội bộ, phiên bản làm việc</footer>
+
+</body>
+</html>

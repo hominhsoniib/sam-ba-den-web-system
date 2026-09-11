@@ -11,3 +11,7 @@ venv/
 .venv/
 node_modules/
 *.log
+*.pptx
+*.pdf
+web369-backend/
+fix code/web369-backend/

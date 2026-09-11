@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Quy trình mua hàng HTX 369</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF8F1; --paper-deep:#F3EEE1; --panel:#FFFFFF;
+    --ink:#182619; --muted:#5B6858; --muted-2:#8A9488; --line:#E4DDC8;
+    --gold:#E8A93A; --gold-deep:#A87D1E; --gold-bright:#F2B703; --gold-tint:#FBF1DA;
+    --green:#2F6B3A; --green-deep:#16321E; --green-darkest:#0F2E1C; --green-tint:#EAF2E9;
+    --blue:#1F5C99; --blue-deep:#164572; --blue-tint:#E7EFF7;
+    --rose:#B0521F; --rose-tint:#FBEDE3;
+    --red:#C53030; --red-tint:#FDF2F2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden}
+  body{background:var(--paper);color:var(--ink);font-family:'Be Vietnam Pro',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .font-display{font-family:'Lora',serif}
+  .wrap{max-width:760px;margin:auto;padding:28px 16px 48px}
+
+  header.hero{text-align:center;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);display:inline-flex;align-items:center;gap:8px}
+  .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--gold)}
+  h1{font-family:'Lora',serif;font-weight:700;margin:.5em 0 0;font-size:clamp(20px,4.5vw,32px);line-height:1.25}
+  .sub{color:var(--muted);margin:10px auto 0;font-size:clamp(12.5px,2.6vw,15px);max-width:520px}
+
+  .legend{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0 4px}
+  .legend span{padding:5px 11px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font-size:11px;font-weight:600;white-space:nowrap}
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin:20px 0 8px;font-size:12.5px;color:var(--muted)}
+  .toolbar button{background:none;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--green-deep);cursor:pointer;transition:.15s}
+  .toolbar button:hover{background:var(--green-tint);border-color:var(--green)}
+
+  .stepper{position:relative;padding-left:6px}
+  .stepper::before{content:'';position:absolute;left:26px;top:8px;bottom:8px;width:2px;background:var(--line);z-index:0}
+  .step{position:relative;z-index:1;display:flex;gap:16px;margin-bottom:4px}
+  .step-dot{
+    width:52px;height:52px;border-radius:50%;flex-shrink:0;background:var(--panel);
+    border:2.5px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-family:'Lora',serif;font-weight:700;font-size:18px;color:var(--muted-2);
+    cursor:pointer;transition:.2s;
+  }
+  .step.cat-order .step-dot{border-color:var(--green);color:var(--green-deep)}
+  .step.cat-pay .step-dot{border-color:var(--gold);color:var(--gold-deep)}
+  .step.cat-stock .step-dot{border-color:var(--blue);color:var(--blue-deep)}
+  .step.cat-ship .step-dot{border-color:var(--rose);color:var(--rose)}
+  .step.cat-hq .step-dot{background:var(--green-darkest);border-color:var(--green-darkest);color:#fff}
+  .step.open .step-dot{transform:scale(1.06);box-shadow:0 8px 16px -6px rgba(24,38,25,.25)}
+
+  .step-body{flex:1;padding-bottom:22px;cursor:pointer;min-width:0}
+  .step-title{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;padding-top:12px}
+  .step-icon{font-size:17px}
+  .chev{margin-left:auto;color:var(--muted-2);transition:transform .2s;font-size:12px;flex-shrink:0}
+  .step.open .chev{transform:rotate(180deg)}
+  .step-summary{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  .step-detail{max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .step.open .step-detail{max-height:420px}
+  .step-detail-inner{padding:12px 0 4px}
+
+  .decision{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  .decision .yes,.decision .no{border-radius:12px;padding:10px 12px;font-size:12px;border:1.5px solid}
+  .decision .yes{background:var(--green-tint);border-color:var(--green)}
+  .decision .no{background:var(--red-tint);border-color:var(--red)}
+  .decision b{display:block;font-size:12.5px;margin-bottom:2px}
+  @media(max-width:480px){.decision{grid-template-columns:1fr}}
+
+  .note-box{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .section-title{text-align:center;font-family:'Lora',serif;font-weight:700;font-size:19px;margin:36px 0 16px}
+  .office-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(min-width:520px){.office-grid{grid-template-columns:repeat(4,1fr)}}
+  .office-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-align:center;font-size:12px}
+  .office-card .ic{font-size:20px;display:block;margin-bottom:4px}
+  .office-card b{display:block;font-size:12.5px;margin-bottom:2px}
+  .office-card span{color:var(--muted)}
+
+  .hq-card{
+    margin-top:14px;border-radius:16px;padding:22px 20px;color:#F4F1E6;text-align:center;
+    background:radial-gradient(140% 160% at 20% -10%,#1D4A2C 0%,var(--green-darkest) 55%,#0B2315 100%);
+    position:relative;overflow:hidden;
+  }
+  .hq-card::before{content:'';position:absolute;width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,var(--gold-bright),var(--gold-deep) 70%);
+    opacity:.85;right:-50px;bottom:-70px}
+  .hq-card h3{position:relative;font-family:'Lora',serif;font-size:16px;margin:0 0 6px}
+  .hq-card p{position:relative;font-size:12px;color:rgba(244,241,230,.75);margin:0 auto;max-width:440px}
+
+  .rule-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+  @media(min-width:600px){.rule-grid{grid-template-columns:repeat(3,1fr)}}
+  .rule-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .rule-card .num{width:30px;height:30px;border-radius:50%;background:var(--gold-tint);color:var(--gold-deep);
+    font-weight:700;font-family:'Lora',serif;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+  .rule-card b{font-size:12.5px;line-height:1.4}
+
+  .final-note{background:var(--blue-tint);border:1px solid rgba(31,92,153,.25);border-radius:12px;padding:14px 16px;margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--blue-deep)}
+
+  @media print{ .toolbar,.chev{display:none} .step-detail{max-height:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">HTX Gia đình 369</span>
+    <h1>Quy trình Mua hàng trên App / Sàn TMĐT 369</h1>
+    <p class="sub">Từ lúc khách xem sản phẩm → kiểm tra tồn kho → thanh toán → kho → giao hàng → đối soát. Bấm vào từng bước để xem chi tiết.</p>
+  </header>
+
+  <div class="legend">
+    <span>🟢 Đơn hàng</span><span>🟡 Ví &amp; Thanh toán</span><span>🔵 Kho / Vận hành</span><span>🟠 Giao hàng</span><span>⚫ Điều hành</span>
+  </div>
+
+  <div class="toolbar">
+    <span id="step-counter">17 bước</span>
+    <button onclick="toggleAll(true)">Mở tất cả</button>
+  </div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <div class="section-title">Vận hành phía sau khi đơn hoàn tất</div>
+  <div class="office-grid">
+    <div class="office-card"><span class="ic">🏬</span><b>Kho</b><span>Cập nhật xuất / tồn / hoàn</span></div>
+    <div class="office-card"><span class="ic">💰</span><b>Kế toán</b><span>Doanh thu • Giá vốn • Công nợ</span></div>
+    <div class="office-card"><span class="ic">🎁</span><b>Chính sách</b><span>Hoa hồng / quyền hưởng nếu có</span></div>
+    <div class="office-card"><span class="ic">🚚</span><b>Đối soát</b><span>Vận đơn • Phí • COD / tiền thu</span></div>
+  </div>
+
+  <div class="hq-card">
+    <h3>📊 Trung tâm Điều hành HTX 369</h3>
+    <p>Dashboard tổng hợp: Doanh thu • Kho • Đơn hàng • Thành viên • Ví • Tài chính • Logistics — theo dõi thời gian thực toàn bộ chuỗi giá trị.</p>
+  </div>
+
+  <div class="section-title">3 nguyên tắc thanh toán</div>
+  <div class="rule-grid">
+    <div class="rule-card"><div class="num">1</div><b>Chỉ dùng Ví tiêu dùng để thanh toán đơn hàng</b></div>
+    <div class="rule-card"><div class="num">2</div><b>Ví tiêu dùng thiếu → chuyển từ Ví chính sang Ví tiêu dùng</b></div>
+    <div class="rule-card"><div class="num">3</div><b>Vẫn thiếu → khách thanh toán phần thiếu bằng Chuyển khoản / Tiền mặt</b></div>
+  </div>
+
+  <div class="final-note">
+    <b>Nguyên tắc tồn kho:</b> kiểm tra khi khách chọn sản phẩm + kiểm tra lại khi bấm Đặt hàng + giữ/trừ tồn khi đơn được chốt. Mục tiêu là không bán vượt số lượng tồn thực tế.
+  </div>
+</div>
+
+<script>
+  const STEPS = [
+    { cat:'order', icon:'👤', title:'Người tiêu dùng / Khách hàng', summary:'Điểm khởi đầu hành trình mua hàng' },
+    { cat:'order', icon:'📱', title:'Mở App / Sàn TMĐT HTX 369', summary:'Tìm kiếm → Danh mục → Xem sản phẩm' },
+    { cat:'order', icon:'🛍️', title:'Bấm vào sản phẩm', summary:'Chọn SKU / quy cách / số lượng' },
+    { cat:'stock', icon:'🔎', title:'Kiểm tra tồn kho (lần 1)', summary:'Ngay khi khách chọn sản phẩm',
+      decision:{ yes:'Còn hàng — cho phép chọn số lượng và tiếp tục mua', no:'Hết hàng — thông báo và không cho đặt hàng' } },
+    { cat:'order', icon:'🛒', title:'Thêm giỏ hàng', summary:'Xác nhận số lượng trước khi đặt' },
+    { cat:'stock', icon:'🔎', title:'Kiểm tra tồn kho (lần 2)', summary:'Ngay khi khách bấm "Đặt hàng"',
+      decision:{ yes:'Đủ hàng — tiếp tục tính tiền', no:'Không đủ — báo số lượng còn lại, yêu cầu điều chỉnh' } },
+    { cat:'order', icon:'📦', title:'Xác nhận đơn hàng', summary:'Sản phẩm • Số lượng • Địa chỉ • Phí ship • Tổng thanh toán' },
+    { cat:'pay', icon:'💳', title:'Kiểm tra Ví tiêu dùng', summary:'Đủ tiền thì thanh toán ngay',
+      decision:{ yes:'Ví đủ tiền — dùng Ví tiêu dùng để thanh toán đơn', no:'Ví không đủ — chuyển tiền từ Ví chính sang Ví tiêu dùng' } },
+    { cat:'pay', icon:'🔄', title:'Kiểm tra lại Ví sau bổ sung', summary:'Sau khi chuyển từ Ví chính',
+      decision:{ yes:'Đủ tiền — thanh toán toàn bộ đơn bằng Ví tiêu dùng', no:'Vẫn thiếu — phần còn lại thanh toán bằng Chuyển khoản / Tiền mặt' } },
+    { cat:'pay', icon:'✅', title:'Thanh toán đủ → Chốt đơn', summary:'Giữ / trừ tồn kho ngay khi chốt' },
+    { cat:'stock', icon:'🧾', title:'Quản lý đơn hàng (OMS)', summary:'Tạo mã đơn • Phiếu xuất • Theo dõi trạng thái' },
+    { cat:'stock', icon:'🏬', title:'Kho tổng HTX 369', summary:'Soạn hàng → Kiểm hàng → Đóng gói → Bàn giao' },
+    { cat:'ship', icon:'🚚', title:'Đơn vị giao hàng', summary:'Viettel Post • GHN • GHTK • Đơn vị liên kết khác' },
+    { cat:'ship', icon:'📍', title:'Theo dõi giao hàng', summary:'Đã lấy → Đang vận chuyển → Đang giao → Thành công / Hoàn' },
+    { cat:'order', icon:'🎉', title:'Khách nhận hàng → Hoàn tất đơn', summary:'Kết thúc hành trình mua hàng của khách' },
+  ];
+
+  function render() {
+    const el = document.getElementById('stepper');
+    document.getElementById('step-counter').innerText = STEPS.length + ' bước';
+    el.innerHTML = STEPS.map((s, i) => {
+      const detailHtml = s.decision
+        ? '<div class="decision">' +
+            '<div class="yes"><b>✅ ' + s.decision.yes.split(' — ')[0] + '</b>' + (s.decision.yes.split(' — ')[1] || '') + '</div>' +
+            '<div class="no"><b>⚠️ ' + s.decision.no.split(' — ')[0] + '</b>' + (s.decision.no.split(' — ')[1] || '') + '</div>' +
+          '</div>'
+        : (s.detail ? '<div class="note-box">' + s.detail + '</div>' : '');
+      return (
+        '<div class="step cat-' + s.cat + '" id="step-' + i + '">' +
+          '<div class="step-dot" onclick="toggleStep(' + i + ')">' + (i + 1) + '</div>' +
+          '<div class="step-body" onclick="toggleStep(' + i + ')">' +
+            '<div class="step-title"><span class="step-icon">' + s.icon + '</span>' + s.title + '<span class="chev">▾</span></div>' +
+            '<div class="step-summary">' + s.summary + '</div>' +
+            '<div class="step-detail"><div class="step-detail-inner">' + detailHtml + '</div></div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function toggleStep(i) {
+    document.getElementById('step-' + i).classList.toggle('open');
+  }
+
+  let allOpen = false;
+  function toggleAll(force) {
+    allOpen = typeof force === 'boolean' ? force : !allOpen;
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.toggle('open', allOpen); });
+    const btn = document.querySelector('.toolbar button');
+    btn.innerText = allOpen ? 'Thu gọn tất cả' : 'Mở tất cả';
+    btn.onclick = function(){ toggleAll(); };
+  }
+
+  render();
+  document.getElementById('step-0').classList.add('open');
+</script>
+</body>
+</html>
