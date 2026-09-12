@@ -216,6 +216,64 @@
   .nav-pill:hover { color: var(--ink); background: rgba(0,0,0,0.03); }
   .nav-pill.active { background: var(--green); color: #fff; box-shadow: 0 4px 12px rgba(47,107,58,0.2); }
 
+  /* Nav Dropdown Menu */
+  .nav-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 260px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 14px 30px -4px rgba(24, 38, 25, 0.18), 0 4px 12px -2px rgba(24, 38, 25, 0.08);
+    padding: 8px 0;
+    margin-top: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 100;
+  }
+  .nav-dropdown-wrapper:hover .nav-dropdown-menu,
+  .nav-dropdown-wrapper:focus-within .nav-dropdown-menu,
+  .nav-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-dropdown-item:hover {
+    background: var(--paper-deep);
+    color: var(--green);
+  }
+  .nav-dropdown-item .item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--green-tint);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    border: 1px solid rgba(47,107,58,0.15);
+  }
+
   /* Modal Backdrop */
   .modal-backdrop {
     position: fixed; inset: 0; background: rgba(24, 38, 25, 0.6);
@@ -307,6 +365,28 @@
     <nav id="public-nav" class="hidden lg:flex items-center gap-5 text-[13.5px] font-medium text-[var(--muted)]">
       <a href="#gioi-thieu" class="hover:text-[var(--ink)] transition">Giới thiệu HTX</a>
       <a href="#loi-ich" class="hover:text-[var(--ink)] transition">Lợi ích thành viên</a>
+      
+      <!-- Dropdown Đối Tác -->
+      <div class="nav-dropdown-wrapper">
+        <button class="hover:text-[var(--ink)] transition flex items-center gap-1 font-medium py-1">
+          <span>🤝 Đối tác</span>
+          <svg class="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <div class="px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-[var(--muted)] border-b border-[var(--line)] mb-1">
+            Đối tác Liên kết & Nông trại
+          </div>
+          <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item group">
+            <div class="item-icon group-hover:scale-105 transition-transform">🌿</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-xs text-[var(--ink)] group-hover:text-[var(--green)] truncate">CTY CP Bà Đen Farm</div>
+              <div class="text-[11px] text-[var(--muted)] truncate">Sâm Bố Chính & Nông nghiệp 4.0</div>
+            </div>
+            <span class="text-xs text-[var(--muted-2)] group-hover:text-[var(--green)] group-hover:translate-x-0.5 transition-transform">↗</span>
+          </a>
+        </div>
+      </div>
+
       <button onclick="openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369')" class="hover:text-[var(--green-deep)] text-[var(--green)] font-semibold transition flex items-center gap-1 bg-[var(--green-tint)] px-2.5 py-1 rounded-full border border-[var(--green)]/20">
         📐 Sơ đồ Vận hành
       </button>
@@ -332,6 +412,28 @@
       <button onclick="switchTab('transactions')" id="tab-btn-transactions" class="nav-pill">
         <span>🤝 Giao dịch HTX</span>
       </button>
+
+      <!-- Dropdown Đối Tác (Portal) -->
+      <div class="nav-dropdown-wrapper">
+        <button class="nav-pill text-[var(--muted)] hover:text-[var(--ink)]">
+          <span>🤝 Đối tác</span>
+          <svg class="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <div class="px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-[var(--muted)] border-b border-[var(--line)] mb-1">
+            Đối tác Liên kết & Nông trại
+          </div>
+          <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item group">
+            <div class="item-icon group-hover:scale-105 transition-transform">🌿</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-xs text-[var(--ink)] group-hover:text-[var(--green)] truncate">CTY CP Bà Đen Farm</div>
+              <div class="text-[11px] text-[var(--muted)] truncate">Sâm Bố Chính & Nông nghiệp 4.0</div>
+            </div>
+            <span class="text-xs text-[var(--muted-2)] group-hover:text-[var(--green)] group-hover:translate-x-0.5 transition-transform">↗</span>
+          </a>
+        </div>
+      </div>
+
       <button onclick="openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369')" class="nav-pill text-[var(--green-deep)] font-bold">
         <span>📐 Sơ đồ Vận hành</span>
       </button>
@@ -386,6 +488,22 @@
 <div id="mobile-public-menu" class="hidden border-b border-[var(--line)] bg-[var(--paper-deep)] px-4 py-3 space-y-2 lg:hidden text-xs shadow-md">
   <a href="#gioi-thieu" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">🤝 Giới thiệu HTX 369</a>
   <a href="#loi-ich" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">🌱 Lợi ích thành viên</a>
+  
+  <!-- Mobile Đối Tác Section -->
+  <div class="border-t border-b border-emerald-200/60 py-2 my-1 bg-emerald-50/70 rounded-lg px-2.5">
+    <div class="font-bold text-emerald-900 text-[10.5px] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+      🤝 Đối tác liên kết
+    </div>
+    <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" onclick="closeMobilePublicMenu()" class="flex items-center gap-2.5 py-1.5 px-2 rounded-md hover:bg-emerald-100/80 transition text-[var(--ink)] font-semibold">
+      <span class="w-6 h-6 rounded bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs">🌿</span>
+      <div class="flex-1 min-w-0">
+        <div class="text-xs font-bold text-emerald-950">CTY CP Bà Đen Farm</div>
+        <div class="text-[10px] text-emerald-700 font-normal">Sâm Bố Chính & Nông nghiệp 4.0</div>
+      </div>
+      <span class="text-[11px] font-bold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-300 shadow-xs">Xem trang ↗</span>
+    </a>
+  </div>
+
   <button onclick="openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369'); closeMobilePublicMenu();" class="w-full text-left py-2 px-3 rounded-lg bg-[var(--green-tint)] text-[var(--green-deep)] font-bold flex items-center gap-2 border border-[var(--green)]/20 shadow-sm">
     📐 Sơ đồ Vận hành & Kiến trúc 369 ↗
   </button>
@@ -407,6 +525,27 @@
     <button onclick="switchTab('academy')" id="mob-tab-academy" class="nav-pill text-xs py-1.5 px-3 active">🎓 Học viện</button>
     <button onclick="switchTab('pm_hkd')" id="mob-tab-pm_hkd" class="nav-pill text-xs py-1.5 px-3">💻 PM HKD</button>
     <button onclick="switchTab('transactions')" id="mob-tab-transactions" class="nav-pill text-xs py-1.5 px-3">🤝 Giao dịch</button>
+    
+    <!-- Mobile Portal Dropdown Đối Tác -->
+    <div class="nav-dropdown-wrapper">
+      <button class="nav-pill text-xs py-1.5 px-3 flex items-center gap-1 bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200">
+        🤝 Đối tác ▾
+      </button>
+      <div class="nav-dropdown-menu">
+        <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)] border-b border-[var(--line)] mb-1">
+          Đối tác Liên kết
+        </div>
+        <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item group">
+          <div class="item-icon">🌿</div>
+          <div>
+            <div class="font-semibold text-xs text-[var(--ink)]">CTY CP Bà Đen Farm</div>
+            <div class="text-[10px] text-[var(--muted)]">Sâm Bố Chính & Nông nghiệp 4.0</div>
+          </div>
+          <span class="text-xs text-emerald-600 font-bold ml-auto">↗</span>
+        </a>
+      </div>
+    </div>
+
     <button onclick="openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369')" class="nav-pill text-xs py-1.5 px-3 text-[var(--green-deep)] font-bold">📐 Sơ đồ Vận hành</button>
     <button onclick="openDiagramModal('mo_hinh_dieu_hanh_HTX_369.html', 'Quy trình Mua hàng HTX 369')" class="nav-pill text-xs py-1.5 px-3 text-[var(--blue-deep)] font-bold">🔄 Quy trình Mua hàng</button>
         <button onclick="openThiTNModal()" class="nav-pill text-xs py-1.5 px-3 text-[var(--gold-deep)] font-bold bg-amber-50 border border-amber-200">📝 Thi TN ↗</button>
