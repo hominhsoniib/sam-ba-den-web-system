@@ -3075,6 +3075,109 @@
     if (menu) menu.classList.add('hidden');
   }
 
+  // ====================================================================================
+  // FULL-SCREEN INFOGRAPHIC IMAGE LIGHTBOX VIEWER
+  // ====================================================================================
+  let currentInfographicUrl = '';
+  let currentInfographicZoom = 1;
+  let allPageImagesList = [];
+  let currentImageIdx = 0;
+
+  function openInfographicModal(url, title, targetIdx = -1) {
+    currentInfographicUrl = url;
+    const modal = document.getElementById('modal-infographic-viewer');
+    const imgEl = document.getElementById('infographic-modal-img');
+    const titleEl = document.getElementById('infographic-modal-title');
+
+    if (titleEl) titleEl.innerText = title || 'Hình ảnh Infographic HTX 369';
+    if (imgEl) {
+      imgEl.src = url;
+      imgEl.alt = title || 'Infographic';
+    }
+
+    if (targetIdx !== -1) {
+      currentImageIdx = targetIdx;
+    } else {
+      const idx = allPageImagesList.findIndex(img => img.src === url);
+      if (idx !== -1) currentImageIdx = idx;
+    }
+
+    resetInfographicZoom();
+
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeInfographicModal() {
+    const modal = document.getElementById('modal-infographic-viewer');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function zoomInfographic(delta) {
+    const imgEl = document.getElementById('infographic-modal-img');
+    if (!imgEl) return;
+    currentInfographicZoom = Math.max(0.4, Math.min(4, currentInfographicZoom + delta));
+    imgEl.style.transform = `scale(${currentInfographicZoom})`;
+  }
+
+  function resetInfographicZoom() {
+    currentInfographicZoom = 1;
+    const imgEl = document.getElementById('infographic-modal-img');
+    if (imgEl) imgEl.style.transform = 'scale(1)';
+  }
+
+  function openInfographicInNewTab() {
+    if (currentInfographicUrl) {
+      window.open(currentInfographicUrl, '_blank');
+    }
+  }
+
+  function navInfographicImage(delta) {
+    if (allPageImagesList.length === 0) return;
+    currentImageIdx = (currentImageIdx + delta + allPageImagesList.length) % allPageImagesList.length;
+    const targetImg = allPageImagesList[currentImageIdx];
+    if (targetImg) {
+      openInfographicModal(targetImg.src, targetImg.alt || targetImg.title || 'Hình ảnh', currentImageIdx);
+    }
+  }
+
+  function enableUniversalImageFullscreen() {
+    allPageImagesList = Array.from(document.querySelectorAll('img')).filter(img => {
+      return img.id !== 'infographic-modal-img' && img.src && !img.src.includes('data:image/svg');
+    });
+
+    allPageImagesList.forEach((img, idx) => {
+      img.style.cursor = 'zoom-in';
+      if (!img.title) img.title = 'Chạm / Bấm để mở chế độ xem full màn hình';
+      img.onclick = (e) => {
+        e.stopPropagation();
+        openInfographicModal(img.src, img.alt || img.title || 'Hình ảnh HTX 369', idx);
+      };
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('modal-infographic-viewer');
+    if (!modal || modal.classList.contains('hidden')) return;
+
+    if (e.key === 'Escape') {
+      closeInfographicModal();
+    } else if (e.key === 'ArrowLeft') {
+      navInfographicImage(-1);
+    } else if (e.key === 'ArrowRight') {
+      navInfographicImage(1);
+    }
+  });
+
+  window.addEventListener('load', () => {
+    enableUniversalImageFullscreen();
+  });
+
   const API_BASE = 'https://web369-backend.vercel.app';
 
   async function callAPI(endpoint, options = {}) {
@@ -4094,20 +4197,17 @@
 
 
 <!-- ==================================================================================== -->
-<!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER -->
-<!-- ==================================================================================== -->
-<!-- ==================================================================================== -->
-<!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER (MOBILE OPTIMIZED) -->
+<!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER (MOBILE OPTIMIZED & FULLSCREEN) -->
 <!-- ==================================================================================== -->
 <div id="modal-infographic-viewer" class="fixed inset-0 z-[120] bg-black/95 backdrop-blur-md hidden flex flex-col justify-between p-2.5 sm:p-4 md:p-6 transition-all">
   <!-- Top Bar -->
-  <div class="flex items-center justify-between gap-2 text-white border-b border-white/10 pb-2.5 px-1">
+  <div class="flex items-center justify-between gap-2 text-white border-b border-white/10 pb-2.5 px-1 z-20">
     <!-- Title & Icon -->
     <div class="flex items-center gap-2 min-w-0 flex-1">
       <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--gold)] text-slate-900 font-bold flex items-center justify-center text-xs sm:text-sm shadow-md flex-shrink-0">🖼️</span>
       <div class="min-w-0 flex-1">
         <h3 id="infographic-modal-title" class="font-display font-bold text-xs sm:text-base md:text-lg text-white truncate max-w-[180px] sm:max-w-md">Sơ Đồ Infographic HTX 369</h3>
-        <p class="text-[10px] sm:text-[11px] text-gray-400 hidden sm:block">Chạm nền tối hoặc chạm ✕ để đóng</p>
+        <p class="text-[10px] sm:text-[11px] text-gray-400 hidden sm:block">Dùng phím ◀ ▶ hoặc phím ESC để chuyển ảnh / đóng</p>
       </div>
     </div>
 
@@ -4125,18 +4225,26 @@
       <button onclick="openInfographicInNewTab()" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[var(--gold)] text-slate-900 text-[11px] sm:text-xs font-bold hover:bg-yellow-400 flex items-center gap-1 shadow" title="Tải hoặc mở tab mới">
         <span>↗</span><span class="hidden sm:inline"> Tab Mới</span>
       </button>
-      <button onclick="closeInfographicModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold flex items-center justify-center text-sm sm:text-base ml-1 shadow flex-shrink-0" title="Đóng">✕</button>
+      <button onclick="closeInfographicModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold flex items-center justify-center text-sm sm:text-base ml-1 shadow flex-shrink-0" title="Đóng chế độ Full Màn Hình">✕</button>
     </div>
   </div>
 
-  <!-- Image Display Canvas -->
-  <div class="flex-1 flex items-center justify-center overflow-auto p-1 sm:p-4 select-none my-auto" onclick="if(event.target === this) closeInfographicModal()">
+  <!-- Image Display Canvas & Nav Controls -->
+  <div class="relative flex-1 flex items-center justify-center overflow-hidden p-1 sm:p-4 select-none my-auto" onclick="if(event.target === this) closeInfographicModal()">
+    <button onclick="navInfographicImage(-1)" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-emerald-600 text-white font-bold text-lg sm:text-xl flex items-center justify-center border border-white/20 z-30 shadow-2xl transition" title="Ảnh trước (Mũi tên Trái)">
+      ◀
+    </button>
+
     <img id="infographic-modal-img" src="" alt="Infographic Viewer" class="max-h-[78vh] sm:max-h-[85vh] max-w-full object-contain rounded-lg sm:rounded-xl shadow-2xl transition-transform duration-200" style="transform: scale(1);">
+
+    <button onclick="navInfographicImage(1)" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-emerald-600 text-white font-bold text-lg sm:text-xl flex items-center justify-center border border-white/20 z-30 shadow-2xl transition" title="Ảnh tiếp (Mũi tên Phải)">
+      ▶
+    </button>
   </div>
 
   <!-- Mobile Footer Tip -->
-  <div class="text-center text-[10px] sm:text-xs text-gray-400 pt-1.5 border-t border-white/10">
-    💡 Chạm nền tối hoặc nút ✕ để đóng · Chạm nút ↗ để mở tab ảnh gốc chất lượng cao.
+  <div class="text-center text-[10px] sm:text-xs text-gray-400 pt-1.5 border-t border-white/10 z-20">
+    💡 Chạm bất kỳ ảnh nào để mở Full Màn Hình · Bấm nút ◀ ▶ hoặc phím <kbd class="px-1 py-0.5 rounded bg-white/20 text-white font-mono text-[10px]">ESC</kbd> để thoát.
   </div>
 </div>
 
