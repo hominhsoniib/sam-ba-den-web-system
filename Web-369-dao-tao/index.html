@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth overflow-x-hidden w-full max-w-full">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -345,21 +346,22 @@
 
 </style>
 </head>
-<body class="paper-texture min-h-screen flex flex-col">
+<body class="paper-texture min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
 
 <!-- STICKY HEADER CONTAINER -->
 <div class="sticky top-0 z-50 bg-[var(--paper)]">
   <!-- ============ MAIN HEADER NAV ============ -->
   <header class="border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-[66px] flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-2.5 sm:px-6 md:px-8 h-[66px] flex items-center justify-between gap-1 sm:gap-4 overflow-hidden">
     <!-- Logo -->
-    <a href="#" onclick="switchTab('home')" class="flex items-center gap-3">
-      <span class="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-base text-white shadow" style="background: conic-gradient(from -90deg, var(--gold), var(--green), var(--blue), var(--gold))">369</span>
-      <div>
-        <span class="font-display font-semibold text-lg leading-tight block">HTX Gia đình <span style="color:var(--green)">369</span></span>
-        <span class="text-[10px] text-[var(--muted)] font-medium tracking-wider uppercase">Cổng Thành Viên & Đào Tạo</span>
+    <a href="#" onclick="switchTab('home')" class="flex items-center gap-2 sm:gap-3 min-w-0 flex-shrink">
+      <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-display font-bold text-sm sm:text-base text-white shadow flex-shrink-0" style="background: conic-gradient(from -90deg, var(--gold), var(--green), var(--blue), var(--gold))">369</span>
+      <div class="min-w-0">
+        <span class="font-display font-semibold text-sm sm:text-lg leading-tight block truncate">HTX Gia đình <span style="color:var(--green)">369</span></span>
+        <span class="text-[9px] sm:text-[10px] text-[var(--muted)] font-medium tracking-wider uppercase block truncate max-w-[130px] xs:max-w-none">Cổng Thành Viên & Đào Tạo</span>
       </div>
     </a>
+
 
     <!-- Nav Links (Public vs Portal) -->
     <nav id="public-nav" class="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[13px] xl:text-[13.5px] font-medium text-[var(--muted)]">
@@ -716,63 +718,63 @@
     <!-- ==================================================================================== -->
     <!-- SECTION: BÀI HÁT & CA KHÚC TRUYỀN THỐNG HTX GIA ĐÌNH 369 -->
     <!-- ==================================================================================== -->
-    <section id="bai-hat" class="border-b border-[var(--line)] py-16 md:py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white relative overflow-hidden">
+    <section id="bai-hat" class="border-b border-[var(--line)] py-12 md:py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white relative overflow-hidden">
       <!-- Ambient Glow effects -->
       <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+      <div class="max-w-7xl mx-auto px-3.5 sm:px-5 md:px-8 relative z-10">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-12 reveal">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+        <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-12 reveal">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] sm:text-xs font-semibold uppercase tracking-wider mb-3 shadow-sm">
             <span>🎵 Âm Nhạc HTX Gia Đình 369</span>
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           </div>
-          <h2 class="font-display font-bold text-3xl md:text-5xl text-white leading-tight">
+          <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-5xl text-white leading-tight">
             Ca Khúc Truyền Thống <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400">HTX Gia Đình 369</span>
           </h2>
-          <p class="text-sm md:text-base text-emerald-100/70 mt-3 leading-relaxed">
+          <p class="text-xs sm:text-sm md:text-base text-emerald-100/70 mt-2.5 leading-relaxed">
             Tuyển tập 5 ca khúc chính thức lan tỏa sứ mệnh, niềm tự hào và tinh thần chung sức kiến tạo cuộc sống thịnh vượng, giàu có, hạnh phúc & bình an.
           </p>
         </div>
 
         <!-- Main Grid: Interactive Audio Player + Playlist -->
-        <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="grid lg:grid-cols-12 gap-6 md:gap-8 items-start">
 
           <!-- Left Column: Interactive Audio Player Card -->
-          <div class="lg:col-span-5 card p-6 md:p-7 bg-slate-900/90 border-2 border-amber-500/30 rounded-3xl shadow-2xl backdrop-blur-xl relative overflow-hidden reveal">
+          <div class="lg:col-span-5 card p-4 sm:p-6 md:p-7 bg-slate-900/90 border-2 border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl backdrop-blur-xl relative overflow-hidden reveal">
             <!-- Vinyl Disc Display -->
-            <div class="relative w-full aspect-square max-w-[260px] mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-4 border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
+            <div class="relative w-full aspect-square max-w-[220px] sm:max-w-[260px] mx-auto mb-5 rounded-2xl bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-3 sm:p-4 border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
               
               <!-- Spinning Vinyl Background -->
-              <div id="vinyl-disc" class="absolute w-52 h-52 rounded-full bg-slate-950 border-4 border-slate-800 shadow-2xl flex items-center justify-center transition-transform duration-700">
-                <div class="w-40 h-40 rounded-full border border-slate-700/60 flex items-center justify-center">
-                  <div class="w-28 h-28 rounded-full border border-slate-700/40 flex items-center justify-center">
-                    <div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400/60 flex items-center justify-center">
-                      <span class="text-xs font-bold text-amber-300">369</span>
+              <div id="vinyl-disc" class="absolute w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-slate-950 border-4 border-slate-800 shadow-2xl flex items-center justify-center transition-transform duration-700">
+                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full border border-slate-700/60 flex items-center justify-center">
+                  <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full border border-slate-700/40 flex items-center justify-center">
+                    <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-amber-500/20 border-2 border-amber-400/60 flex items-center justify-center">
+                      <span class="text-[10px] sm:text-xs font-bold text-amber-300">369</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Center Album Cover Badge -->
-              <div class="relative z-10 text-center p-4 bg-slate-950/85 rounded-xl border border-amber-500/40 backdrop-blur-md shadow-xl max-w-[210px]">
-                <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 text-xl font-bold mb-2 shadow-lg">
+              <div class="relative z-10 text-center p-3 sm:p-4 bg-slate-950/85 rounded-xl border border-amber-500/40 backdrop-blur-md shadow-xl max-w-[170px] sm:max-w-[210px]">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 text-lg sm:text-xl font-bold mb-1.5 shadow-lg">
                   🎼
                 </div>
-                <h4 id="player-active-title" class="font-display font-bold text-base text-amber-300 truncate">HTX 369 Vươn Xa</h4>
-                <p id="player-active-subtitle" class="text-xs text-emerald-200/80 mt-0.5 truncate">Ca khúc chính thức</p>
-                <div class="mt-2.5 inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-medium border border-emerald-500/30">
+                <h4 id="player-active-title" class="font-display font-bold text-sm sm:text-base text-amber-300 truncate">HTX 369 Vươn Xa</h4>
+                <p id="player-active-subtitle" class="text-[11px] sm:text-xs text-emerald-200/80 mt-0.5 truncate">Ca khúc chính thức</p>
+                <div class="mt-2 inline-block px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] sm:text-[11px] font-medium border border-emerald-500/30">
                   <span id="player-active-tag">Bản Chuẩn HQ</span>
                 </div>
               </div>
             </div>
 
             <!-- Player Time & Progress Bar -->
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
               <div>
-                <div class="flex items-center justify-between text-xs text-emerald-200/70 font-mono mb-1.5">
+                <div class="flex items-center justify-between text-[11px] sm:text-xs text-emerald-200/70 font-mono mb-1">
                   <span id="audio-time-current">00:00</span>
                   <span id="audio-time-duration">00:00</span>
                 </div>
@@ -780,29 +782,29 @@
               </div>
 
               <!-- Audio Controls Buttons -->
-              <div class="flex items-center justify-between gap-3 pt-1">
+              <div class="flex items-center justify-between gap-1.5 sm:gap-3 pt-1">
                 <!-- Mute Toggle -->
-                <button onclick="toggleMute()" id="btn-mute" class="p-2.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-emerald-300 transition" title="Bật/Tắt tiếng">
+                <button onclick="toggleMute()" id="btn-mute" class="p-2 sm:p-2.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-emerald-300 transition flex-shrink-0 text-xs sm:text-sm" title="Bật/Tắt tiếng">
                   🔊
                 </button>
 
                 <!-- Track Navigation & Play/Pause -->
-                <div class="flex items-center gap-3">
-                  <button onclick="playPrevSong()" class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95" title="Bài trước">
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <button onclick="playPrevSong()" class="p-2.5 sm:p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95 text-xs sm:text-base" title="Bài trước">
                     ⏮️
                   </button>
 
-                  <button onclick="toggleAudioPlay()" id="btn-main-play" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 hover:from-amber-400 hover:to-amber-200 text-slate-950 font-bold text-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition transform hover:scale-105 active:scale-95">
+                  <button onclick="toggleAudioPlay()" id="btn-main-play" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 hover:from-amber-400 hover:to-amber-200 text-slate-950 font-bold text-xl sm:text-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition transform hover:scale-105 active:scale-95 flex-shrink-0">
                     ▶️
                   </button>
 
-                  <button onclick="playNextSong()" class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95" title="Bài tiếp">
+                  <button onclick="playNextSong()" class="p-2.5 sm:p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95 text-xs sm:text-base" title="Bài tiếp">
                     ⏭️
                   </button>
                 </div>
 
                 <!-- Download MP3 -->
-                <a id="btn-download-active" href="./Bai hát/htx369-vuon-xa.mp3" download="HTX369_Vuon_Xa.mp3" class="p-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 transition" title="Tải bài hát này (.mp3)">
+                <a id="btn-download-active" href="./Bai hát/htx369-vuon-xa.mp3" download="HTX369_Vuon_Xa.mp3" class="p-2 sm:p-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 transition flex-shrink-0 text-xs sm:text-sm" title="Tải bài hát này (.mp3)">
                   ⬇️
                 </a>
               </div>
@@ -814,16 +816,16 @@
 
           <!-- Right Column: Song Playlist List -->
           <div class="lg:col-span-7 space-y-3 reveal">
-            <div class="flex items-center justify-between px-2 mb-2">
-              <h3 class="font-display font-semibold text-lg text-amber-300 flex items-center gap-2">
+            <div class="flex items-center justify-between px-1 sm:px-2 mb-1.5">
+              <h3 class="font-display font-semibold text-base sm:text-lg text-amber-300 flex items-center gap-2">
                 <span>📋 Danh Sách Ca Khúc HTX 369</span>
-                <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-normal">5 Tracks</span>
+                <span class="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-normal">5 Tracks</span>
               </h3>
-              <span class="text-xs text-emerald-100/60">Nhấp chọn bài để phát nhạc</span>
+              <span class="text-[10px] sm:text-xs text-emerald-100/60">Nhấp chọn bài để phát</span>
             </div>
 
             <!-- Song List Container -->
-            <div id="song-playlist-container" class="space-y-3">
+            <div id="song-playlist-container" class="space-y-2.5 sm:space-y-3">
               <!-- Rendered via JS -->
             </div>
           </div>
@@ -832,6 +834,7 @@
 
       </div>
     </section>
+
 
 
     <!-- SECTION 2.1: GIỚI THIỆU HTX 369 (BỘ SLIDE TRÌNH BÀY & SƠ ĐỒ TRỰC QUAN ĐẦY ĐỦ) -->
@@ -4321,35 +4324,35 @@
     container.innerHTML = htxSongList.map((song, idx) => {
       const isActive = idx === currentSongIndex;
       return `
-        <div onclick="selectAndPlaySong(${idx})" class="p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-4 ${
+        <div onclick="selectAndPlaySong(${idx})" class="p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-2.5 sm:gap-4 ${
           isActive 
             ? 'bg-slate-800/90 border-amber-400 shadow-lg shadow-amber-500/10' 
             : 'bg-slate-900/60 hover:bg-slate-800/70 border-white/10'
         }">
-          <div class="flex items-center gap-3.5 min-w-0">
-            <button class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 transition ${
+          <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+            <button class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm flex-shrink-0 transition ${
               isActive 
                 ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/40' 
                 : 'bg-slate-800 text-amber-300 border border-white/10'
             }">
               ${isActive && isAudioPlaying ? '⏸️' : '▶️'}
             </button>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-display font-bold text-sm ${isActive ? 'text-amber-300' : 'text-white'} truncate">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span class="font-display font-bold text-xs sm:text-sm ${isActive ? 'text-amber-300' : 'text-white'} truncate">
                   ${song.title}
                 </span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                <span class="px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold ${
                   isActive ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40' : 'bg-slate-800 text-emerald-300 border border-white/10'
                 }">${song.tag}</span>
               </div>
-              <p class="text-xs text-emerald-100/70 mt-0.5 truncate">${song.subtitle}</p>
+              <p class="text-[11px] sm:text-xs text-emerald-100/70 mt-0.5 truncate">${song.subtitle}</p>
             </div>
           </div>
 
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="text-xs font-mono text-gray-400 hidden sm:inline-block">${song.size}</span>
-            <a href="${song.file}" download="${song.downloadName}" onclick="event.stopPropagation()" class="p-2 rounded-xl bg-slate-800 hover:bg-amber-500/20 text-gray-300 hover:text-amber-300 border border-white/10 transition text-xs flex items-center gap-1" title="Tải MP3">
+          <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+            <span class="text-[11px] sm:text-xs font-mono text-gray-400 hidden sm:inline-block">${song.size}</span>
+            <a href="${song.file}" download="${song.downloadName}" onclick="event.stopPropagation()" class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-slate-800 hover:bg-amber-500/20 text-gray-300 hover:text-amber-300 border border-white/10 transition text-[11px] sm:text-xs flex items-center gap-1" title="Tải MP3">
               <span>⬇️</span> <span class="hidden sm:inline">Tải MP3</span>
             </a>
           </div>
@@ -4357,6 +4360,7 @@
       `;
     }).join('');
   }
+
 
   function loadSongTrack(index, autoPlay = true) {
     if (index < 0 || index >= htxSongList.length) return;
