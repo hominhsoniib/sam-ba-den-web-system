@@ -365,6 +365,7 @@
     <nav id="public-nav" class="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[13px] xl:text-[13.5px] font-medium text-[var(--muted)]">
       <a href="#gioi-thieu" class="hover:text-[var(--ink)] transition">Giới thiệu HTX</a>
       <a href="#loi-ich" class="hover:text-[var(--ink)] transition">Lợi ích thành viên</a>
+      <a href="#bai-hat" class="hover:text-[var(--green-deep)] text-[var(--green-deep)] font-bold transition flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-300 shadow-sm">🎵 Bài hát 369</a>
       
       <!-- Dropdown Đối Tác -->
       <div class="nav-dropdown-wrapper">
@@ -443,6 +444,10 @@
             <button onclick="openThiTNModal()" class="nav-pill text-[var(--gold-deep)] font-bold bg-amber-50 hover:bg-amber-100 border border-amber-200 shadow-sm">
         <span>📝 Thi TN ↗</span>
       </button>
+      <a href="#bai-hat" class="nav-pill text-emerald-800 font-bold bg-emerald-50 hover:bg-emerald-100 border border-emerald-300">
+        <span>🎵 Bài hát</span>
+      </a>
+
       <button onclick="switchTab('profile')" id="tab-btn-profile" class="nav-pill">
         <span>👤 Hồ sơ 360°</span>
       </button>
@@ -513,7 +518,9 @@
     <button onclick="openThiTNModal(); closeMobilePublicMenu();" class="w-full text-left py-2 px-3 rounded-lg bg-[var(--gold-tint)] text-[var(--gold-deep)] font-bold flex items-center gap-2 border border-[var(--gold)]/30 shadow-sm">
     📝 Thi Trắc Nghiệm Đánh Giá 369 ↗
   </button>
+  <a href="#bai-hat" onclick="closeMobilePublicMenu()" class="block py-2 px-3 rounded-lg bg-emerald-100 text-emerald-900 font-bold border border-emerald-300">🎵 Ca khúc HTX Gia Đình 369</a>
   <a href="#credit369" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">💳 Mô hình Credit 369</a>
+
   <a href="#hoc-vien" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">📚 Học viện HTX 369</a>
   <a href="#tham-gia" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">📋 Quy trình Tham gia</a>
   <a href="#lien-he" onclick="closeMobilePublicMenu()" class="block py-1.5 font-semibold text-[var(--ink)] border-b border-gray-200">📞 Liên hệ HTX</a>
@@ -705,6 +712,127 @@
         </div>
       </div>
     </section>
+
+    <!-- ==================================================================================== -->
+    <!-- SECTION: BÀI HÁT & CA KHÚC TRUYỀN THỐNG HTX GIA ĐÌNH 369 -->
+    <!-- ==================================================================================== -->
+    <section id="bai-hat" class="border-b border-[var(--line)] py-16 md:py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white relative overflow-hidden">
+      <!-- Ambient Glow effects -->
+      <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+            <span>🎵 Âm Nhạc HTX Gia Đình 369</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+          <h2 class="font-display font-bold text-3xl md:text-5xl text-white leading-tight">
+            Ca Khúc Truyền Thống <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400">HTX Gia Đình 369</span>
+          </h2>
+          <p class="text-sm md:text-base text-emerald-100/70 mt-3 leading-relaxed">
+            Tuyển tập 5 ca khúc chính thức lan tỏa sứ mệnh, niềm tự hào và tinh thần chung sức kiến tạo cuộc sống thịnh vượng, giàu có, hạnh phúc & bình an.
+          </p>
+        </div>
+
+        <!-- Main Grid: Interactive Audio Player + Playlist -->
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+          <!-- Left Column: Interactive Audio Player Card -->
+          <div class="lg:col-span-5 card p-6 md:p-7 bg-slate-900/90 border-2 border-amber-500/30 rounded-3xl shadow-2xl backdrop-blur-xl relative overflow-hidden reveal">
+            <!-- Vinyl Disc Display -->
+            <div class="relative w-full aspect-square max-w-[260px] mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-4 border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
+              
+              <!-- Spinning Vinyl Background -->
+              <div id="vinyl-disc" class="absolute w-52 h-52 rounded-full bg-slate-950 border-4 border-slate-800 shadow-2xl flex items-center justify-center transition-transform duration-700">
+                <div class="w-40 h-40 rounded-full border border-slate-700/60 flex items-center justify-center">
+                  <div class="w-28 h-28 rounded-full border border-slate-700/40 flex items-center justify-center">
+                    <div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400/60 flex items-center justify-center">
+                      <span class="text-xs font-bold text-amber-300">369</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center Album Cover Badge -->
+              <div class="relative z-10 text-center p-4 bg-slate-950/85 rounded-xl border border-amber-500/40 backdrop-blur-md shadow-xl max-w-[210px]">
+                <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 text-xl font-bold mb-2 shadow-lg">
+                  🎼
+                </div>
+                <h4 id="player-active-title" class="font-display font-bold text-base text-amber-300 truncate">HTX 369 Vươn Xa</h4>
+                <p id="player-active-subtitle" class="text-xs text-emerald-200/80 mt-0.5 truncate">Ca khúc chính thức</p>
+                <div class="mt-2.5 inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-medium border border-emerald-500/30">
+                  <span id="player-active-tag">Bản Chuẩn HQ</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Player Time & Progress Bar -->
+            <div class="space-y-4">
+              <div>
+                <div class="flex items-center justify-between text-xs text-emerald-200/70 font-mono mb-1.5">
+                  <span id="audio-time-current">00:00</span>
+                  <span id="audio-time-duration">00:00</span>
+                </div>
+                <input type="range" id="audio-progress" min="0" max="100" value="0" step="0.1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 hover:accent-amber-300 transition">
+              </div>
+
+              <!-- Audio Controls Buttons -->
+              <div class="flex items-center justify-between gap-3 pt-1">
+                <!-- Mute Toggle -->
+                <button onclick="toggleMute()" id="btn-mute" class="p-2.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-emerald-300 transition" title="Bật/Tắt tiếng">
+                  🔊
+                </button>
+
+                <!-- Track Navigation & Play/Pause -->
+                <div class="flex items-center gap-3">
+                  <button onclick="playPrevSong()" class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95" title="Bài trước">
+                    ⏮️
+                  </button>
+
+                  <button onclick="toggleAudioPlay()" id="btn-main-play" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 hover:from-amber-400 hover:to-amber-200 text-slate-950 font-bold text-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition transform hover:scale-105 active:scale-95">
+                    ▶️
+                  </button>
+
+                  <button onclick="playNextSong()" class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 transition active:scale-95" title="Bài tiếp">
+                    ⏭️
+                  </button>
+                </div>
+
+                <!-- Download MP3 -->
+                <a id="btn-download-active" href="./Bai hát/htx369-vuon-xa.mp3" download="HTX369_Vuon_Xa.mp3" class="p-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 transition" title="Tải bài hát này (.mp3)">
+                  ⬇️
+                </a>
+              </div>
+            </div>
+
+            <!-- Hidden HTML5 Audio Element -->
+            <audio id="htx-audio-element" preload="metadata"></audio>
+          </div>
+
+          <!-- Right Column: Song Playlist List -->
+          <div class="lg:col-span-7 space-y-3 reveal">
+            <div class="flex items-center justify-between px-2 mb-2">
+              <h3 class="font-display font-semibold text-lg text-amber-300 flex items-center gap-2">
+                <span>📋 Danh Sách Ca Khúc HTX 369</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-normal">5 Tracks</span>
+              </h3>
+              <span class="text-xs text-emerald-100/60">Nhấp chọn bài để phát nhạc</span>
+            </div>
+
+            <!-- Song List Container -->
+            <div id="song-playlist-container" class="space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
 
     <!-- SECTION 2.1: GIỚI THIỆU HTX 369 (BỘ SLIDE TRÌNH BÀY & SƠ ĐỒ TRỰC QUAN ĐẦY ĐỦ) -->
     <section id="gioi-thieu" class="border-b border-[var(--line)] py-16 md:py-24 bg-[var(--panel)]">
@@ -2719,58 +2847,7 @@
 <!-- ==================================================================================== -->
 <script>
 
-  // ============ INFOGRAPHIC MODAL LOGIC (FULLSCREEN PRO) ============
-  let currentInfographicUrl = '';
-  let infographicZoomScale = 1.0;
 
-  function openInfographicModal(imgUrl, title) {
-    currentInfographicUrl = imgUrl;
-    infographicZoomScale = 1.0;
-    const modal = document.getElementById('modal-infographic');
-    const img = document.getElementById('info-modal-img');
-    const titleEl = document.getElementById('info-modal-title');
-    if (titleEl) titleEl.innerText = title || 'Sơ đồ Infographic HTX 369';
-    if (img) {
-      img.src = imgUrl;
-      img.style.transform = 'scale(1)';
-    }
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeInfographicModal() {
-    const modal = document.getElementById('modal-infographic');
-    const img = document.getElementById('info-modal-img');
-    if (img) img.src = '';
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-  }
-
-  function openInfographicInNewTab() {
-    if (currentInfographicUrl) {
-      window.open(currentInfographicUrl, '_blank');
-    }
-  }
-
-  function zoomInfographic(delta) {
-    infographicZoomScale = Math.max(0.4, Math.min(3.0, infographicZoomScale + delta));
-    const img = document.getElementById('info-modal-img');
-    if (img) {
-      img.style.transform = `scale(${infographicZoomScale})`;
-    }
-  }
-
-  function resetInfographicZoom() {
-    infographicZoomScale = 1.0;
-    const img = document.getElementById('info-modal-img');
-    if (img) {
-      img.style.transform = 'scale(1)';
-    }
-  }
 
   // ============ DIAGRAM MODAL & MOBILE MENU LOGIC ============
   let currentDiagramUrl = '';
@@ -3162,15 +3239,18 @@
   }
 
   document.addEventListener('keydown', (e) => {
-    const modal = document.getElementById('modal-infographic-viewer');
-    if (!modal || modal.classList.contains('hidden')) return;
-
     if (e.key === 'Escape') {
       closeInfographicModal();
-    } else if (e.key === 'ArrowLeft') {
-      navInfographicImage(-1);
-    } else if (e.key === 'ArrowRight') {
-      navInfographicImage(1);
+      closeDiagramModal();
+    } else {
+      const modal = document.getElementById('modal-infographic-viewer');
+      if (modal && !modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') {
+          navInfographicImage(-1);
+        } else if (e.key === 'ArrowRight') {
+          navInfographicImage(1);
+        }
+      }
     }
   });
 
@@ -4138,63 +4218,320 @@
     }
   }
 
-  // Infographic Lightbox Modal Zoom Logic
-  let currentInfographicZoom = 1;
-
-  function openInfographicModal(imgSrc, title) {
-    const modal = document.getElementById('modal-infographic-viewer');
-    const img = document.getElementById('infographic-modal-img');
-    const titleEl = document.getElementById('infographic-modal-title');
-    if (titleEl) titleEl.innerText = title || 'Sơ Đồ Infographic HTX 369';
-    if (img) {
-      img.src = imgSrc;
-      currentInfographicZoom = 1;
-      img.style.transform = 'scale(1)';
+  // ====================================================================================
+  // HTX 369 AUDIO PLAYER & MUSIC PLAYLIST CONTROLLER
+  // ====================================================================================
+  const htxSongList = [
+    {
+      id: 1,
+      title: "HTX 369 Vươn Xa",
+      subtitle: "Ca khúc chính thức HTX Gia Đình 369",
+      tag: "Bản Chuẩn HQ",
+      file: "./Bai hát/htx369-vuon-xa.mp3",
+      fallbackFile: "./Bai hát/HTX369 Vươn Xa.mp3",
+      downloadName: "HTX369_Vuon_Xa.mp3",
+      size: "3.7 MB"
+    },
+    {
+      id: 2,
+      title: "HTX 369 Chung Sức Vươn Xa",
+      subtitle: "Ca khúc truyền thống (Bản chuẩn 1)",
+      tag: "Bản Truyền Thống v1",
+      file: "./Bai hát/htx369-chung-suc-vuon-xa.mp3",
+      fallbackFile: "./Bai hát/htx369 Chung Sức Vươn Xa.mp3",
+      downloadName: "HTX369_Chung_Suc_Vuon_Xa.mp3",
+      size: "7.2 MB"
+    },
+    {
+      id: 3,
+      title: "HTX 369 Chung Sức Vươn Xa (Phiên Bản 2)",
+      subtitle: "Bản phối mới sôi động v2",
+      tag: "Phiên Bản 2 (Remix)",
+      file: "./Bai hát/htx369-chung-suc-vuon-xa-v2.mp3",
+      fallbackFile: "./Bai hát/v2 htx369 Chung Sức Vươn Xa.mp3",
+      downloadName: "HTX369_Chung_Suc_Vuon_Xa_v2.mp3",
+      size: "7.2 MB"
+    },
+    {
+      id: 4,
+      title: "HTX 369 Kiến Tạo Tương Lai",
+      subtitle: "Ca khúc truyền thống (Bản chuẩn 1)",
+      tag: "Bản Truyền Thống v1",
+      file: "./Bai hát/htx369-kien-tao-tuong-lai.mp3",
+      fallbackFile: "./Bai hát/htx369 Kiến Tạo Tương Lai.mp3",
+      downloadName: "HTX369_Kien_Tao_Tuong_Lai.mp3",
+      size: "6.5 MB"
+    },
+    {
+      id: 5,
+      title: "HTX 369 Kiến Tạo Tương Lai (Phiên Bản 2)",
+      subtitle: "Bản phối mới v2",
+      tag: "Phiên Bản 2 (New)",
+      file: "./Bai hát/htx369-kien-tao-tuong-lai-v2.mp3",
+      fallbackFile: "./Bai hát/v2 htx369 Kiến Tạo Tương Lai.mp3",
+      downloadName: "HTX369_Kien_Tao_Tuong_Lai_v2.mp3",
+      size: "6.0 MB"
     }
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+  ];
+
+  let currentSongIndex = 0;
+  let isAudioPlaying = false;
+
+  function initAudioPlayer() {
+    const audio = document.getElementById('htx-audio-element');
+    const container = document.getElementById('song-playlist-container');
+    const progress = document.getElementById('audio-progress');
+
+    if (!audio || !container) return;
+
+    // Render Playlist
+    renderSongPlaylist();
+
+    // Load initial track metadata
+    loadSongTrack(0, false);
+
+    // Audio Event Listeners
+    audio.addEventListener('timeupdate', updateAudioProgress);
+    audio.addEventListener('loadedmetadata', updateAudioDuration);
+    audio.addEventListener('ended', onAudioEnded);
+    audio.addEventListener('play', () => setAudioPlayState(true));
+    audio.addEventListener('pause', () => setAudioPlayState(false));
+    audio.addEventListener('error', (e) => {
+      console.warn("Audio load error, trying fallback...", e);
+      const song = htxSongList[currentSongIndex];
+      if (song && song.fallbackFile && audio.src !== song.fallbackFile) {
+        audio.src = song.fallbackFile;
+        if (isAudioPlaying) audio.play().catch(err => console.log(err));
+      }
+    });
+
+    if (progress) {
+      progress.addEventListener('input', (e) => {
+        if (audio.duration) {
+          audio.currentTime = (e.target.value / 100) * audio.duration;
+        }
+      });
     }
   }
 
-  function closeInfographicModal() {
-    const modal = document.getElementById('modal-infographic-viewer');
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
+  function renderSongPlaylist() {
+    const container = document.getElementById('song-playlist-container');
+    if (!container) return;
+
+    container.innerHTML = htxSongList.map((song, idx) => {
+      const isActive = idx === currentSongIndex;
+      return `
+        <div onclick="selectAndPlaySong(${idx})" class="p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-4 ${
+          isActive 
+            ? 'bg-slate-800/90 border-amber-400 shadow-lg shadow-amber-500/10' 
+            : 'bg-slate-900/60 hover:bg-slate-800/70 border-white/10'
+        }">
+          <div class="flex items-center gap-3.5 min-w-0">
+            <button class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 transition ${
+              isActive 
+                ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/40' 
+                : 'bg-slate-800 text-amber-300 border border-white/10'
+            }">
+              ${isActive && isAudioPlaying ? '⏸️' : '▶️'}
+            </button>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-display font-bold text-sm ${isActive ? 'text-amber-300' : 'text-white'} truncate">
+                  ${song.title}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                  isActive ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40' : 'bg-slate-800 text-emerald-300 border border-white/10'
+                }">${song.tag}</span>
+              </div>
+              <p class="text-xs text-emerald-100/70 mt-0.5 truncate">${song.subtitle}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="text-xs font-mono text-gray-400 hidden sm:inline-block">${song.size}</span>
+            <a href="${song.file}" download="${song.downloadName}" onclick="event.stopPropagation()" class="p-2 rounded-xl bg-slate-800 hover:bg-amber-500/20 text-gray-300 hover:text-amber-300 border border-white/10 transition text-xs flex items-center gap-1" title="Tải MP3">
+              <span>⬇️</span> <span class="hidden sm:inline">Tải MP3</span>
+            </a>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function loadSongTrack(index, autoPlay = true) {
+    if (index < 0 || index >= htxSongList.length) return;
+    currentSongIndex = index;
+    const song = htxSongList[index];
+    const audio = document.getElementById('htx-audio-element');
+
+    const titleEl = document.getElementById('player-active-title');
+    const subtitleEl = document.getElementById('player-active-subtitle');
+    const tagEl = document.getElementById('player-active-tag');
+    const downloadBtn = document.getElementById('btn-download-active');
+    const stickyTitle = document.getElementById('sticky-audio-title');
+
+    if (titleEl) titleEl.textContent = song.title;
+    if (subtitleEl) subtitleEl.textContent = song.subtitle;
+    if (tagEl) tagEl.textContent = song.tag;
+    if (stickyTitle) stickyTitle.textContent = song.title;
+    if (downloadBtn) {
+      downloadBtn.href = song.file;
+      downloadBtn.download = song.downloadName;
+    }
+
+    if (audio) {
+      audio.src = song.file;
+      if (autoPlay) {
+        audio.play().then(() => {
+          setAudioPlayState(true);
+        }).catch(err => {
+          console.log("Autoplay prevented:", err);
+          setAudioPlayState(false);
+        });
+      }
+    }
+
+    renderSongPlaylist();
+  }
+
+  function selectAndPlaySong(index) {
+    if (currentSongIndex === index && isAudioPlaying) {
+      toggleAudioPlay();
+    } else {
+      loadSongTrack(index, true);
     }
   }
 
-  function zoomInfographic(delta) {
-    const img = document.getElementById('infographic-modal-img');
-    if (!img) return;
-    currentInfographicZoom = Math.max(0.5, Math.min(3.5, currentInfographicZoom + delta));
-    img.style.transform = `scale(${currentInfographicZoom})`;
-  }
+  function toggleAudioPlay() {
+    const audio = document.getElementById('htx-audio-element');
+    if (!audio) return;
 
-  function resetInfographicZoom() {
-    const img = document.getElementById('infographic-modal-img');
-    if (!img) return;
-    currentInfographicZoom = 1;
-    img.style.transform = 'scale(1)';
-  }
-
-  function openInfographicInNewTab() {
-    const img = document.getElementById('infographic-modal-img');
-    if (img && img.src) {
-      window.open(img.src, '_blank');
+    if (audio.paused) {
+      audio.play().then(() => {
+        setAudioPlayState(true);
+      }).catch(err => console.log(err));
+    } else {
+      audio.pause();
+      setAudioPlayState(false);
     }
   }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeInfographicModal();
-      closeDiagramModal();
+  function setAudioPlayState(playing) {
+    isAudioPlaying = playing;
+    const playBtn = document.getElementById('btn-main-play');
+    const stickyPlayBtn = document.getElementById('btn-sticky-play');
+    const vinyl = document.getElementById('vinyl-disc');
+    const stickyBar = document.getElementById('sticky-audio-bar');
+
+    if (playBtn) playBtn.innerHTML = playing ? '⏸️' : '▶️';
+    if (stickyPlayBtn) stickyPlayBtn.innerHTML = playing ? '⏸️' : '▶️';
+
+    if (vinyl) {
+      if (playing) {
+        vinyl.classList.add('animate-spin');
+        vinyl.style.animationDuration = '12s';
+      } else {
+        vinyl.classList.remove('animate-spin');
+      }
     }
-  });
+
+    if (stickyBar) {
+      if (playing) stickyBar.classList.remove('hidden');
+    }
+
+    renderSongPlaylist();
+  }
+
+  function playNextSong() {
+    const nextIdx = (currentSongIndex + 1) % htxSongList.length;
+    loadSongTrack(nextIdx, true);
+  }
+
+  function playPrevSong() {
+    const prevIdx = (currentSongIndex - 1 + htxSongList.length) % htxSongList.length;
+    loadSongTrack(prevIdx, true);
+  }
+
+  function onAudioEnded() {
+    playNextSong();
+  }
+
+  function updateAudioProgress() {
+    const audio = document.getElementById('htx-audio-element');
+    const progress = document.getElementById('audio-progress');
+    const curTimeEl = document.getElementById('audio-time-current');
+    const stickyTime = document.getElementById('sticky-audio-time');
+
+    if (!audio) return;
+    if (audio.duration) {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      if (progress) progress.value = pct;
+
+      const formattedCur = formatTime(audio.currentTime);
+      const formattedDur = formatTime(audio.duration);
+
+      if (curTimeEl) curTimeEl.textContent = formattedCur;
+      if (stickyTime) stickyTime.textContent = `${formattedCur} / ${formattedDur}`;
+    }
+  }
+
+  function updateAudioDuration() {
+    const audio = document.getElementById('htx-audio-element');
+    const durTimeEl = document.getElementById('audio-time-duration');
+    if (audio && audio.duration && durTimeEl) {
+      durTimeEl.textContent = formatTime(audio.duration);
+    }
+  }
+
+  function toggleMute() {
+    const audio = document.getElementById('htx-audio-element');
+    const muteBtn = document.getElementById('btn-mute');
+    if (audio) {
+      audio.muted = !audio.muted;
+      if (muteBtn) muteBtn.innerHTML = audio.muted ? '🔇' : '🔊';
+    }
+  }
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "00:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  function hideStickyAudioBar() {
+    const stickyBar = document.getElementById('sticky-audio-bar');
+    if (stickyBar) stickyBar.classList.add('hidden');
+  }
+
+  // Auto initialize on script load
+  setTimeout(() => {
+    initAudioPlayer();
+  }, 100);
 
 </script>
 
+
+<!-- ==================================================================================== -->
+<!-- STICKY FLOATING AUDIO PLAYER (BOTTOM RIGHT) -->
+<!-- ==================================================================================== -->
+<div id="sticky-audio-bar" class="fixed bottom-4 right-4 sm:right-6 z-[95] bg-slate-950/95 border-2 border-amber-500/50 rounded-2xl shadow-2xl p-3 flex items-center gap-3 text-white hidden backdrop-blur-md transition-all duration-300 max-w-sm sm:max-w-md">
+  <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg flex-shrink-0">
+    🎵
+  </div>
+  <div class="min-w-0 flex-1">
+    <div id="sticky-audio-title" class="font-semibold text-xs text-amber-300 truncate">HTX 369 Vươn Xa</div>
+    <div id="sticky-audio-time" class="text-[10px] text-emerald-200/70 font-mono">00:00 / 00:00</div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button onclick="toggleAudioPlay()" id="btn-sticky-play" class="w-8 h-8 rounded-full bg-amber-400 text-slate-950 font-bold text-sm flex items-center justify-center hover:bg-amber-300 transition">
+      ▶️
+    </button>
+    <button onclick="hideStickyAudioBar()" class="text-gray-400 hover:text-white text-xs p-1">
+      ✕
+    </button>
+  </div>
+</div>
 
 <!-- ==================================================================================== -->
 <!-- MODAL: INFOGRAPHIC IMAGE LIGHTBOX VIEWER (MOBILE OPTIMIZED & FULLSCREEN) -->
@@ -4246,6 +4583,7 @@
   <div class="text-center text-[10px] sm:text-xs text-gray-400 pt-1.5 border-t border-white/10 z-20">
     💡 Chạm bất kỳ ảnh nào để mở Full Màn Hình · Bấm nút ◀ ▶ hoặc phím <kbd class="px-1 py-0.5 rounded bg-white/20 text-white font-mono text-[10px]">ESC</kbd> để thoát.
   </div>
+
 </div>
 
 
