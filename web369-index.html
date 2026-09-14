@@ -2493,6 +2493,18 @@
         </select>
       </div>
 
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">Vốn góp ban đầu (VNĐ) (*)</label>
+        <input type="text" id="reg-capital" placeholder="5.000.000" required inputmode="numeric" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+      </div>
+
+      <div class="relative">
+        <label class="block font-semibold text-gray-700 mb-1">Thành viên giới thiệu (nếu có)</label>
+        <input type="text" id="reg-referrer-search" placeholder="Nhập tên thành viên giới thiệu..." autocomplete="off" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        <input type="hidden" id="reg-referrer-id">
+        <div id="reg-referrer-suggestions" class="hidden absolute z-20 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-40 overflow-y-auto text-xs"></div>
+      </div>
+
       <div id="reg-individual-fields">
         <label class="block font-semibold text-gray-700 mb-1">Tên Hộ Kinh Doanh / Điểm Bán (Nếu có)</label>
         <input type="text" id="reg-hkd" placeholder="Cửa hàng nông sản sạch An Tâm" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
@@ -2515,6 +2527,11 @@
         <div>
           <label class="block font-semibold text-gray-700 mb-1">Người đại diện pháp luật (*)</label>
           <input type="text" id="reg-legal-rep" placeholder="Trần Thị Mai" class="w-full p-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)]">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Đính kèm Giấy đăng ký kinh doanh (*)</label>
+          <input type="file" id="reg-business-license" accept=".pdf,.jpg,.jpeg,.png" class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--green)] text-xs bg-white">
+          <p class="text-[10px] text-gray-400 mt-1">Chấp nhận PDF, JPG, PNG — tối đa 10MB</p>
         </div>
       </div>
 
@@ -3807,13 +3824,57 @@
     ['reg-company-name', 'reg-tax-code', 'reg-company-address', 'reg-legal-rep'].forEach((id) => {
       document.getElementById(id).required = isCompany;
     });
+    document.getElementById('reg-business-license').required = isCompany;
   }
+
+  let _referrerSearchTimer = null;
+  async function searchReferrerMembers(query) {
+    const box = document.getElementById('reg-referrer-suggestions');
+    if (!query || query.trim().length < 2) {
+      box.classList.add('hidden');
+      box.innerHTML = '';
+      return;
+    }
+    const r = await callAPI('/api/members/search-referrer?q=' + encodeURIComponent(query.trim()), { method: 'GET' });
+    if (!r.ok || !r.data || !r.data.length) {
+      box.classList.add('hidden');
+      box.innerHTML = '';
+      return;
+    }
+    box.innerHTML = r.data.map(m =>
+      `<div class="px-3 py-2 hover:bg-[var(--green-tint)] cursor-pointer" onclick="selectReferrer('${m.id}', '${m.name.replace(/'/g, "\\'")}')">${m.name} <span class="text-gray-400 font-mono">(${m.id})</span></div>`
+    ).join('');
+    box.classList.remove('hidden');
+  }
+
+  function selectReferrer(id, name) {
+    document.getElementById('reg-referrer-id').value = id;
+    document.getElementById('reg-referrer-search').value = name;
+    document.getElementById('reg-referrer-suggestions').classList.add('hidden');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const refInput = document.getElementById('reg-referrer-search');
+    if (refInput) {
+      refInput.addEventListener('input', (e) => {
+        document.getElementById('reg-referrer-id').value = '';
+        clearTimeout(_referrerSearchTimer);
+        _referrerSearchTimer = setTimeout(() => searchReferrerMembers(e.target.value), 300);
+      });
+    }
+  });
 
   function openRegisterModal() {
     const regIdEl = document.getElementById('reg-id');
     if (regIdEl) regIdEl.value = 'Hệ thống tự cấp sau khi nộp đơn';
     document.getElementById('reg-entity-type').value = 'ca_nhan';
     toggleRegEntityFields('ca_nhan');
+    document.getElementById('reg-capital').value = '';
+    document.getElementById('reg-referrer-search').value = '';
+    document.getElementById('reg-referrer-id').value = '';
+    document.getElementById('reg-referrer-suggestions').classList.add('hidden');
+    const licenseInput = document.getElementById('reg-business-license');
+    if (licenseInput) licenseInput.value = '';
     document.getElementById('modal-register').classList.remove('hidden');
   }
 
@@ -3830,10 +3891,17 @@
     const regType = document.getElementById('reg-type').value;
     const isCompany = regEntityType === 'hkd_cty';
 
+    const capitalDigits = document.getElementById('reg-capital').value.replace(/\D/g, '');
+    const referrerId = document.getElementById('reg-referrer-id').value.trim();
+    const referrerName = document.getElementById('reg-referrer-search').value.trim();
+
     const payload = {
       entity_type: regEntityType,
       name: regName, phone: regPhone, cccd: regCccd, cccd_date: regCccdDate,
-      email: regEmail, member_type: regType
+      email: regEmail, member_type: regType,
+      capital: capitalDigits ? parseInt(capitalDigits, 10) : 0,
+      referrer_id: referrerId || '',
+      referrer_name: referrerId ? referrerName : ''
     };
 
     if (isCompany) {
@@ -3841,8 +3909,13 @@
       const taxCode = document.getElementById('reg-tax-code').value.trim();
       const companyAddress = document.getElementById('reg-company-address').value.trim();
       const legalRep = document.getElementById('reg-legal-rep').value.trim();
+      const licenseFile = document.getElementById('reg-business-license').files[0];
       if (!companyName || !taxCode || !companyAddress || !legalRep) {
         alert("⚠️ Vui lòng khai báo đầy đủ Tên công ty/HKD, Mã số thuế, Địa chỉ và Người đại diện pháp luật.");
+        return;
+      }
+      if (!licenseFile) {
+        alert("⚠️ Vui lòng đính kèm Giấy đăng ký kinh doanh.");
         return;
       }
       payload.company_name = companyName;
@@ -3858,14 +3931,36 @@
 
     const r = await callAPI('/api/register', { method: 'POST', body: JSON.stringify(payload) });
 
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Nộp Đơn Đăng Ký Chờ Phê Duyệt →'; }
-
     if (!r.ok) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Nộp Đơn Đăng Ký Chờ Phê Duyệt →'; }
       alert('❌ ' + ((r.error && (r.error.error || r.error)) || 'Nộp đơn đăng ký thất bại. Vui lòng thử lại.'));
       return;
     }
 
     const newId = r.data.id;
+
+    if (isCompany) {
+      const licenseFile = document.getElementById('reg-business-license').files[0];
+      if (licenseFile) {
+        const fd = new FormData();
+        fd.append('file', licenseFile);
+        try {
+          const uploadRes = await fetch(`${API_BASE}/api/members/${newId}/business-license`, {
+            method: 'POST',
+            body: fd
+          });
+          const uploadBody = await uploadRes.json();
+          if (!uploadBody.ok) {
+            alert('⚠️ Nộp đơn thành công nhưng upload Giấy ĐKKD thất bại: ' + (uploadBody.error || 'Lỗi không xác định') + '\nBạn có thể gửi lại giấy tờ cho Ban điều hành sau.');
+          }
+        } catch (err) {
+          alert('⚠️ Nộp đơn thành công nhưng upload Giấy ĐKKD gặp lỗi mạng. Bạn có thể gửi lại giấy tờ cho Ban điều hành sau.');
+        }
+      }
+    }
+
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = 'Nộp Đơn Đăng Ký Chờ Phê Duyệt →'; }
+
     closeRegisterModal();
     document.getElementById('login-phone').value = regPhone;
     alert("✅ Nộp đơn đăng ký " + (isCompany ? "Hộ Kinh Doanh / Công ty" : "Thành viên") + " HTX 369 thành công!\n\nMã thành viên: " + newId +
