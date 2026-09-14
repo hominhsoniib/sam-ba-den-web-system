@@ -312,6 +312,13 @@
     #portal-nav.is-logged-in { display: flex !important; }
   }
 
+  /* Portal nav pills can outgrow the header's fixed-height overflow-hidden row
+     (e.g. extra admin-only items like "Quản trị nội dung") — scroll internally
+     instead of letting items get clipped/unreachable. Scrollbar hidden but the
+     row still pans via mouse wheel/trackpad/touch. */
+  #portal-nav { overflow-x: auto; min-width: 0; scrollbar-width: none; -ms-overflow-style: none; }
+  #portal-nav::-webkit-scrollbar { display: none; }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: var(--paper); }
