@@ -213,6 +213,7 @@
   .nav-pill {
     padding: 8px 16px; border-radius: 9999px; font-size: 13.5px; font-weight: 600;
     color: var(--muted); transition: all 0.2s ease; cursor: pointer; display: flex; align-items: center; gap: 6px;
+    white-space: nowrap;
   }
   .nav-pill:hover { color: var(--ink); background: rgba(0,0,0,0.03); }
   .nav-pill.active { background: var(--green); color: #fff; box-shadow: 0 4px 12px rgba(47,107,58,0.2); }
@@ -273,6 +274,22 @@
     font-size: 15px;
     flex-shrink: 0;
     border: 1px solid rgba(47,107,58,0.15);
+  }
+
+  /* "Thêm" dropdown panel — position:fixed, toạ độ do JS tính (toggleNavMoreMenu)
+     ngay trước khi hiện, để KHÔNG bị header cha (overflow-hidden) cắt mất, khác
+     với .nav-dropdown-menu (position:absolute, chỉ dùng cho dropdown lồng trong
+     luồng bình thường của trang, không nằm trong khối header có overflow-hidden). */
+  .nav-more-menu {
+    position: fixed;
+    min-width: 260px;
+    max-width: 300px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 14px 30px -4px rgba(24, 38, 25, 0.18), 0 4px 12px -2px rgba(24, 38, 25, 0.08);
+    padding: 8px 0;
+    z-index: 200;
   }
 
   /* Modal Backdrop */
@@ -426,47 +443,49 @@
         <span>🖊️ Quản trị nội dung</span>
       </button>
 
-      <!-- Dropdown Đối Tác (Portal) -->
-      <div class="nav-dropdown-wrapper">
-        <button class="nav-pill text-[var(--muted)] hover:text-[var(--ink)]">
-          <span>🤝 Đối tác</span>
-          <svg class="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <div class="px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-[var(--muted)] border-b border-[var(--line)] mb-1">
-            Đối tác Liên kết & Nông trại
-          </div>
-          <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" class="nav-dropdown-item group">
-            <div class="item-icon group-hover:scale-105 transition-transform">🌿</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-semibold text-xs text-[var(--ink)] group-hover:text-[var(--green)] truncate">CTY CP Bà Đen Farm</div>
-              <div class="text-[11px] text-[var(--muted)] truncate">Sâm Bố Chính & Nông nghiệp 4.0</div>
-            </div>
-            <span class="text-xs text-[var(--muted-2)] group-hover:text-[var(--green)] group-hover:translate-x-0.5 transition-transform">↗</span>
-          </a>
-        </div>
-      </div>
-
-      <button onclick="openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369')" class="nav-pill text-[var(--green-deep)] font-bold">
-        <span>📐 Sơ đồ Vận hành</span>
-      </button>
-      <button onclick="openDiagramModal('mo_hinh_dieu_hanh_HTX_369.html', 'Quy trình Mua hàng HTX 369')" class="nav-pill text-[var(--blue-deep)] font-bold">
-        <span>🔄 Quy trình Mua hàng</span>
-      </button>
-            <button onclick="openThiTNModal()" class="nav-pill text-[var(--gold-deep)] font-bold bg-amber-50 hover:bg-amber-100 border border-amber-200 shadow-sm">
-        <span>📝 Thi TN ↗</span>
-      </button>
-      <a href="#bai-hat" class="nav-pill text-emerald-800 font-bold bg-emerald-50 hover:bg-emerald-100 border border-emerald-300">
-        <span>🎵 Bài hát</span>
-      </a>
-
-      <button onclick="switchTab('profile')" id="tab-btn-profile" class="nav-pill">
-        <span>👤 Hồ sơ 360°</span>
-      </button>
-      <button onclick="switchTab('support')" id="tab-btn-support" class="nav-pill">
-        <span>🆘 Hỗ trợ</span>
+      <!-- Dropdown "Thêm" — gom các mục ít dùng để hàng nav không bị tràn/xuống dòng.
+           Panel #nav-more-menu nằm ngay dưới, dùng position:fixed + JS (toggleNavMoreMenu)
+           để thoát khỏi overflow-hidden của header cha. -->
+      <button id="nav-more-trigger" onclick="toggleNavMoreMenu(event)" class="nav-pill text-[var(--muted)] hover:text-[var(--ink)]">
+        <span>➕ Thêm</span>
+        <svg class="w-3.5 h-3.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
       </button>
     </nav>
+
+    <div id="nav-more-menu" class="hidden nav-more-menu">
+      <a href="https://landing-page-sam-bo-chinh.vercel.app/#tam-nhin" target="_blank" rel="noopener noreferrer" onclick="closeNavMoreMenu()" class="nav-dropdown-item group">
+        <div class="item-icon group-hover:scale-105 transition-transform">🌿</div>
+        <div class="flex-1 min-w-0">
+          <div class="font-semibold text-xs text-[var(--ink)] group-hover:text-[var(--green)] truncate">CTY CP Bà Đen Farm</div>
+          <div class="text-[11px] text-[var(--muted)] truncate">Đối tác Liên kết — Sâm Bố Chính & Nông nghiệp 4.0</div>
+        </div>
+        <span class="text-xs text-[var(--muted-2)] group-hover:text-[var(--green)] group-hover:translate-x-0.5 transition-transform">↗</span>
+      </a>
+      <button onclick="closeNavMoreMenu(); openDiagramModal('So-do-dh-369.html', 'Sơ đồ Vận hành & Kiến trúc Nền tảng HTX 369')" class="nav-dropdown-item w-full text-left">
+        <span class="item-icon">📐</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Sơ đồ Vận hành</span>
+      </button>
+      <button onclick="closeNavMoreMenu(); openDiagramModal('mo_hinh_dieu_hanh_HTX_369.html', 'Quy trình Mua hàng HTX 369')" class="nav-dropdown-item w-full text-left">
+        <span class="item-icon">🔄</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Quy trình Mua hàng</span>
+      </button>
+      <button onclick="closeNavMoreMenu(); openThiTNModal()" class="nav-dropdown-item w-full text-left">
+        <span class="item-icon">📝</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Thi TN ↗</span>
+      </button>
+      <a href="#bai-hat" onclick="closeNavMoreMenu()" class="nav-dropdown-item">
+        <span class="item-icon">🎵</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Bài hát</span>
+      </a>
+      <button onclick="closeNavMoreMenu(); switchTab('profile')" id="tab-btn-profile" class="nav-dropdown-item w-full text-left">
+        <span class="item-icon">👤</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Hồ sơ 360°</span>
+      </button>
+      <button onclick="closeNavMoreMenu(); switchTab('support')" id="tab-btn-support" class="nav-dropdown-item w-full text-left">
+        <span class="item-icon">🆘</span>
+        <span class="flex-1 font-semibold text-xs text-[var(--ink)]">Hỗ trợ</span>
+      </button>
+    </div>
 
     <!-- User Action Controls & Mobile Toggle -->
     <div class="flex items-center gap-2">
@@ -4049,6 +4068,56 @@
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Dropdown "Thêm" trong portal-nav — dùng position:fixed vì header cha có
+  // overflow-hidden nên CSS thuần (position:absolute) sẽ bị cắt mất. Toạ độ
+  // được tính lại mỗi lần mở, dựa trên vị trí thật của nút trigger trên màn hình.
+  function toggleNavMoreMenu(e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('nav-more-menu');
+    const trigger = document.getElementById('nav-more-trigger');
+    if (!menu || !trigger) return;
+
+    if (!menu.classList.contains('hidden')) {
+      closeNavMoreMenu();
+      return;
+    }
+
+    const rect = trigger.getBoundingClientRect();
+    menu.classList.remove('hidden');
+    menu.style.top = (rect.bottom + 8) + 'px';
+    menu.style.left = rect.left + 'px';
+
+    // Sau khi hiện (đã có kích thước thật), kiểm tra tràn mép phải/dưới màn hình rồi chỉnh lại.
+    const menuRect = menu.getBoundingClientRect();
+    let left = rect.left;
+    if (left + menuRect.width > window.innerWidth - 12) {
+      left = rect.right - menuRect.width;
+    }
+    if (left < 12) left = 12;
+    menu.style.left = left + 'px';
+
+    if (menuRect.bottom > window.innerHeight - 12) {
+      menu.style.top = (rect.top - menuRect.height - 8) + 'px';
+    }
+  }
+
+  function closeNavMoreMenu() {
+    const menu = document.getElementById('nav-more-menu');
+    if (menu) menu.classList.add('hidden');
+  }
+
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('nav-more-menu');
+    const trigger = document.getElementById('nav-more-trigger');
+    if (!menu || menu.classList.contains('hidden')) return;
+    if (menu.contains(e.target) || (trigger && trigger.contains(e.target))) return;
+    closeNavMoreMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNavMoreMenu();
+  });
 
   function doLogout() {
     callAPI('/api/logout', { method: 'POST' });
