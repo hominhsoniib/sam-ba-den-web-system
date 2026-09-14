@@ -415,6 +415,9 @@
       <button onclick="switchTab('transactions')" id="tab-btn-transactions" class="nav-pill">
         <span>🤝 Giao dịch HTX</span>
       </button>
+      <button onclick="switchTab('content_admin')" id="tab-btn-content_admin" class="nav-pill hidden">
+        <span>🖊️ Quản trị nội dung</span>
+      </button>
 
       <!-- Dropdown Đối Tác (Portal) -->
       <div class="nav-dropdown-wrapper">
@@ -534,6 +537,7 @@
     <button onclick="switchTab('academy')" id="mob-tab-academy" class="nav-pill text-xs py-1.5 px-3 active">🎓 Học viện</button>
     <button onclick="switchTab('pm_hkd')" id="mob-tab-pm_hkd" class="nav-pill text-xs py-1.5 px-3">💻 PM HKD</button>
     <button onclick="switchTab('transactions')" id="mob-tab-transactions" class="nav-pill text-xs py-1.5 px-3">🤝 Giao dịch</button>
+    <button onclick="switchTab('content_admin')" id="mob-tab-content_admin" class="nav-pill text-xs py-1.5 px-3 hidden">🖊️ Quản trị ND</button>
     
     <!-- Mobile Portal Dropdown Đối Tác -->
     <div class="nav-dropdown-wrapper">
@@ -600,7 +604,7 @@
         </h1>
 
         <!-- Highlight Sứ Mệnh Quote Box -->
-        <div class="mt-6 p-6 rounded-2xl bg-white/10 backdrop-blur border-2 border-[var(--gold)]/40 max-w-4xl mx-auto shadow-2xl reveal text-center">
+        <div data-content-key="hero" class="mt-6 p-6 rounded-2xl bg-white/10 backdrop-blur border-2 border-[var(--gold)]/40 max-w-4xl mx-auto shadow-2xl reveal text-center">
           <span class="inline-block px-4 py-1 rounded-full bg-[var(--gold-bright)] text-[var(--green-darkest)] text-xs font-extrabold uppercase tracking-wider mb-3 shadow">
             SỨ MỆNH HTX GIA ĐÌNH 369
           </span>
@@ -734,7 +738,7 @@
           <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-5xl text-white leading-tight">
             Ca Khúc Truyền Thống <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400">HTX Gia Đình 369</span>
           </h2>
-          <p class="text-xs sm:text-sm md:text-base text-emerald-100/70 mt-2.5 leading-relaxed">
+          <p data-content-key="bai_hat" class="text-xs sm:text-sm md:text-base text-emerald-100/70 mt-2.5 leading-relaxed">
             Tuyển tập 5 ca khúc chính thức lan tỏa sứ mệnh, niềm tự hào và tinh thần chung sức kiến tạo cuộc sống thịnh vượng, giàu có, hạnh phúc & bình an.
           </p>
         </div>
@@ -847,7 +851,7 @@
           <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3 leading-snug">
             Bộ Slide Giới Thựuc & Sơ Đồ Minh Họa HTX Gia Đình 369
           </h2>
-          <p class="text-sm text-[var(--muted)] mt-3">
+          <p data-content-key="gioi_thieu" class="text-sm text-[var(--muted)] mt-3">
             Toàn bộ nội dung giới thiệu, 7 giá trị cốt lõi, sơ đồ chiến lược 5 tam giác, cơ cấu tổ chức và quy trình vận hành được mô phỏng trực quan với đầy đủ 10+ sơ đồ đồ họa chất lượng cao từ bản slide gốc.
           </p>
         </div>
@@ -1445,7 +1449,7 @@
           <span class="eyebrow text-[var(--gold-deep)]">Giới thiệu cơ chế tiêu dùng</span>
           <h2 class="font-display font-semibold text-2xl md:text-3xl mt-2 mb-3">Mô hình Credit 369 là gì?</h2>
           
-          <p class="text-sm text-[var(--muted)] leading-relaxed mb-6">
+          <p data-content-key="credit369" class="text-sm text-[var(--muted)] leading-relaxed mb-6">
             <b>Credit 369</b> là công cụ khuyến khích tiêu dùng trong hệ sinh thái 369 — được tích lũy tự động khi thành viên phát sinh mua hàng và giao dịch thực tế trên <b>App 369 CLUB</b>.
           </p>
 
@@ -1471,7 +1475,7 @@
         <div class="text-center mb-12">
           <span class="eyebrow justify-center">Quyền lợi độc quyền</span>
           <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3">Lợi ích khi trở thành Thành viên HTX 369</h2>
-          <p class="text-xs text-[var(--muted)] mt-2">Đồng hành cùng hệ sinh thái 369 để cùng nhau phát triển bền vững</p>
+          <p data-content-key="loi_ich" class="text-xs text-[var(--muted)] mt-2">Đồng hành cùng hệ sinh thái 369 để cùng nhau phát triển bền vững</p>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
@@ -1509,7 +1513,7 @@
         <div class="text-center mb-12">
           <span class="eyebrow justify-center">Học viện HTX 369</span>
           <h2 class="font-display font-semibold text-2xl md:text-4xl mt-3">6 Nhóm Khóa học Đào tạo Chuyên sâu</h2>
-          <p class="text-xs text-[var(--muted)] mt-2">Nội dung đào tạo thực chiến kết hợp thực hành thật trên PM Kế toán HKD</p>
+          <p data-content-key="hoc_vien" class="text-xs text-[var(--muted)] mt-2">Nội dung đào tạo thực chiến kết hợp thực hành thật trên PM Kế toán HKD</p>
         </div>
 
         <!-- Preview Grid (Blurred Overlay for Non-LoggedIn Users) -->
@@ -1593,7 +1597,7 @@
         <div class="text-center max-w-2xl mx-auto mb-14 reveal">
           <span class="eyebrow justify-center">Tham gia cộng đồng</span>
           <h2 class="font-display font-bold text-2xl md:text-4xl mt-4">Quy trình 5 bước trở thành Thành viên HTX 369</h2>
-          <p class="text-[var(--muted)] mt-3 text-sm md:text-base">Đơn giản, minh bạch — từ đăng ký online đến khi nhận tài khoản Cổng Thành viên.</p>
+          <p data-content-key="tham_gia" class="text-[var(--muted)] mt-3 text-sm md:text-base">Đơn giản, minh bạch — từ đăng ký online đến khi nhận tài khoản Cổng Thành viên.</p>
         </div>
 
         <div class="step-flow grid grid-cols-1 sm:grid-cols-5 gap-8 sm:gap-3 reveal">
@@ -1657,7 +1661,7 @@
     <!-- FOOTER -->
     <footer id="lien-he" class="py-12 bg-[var(--paper-deep)] border-t border-[var(--line)]">
       <div class="max-w-6xl mx-auto px-5 md:px-8 text-center">
-        <p class="font-display text-base text-[var(--muted)] italic max-w-xl mx-auto">
+        <p data-content-key="footer" class="font-display text-base text-[var(--muted)] italic max-w-xl mx-auto">
           "369 — Kết nối, minh bạch, chia sẻ, cùng nhau thịnh vượng."
         </p>
         <div class="mt-8 text-xs text-[var(--muted-2)] border-t border-[var(--line)] pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
@@ -2179,6 +2183,32 @@
               <!-- Dynamically populated by JS -->
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================================== -->
+    <!-- TAB CMS: QUẢN TRỊ NỘI DUNG (VIEW: CONTENT ADMIN) — chỉ Ban điều hành / Cán bộ quản lý -->
+    <!-- ==================================================================================== -->
+    <div id="view-content_admin" class="portal-view">
+      <div class="card p-6 mb-6 bg-white border-[var(--line)]">
+        <h3 class="font-display font-bold text-xl text-[var(--ink)] mb-2">🖊️ Quản trị nội dung</h3>
+        <p class="text-xs text-[var(--muted)]">Sửa trực tiếp nội dung Trang chủ và Khóa học Học viện — không cần sửa code. Thay đổi có hiệu lực ngay sau khi lưu.</p>
+      </div>
+
+      <div class="card p-6 bg-white border-[var(--line)] shadow-sm mb-6">
+        <h4 class="font-display font-bold text-base text-[var(--ink)] mb-1">Các khối nội dung Trang chủ</h4>
+        <p class="text-[11px] text-[var(--muted)] mb-4">Mỗi khối tương ứng một section trên trang chủ công khai.</p>
+        <div id="content-admin-sections-list" class="divide-y divide-[var(--line)]">
+          <p class="text-xs text-[var(--muted)] py-4 text-center">Đang tải danh sách section...</p>
+        </div>
+      </div>
+
+      <div class="card p-6 bg-white border-[var(--line)] shadow-sm">
+        <h4 class="font-display font-bold text-base text-[var(--ink)] mb-1">Khóa học Học viện</h4>
+        <p class="text-[11px] text-[var(--muted)] mb-4">Sửa mô tả chi tiết và ảnh minh họa cho từng khóa học.</p>
+        <div id="content-admin-courses-list" class="divide-y divide-[var(--line)]">
+          <p class="text-xs text-[var(--muted)] py-4 text-center">Đang tải danh sách khóa học...</p>
         </div>
       </div>
     </div>
@@ -2784,6 +2814,46 @@
   </div>
 </div>
 
+<!-- MODAL CMS: TRÌNH SOẠN THẢO NỘI DUNG (QUILL RICH TEXT EDITOR) -->
+<div id="modal-content-editor" class="modal-backdrop hidden">
+  <div class="card p-6 sm:p-8 bg-white max-w-2xl w-full border-[var(--line)] shadow-2xl relative max-h-[90vh] overflow-y-auto rounded-2xl">
+    <button onclick="closeContentEditor()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition">✕</button>
+
+    <h3 id="content-editor-heading" class="font-display font-bold text-lg text-[var(--ink)] mb-4">Sửa nội dung</h3>
+
+    <div class="mb-4">
+      <label class="block font-semibold text-gray-700 mb-1.5 text-sm">Tiêu đề nội bộ (dùng để quản lý, không tự hiển thị công khai)</label>
+      <input type="text" id="content-editor-title" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-[var(--green)] focus:ring-2 focus:ring-[var(--green)]/20 text-sm">
+    </div>
+
+    <div class="mb-4">
+      <label class="block font-semibold text-gray-700 mb-1.5 text-sm">Ảnh minh họa</label>
+      <div id="content-editor-dropzone"
+           ondragover="event.preventDefault(); this.classList.add('border-[var(--green)]')"
+           ondragleave="this.classList.remove('border-[var(--green)]')"
+           ondrop="handleContentImageDrop(event)"
+           class="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center text-xs text-[var(--muted)] transition">
+        Kéo-thả ảnh vào đây, hoặc
+        <label class="text-[var(--green-deep)] font-semibold underline cursor-pointer">
+          chọn file
+          <input type="file" id="content-editor-image-input" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="handleContentImageSelect(event.target.files[0])">
+        </label>
+        <div id="content-editor-image-status" class="mt-1 text-[11px]"></div>
+        <img id="content-editor-image-preview" class="hidden mt-3 max-h-32 mx-auto rounded-lg border border-gray-200">
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="block font-semibold text-gray-700 mb-1.5 text-sm">Nội dung</label>
+      <div id="content-editor-quill" style="height:220px;" class="bg-white"></div>
+    </div>
+
+    <button onclick="saveContentEditor()" id="content-editor-save-btn" class="btn-primary w-full py-3 rounded-xl font-bold text-sm shadow-lg mt-14 sm:mt-4">
+      💾 Lưu thay đổi
+    </button>
+  </div>
+</div>
+
 
 <!-- MODAL 9: HỆ THỐNG THI TRẮC NGHIỆM ĐÁNH GIÁ NĂNG LỰC 369 (PRO ONLINE EXAM SYSTEM) -->
 <div id="modal-thi-tn" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur flex flex-col hidden p-2 sm:p-4 overflow-y-auto">
@@ -3378,6 +3448,7 @@
   // Initialize UI on DOM Ready
   document.addEventListener('DOMContentLoaded', () => {
     loadSession();
+    loadSiteContentPublic();
 
     // Intersection observer for scroll animations
     const io = new IntersectionObserver((entries) => {
@@ -3385,6 +3456,25 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   });
+
+  // ==================== CMS — TRANG CHỦ CÔNG KHAI ====================
+  // Nạp nội dung do Ban điều hành/Cán bộ quản lý đã lưu qua Quản trị nội dung
+  // và ghi đè vào đúng vị trí [data-content-key]. Nếu API lỗi hoặc một section
+  // chưa được ai chỉnh sửa (content_html rỗng) thì GIỮ NGUYÊN nội dung có sẵn
+  // trong HTML (fallback) — không bao giờ để trang trắng hoặc lỗi.
+  async function loadSiteContentPublic() {
+    try {
+      const r = await callAPI('/api/site-content');
+      if (!r.ok || !Array.isArray(r.data)) return;
+      r.data.forEach(item => {
+        if (!item.content_html || !item.content_html.trim()) return; // chưa có nội dung mới -> giữ fallback
+        const el = document.querySelector(`[data-content-key="${item.section_name}"]`);
+        if (el) el.innerHTML = item.content_html;
+      });
+    } catch (err) {
+      // Im lặng giữ nguyên fallback — không chặn tải trang chủ
+    }
+  }
 
   // Render whole UI based on current State
   function renderState() {
@@ -3464,6 +3554,13 @@
       lockCanbo.classList.add('hidden');
     }
 
+    // Menu "Quản trị nội dung" — chỉ hiện với Ban điều hành / Cán bộ quản lý
+    const isContentAdmin = ['Ban điều hành', 'Cán bộ quản lý'].includes(state.user.role);
+    const contentAdminPill = document.getElementById('tab-btn-content_admin');
+    const contentAdminMobPill = document.getElementById('mob-tab-content_admin');
+    if (contentAdminPill) contentAdminPill.classList.toggle('hidden', !isContentAdmin);
+    if (contentAdminMobPill) contentAdminMobPill.classList.toggle('hidden', !isContentAdmin);
+
     // Update Profile View data
     document.getElementById('prof-avatar').innerText = state.user.name.charAt(0);
     document.getElementById('prof-name').innerText = state.user.name;
@@ -3506,6 +3603,237 @@
     }
     memberListLoading = false;
     renderMemberList();
+  }
+
+  // ==================== CMS — QUẢN TRỊ NỘI DUNG (ADMIN) ====================
+  // Quill chỉ được nạp (lazy-load qua CDN) khi admin thực sự mở trình soạn thảo,
+  // không ảnh hưởng tốc độ tải trang chính cho người dùng công khai.
+  let quillEditorInstance = null;
+  let quillAssetsLoaded = false;
+  let contentAdminSections = [];
+  let contentAdminCourses = [];
+  let contentEditorState = { type: null, id: null, imageUrl: null }; // type: 'section' | 'course'
+
+  function loadQuillAssets() {
+    if (quillAssetsLoaded && window.Quill) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      if (!document.getElementById('quill-snow-css')) {
+        const link = document.createElement('link');
+        link.id = 'quill-snow-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.quilljs.com/1.3.7/quill.snow.css';
+        document.head.appendChild(link);
+      }
+      if (window.Quill) { quillAssetsLoaded = true; resolve(); return; }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.quilljs.com/1.3.7/quill.min.js';
+      script.onload = () => { quillAssetsLoaded = true; resolve(); };
+      script.onerror = () => reject(new Error('Không tải được trình soạn thảo Quill.'));
+      document.body.appendChild(script);
+    });
+  }
+
+  async function loadContentAdmin() {
+    const sectionsBox = document.getElementById('content-admin-sections-list');
+    const coursesBox = document.getElementById('content-admin-courses-list');
+
+    const [sectionsRes, coursesRes] = await Promise.all([
+      callAPI('/api/admin/site-content'),
+      callAPI('/api/courses'),
+    ]);
+
+    if (sectionsRes.ok && Array.isArray(sectionsRes.data)) {
+      contentAdminSections = sectionsRes.data;
+      sectionsBox.innerHTML = contentAdminSections.map(s => `
+        <div class="flex items-center justify-between gap-3 py-3">
+          <div class="min-w-0">
+            <p class="font-semibold text-sm text-[var(--ink)] truncate">${s.title || s.section_name}</p>
+            <p class="text-[11px] text-[var(--muted)]">Section: <span class="font-mono">${s.section_name}</span> · ${s.content_html && s.content_html.trim() ? '<span class="text-emerald-700 font-semibold">Đã tùy chỉnh</span>' : '<span class="text-gray-400">Đang dùng nội dung gốc</span>'}</p>
+          </div>
+          <button onclick='openContentEditor("section", ${JSON.stringify(s.id)})' class="btn-ghost text-xs px-3 py-1.5 rounded-lg font-bold shrink-0">✏️ Sửa</button>
+        </div>
+      `).join('') || '<p class="text-xs text-[var(--muted)] py-4 text-center">Chưa có section nào.</p>';
+    } else {
+      contentAdminSections = [];
+      sectionsBox.innerHTML = `<p class="text-xs text-red-600 py-4 text-center">${(sectionsRes.error && (sectionsRes.error.error || sectionsRes.error)) || 'Không thể tải danh sách section.'}</p>`;
+    }
+
+    if (coursesRes.ok && Array.isArray(coursesRes.data)) {
+      contentAdminCourses = coursesRes.data;
+      coursesBox.innerHTML = contentAdminCourses.map(c => `
+        <div class="flex items-center justify-between gap-3 py-3">
+          <div class="min-w-0 flex items-center gap-2">
+            <span class="text-xl shrink-0">${c.icon || '📚'}</span>
+            <div class="min-w-0">
+              <p class="font-semibold text-sm text-[var(--ink)] truncate">${c.title}</p>
+              <p class="text-[11px] text-[var(--muted)]">Yêu cầu vai trò: ${c.min_role} · ${c.lesson_count} bài học</p>
+            </div>
+          </div>
+          <button onclick='openContentEditor("course", ${JSON.stringify(c.id)})' class="btn-ghost text-xs px-3 py-1.5 rounded-lg font-bold shrink-0">✏️ Sửa</button>
+        </div>
+      `).join('') || '<p class="text-xs text-[var(--muted)] py-4 text-center">Chưa có khóa học nào.</p>';
+    } else {
+      contentAdminCourses = [];
+      coursesBox.innerHTML = `<p class="text-xs text-red-600 py-4 text-center">${(coursesRes.error && (coursesRes.error.error || coursesRes.error)) || 'Không thể tải danh sách khóa học.'}</p>`;
+    }
+  }
+
+  async function openContentEditor(type, id) {
+    const item = type === 'section'
+      ? contentAdminSections.find(s => s.id === id)
+      : contentAdminCourses.find(c => c.id === id);
+    if (!item) { alert('⚠️ Không tìm thấy nội dung này — vui lòng tải lại danh sách.'); return; }
+
+    contentEditorState = { type, id, imageUrl: item.image_url || null };
+
+    document.getElementById('content-editor-heading').innerText = type === 'section'
+      ? `Sửa section: ${item.title || item.section_name}`
+      : `Sửa khóa học: ${item.title}`;
+    const titleInput = document.getElementById('content-editor-title');
+    titleInput.value = item.title || '';
+    titleInput.disabled = (type === 'course'); // Tên khóa học không sửa ở CMS này, chỉ sửa mô tả & ảnh
+
+    const preview = document.getElementById('content-editor-image-preview');
+    const status = document.getElementById('content-editor-image-status');
+    status.className = 'mt-1 text-[11px]';
+    if (contentEditorState.imageUrl) {
+      preview.src = contentEditorState.imageUrl;
+      preview.classList.remove('hidden');
+      status.innerText = 'Đã có ảnh — chọn ảnh mới để thay thế.';
+    } else {
+      preview.classList.add('hidden');
+      preview.src = '';
+      status.innerText = '';
+    }
+    document.getElementById('content-editor-image-input').value = '';
+
+    document.getElementById('modal-content-editor').classList.remove('hidden');
+
+    try {
+      await loadQuillAssets();
+    } catch (err) {
+      alert('⚠️ Không tải được trình soạn thảo nội dung (Quill). Kiểm tra kết nối mạng rồi thử lại.');
+      closeContentEditor();
+      return;
+    }
+
+    const editorEl = document.getElementById('content-editor-quill');
+    const prevToolbar = editorEl.previousElementSibling;
+    if (prevToolbar && prevToolbar.classList.contains('ql-toolbar')) prevToolbar.remove();
+    editorEl.innerHTML = '';
+    editorEl.className = '';
+    editorEl.style.height = '220px';
+
+    quillEditorInstance = new Quill('#content-editor-quill', {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          [{ header: [1, 2, 3, false] }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link'],
+          ['clean'],
+        ],
+      },
+    });
+    const currentHtml = type === 'section' ? (item.content_html || '') : (item.description_html || '');
+    quillEditorInstance.root.innerHTML = currentHtml;
+  }
+
+  function closeContentEditor() {
+    document.getElementById('modal-content-editor').classList.add('hidden');
+    quillEditorInstance = null;
+    contentEditorState = { type: null, id: null, imageUrl: null };
+  }
+
+  function handleContentImageDrop(event) {
+    event.preventDefault();
+    event.currentTarget.classList.remove('border-[var(--green)]');
+    const file = event.dataTransfer.files && event.dataTransfer.files[0];
+    if (file) handleContentImageSelect(file);
+  }
+
+  async function handleContentImageSelect(file) {
+    if (!file) return;
+    const status = document.getElementById('content-editor-image-status');
+    const preview = document.getElementById('content-editor-image-preview');
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      status.innerText = '⚠️ Chỉ chấp nhận ảnh JPEG, PNG hoặc WEBP.';
+      status.className = 'mt-1 text-[11px] text-red-600';
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      status.innerText = '⚠️ Ảnh vượt quá 5MB.';
+      status.className = 'mt-1 text-[11px] text-red-600';
+      return;
+    }
+
+    status.innerText = 'Đang tải ảnh lên...';
+    status.className = 'mt-1 text-[11px] text-[var(--muted)]';
+
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const res = await fetch(`${API_BASE}/api/admin/upload-image`, {
+        method: 'POST',
+        credentials: 'include',
+        body: fd,
+      });
+      const body = await res.json();
+      if (!body.ok) {
+        status.innerText = '❌ ' + (body.error || 'Upload ảnh thất bại.');
+        status.className = 'mt-1 text-[11px] text-red-600';
+        return;
+      }
+      contentEditorState.imageUrl = body.url;
+      preview.src = body.url;
+      preview.classList.remove('hidden');
+      status.innerText = '✅ Đã tải ảnh lên.';
+      status.className = 'mt-1 text-[11px] text-emerald-700 font-semibold';
+    } catch (err) {
+      status.innerText = '❌ Lỗi mạng khi tải ảnh lên.';
+      status.className = 'mt-1 text-[11px] text-red-600';
+    }
+  }
+
+  async function saveContentEditor() {
+    if (!contentEditorState.type || !contentEditorState.id || !quillEditorInstance) return;
+    const isSection = contentEditorState.type === 'section';
+    const btn = document.getElementById('content-editor-save-btn');
+    btn.disabled = true;
+    btn.innerText = 'Đang lưu...';
+
+    const html = quillEditorInstance.root.innerHTML;
+    const r = isSection
+      ? await callAPI(`/api/admin/site-content/${contentEditorState.id}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            title: document.getElementById('content-editor-title').value.trim(),
+            content_html: html,
+            image_url: contentEditorState.imageUrl,
+          }),
+        })
+      : await callAPI(`/api/admin/courses/${contentEditorState.id}/content`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            description_html: html,
+            image_url: contentEditorState.imageUrl,
+          }),
+        });
+
+    btn.disabled = false;
+    btn.innerText = '💾 Lưu thay đổi';
+
+    if (!r.ok) {
+      alert('❌ ' + ((r.error && (r.error.error || r.error)) || 'Lưu nội dung thất bại.'));
+      return;
+    }
+
+    alert('✅ Đã lưu nội dung thành công!');
+    closeContentEditor();
+    loadContentAdmin();
+    if (isSection) loadSiteContentPublic();
   }
 
   async function approveMemberReal(idx) {
@@ -3710,6 +4038,7 @@
 
     if (tabId === 'academy') loadCourseLocks();
     if (tabId === 'transactions') loadMemberList();
+    if (tabId === 'content_admin') loadContentAdmin();
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
